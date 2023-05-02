@@ -16,7 +16,7 @@ namespace TinderProject.Data
         public static void CreateData(AppDbContext database)
         {
             string fakeIssuer = "https://example.com";
-            
+
 
             if (database.Users.Any())
             {
@@ -37,6 +37,8 @@ namespace TinderProject.Data
 
                 var dateOfBirth = GenerateDateOfBirth();
 
+                var subjectid = GenerateOpenIDSubject();
+
                 //Fixa så att den lägger in i databasen och i interest tablet.
                 User person = new()
                 {
@@ -47,8 +49,8 @@ namespace TinderProject.Data
                     ProfilePictureUrl = profilePicUrl,
                     DateOfBirth = dateOfBirth,
                     OpenIDIssuer = fakeIssuer,
-                    OpenIDSubject = "1111111111"
-            };
+                    OpenIDSubject = subjectid
+                };
 
                 database.Add(person);
 
@@ -58,22 +60,37 @@ namespace TinderProject.Data
 
                 List<Interests> intrestsToAdd = new();
 
-                //foreach (var item in interests)
-                //{
-                //    Interests interest = new()
-                //    {
-                //        Id = personAdded.Id,
-                //        Interest = item
-                //    };
+                foreach (var item in interests)
+                {
+                    Interests interest = new()
+                    {
+                        UserId = personAdded.Id,
+                        Interest = item
+                    };
 
-                //    intrestsToAdd.Add(interest);
-                //}
+                    intrestsToAdd.Add(interest);
+                }
 
-                //database.AddRange(intrestsToAdd);
-                //database.SaveChanges();
+                database.AddRange(intrestsToAdd);
+                database.SaveChanges();
             }
 
         }
+
+        public static string GenerateOpenIDSubject()
+        {
+            string OpenIDSubject = "";
+            for (int i = 0; i < 10; i++)
+            {
+
+                var numberToAdd = random.Next(0, 10);
+                numberToAdd.ToString();
+                OpenIDSubject += numberToAdd.ToString();    
+
+            }
+            return OpenIDSubject;
+        }
+
         public static string GenerateGender()
         {
             int genderChoice = random.Next(0, 2);
