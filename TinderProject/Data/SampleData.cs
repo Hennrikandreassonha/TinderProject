@@ -15,6 +15,8 @@ namespace TinderProject.Data
 
         public static void CreateData(AppDbContext database)
         {
+            string fakeIssuer = "https://example.com";
+            
 
             if (database.Users.Any())
             {
@@ -43,8 +45,10 @@ namespace TinderProject.Data
                     LastName = lastName,
                     Description = description,
                     ProfilePictureUrl = profilePicUrl,
-                    DateOfBirth = dateOfBirth
-                };
+                    DateOfBirth = dateOfBirth,
+                    OpenIDIssuer = fakeIssuer,
+                    OpenIDSubject = "1111111111"
+            };
 
                 database.Add(person);
 
@@ -158,7 +162,7 @@ namespace TinderProject.Data
             description += $"{adjectives[firstAdjectiveIndex]}";
 
             var firstNounIndex = random.Next(0, nouns.Length);
-            description += $" {nouns[firstNounIndex]}"; 
+            description += $" {nouns[firstNounIndex]}";
 
             int searchingIndex = random.Next(0, 2);
 

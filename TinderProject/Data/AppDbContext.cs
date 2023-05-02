@@ -20,6 +20,14 @@ namespace TinderProject.Data
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            {
+                modelBuilder.Entity<Interests>()
+                    .HasOne<User>(i => i.User)
+                    .WithMany(u => u.Interests)
+                    .HasForeignKey(i => i.UserId)
+                    .OnDelete(DeleteBehavior.Cascade);
+            }
+
             modelBuilder.Entity<Interaction>()
                 .HasOne(i => i.Liker)
                 .WithMany(u => u.LikedUsers)
