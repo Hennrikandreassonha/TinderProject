@@ -26,29 +26,30 @@
         <nav id="navigation">
             <ul class="nav-ul">
                 <li class="nav-li">
-                    Home
+                    @* Skall home vara där man swipar kanske? Eller någon annan stans *@
+                    <a asp-page="/Index">Home</a>
                 </li>
 
                 <li class="nav-li">
-                    Messages
+                    <a asp-page="/Messages/Index">Messages</a>
                 </li>
 
+                @* Vi kanske kan ta bort denna om Home är swipe *@
                 <li class="nav-li">
                     Swipe
                 </li>
+                
                 <li class="nav-li">
-                    <a href="http://127.0.0.1:5500/HTML/Profile.html">Profile</a>
+                    <a asp-page="/Profile/Index">Profile</a>
                 </li>
             </ul>
         </nav>
     </header>
     <main>
-        @* <nav id="navbar"> *@
         <div id="cover-div">
-            
+            @RenderBody()
+
         </div>
-        </nav>
-        @RenderBody()
     </main>
 </body>
 
