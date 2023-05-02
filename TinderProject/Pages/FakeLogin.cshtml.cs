@@ -28,10 +28,10 @@ namespace TinderProject.Pages
             }
 
             // Find the account in the database.
-            var account = database.Accounts.Find(accountID);
+            var account = database.Users.Find(accountID);
             string subject = account.OpenIDSubject;
             string issuer = account.OpenIDIssuer;
-            string name = account.Name;
+            string name = account.FirstName;
 
             // Create the fake identity and principal objects needed to fake a login.
             var identity = new ClaimsIdentity(CookieAuthenticationDefaults.AuthenticationScheme);

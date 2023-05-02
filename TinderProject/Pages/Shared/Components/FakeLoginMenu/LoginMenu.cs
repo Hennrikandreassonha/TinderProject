@@ -17,12 +17,12 @@ namespace TinderProject.Pages.Shared.Components.LoginMenu
 
         public async Task<IViewComponentResult> InvokeAsync(int maxPriority, bool isDone)
         {
-            var accounts = database.Accounts.OrderBy(a => a.Name);
+            var accounts = database.Users.OrderBy(a => a.FirstName);
             var selectList = accounts.Select(p => new SelectListItem
             {
-                Value = p.ID.ToString(),
-                Text = p.Name,
-                Selected = p.ID == accessControl.LoggedInAccountID
+                Value = p.Id.ToString(),
+                Text = p.FirstName,
+                Selected = p.Id == accessControl.LoggedInAccountID
             });
             return View(selectList);
         }
