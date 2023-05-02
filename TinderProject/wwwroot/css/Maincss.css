@@ -1,0 +1,10 @@
+:root {
+    --pink: #fe3c72;
+    --redpink: #fd5564;
+    --orange: #FF655B;
+    --white: #ffffff;
+    --black: #000000;
+}
+html {
+    background-image: url("../Pictures/tinderbackground.jpg");
+}

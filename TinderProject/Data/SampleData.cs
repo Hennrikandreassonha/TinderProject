@@ -54,19 +54,19 @@ namespace TinderProject.Data
 
                 List<Interests> intrestsToAdd = new();
 
-                foreach (var item in interests)
-                {
-                    Interests interest = new()
-                    {
-                        Id = personAdded.Id,
-                        Interest = item
-                    };
+                //foreach (var item in interests)
+                //{
+                //    Interests interest = new()
+                //    {
+                //        Id = personAdded.Id,
+                //        Interest = item
+                //    };
 
-                    intrestsToAdd.Add(interest);
-                }
+                //    intrestsToAdd.Add(interest);
+                //}
 
-                database.AddRange(intrestsToAdd);
-                database.SaveChanges();
+                //database.AddRange(intrestsToAdd);
+                //database.SaveChanges();
             }
 
         }
