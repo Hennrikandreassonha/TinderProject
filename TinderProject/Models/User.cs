@@ -13,6 +13,12 @@
         public string Description { get; set; }
         public string? OpenIDIssuer { get; set; }
         public string? OpenIDSubject { get; set; }
+
+
         public List<Interests> Interests { get; set; }
+        public ICollection<Interaction> LikedByUsers { get; set; }
+        public ICollection<Interaction> LikedUsers { get; set; }
+        public ICollection<Match> Matcher1 { get; set; }
+        public ICollection<Match> Matcher2 { get; set; }
     }
 }

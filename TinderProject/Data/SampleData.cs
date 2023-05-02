@@ -61,6 +61,8 @@ namespace TinderProject.Data
                         Id = personAdded.Id,
                         Interest = item
                     };
+
+                    intrestsToAdd.Add(interest);
                 }
 
                 database.AddRange(intrestsToAdd);
