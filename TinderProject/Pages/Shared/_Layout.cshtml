@@ -2,23 +2,54 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewData["Title"]</title>
     <link rel="stylesheet" href="~/css/Maincss.css" asp-append-version="true">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
 
     <script src="~/js/site.js" asp-append-version="true" defer></script>
     @await RenderSectionAsync("Scripts", required: false)
 </head>
+
 <body>
+
     <header>
-        <environment names="Development">
-            @await Component.InvokeAsync(nameof(FakeLoginMenu))
-        </environment>
+        @* <environment names="Development">
+        @await Component.InvokeAsync(nameof(FakeLoginMenu))
+        </environment> *@
+
+        <nav id="navigation">
+            <ul class="nav-ul">
+                <li class="nav-li">
+                    Home
+                </li>
+
+                <li class="nav-li">
+                    Messages
+                </li>
+
+                <li class="nav-li">
+                    Swipe
+                </li>
+                <li class="nav-li">
+                    <a href="http://127.0.0.1:5500/HTML/Profile.html">Profile</a>
+                </li>
+            </ul>
+        </nav>
     </header>
     <main>
+        @* <nav id="navbar"> *@
+        <div id="cover-div">
+            
+        </div>
+        </nav>
         @RenderBody()
     </main>
 </body>
+
 </html>
