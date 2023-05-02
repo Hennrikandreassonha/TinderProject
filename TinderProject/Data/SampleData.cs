@@ -156,7 +156,7 @@ namespace TinderProject.Data
             description += $"{adjectives[firstAdjectiveIndex]}";
 
             var firstNounIndex = random.Next(0, nouns.Length);
-            description += $" {nouns[firstNounIndex]}";
+            description += $" {nouns[firstNounIndex]}"; 
 
             int searchingIndex = random.Next(0, 2);
 
