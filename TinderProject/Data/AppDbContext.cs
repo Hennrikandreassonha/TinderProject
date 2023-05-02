@@ -20,13 +20,6 @@ namespace TinderProject.Data
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            {
-                modelBuilder.Entity<Interests>()
-                    .HasOne<User>(i => i.User)
-                    .WithMany(u => u.Interests)
-                    .HasForeignKey(i => i.UserId)
-                    .OnDelete(DeleteBehavior.Cascade);
-            }
 
             modelBuilder.Entity<Interaction>()
                 .HasOne(i => i.Liker)
@@ -35,23 +28,23 @@ namespace TinderProject.Data
                 .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<Interaction>()
-     .HasOne(i => i.Liked)
-     .WithMany(u => u.LikedByUsers)
-     .HasForeignKey(i => i.LikedId)
-     .OnDelete(DeleteBehavior.NoAction);
+                .HasOne(i => i.Liked)
+                .WithMany(u => u.LikedByUsers)
+                .HasForeignKey(i => i.LikedId)
+                .OnDelete(DeleteBehavior.NoAction);
 
 
             modelBuilder.Entity<Match>()
-     .HasOne(i => i.User1)
-     .WithMany(u => u.Matcher1)
-     .HasForeignKey(i => i.User1Id)
-     .OnDelete(DeleteBehavior.NoAction);
+                .HasOne(i => i.User1)
+                .WithMany(u => u.Matcher1)
+                .HasForeignKey(i => i.User1Id)
+                .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<Match>()
-.HasOne(i => i.User2)
-.WithMany(u => u.Matcher2)
-.HasForeignKey(i => i.User2Id)
-.OnDelete(DeleteBehavior.NoAction);
+                .HasOne(i => i.User2)
+                .WithMany(u => u.Matcher2)
+                .HasForeignKey(i => i.User2Id)
+                .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }
