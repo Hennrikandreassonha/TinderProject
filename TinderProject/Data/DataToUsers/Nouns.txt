@@ -24,3 +24,7 @@ Superhero
 Supervillain
 Rank one warrior
 Professional League of legends player
+Poker player
+Musician
+Gardener
+Beekeeper
