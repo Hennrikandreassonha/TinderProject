@@ -1,6 +1,7 @@
 global using System.Security.Claims;
 global using TinderProject.Models.ModelEnums;
 global using TinderProject.Models;
+global using Microsoft.EntityFrameworkCore;
 
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;

@@ -19,20 +19,21 @@ namespace TinderProject.Pages
         public User CurrentUserShown { get; set; }
         public void OnGet()
         {
-            var currentUserIndex = HttpContext.Session.GetInt32("currentUserIndex");
-
-            if (currentUserIndex == null)
-            {
-                HttpContext.Session.SetInt32("currentUserIndex", 0);
-
-                currentUserIndex = HttpContext.Session.GetInt32("currentUserIndex");
-            }
-
             var loggedInUser = _userRepo.GetLoggedInUser();
 
             if (loggedInUser != null)
             {
                 UsersToSwipe = _userRepo.GetPreferedUsers(loggedInUser).ToList();
+            }
+
+            var currentUserIndex = HttpContext.Session.GetInt32("currentUserIndex");
+
+            //If we have reached end of users or we dont have a value the index will be set to zero.
+            if (currentUserIndex == null || currentUserIndex == UsersToSwipe.Count())
+            {
+                HttpContext.Session.SetInt32("currentUserIndex", 0);
+
+                currentUserIndex = HttpContext.Session.GetInt32("currentUserIndex");
             }
 
             CurrentUserShown = UsersToSwipe[(int)currentUserIndex!];

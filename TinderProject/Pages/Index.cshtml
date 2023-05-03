@@ -8,12 +8,30 @@
 @* <h1>Welcome, @accessControl.LoggedInAccountName!</h1> *@
 
 <div id="swipe-div" style="background-image: url('@Model.CurrentUserShown?.ProfilePictureUrl')">
-    <h1 class="area-a" id="name-age">@Model.CurrentUserShown.FirstName @Model.CurrentUserShown.Age</h1>
-    <p class="area-b">@Model.CurrentUserShown.Description</p>
-    <p class="area-c">Adjektiv</p>
-    <p class="area-d">Beskrivning</p>
+    <div class="area-a">
+        <h1 id="name-age">@Model.CurrentUserShown.FirstName @Model.CurrentUserShown.Age</h1>
+        <p>@Model.CurrentUserShown.Description</p>
 
-    <form method="post" id="like-dislike-flex" class="area-e">
+    </div>
+    <div class="area-b">
+        <div>
+            <p>Personality type:</p>
+            <div class="personality-div">Test1</div>
+            <div class="personality-div">Testnumber2</div>
+        </div>
+
+        <div>
+            <p>Interests:</p>
+            @foreach (var item in Model.CurrentUserShown.Interests)
+            {
+                <div class="interest-div">@item.Interest</div>
+            }
+
+        </div>
+
+    </div>
+
+    <form method="post" id="like-dislike-flex" class="area-c">
 
         <button type="submit" name="like" value="false" class="invis-btn">
             <img src="~/Pictures/red_cross.png" alt="A red cross for disliking" class="like-dislike-pictures">
