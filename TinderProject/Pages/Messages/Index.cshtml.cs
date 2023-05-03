@@ -18,15 +18,29 @@ namespace TinderProject.Pages.Messages
         private readonly AppDbContext _database;
         private readonly IUserRepository _userRepository;
         public Message Message { get; set; }
+        public User User { get; set; }
+        public List<Message> ReceivedMessages { get; set; }
 
         public Index(AppDbContext database, IUserRepository userRepository)
         {
             _database = database;
             _userRepository = userRepository;
+            ReceivedMessages = new List<Message>();
         }
 
         public void OnGet()
         {
+            var currentUser = _userRepository.GetLoggedInUser();
+            var findReceivedMessages = _database.Messages
+                .Include(m => m.User)
+                .Where(m => m.SentToId == currentUser.Id)
+                .GroupBy(u => u.User.Id)
+                .Select(m => m.FirstOrDefault())
+                .ToList();
+
+            ReceivedMessages.AddRange(findReceivedMessages);
+
+
         }
 
 
@@ -42,7 +56,7 @@ namespace TinderProject.Pages.Messages
                 User = currentUser
             };
 
-            
+
             _database.Messages.Add(messagesToAdd);
             _database.SaveChanges();
 
