@@ -15,7 +15,7 @@ namespace TinderProject.Models
         public string Gender { get; set; }
         public string ProfilePictureUrl { get; set; }
         //Begränsa antalet ord man kan lägga till för Description?!
-        //[StringLength(200, ErrorMessage = "Description cannot exceed 200 characters.")]
+        //[RegularExpression(@"^(?:\S+\s+){0,49}\S+$", ErrorMessage = "Description cannot exceed 50 words.")]
         public string Description { get; set; }
         public string? OpenIDIssuer { get; set; }
         public string? OpenIDSubject { get; set; }
