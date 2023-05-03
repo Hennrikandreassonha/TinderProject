@@ -1,11 +1,12 @@
 global using System.Security.Claims;
+global using TinderProject.Models.ModelEnums;
+global using TinderProject.Models;
+
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
-using System.Security.Claims;
 using TinderProject.Data;
-using TinderProject.Models;
 using TinderProject.Repositories;
 using TinderProject.Repositories.Repositories_Interfaces;
 
@@ -77,8 +78,12 @@ builder.Services.AddAuthorization(options =>
         .Build();
 });
 
-//För dependency injection
+//For the usage of Dependency Injection.
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+
+//For the usage of Session variables.
+//Setting the session variable to disapear after 30mins of idletime.
+builder.Services.AddSession(options => options.IdleTimeout = TimeSpan.FromMinutes(30));
 
 builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
@@ -104,6 +109,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseSession();
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();

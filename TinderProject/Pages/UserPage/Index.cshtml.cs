@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 
-namespace TinderProject.Pages.Profile
+namespace TinderProject.Pages.UserPage
 {
     public class IndexModel : PageModel
     {

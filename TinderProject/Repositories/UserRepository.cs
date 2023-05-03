@@ -41,7 +41,24 @@ namespace TinderProject.Repositories
 
             return _context.Users.Single(p => p.OpenIDIssuer == issuer && p.OpenIDSubject == subject);
         }
+        public ICollection<User> GetPreferedUsers(User loggedInUser)
+        {
+            //Gets the users prefered matches.
+            //Depending on prefered type and age.
+            if (loggedInUser.Preference == SwipePreference.Male)
+            {
+                return GetAllMale();
+            }
+            if (loggedInUser.Preference == SwipePreference.Female)
+            {
+                return GetAllFemale();
+            }
+            else
+            {
+                return GetAllUsers().Where(x => x.Id != loggedInUser.Id).ToArray();
+            }
 
+        }
         public User? GetUser(int id)
         {
             return _context.Users.Find(id);
