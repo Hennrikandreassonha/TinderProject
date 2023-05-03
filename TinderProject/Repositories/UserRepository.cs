@@ -2,9 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using TinderProject.Data;
+
 using TinderProject.Models;
-using TinderProject.Repositories.Repositories_Interfaces;
 
 namespace TinderProject.Repositories
 {
@@ -58,7 +57,7 @@ namespace TinderProject.Repositories
             }
 
         }
-        public User? GetUserById(int id)
+        public User? GetUser(int id)
         {
             return _context.Users.Find(id);
         }

@@ -59,7 +59,7 @@ namespace TinderProject.Pages
             HttpContext.Session.SetInt32("currentUserIndex", currentUserIndex);
         }
         public void CheckIfMatch(){
-
+               
         }
     }
 }
