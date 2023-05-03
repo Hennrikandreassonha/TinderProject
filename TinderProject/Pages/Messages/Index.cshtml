@@ -7,10 +7,28 @@
 <h2>@ViewData["Title"]</h2>
 
 <div>
-    <form method="post"> 
+
+    @if (Model.ReceivedMessages != null && Model.ReceivedMessages.Any())
+    {
+        <ul>
+            <p>Message From</p>
+            @foreach (var message in Model.ReceivedMessages)
+            {
+                <li>
+                    <p>@message.User.FirstName</p>
+                </li>
+            }
+        </ul>
+    }
+    else
+    {
+        <p>No messages received.</p>
+    }
+
+    @*<form method="post"> 
         <label for="message">Message</label>
         <textarea name="message" >Write your message</textarea>
 
         <button type="submit">Send</button>
-    </form>
+    </form>*@
 </div>
