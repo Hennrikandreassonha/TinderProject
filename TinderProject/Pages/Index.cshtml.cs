@@ -40,16 +40,26 @@ namespace TinderProject.Pages
         }
         public IActionResult OnPost(string like)
         {
-            // Insert like logic here, such as updating the database with the like.
+            // Insert like/dislike logic here, such as updating the database with the like.
+            if (like == "true")
+            {
+                CheckIfMatch();
+            }
+
+            IncrementUserIndex();
+            return RedirectToPage("/Index");
+        }
+        public void IncrementUserIndex()
+        {
+            //Increments the index which is used for showing users.
 
             var currentUserIndex = HttpContext.Session.GetInt32("currentUserIndex").GetValueOrDefault();
-
             currentUserIndex++;
 
             HttpContext.Session.SetInt32("currentUserIndex", currentUserIndex);
-
-              return RedirectToPage("/Index");
         }
+        public void CheckIfMatch(){
 
+        }
     }
 }

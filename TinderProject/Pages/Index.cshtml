@@ -5,6 +5,8 @@
     ViewData["Title"] = "Home page";
 }
 
+<script src="../js/Swipe_Screen_Js.js" defer></script>
+
 @* <h1>Welcome, @accessControl.LoggedInAccountName!</h1> *@
 
 <div id="swipe-div" style="background-image: url('@Model.CurrentUserShown?.ProfilePictureUrl')">
@@ -34,11 +36,12 @@
     <form method="post" id="like-dislike-flex" class="area-c">
 
         <button type="submit" name="like" value="false" class="invis-btn">
-            <img src="~/Pictures/red_cross.png" alt="A red cross for disliking" class="like-dislike-pictures">
+            <img src="~/Pictures/red_cross.png" alt="A red cross for disliking" 
+            id="dislike-button" class="like-dislike-pictures">
         </button>
 
         <button type="submit" name="like" value="true" class="invis-btn">
-            <img src="~/Pictures/green_Heart.png" alt="A green heart for liking" class="like-dislike-pictures">
+            <img src="~/Pictures/green_Heart.png" alt="A green heart for liking" id="like-button" class="like-dislike-pictures">
         </button>
     </form>
 

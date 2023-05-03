@@ -9,6 +9,7 @@
 #swipe-div {
     background-repeat: no-repeat;
     background-size: 100% 100%;
+    position: relative;
 
     max-width: 350px;
     height: 60%;
@@ -110,4 +111,22 @@
     background-color: transparent;
     border: none;
     padding: 0;
+}
+
+/* CSS for Show the hearts and other effect when hovering like/dislike. */
+
+.heart-pic {
+    width: 0px;
+    position: absolute;
+    opacity: 0;
+    transition: width 1s ease-in-out;
+    z-index: 1;
+}
+
+.heart-pic-show {
+    opacity: 1;
+}
+.grey-scale{
+    filter:grayscale(50%);
+    transition: filter 1.5s ease-in;
 }

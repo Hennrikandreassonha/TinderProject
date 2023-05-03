@@ -2,14 +2,13 @@ global using System.Security.Claims;
 global using TinderProject.Models.ModelEnums;
 global using TinderProject.Models;
 global using Microsoft.EntityFrameworkCore;
+global using TinderProject.Data;
+global using TinderProject.Repositories.Repositories_Interfaces;
 
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
-using TinderProject.Data;
 using TinderProject.Repositories;
-using TinderProject.Repositories.Repositories_Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
