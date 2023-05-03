@@ -1,21 +1,22 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using TinderProject.Data;
+using TinderProject.Repositories.Repositories_Interfaces;
 
 namespace TinderProject.Pages
 {
     public class IndexModel : PageModel
     {
-        private readonly AppDbContext database;
+        private readonly IUserRepository _userRepo;
 
-        public IndexModel(AppDbContext database)
+        public IndexModel(IUserRepository repo)
         {
-            this.database = database;
+            _userRepo = repo;
         }
 
-        public void OnGet()
+        public void OnGet(int id)
         {
-
+            var selectedUser = _userRepo.GetUser(id);
         }
     }
 }
