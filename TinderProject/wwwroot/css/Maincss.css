@@ -5,7 +5,7 @@
     --redpink: #fd5564;
     --orange: #FF655B;
     --white: #ffffff;
-    --black: #000000;
+    --black: #353333;
 }
 
 html {
@@ -15,7 +15,7 @@ html {
 }
 
 body {
-    background-color: var(--grey);
+    background-color: var(--white);
     display: block;
     height: 100%;
     margin: auto;
@@ -36,6 +36,7 @@ a:active {
 
 #cover-div {
     max-width: 950px;
+    background-color: var(--white);
     background-repeat: no-repeat;
     background-size: cover;
     height: 1000px;
@@ -57,7 +58,7 @@ a:active {
     border-radius: 50px;
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
-#navigation:hover, #cover-div:hover{
+#navigation:hover{
     transform: scale(1.005);
     transition: 0.1s ease-in-out;
 }
@@ -73,7 +74,6 @@ a:active {
     font-size: large;
     align-content: center;
     font-weight: 500;
-
 }
 
 .nav-li:hover {

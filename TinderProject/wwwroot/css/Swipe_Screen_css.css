@@ -1,0 +1,73 @@
+#swipe-div {
+    background-image: url("https://xsgames.co/randomusers/assets/avatars/male/1.jpg");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+
+    max-width: 40%;
+    height: 60%;
+    border: 1px solid blue;
+    margin: auto;
+    border-radius: 25px;
+    display: grid;
+
+    grid-template:
+        "a a" 1fr
+        "b b" 1fr "c c" 1fr
+        "d d" 1fr "e e" 1fr / 1fr 1fr;
+}
+
+#swipe-div p,
+#swipe-div h1 {
+    color: white;
+
+}
+
+#swipe-div p, #swipe-div h1{
+    margin: 1rem;
+
+}
+
+#like-dislike-flex {
+    display: flex;
+}
+
+.area-a {
+    grid-area: a;
+}
+
+.area-b {
+    grid-area: b;
+}
+
+.area-c {
+    grid-area: c;
+}
+
+.area-d {
+    grid-area: d;
+}
+
+.area-e {
+    grid-area: e;
+}
+
+#name-age {
+    font-size: 40px;
+}
+
+#like-dislike-flex {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 100%;
+}
+
+.like-dislike-pictures {
+    width: 70px;
+    height: 70px;
+}
+
+.like-dislike-pictures:hover {
+    transform: scale(1.1);
+    transition: 0.1s ease-in-out;
+}
