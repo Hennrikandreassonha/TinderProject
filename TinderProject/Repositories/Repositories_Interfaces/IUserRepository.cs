@@ -8,6 +8,11 @@ namespace TinderProject.Repositories.Repositories_Interfaces
 {
     public interface IUserRepository
     {
+        User? GetLoggedInUser();
         User? GetUser(int id);
+        ICollection<User> GetAllUsers();
+        ICollection<User> GetAllFemale();
+        ICollection<User> GetAllMale();
+
     }
 }
