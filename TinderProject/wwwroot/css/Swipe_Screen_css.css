@@ -1,8 +1,16 @@
+:root {
+    --pink: #fe3c72;
+    --redpink: #fd5564;
+    --orange: #FF655B;
+    --white: #ffffff;
+    --black: #353333;
+}
+
 #swipe-div {
     background-repeat: no-repeat;
     background-size: 100% 100%;
 
-    max-width: 40%;
+    max-width: 350px;
     height: 60%;
     border: 1px solid blue;
     margin: auto;
@@ -11,8 +19,8 @@
 
     grid-template:
         "a a" 1fr
-        "b b" 1fr "c c" 1fr
-        "d d" 1fr "e e" 1fr / 1fr 1fr;
+        "b b" 1fr
+        "c c" 80px / 1fr 1fr;
 }
 
 #swipe-div p,
@@ -26,7 +34,7 @@
 
 #swipe-div p,
 #swipe-div h1 {
-    margin: 1rem;
+    margin: 10px;
 
 }
 
@@ -40,22 +48,45 @@
 
 .area-b {
     grid-area: b;
+    margin-left: 10px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    align-self: flex-end;
 }
 
 .area-c {
     grid-area: c;
 }
 
-.area-d {
-    grid-area: d;
-}
-
-.area-e {
-    grid-area: e;
-}
-
 #name-age {
     font-size: 40px;
+}
+
+.interest-div {
+    display: inline-block;
+    border: 1px solid var(--pink);
+    border-radius: 15px;
+    width: auto;
+    color: white;
+    padding: 2px 5px;
+    margin: 3px;
+    background-image: url("../Pictures/background_orange.png")
+}
+
+.interest-div p {
+    color: #FF655B
+}
+
+.personality-div {
+    display: inline-block;
+    border: 1px solid var(--pink);
+    border-radius: 15px;
+    width: auto;
+    color: white;
+    padding: 2px 5px;
+    margin: 3px;
+    background-image: url("../Pictures/tinderbackground.jpg")
 }
 
 #like-dislike-flex {
@@ -74,7 +105,8 @@
     transform: scale(1.1);
     transition: 0.1s ease-in-out;
 }
-.invis-btn{
+
+.invis-btn {
     background-color: transparent;
     border: none;
     padding: 0;

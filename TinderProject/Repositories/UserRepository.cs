@@ -19,17 +19,17 @@ namespace TinderProject.Repositories
         }
         public ICollection<User> GetAllFemale()
         {
-            return _context.Users.Where(x => x.Gender == "Female").ToList();
+            return _context.Users.Where(x => x.Gender == "Female").Include(x => x.Interests).ToList();
         }
 
         public ICollection<User> GetAllMale()
         {
-            return _context.Users.Where(x => x.Gender == "Male").ToList();
+            return _context.Users.Where(x => x.Gender == "Male").Include(x => x.Interests).ToList();
         }
 
         public ICollection<User> GetAllUsers()
         {
-            return _context.Users.ToList();
+            return _context.Users.Include(x => x.Interests).ToList();
         }
 
         public User? GetLoggedInUser()
