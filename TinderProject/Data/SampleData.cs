@@ -1,5 +1,6 @@
 ﻿using System.Globalization;
 using TinderProject.Models;
+using TinderProject.Models.ModelEnums;
 
 namespace TinderProject.Data
 {
@@ -32,6 +33,7 @@ namespace TinderProject.Data
 
                 var interests = GenerateInterests();
                 var description = GenerateDescription();
+                var swipePreference = GenereatePreference();
 
                 var profilePicUrl = GenerateProfilePicUrl(gender);
 
@@ -46,6 +48,7 @@ namespace TinderProject.Data
                     FirstName = firstName,
                     LastName = lastName,
                     Description = description,
+                    Preference = swipePreference,
                     ProfilePictureUrl = profilePicUrl,
                     DateOfBirth = dateOfBirth,
                     OpenIDIssuer = fakeIssuer,
@@ -77,6 +80,15 @@ namespace TinderProject.Data
 
         }
 
+        private static SwipePreference GenereatePreference()
+        {
+            int randomPreference = random.Next(0, 3);
+
+            SwipePreference[] preferences = { SwipePreference.Male, SwipePreference.Female, SwipePreference.All };
+
+            return preferences[randomPreference];
+        }
+
         public static string GenerateOpenIDSubject()
         {
             string OpenIDSubject = "";
@@ -85,7 +97,7 @@ namespace TinderProject.Data
 
                 var numberToAdd = random.Next(0, 10);
                 numberToAdd.ToString();
-                OpenIDSubject += numberToAdd.ToString();    
+                OpenIDSubject += numberToAdd.ToString();
 
             }
             return OpenIDSubject;
