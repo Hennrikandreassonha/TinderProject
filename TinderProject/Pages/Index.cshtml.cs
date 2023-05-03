@@ -24,7 +24,7 @@ namespace TinderProject.Pages
             if (currentUserIndex == null)
             {
                 HttpContext.Session.SetInt32("currentUserIndex", 0);
-                
+
                 currentUserIndex = HttpContext.Session.GetInt32("currentUserIndex");
             }
 
@@ -37,5 +37,18 @@ namespace TinderProject.Pages
 
             CurrentUserShown = UsersToSwipe[(int)currentUserIndex!];
         }
+        public IActionResult OnPost(string like)
+        {
+            // Insert like logic here, such as updating the database with the like.
+
+            var currentUserIndex = HttpContext.Session.GetInt32("currentUserIndex").GetValueOrDefault();
+
+            currentUserIndex++;
+
+            HttpContext.Session.SetInt32("currentUserIndex", currentUserIndex);
+
+              return RedirectToPage("/Index");
+        }
+
     }
 }
