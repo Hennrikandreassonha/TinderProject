@@ -5,6 +5,8 @@ using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using System.Security.Claims;
 using TinderProject.Data;
 using TinderProject.Models;
+using TinderProject.Repositories;
+using TinderProject.Repositories.Repositories_Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -73,6 +75,9 @@ builder.Services.AddAuthorization(options =>
         .RequireAuthenticatedUser()
         .Build();
 });
+
+//För dependency injection
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
