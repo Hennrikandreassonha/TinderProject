@@ -5,15 +5,23 @@
     ViewData["Title"] = "Home page";
 }
 
-<h1>Welcome, @accessControl.LoggedInAccountName!</h1>
+@* <h1>Welcome, @accessControl.LoggedInAccountName!</h1> *@
 
-<div id="swipe-div">
-    <h1 class="area-a" id="name-age">@Model.CurrentUserShown.FirstName</h1>
-    <p class="area-b">Intressen?</p>
-    <p class="area-c">Personligheter?</p>
+<div id="swipe-div" style="background-image: url('@Model.CurrentUserShown?.ProfilePictureUrl')">
+    <h1 class="area-a" id="name-age">@Model.CurrentUserShown.FirstName @Model.CurrentUserShown.Age</h1>
+    <p class="area-b">@Model.CurrentUserShown.Description</p>
+    <p class="area-c">Adjektiv</p>
     <p class="area-d">Beskrivning</p>
-    <div id="like-dislike-flex" class="area-e">
-        <img src="~/Pictures/red_cross.png" alt="A red cross for disliking" class="like-dislike-pictures">
-        <img src="~/Pictures/green_Heart.png" alt="A green heart for liking" class="like-dislike-pictures">
-    </div>
+
+    <form method="post" id="like-dislike-flex" class="area-e">
+
+        <button type="submit" name="like" value="false" class="invis-btn">
+            <img src="~/Pictures/red_cross.png" alt="A red cross for disliking" class="like-dislike-pictures">
+        </button>
+
+        <button type="submit" name="like" value="true" class="invis-btn">
+            <img src="~/Pictures/green_Heart.png" alt="A green heart for liking" class="like-dislike-pictures">
+        </button>
+    </form>
+
 </div>

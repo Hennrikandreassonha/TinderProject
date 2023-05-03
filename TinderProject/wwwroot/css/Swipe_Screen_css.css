@@ -1,5 +1,4 @@
 #swipe-div {
-    background-image: url("https://xsgames.co/randomusers/assets/avatars/male/1.jpg");
     background-repeat: no-repeat;
     background-size: 100% 100%;
 
@@ -19,10 +18,14 @@
 #swipe-div p,
 #swipe-div h1 {
     color: white;
+    text-shadow: -1px 1px 0 #000,
+        1px 1px 0 #000,
+        1px -1px 0 #000;
 
 }
 
-#swipe-div p, #swipe-div h1{
+#swipe-div p,
+#swipe-div h1 {
     margin: 1rem;
 
 }
@@ -70,4 +73,9 @@
 .like-dislike-pictures:hover {
     transform: scale(1.1);
     transition: 0.1s ease-in-out;
+}
+.invis-btn{
+    background-color: transparent;
+    border: none;
+    padding: 0;
 }

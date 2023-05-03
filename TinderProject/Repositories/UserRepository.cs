@@ -17,7 +17,6 @@ namespace TinderProject.Repositories
             _context = context;
             _httpContextAccessor = contextAccessor;
         }
-
         public ICollection<User> GetAllFemale()
         {
             return _context.Users.Where(x => x.Gender == "Female").ToList();
