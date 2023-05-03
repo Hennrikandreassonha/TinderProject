@@ -17,6 +17,12 @@ namespace TinderProject.Pages
         public void OnGet(int id)
         {
             var selectedUser = _userRepo.GetUser(id);
+
+            var females = _userRepo.GetAllFemale();
+
+            var allUsers = _userRepo.GetAllUsers();
+
+            var loggedIn = _userRepo.GetLoggedInUser();
         }
     }
 }
