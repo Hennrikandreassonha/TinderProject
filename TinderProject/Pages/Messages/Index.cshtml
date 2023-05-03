@@ -1,11 +1,16 @@
 @page
-@model IndexModel
+@model TinderProject.Pages.Messages.Index
 @{
     ViewData["Title"] = "Messages";
 }
 
-<h1>@ViewData["Title"]</h1>
+<h2>@ViewData["Title"]</h2>
 
 <div>
-    Messages
+    <form method="post"> 
+        <label for="message">Message</label>
+        <textarea name="message" >Write your message</textarea>
+
+        <button type="submit">Send</button>
+    </form>
 </div>
