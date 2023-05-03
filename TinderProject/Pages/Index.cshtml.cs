@@ -13,20 +13,29 @@ namespace TinderProject.Pages
         {
             _userRepo = repo;
         }
-        public ICollection<User>? UsersToSwipe { get; set; }
+        public List<User> UsersToSwipe { get; set; }
 
         //The user is waiting to be liked/disliked right now.
         public User CurrentUserShown { get; set; }
         public void OnGet()
         {
+            var currentUserIndex = HttpContext.Session.GetInt32("currentUserIndex");
+
+            if (currentUserIndex == null)
+            {
+                HttpContext.Session.SetInt32("currentUserIndex", 0);
+                
+                currentUserIndex = HttpContext.Session.GetInt32("currentUserIndex");
+            }
+
             var loggedInUser = _userRepo.GetLoggedInUser();
 
             if (loggedInUser != null)
             {
-                UsersToSwipe = _userRepo.GetPreferedUsers(loggedInUser);
+                UsersToSwipe = _userRepo.GetPreferedUsers(loggedInUser).ToList();
             }
 
-            CurrentUserShown = UsersToSwipe[]
+            CurrentUserShown = UsersToSwipe[(int)currentUserIndex!];
         }
     }
 }
