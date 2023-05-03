@@ -58,7 +58,7 @@ namespace TinderProject.Repositories
             }
 
         }
-        public User? GetUser(int id)
+        public User? GetUserById(int id)
         {
             return _context.Users.Find(id);
         }

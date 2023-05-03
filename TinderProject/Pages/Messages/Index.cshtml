@@ -1,5 +1,5 @@
 @page
-@model TinderProject.Pages.Messages.Index
+@model TinderProject.Pages.Messages.IndexModel
 @{
     ViewData["Title"] = "Messages";
 }
@@ -15,7 +15,7 @@
             @foreach (var message in Model.ReceivedMessages)
             {
                 <li>
-                    <p>@message.User.FirstName</p>
+                    <a asp-page="ShowMessage" >@message.User.FirstName</a>
                 </li>
             }
         </ul>
@@ -25,10 +25,4 @@
         <p>No messages received.</p>
     }
 
-    @*<form method="post"> 
-        <label for="message">Message</label>
-        <textarea name="message" >Write your message</textarea>
-
-        <button type="submit">Send</button>
-    </form>*@
 </div>

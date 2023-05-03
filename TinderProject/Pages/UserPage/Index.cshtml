@@ -1,11 +1,36 @@
 @page
 @model IndexModel
 @{
-    ViewData["Title"] = "Profile";
+	ViewData["Title"] = "Profile";
 }
 
 <h1>@ViewData["Title"]</h1>
-<a asp-page="/User/Edit">Edit profile</a>
-<p>Hejsan</p>
-<div>
-</div>
+<a asp-page="/UserPage/Edit">Edit profile</a>
+<h2>Profile details</h2>
+
+<table>
+	<tr>
+		<th>First name</th>
+		<td>@Model.User.FirstName</td>
+	</tr>
+	<tr>
+		<th>Last name</th>
+		<td>@Model.User.LastName</td>
+	</tr>
+	<tr>
+		<th>Date of birth</th>
+		<td>@Model.User.DateOfBirth.ToShortDateString()</td>
+	</tr>
+	<tr>
+		<th>Gender</th>
+		<td>@Model.User.Gender</td>
+	</tr>
+	<tr>
+		<th>Swipe preference</th>
+		<td>@Model.User.Preference</td>
+	</tr>
+	<tr>
+		<th>Description</th>
+		<td>@Model.User.Description</td>
+	</tr>
+</table>
