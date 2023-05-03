@@ -23,3 +23,5 @@ Unhealthy
 Cheap
 Sad
 Angry
+Silly
+Caring

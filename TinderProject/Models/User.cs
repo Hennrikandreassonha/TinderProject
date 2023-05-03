@@ -1,4 +1,6 @@
-﻿namespace TinderProject.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace TinderProject.Models
 {
     public class User
     {
@@ -8,12 +10,22 @@
         public string LastName { get; set; }
         //Kanske endast behöver årtal senare.
         public DateTime DateOfBirth { get; set; }
+        //Funderade på om man ska ha en enum för Gender?!
+        // public GenderType Gender { get; set; }
         public string Gender { get; set; }
         public string ProfilePictureUrl { get; set; }
+        //Begränsa antalet ord man kan lägga till för Description?!
+        //[StringLength(200, ErrorMessage = "Description cannot exceed 200 characters.")]
         public string Description { get; set; }
         public string? OpenIDIssuer { get; set; }
         public string? OpenIDSubject { get; set; }
 
+        /*public enum GenderType
+        {
+            Male,
+            Female,
+            Other
+        }*/
 
         public List<Interests> Interests { get; set; }
         public ICollection<Interaction> LikedByUsers { get; set; }
