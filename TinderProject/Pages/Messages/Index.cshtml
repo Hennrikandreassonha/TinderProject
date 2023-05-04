@@ -8,11 +8,12 @@
 
 <div>
 
-    @if (Model.ReceivedMessages != null && Model.ReceivedMessages.Any())
+    @if (Model.Messages != null && Model.Messages.Any())
     {
+        
         <ul>
-            <p>Message From</p>
-            @foreach (var message in Model.ReceivedMessages)
+            <h3>Message From</h3>
+            @foreach (var message in Model.Messages)
             {
                 <li>
                     <a asp-page="ShowMessage" >@message.User.FirstName</a>
@@ -25,5 +26,8 @@
     {
         <p>No messages received.</p>
     }
+
+    <h3>New matches</h3>
+    <p>Start konversation whit: </p>
 
 </div>

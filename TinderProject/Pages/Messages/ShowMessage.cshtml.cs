@@ -31,6 +31,7 @@ namespace TinderProject.Pages.Messages
             .Include(m => m.User)
             .Where(m => m.User.Id == User.Id || m.SentToId == User.Id)
             .OrderBy(m => m.SentTime)
+
             .ToList();
 
             Messages.AddRange(messages);
@@ -40,16 +41,13 @@ namespace TinderProject.Pages.Messages
 
         public IActionResult OnPost(string message)
         {
-            var sender = 0;
+          
             var currentUser = _userRepository.GetLoggedInUser();
-            var findReceivedMessages = _database.Messages
+            var sender = _database.Messages
                 .Include(m => m.User)
-                .Where(m => m.SentToId == currentUser.Id);
-            foreach (var c in findReceivedMessages)
-            {
-                sender = c.User.Id;
-
-            }
+                .Where(m => m.SentToId == currentUser.Id)
+                .Select(m => m.User.Id).
+                FirstOrDefault();
 
             var messagesToAdd = new Message
             {
