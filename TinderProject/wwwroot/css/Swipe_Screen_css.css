@@ -10,14 +10,12 @@
     background-repeat: no-repeat;
     background-size: 100% 100%;
     position: relative;
-
     max-width: 350px;
     height: 60%;
     border: 1px solid blue;
     margin: auto;
     border-radius: 25px;
     display: grid;
-
     grid-template:
         "a a" 1fr
         "b b" 1fr
@@ -27,16 +25,12 @@
 #swipe-div p,
 #swipe-div h1 {
     color: white;
-    text-shadow: -1px 1px 0 #000,
-        1px 1px 0 #000,
-        1px -1px 0 #000;
-
+    text-shadow: -1px 1px 0 #000, 1px 1px 0 #000, 1px -1px 0 #000;
 }
 
 #swipe-div p,
 #swipe-div h1 {
     margin: 10px;
-
 }
 
 #like-dislike-flex {
@@ -126,7 +120,43 @@
 .heart-pic-show {
     opacity: 1;
 }
-.grey-scale{
-    filter:grayscale(50%);
+
+.grey-scale {
+    filter: grayscale(50%);
     transition: filter 1.5s ease-in;
+}
+
+/*CSS form displaying popup when a user has a match*/
+#match-div {
+    background-image: url("../Pictures/heart-popup.png");
+    background-size: 100%;
+    background-size: contain;
+    background-repeat: no-repeat;
+
+    position: absolute;
+    margin: auto;
+    margin-top: 0;
+    z-index: 2;
+    width: 50%;
+    min-width: 300px;
+    max-width: 525px;
+    height: 80%;
+    left: 50%;
+    transform: translate(-50%);
+    opacity: 0.8;
+}
+
+#match-options-flex {
+    display: flex;
+    width: 100%;
+    position: absolute;
+    flex-direction: column;
+    text-align: center;
+    top: 20%;
+}
+
+#match-options-flex h1 {
+    text-decoration: underline;
+    font-size: 42px;
+    margin-bottom: 2rem;
 }

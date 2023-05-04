@@ -35,6 +35,26 @@ a:active {
     outline: none;
 }
 
+.my-button {
+    font-family: 'Lobster', cursive;
+
+    background-color: #d6306a;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    font-size: 18px;
+    padding: 7px 20px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+}
+
+.my-button:hover {
+    background-color: #ff99c8;
+    transform: scale(1.1);
+    cursor: pointer;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+}
+
 #cover-div {
     max-width: 950px;
     background-color: var(--white);
@@ -79,10 +99,10 @@ a:active {
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
 
-    #navigation:hover {
-        transform: scale(1.005);
-        transition: 0.1s ease-in-out;
-    }
+#navigation:hover {
+    transform: scale(1.005);
+    transition: 0.1s ease-in-out;
+}
 
 .nav-ul {
     width: 100%;
@@ -98,13 +118,13 @@ a:active {
     font-weight: 500;
 }
 
-    .nav-li:hover {
-        text-decoration: underline 1px solid;
-        transform: scale(1.25);
-        transition-timing-function: ease-in-out;
-        transition: 0.5s;
-        cursor: pointer;
-    }
+.nav-li:hover {
+    text-decoration: underline 1px solid;
+    transform: scale(1.25);
+    transition-timing-function: ease-in-out;
+    transition: 0.5s;
+    cursor: pointer;
+}
 
 #messageProfilePic {
     border-radius: 50px;

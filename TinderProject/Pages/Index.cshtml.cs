@@ -8,22 +8,30 @@ namespace TinderProject.Pages
     public class IndexModel : PageModel
     {
         private readonly IUserRepository _userRepo;
-
-        public IndexModel(IUserRepository repo)
+        private readonly AppDbContext _conext;
+        public IndexModel(IUserRepository repo, AppDbContext conext)
         {
             _userRepo = repo;
+            _conext = conext;
         }
         public List<User> UsersToSwipe { get; set; }
-
-        //The user is waiting to be liked/disliked right now.
         public User CurrentUserShown { get; set; }
+        [BindProperty]
+        public bool Match { get; set; }
         public void OnGet()
         {
+
+            if (ViewData["match"] == "true")
+            {
+                Match = true;
+                ViewData["Match"] = "false";
+            }
             var loggedInUser = _userRepo.GetLoggedInUser();
 
+            //Måste exkludera de som redan är matchade.
             if (loggedInUser != null)
             {
-                UsersToSwipe = _userRepo.GetPreferedUsers(loggedInUser).ToList();
+                UsersToSwipe = GetUsersToSwipe(loggedInUser);
             }
 
             var currentUserIndex = HttpContext.Session.GetInt32("currentUserIndex");
@@ -41,25 +49,84 @@ namespace TinderProject.Pages
         public IActionResult OnPost(string like)
         {
             // Insert like/dislike logic here, such as updating the database with the like.
-            if (like == "true")
+            var userIndex = GetCurrentUserIndex();
+
+            var loggedInUser = _userRepo.GetLoggedInUser();
+
+            UsersToSwipe = _userRepo.GetPreferedUsers(loggedInUser).ToList();
+            var likedUser = UsersToSwipe[userIndex];
+
+            if (like == "true" && CheckIfMatch(loggedInUser, likedUser))
             {
-                CheckIfMatch();
+                ViewData["Match"] = "true";
+                return RedirectToPage("Index");
             }
+
+            NewInteraction(loggedInUser, likedUser);
 
             IncrementUserIndex();
             return RedirectToPage("/Index");
         }
+        public List<User> GetUsersToSwipe(User loggedInUser)
+        {
+            //Gets the Id´s of all the Users that the user Already likes.
+            //Removes these since you cant like somone who is already liked.
+            var userLikesIds = _userRepo.GetUserLikes(loggedInUser).Select(x => x.LikedId);
+
+            var test = 
+            return _userRepo.GetAllUsers()
+    .Where(u => u.Id != loggedInUser.Id && !userLikesIds.Contains(u.Id)).ToList();
+        }
         public void IncrementUserIndex()
         {
             //Increments the index which is used for showing users.
-
-            var currentUserIndex = HttpContext.Session.GetInt32("currentUserIndex").GetValueOrDefault();
+            var currentUserIndex = GetCurrentUserIndex();
             currentUserIndex++;
 
             HttpContext.Session.SetInt32("currentUserIndex", currentUserIndex);
         }
-        public void CheckIfMatch(){
+        public int GetCurrentUserIndex()
+        {
+            return HttpContext.Session.GetInt32("currentUserIndex").GetValueOrDefault(); ;
+        }
+        public void NewInteraction(User loggedInUser, User likedUser)
+        {
+            Interaction newLike = new()
+            {
+                LikerId = loggedInUser.Id,
+                LikedId = likedUser.Id,
+                DateLiked = DateTime.Now
+            };
 
+            _conext.Interactions.Add(newLike);
+            _conext.SaveChanges();
+
+        }
+        public bool CheckIfMatch(User loggedInUser, User likedUser)
+        {
+            var likedUserLikes = _userRepo.GetUserLikes(likedUser);
+
+            foreach (var item in likedUserLikes)
+            {
+                if (item.LikedId == loggedInUser.Id)
+                {
+                    CreateNewMatch(loggedInUser, likedUser);
+                    return true;
+                }
+            }
+            return false;
+        }
+        public void CreateNewMatch(User user1, User user2)
+        {
+            Match newMatch = new()
+            {
+                User1Id = user1.Id,
+                User2Id = user2.Id,
+                MatchDate = DateTime.Now
+            };
+
+            _conext.Add(newMatch);
+            _conext.SaveChanges();
         }
     }
 }
