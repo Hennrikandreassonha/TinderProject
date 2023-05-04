@@ -19,21 +19,22 @@ namespace TinderProject.Pages.Messages
         private readonly AppDbContext _database;
         private readonly IUserRepository _userRepository;
 
+        public Match Match { get; set; }
         public Message Message { get; set; }
         public User User { get; set; }
-        public List<Message> ReceivedMessages { get; set; }
+        public List<Message> Messages { get; set; }
         public IndexModel(AppDbContext database, IUserRepository userRepository)
         {
             _database = database;
             _userRepository = userRepository;
-            ReceivedMessages = new List<Message>();
+            Messages = new List<Message>();
         }
 
 
         public void OnGet()
         {
             var currentUser = _userRepository.GetLoggedInUser();
-            var findReceivedMessages = _database.Messages
+            var findMessages = _database.Messages
                 .Include(m => m.User)
                 .Where(m => m.SentToId == currentUser.Id)
                 .GroupBy(u => u.User.Id)
@@ -42,11 +43,16 @@ namespace TinderProject.Pages.Messages
 
 
 
-            ReceivedMessages.AddRange(findReceivedMessages);
+            Messages.AddRange(findMessages);
+
+            
+            //Visa matcher som inte har påbörjat en konversation för att kunna klicka. 
+
+            
+              
+
+
+
         }
-
-
-
-       
     }
 }

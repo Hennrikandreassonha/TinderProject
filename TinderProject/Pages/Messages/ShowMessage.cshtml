@@ -6,20 +6,21 @@
 
 <h2>@ViewData["Title"]</h2>
 
-<div>
+<div id="message-div">
 
     @foreach(var message in Model.Messages)
     {
-        <p>@message.SentMessage</p>
-        <p>@message.User.FirstName</p>
-        <p>@message.SentTime</p>
+        <p id="message-name">@message.User.FirstName wrote:</p>
+        <p id="message-message">@message.SentMessage</p>
+        <p id="message-time">@message.SentTime</p>
         
     }
 
-    <form method="post">
+   
+</div>
+<form method="post">
     <label for="message">Message</label>
-    <textarea name="message" >Write your message</textarea>
+    <textarea name="message" id="message">Write your message</textarea>
 
     <button type="submit">Send</button>
-    </form>
-</div>
+</form>
