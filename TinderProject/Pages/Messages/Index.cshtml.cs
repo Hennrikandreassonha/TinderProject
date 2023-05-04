@@ -23,11 +23,13 @@ namespace TinderProject.Pages.Messages
         public Message Message { get; set; }
         public User User { get; set; }
         public List<Message> Messages { get; set; }
+        public List<User> NoConversation { get; set; }
         public IndexModel(AppDbContext database, IUserRepository userRepository)
         {
             _database = database;
             _userRepository = userRepository;
             Messages = new List<Message>();
+            NoConversation = new List<User>();
         }
 
 
@@ -41,17 +43,46 @@ namespace TinderProject.Pages.Messages
                 .Select(m => m.FirstOrDefault())
                 .ToList();
 
-
-
             Messages.AddRange(findMessages);
 
-            
+
             //Visa matcher som inte har påbörjat en konversation för att kunna klicka. 
 
-            
-              
+            var matches = _database.Matches.ToList();
+            var messages = _database.Messages.ToList();
+
+            foreach (var match in matches)
+            {
+                bool haveConversation = messages.Any(m =>
+                (m.SentToId == match.User2Id && m.User.Id == match.User2Id)
+                || (m.SentToId == match.User1Id && m.User.Id == match.User1Id));
+
+                if (!haveConversation)
+                {
+                    if (match.User1Id == currentUser.Id)
+                    {
+                        NoConversation.Add(_database.Users.Single(u => u.Id == match.User2Id));
+                    }
+                    else if (match.User2Id == currentUser.Id)
+                    {
+                        NoConversation.Add(_database.Users.Single(u => u.Id == match.User1Id));
+                    }
+                }
+            }
+
+            //var id1 = _database.Users.Where(id=> id.Id == 11).SingleOrDefault();
+            //var id2 = _database.Users.Where(id => id.Id == 5).SingleOrDefault();
 
 
+            //Match testmatch = new()
+            //{
+            //    User1Id = id1.Id,
+            //    User2Id = id2.Id,
+            //    MatchDate = DateTime.Now
+            //};
+
+            //_database.Add(testmatch);
+            //_database.SaveChanges();
 
         }
     }
