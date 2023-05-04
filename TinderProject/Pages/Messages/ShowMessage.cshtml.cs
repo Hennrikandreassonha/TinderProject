@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using TinderProject.Data;
+using TinderProject.Models;
 using TinderProject.Repositories.Repositories_Interfaces;
 
 namespace TinderProject.Pages.Messages
@@ -12,35 +13,47 @@ namespace TinderProject.Pages.Messages
 
         public Message Message { get; set; }
         public User User { get; set; }
-        public List<Message> ReceivedMessages { get; set; }
+        public List<Message> Messages { get; set; }
 
         public MessegesModel(AppDbContext database, IUserRepository userRepository)
         {
             _database = database;
             _userRepository = userRepository;
-            ReceivedMessages = new List<Message>();
+            Messages = new List<Message>();
         }
 
+        //fixa så man kan se alla meddelanden
         public void OnGet()
         {
             var currentUser = _userRepository.GetLoggedInUser();
-            var findReceivedMessages = _database.Messages
-                .Include(m => m.User)
-                .Where(m => m.SentToId == currentUser.Id);
+            User = currentUser;
+            var messages = _database.Messages
+            .Include(m => m.User)
+            .Where(m => m.User.Id == User.Id || m.SentToId == User.Id)
+            .OrderBy(m => m.SentTime)
 
-            ReceivedMessages.AddRange(findReceivedMessages);
+            .ToList();
+
+            Messages.AddRange(messages);
         }
 
 
-        //Fixa detta
+
         public IActionResult OnPost(string message)
         {
+          
             var currentUser = _userRepository.GetLoggedInUser();
+            var sender = _database.Messages
+                .Include(m => m.User)
+                .Where(m => m.SentToId == currentUser.Id)
+                .Select(m => m.User.Id).
+                FirstOrDefault();
+
             var messagesToAdd = new Message
             {
                 SentMessage = message,
                 SentTime = DateTime.Now,
-                SentToId = 11,
+                SentToId = sender,
                 User = currentUser
             };
 
@@ -48,7 +61,7 @@ namespace TinderProject.Pages.Messages
             _database.Messages.Add(messagesToAdd);
             _database.SaveChanges();
 
-            return Page();
+            return RedirectToPage();
         }
     }
 }

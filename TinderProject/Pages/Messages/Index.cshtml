@@ -8,14 +8,16 @@
 
 <div>
 
-    @if (Model.ReceivedMessages != null && Model.ReceivedMessages.Any())
+    @if (Model.Messages != null && Model.Messages.Any())
     {
+
         <ul>
-            <p>Message From</p>
-            @foreach (var message in Model.ReceivedMessages)
+            <h3>Message From</h3>
+            @foreach (var message in Model.Messages)
             {
                 <li>
-                    <a asp-page="ShowMessage" >@message.User.FirstName</a>
+                    <a asp-page="ShowMessage">@message.User.FirstName</a>
+                    <img src="@message.User.ProfilePictureUrl" alt="Profile Picture" id="messageProfilePic">
                 </li>
             }
         </ul>
@@ -23,6 +25,27 @@
     else
     {
         <p>No messages received.</p>
+    }
+
+    <h3>New matches</h3>
+    @if (Model.NoConversation != null && Model.NoConversation.Any())
+    {
+        <p>Start konversation whit: </p>
+        <ul>
+            @foreach (var message in Model.NoConversation)
+            {
+                <li>
+                    <a asp-page="ShowMessage">@message.FirstName</a>
+                    <img src="@message.ProfilePictureUrl" alt="Profile Picture" id="messageProfilePic">
+                </li>
+            }
+        </ul>
+    }
+    else
+    {
+        <p>
+            No matches
+        </p>
     }
 
 </div>

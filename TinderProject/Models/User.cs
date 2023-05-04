@@ -9,8 +9,9 @@ namespace TinderProject.Models
         public int Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        //Kanske endast behöver årtal senare.
-        public DateTime DateOfBirth { get; set; }
+		//Kanske endast behöver årtal senare.
+		[DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+		public DateTime DateOfBirth { get; set; }
         //Funderade på om man ska ha en enum för Gender?!
         // public GenderType Gender { get; set; }
         public string Gender { get; set; }

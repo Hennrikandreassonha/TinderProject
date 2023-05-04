@@ -12,6 +12,11 @@ using TinderProject.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
+
+
+
+
+
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
@@ -56,6 +61,7 @@ builder.Services.AddAuthentication(options =>
         await db.SaveChangesAsync();
     };
 })
+
 .AddOpenIdConnect("Google", options =>
 {
     options.Authority = "https://accounts.google.com";
