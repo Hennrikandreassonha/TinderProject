@@ -61,5 +61,10 @@ namespace TinderProject.Repositories
         {
             return _context.Users.Find(id);
         }
+
+        public ICollection<Interaction> GetUserLikes(User user)
+        {
+            return _context.Interactions.Where(x => x.LikerId == user.Id).ToArray();
+        }
     }
 }

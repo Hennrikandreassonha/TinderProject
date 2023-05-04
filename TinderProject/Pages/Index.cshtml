@@ -3,6 +3,7 @@
 @inject TinderProject.Data.AccessControl accessControl
 @{
     ViewData["Title"] = "Home page";
+
 }
 
 <script src="../js/Swipe_Screen_Js.js" defer></script>
@@ -46,3 +47,8 @@
     </form>
 
 </div>
+
+@if(ViewData["Match"] == "true"){
+    <div>You have a new match!</div>
+    <div>Press to send message</div>
+}
