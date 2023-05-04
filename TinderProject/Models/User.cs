@@ -36,10 +36,10 @@ namespace TinderProject.Models
             }
         }
 
-        public List<Interests> Interests { get; set; }
-        public ICollection<Interaction> LikedByUsers { get; set; }
-        public ICollection<Interaction> LikedUsers { get; set; }
-        public ICollection<Match> Matcher1 { get; set; }
-        public ICollection<Match> Matcher2 { get; set; }
+        public List<Interests>? Interests { get; set; }
+        public ICollection<Interaction>? LikedByUsers { get; set; }
+        public ICollection<Interaction>? LikedUsers { get; set; }
+        public ICollection<Match>? Matcher1 { get; set; }
+        public ICollection<Match>? Matcher2 { get; set; }
     }
 }

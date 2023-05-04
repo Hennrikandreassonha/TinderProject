@@ -52,8 +52,13 @@
 			<span asp-validation-for="User.Preference"></span>
 		</section>
 		<section>
+			<label for="preference">Profile picture url</label>
+			<input type="url" id="profilePictureUrl" asp-for="User.ProfilePictureUrl" />			
+			<span asp-validation-for="User.Preference"></span>
+		</section>
+		<section>
 			<label for="description">Description</label>
-			<textarea id="description" asp-for="User.Description" rows="3" cols="50"></textarea>
+			<textarea id="description" asp-for="User.Description" rows="2" cols="50"></textarea>
 			<span asp-validation-for="User.Description"></span>
 		</section>
 		<button type="submit">Update profile</button>
