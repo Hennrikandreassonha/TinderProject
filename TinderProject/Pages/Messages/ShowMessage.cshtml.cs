@@ -35,12 +35,22 @@ namespace TinderProject.Pages.Messages
         //Fixa detta
         public IActionResult OnPost(string message)
         {
+            var sender = 0;
             var currentUser = _userRepository.GetLoggedInUser();
+            var findReceivedMessages = _database.Messages
+                .Include(m => m.User)
+                .Where(m => m.SentToId == currentUser.Id);
+            foreach (var c in findReceivedMessages)
+            {
+                sender = c.User.Id;
+
+            }
+           
             var messagesToAdd = new Message
             {
                 SentMessage = message,
                 SentTime = DateTime.Now,
-                SentToId = 11,
+                SentToId = sender,
                 User = currentUser
             };
 
