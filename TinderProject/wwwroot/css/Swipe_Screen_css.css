@@ -10,34 +10,28 @@
     background-repeat: no-repeat;
     background-size: 100% 100%;
     position: relative;
-
     max-width: 350px;
     height: 60%;
     border: 1px solid blue;
     margin: auto;
     border-radius: 25px;
     display: grid;
-
     grid-template:
         "a a" 1fr
         "b b" 1fr
         "c c" 80px / 1fr 1fr;
 }
 
-#swipe-div p,
-#swipe-div h1 {
-    color: white;
-    text-shadow: -1px 1px 0 #000,
-        1px 1px 0 #000,
-        1px -1px 0 #000;
+    #swipe-div p,
+    #swipe-div h1 {
+        color: white;
+        text-shadow: -1px 1px 0 #000, 1px 1px 0 #000, 1px -1px 0 #000;
+    }
 
-}
-
-#swipe-div p,
-#swipe-div h1 {
-    margin: 10px;
-
-}
+    #swipe-div p,
+    #swipe-div h1 {
+        margin: 10px;
+    }
 
 #like-dislike-flex {
     display: flex;
@@ -75,9 +69,9 @@
     background-image: url("../Pictures/background_orange.png")
 }
 
-.interest-div p {
-    color: #FF655B
-}
+    .interest-div p {
+        color: #FF655B
+    }
 
 .personality-div {
     display: inline-block;
@@ -102,10 +96,10 @@
     height: 70px;
 }
 
-.like-dislike-pictures:hover {
-    transform: scale(1.1);
-    transition: 0.1s ease-in-out;
-}
+    .like-dislike-pictures:hover {
+        transform: scale(1.1);
+        transition: 0.1s ease-in-out;
+    }
 
 .invis-btn {
     background-color: transparent;
@@ -126,7 +120,39 @@
 .heart-pic-show {
     opacity: 1;
 }
-.grey-scale{
-    filter:grayscale(50%);
+
+.grey-scale {
+    filter: grayscale(50%);
     transition: filter 1.5s ease-in;
+}
+
+/*CSS form displaying popup when a user has a match*/
+#match-div {
+    overflow: visible;
+    position: absolute;
+    margin: auto;
+    z-index: 2;
+    width: 50%;
+    min-width: 300px;
+    max-width: 525px;
+    height: 80%;
+    left: 50%;
+    transform: translate( -50%);
+}
+
+#match-heart-pic {
+    background-image: url("../Pictures/heart-popup.png");
+    background-size: 100%;
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 100%;
+    width: 100%;
+    opacity: 0.8;
+}
+#match-options-flex{
+    display:flex;
+    position: absolute;
+    flex-direction: column;
+    text-align: center;
+    top:0;
 }

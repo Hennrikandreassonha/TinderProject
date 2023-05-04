@@ -19,6 +19,8 @@ namespace TinderProject.Pages
         public bool Match { get; set; }
         public void OnGet()
         {
+            ViewData["Match"] = "true";
+
             var loggedInUser = _userRepo.GetLoggedInUser();
 
             //Måste exkludera de som redan är matchade.

@@ -10,6 +10,19 @@
 
 @* <h1>Welcome, @accessControl.LoggedInAccountName!</h1> *@
 
+@if (ViewData["Match"] == "true")
+{
+    <div id="match-div">
+        <div id="match-heart-pic"></div>
+        <div id="match-options-flex">
+        <h1>You have a new match!</h1>
+            <p>Press here to send a message</p>
+            <p>Keep swiping.</p>
+        </div>
+    </div>
+}
+
+
 <div id="swipe-div" style="background-image: url('@Model.CurrentUserShown?.ProfilePictureUrl')">
     <div class="area-a">
         <h1 id="name-age">@Model.CurrentUserShown.FirstName @Model.CurrentUserShown.Age</h1>
@@ -37,8 +50,8 @@
     <form method="post" id="like-dislike-flex" class="area-c">
 
         <button type="submit" name="like" value="false" class="invis-btn">
-            <img src="~/Pictures/red_cross.png" alt="A red cross for disliking" 
-            id="dislike-button" class="like-dislike-pictures">
+            <img src="~/Pictures/red_cross.png" alt="A red cross for disliking"
+                 id="dislike-button" class="like-dislike-pictures">
         </button>
 
         <button type="submit" name="like" value="true" class="invis-btn">
@@ -47,8 +60,3 @@
     </form>
 
 </div>
-
-@if(ViewData["Match"] == "true"){
-    <div>You have a new match!</div>
-    <div>Press to send message</div>
-}
