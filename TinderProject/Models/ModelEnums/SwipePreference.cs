@@ -1,9 +1,15 @@
+using System.ComponentModel.DataAnnotations;
+using System.Xml.Linq;
+
 namespace TinderProject.Models.ModelEnums
 {
     public enum SwipePreference
     {
-        Male,
-        Female,
-        All
-    }
+		[Display(Name = "Male")]
+		Male,
+		[Display(Name = "Female")]
+		Female,
+		[Display(Name = "All")]
+		All
+	}
 }

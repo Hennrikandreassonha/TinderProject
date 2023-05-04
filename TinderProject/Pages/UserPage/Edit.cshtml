@@ -42,18 +42,18 @@
 		<section>
 			<label for="gender">Gender</label>
 			<select asp-for="User.Gender" asp-items="Html.GetEnumSelectList<GenderType>()">
+				<option value="">Please select</option>
 			</select>
-			<span asp-validation-for="User.Gender"></span>
 		</section>
 		<section>
 			<label for="preference">Preference</label>
 			<select asp-for="User.Preference" asp-items="Html.GetEnumSelectList<SwipePreference>()">
+				<option value="">Please select</option>
 			</select>
-			<span asp-validation-for="User.Preference"></span>
 		</section>
 		<section>
 			<label for="preference">Profile picture url</label>
-			<input type="url" id="profilePictureUrl" asp-for="User.ProfilePictureUrl" />			
+			<input type="url" id="profilePictureUrl" asp-for="User.ProfilePictureUrl" />
 			<span asp-validation-for="User.Preference"></span>
 		</section>
 		<section>
