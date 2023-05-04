@@ -84,3 +84,7 @@ a:active {
     cursor: pointer;
 
 }
+#messageProfilePic{
+    border-radius: 50px;
+    width:2rem;
+}
