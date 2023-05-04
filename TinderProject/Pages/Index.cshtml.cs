@@ -67,11 +67,7 @@ namespace TinderProject.Pages
             currentUserIndex++;
 
             HttpContext.Session.SetInt32("currentUserIndex", currentUserIndex);
-        }
-<<<<<<< Updated upstream
-        public void CheckIfMatch(){
-               
-=======
+        }       
         public int GetCurrentUserIndex()
         {
             var currentUserIndex = HttpContext.Session.GetInt32("currentUserIndex").GetValueOrDefault();
@@ -116,7 +112,6 @@ namespace TinderProject.Pages
 
             _conext.Add(newMatch);
             _conext.SaveChanges();
->>>>>>> Stashed changes
         }
     }
 }
