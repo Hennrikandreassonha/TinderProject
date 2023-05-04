@@ -12,7 +12,7 @@ using TinderProject.Data;
 namespace TinderProject.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230504083544_1")]
+    [Migration("20230504135634_1")]
     partial class _1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

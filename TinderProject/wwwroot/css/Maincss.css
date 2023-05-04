@@ -22,16 +22,38 @@ body {
     align-items: center;
 
 }
+
 h1 {
     margin: 0;
 }
+
 a:link,
 a:visited,
 a:hover,
 a:active {
-  text-decoration: none;
-  color: inherit;
-  outline: none;
+    text-decoration: none;
+    color: inherit;
+    outline: none;
+}
+
+.my-button {
+    font-family: 'Lobster', cursive;
+
+    background-color: #d6306a;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    font-size: 18px;
+    padding: 7px 20px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+}
+
+.my-button:hover {
+    background-color: #ff99c8;
+    transform: scale(1.1);
+    cursor: pointer;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
 }
 
 #cover-div {
@@ -58,10 +80,12 @@ a:active {
     border-radius: 50px;
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
-#navigation:hover{
+
+#navigation:hover {
     transform: scale(1.005);
     transition: 0.1s ease-in-out;
 }
+
 .nav-ul {
     width: 100%;
     display: flex;

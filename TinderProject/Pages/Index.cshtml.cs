@@ -16,17 +16,22 @@ namespace TinderProject.Pages
         }
         public List<User> UsersToSwipe { get; set; }
         public User CurrentUserShown { get; set; }
+        [BindProperty]
         public bool Match { get; set; }
         public void OnGet()
         {
-            ViewData["Match"] = "true";
 
+            if (ViewData["match"] == "true")
+            {
+                Match = true;
+                ViewData["Match"] = "false";
+            }
             var loggedInUser = _userRepo.GetLoggedInUser();
 
             //Måste exkludera de som redan är matchade.
             if (loggedInUser != null)
             {
-                UsersToSwipe = _userRepo.GetPreferedUsers(loggedInUser).ToList();
+                UsersToSwipe = GetUsersToSwipe(loggedInUser);
             }
 
             var currentUserIndex = HttpContext.Session.GetInt32("currentUserIndex");
@@ -62,6 +67,15 @@ namespace TinderProject.Pages
             IncrementUserIndex();
             return RedirectToPage("/Index");
         }
+        public List<User> GetUsersToSwipe(User loggedInUser)
+        {
+            //Gets the Id´s of all the Users that the user Already likes.
+            //Removes these since you cant like somone who is already liked.
+            var userLikesIds = _userRepo.GetUserLikes(loggedInUser).Select(x => x.LikedId);
+
+            return _userRepo.GetAllUsers()
+    .Where(u => u.Id != loggedInUser.Id && !userLikesIds.Contains(u.Id)).ToList();
+        }
         public void IncrementUserIndex()
         {
             //Increments the index which is used for showing users.
@@ -69,12 +83,10 @@ namespace TinderProject.Pages
             currentUserIndex++;
 
             HttpContext.Session.SetInt32("currentUserIndex", currentUserIndex);
-        }       
+        }
         public int GetCurrentUserIndex()
         {
-            var currentUserIndex = HttpContext.Session.GetInt32("currentUserIndex").GetValueOrDefault();
-
-            return currentUserIndex;
+            return HttpContext.Session.GetInt32("currentUserIndex").GetValueOrDefault(); ;
         }
         public void NewInteraction(User loggedInUser, User likedUser)
         {

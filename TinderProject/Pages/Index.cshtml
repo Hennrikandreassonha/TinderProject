@@ -10,14 +10,18 @@
 
 @* <h1>Welcome, @accessControl.LoggedInAccountName!</h1> *@
 
-@if (ViewData["Match"] == "true")
+@if (Model.Match)
 {
     <div id="match-div">
-        <div id="match-heart-pic"></div>
         <div id="match-options-flex">
-        <h1>You have a new match!</h1>
-            <p>Press here to send a message</p>
-            <p>Keep swiping.</p>
+            <h1>You got a new match!</h1>
+            <div>
+                @* Skicka användaren till messagepage. *@
+                <form>
+                    <button class="my-button" type="submit" asp-page="/Messages/Index">Send message</button>
+                </form>
+                <button class="my-button" onclick="location.reload()">Keep swiping</button>
+            </div>
         </div>
     </div>
 }
@@ -50,12 +54,13 @@
     <form method="post" id="like-dislike-flex" class="area-c">
 
         <button type="submit" name="like" value="false" class="invis-btn">
-            <img src="~/Pictures/red_cross.png" alt="A red cross for disliking"
-                 id="dislike-button" class="like-dislike-pictures">
+            <img src="~/Pictures/red_cross.png" alt="A red cross for disliking" id="dislike-button"
+                class="like-dislike-pictures">
         </button>
 
         <button type="submit" name="like" value="true" class="invis-btn">
-            <img src="~/Pictures/green_Heart.png" alt="A green heart for liking" id="like-button" class="like-dislike-pictures">
+            <img src="~/Pictures/green_Heart.png" alt="A green heart for liking" id="like-button"
+                class="like-dislike-pictures">
         </button>
     </form>
 
