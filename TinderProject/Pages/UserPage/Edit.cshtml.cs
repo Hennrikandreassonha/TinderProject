@@ -50,6 +50,7 @@ namespace TinderProject.Pages.UserPage
 			userToUpdate.DateOfBirth = User.DateOfBirth;
 			userToUpdate.Gender = User.Gender;
 			userToUpdate.Preference = User.Preference;
+			userToUpdate.ProfilePictureUrl = User.ProfilePictureUrl;
 			userToUpdate.Description = User.Description;
 
 			_database.Users.Update(userToUpdate);
