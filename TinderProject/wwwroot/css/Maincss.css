@@ -118,13 +118,13 @@ a:active {
     font-weight: 500;
 }
 
-    .nav-li:hover {
-        text-decoration: underline 1px solid;
-        transform: scale(1.25);
-        transition-timing-function: ease-in-out;
-        transition: 0.5s;
-        cursor: pointer;
-    }
+.nav-li:hover {
+    text-decoration: underline 1px solid;
+    transform: scale(1.25);
+    transition-timing-function: ease-in-out;
+    transition: 0.5s;
+    cursor: pointer;
+}
 
 #messageProfilePic {
     border-radius: 50px;
