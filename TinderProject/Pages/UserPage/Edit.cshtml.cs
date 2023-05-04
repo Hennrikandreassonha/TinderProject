@@ -45,13 +45,13 @@ namespace TinderProject.Pages.UserPage
 				return NotFound();
 			}
 
-			userToUpdate.FirstName = User.FirstName;
-			userToUpdate.LastName = User.LastName;
-			userToUpdate.DateOfBirth = User.DateOfBirth;
-			userToUpdate.Gender = User.Gender;
-			userToUpdate.Preference = User.Preference;
-			userToUpdate.ProfilePictureUrl = User.ProfilePictureUrl;
-			userToUpdate.Description = User.Description;
+			userToUpdate.FirstName = user.FirstName;
+			userToUpdate.LastName = user.LastName;
+			userToUpdate.DateOfBirth = user.DateOfBirth;
+			userToUpdate.Gender = user.Gender;
+			userToUpdate.Preference = user.Preference;
+			userToUpdate.ProfilePictureUrl = user.ProfilePictureUrl;
+			userToUpdate.Description = user.Description;
 
 			_database.Users.Update(userToUpdate);
 			_database.SaveChanges();
