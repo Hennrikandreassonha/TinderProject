@@ -73,6 +73,7 @@ namespace TinderProject.Pages
             //Removes these since you cant like somone who is already liked.
             var userLikesIds = _userRepo.GetUserLikes(loggedInUser).Select(x => x.LikedId);
 
+            var test = 
             return _userRepo.GetAllUsers()
     .Where(u => u.Id != loggedInUser.Id && !userLikesIds.Contains(u.Id)).ToList();
         }
