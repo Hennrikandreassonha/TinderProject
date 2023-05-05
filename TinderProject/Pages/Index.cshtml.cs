@@ -15,16 +15,7 @@ namespace TinderProject.Pages
             _userRepo = repo;
             _context = context;
         }
-
-		public User User { get; set; }
-
-		public void OnGetUser()
-		{
-			var loggedInUser = _userRepo.GetLoggedInUser();
-
-			User = _context.Users.Find(loggedInUser.Id);
-		}
-
+        public User LoggedInUser { get; set; }
 		public List<User> UsersToSwipe { get; set; }
         public User CurrentUserShown { get; set; }
         [BindProperty]
@@ -40,12 +31,12 @@ namespace TinderProject.Pages
                 Match = true;
             }
 
-            var loggedInUser = _userRepo.GetLoggedInUser();
+            LoggedInUser = _userRepo.GetLoggedInUser();
 
             //Måste exkludera de som redan är matchade.
-            if (loggedInUser != null)
+            if (LoggedInUser != null)
             {
-                UsersToSwipe = _userRepo.GetUsersToSwipe(loggedInUser).ToList();
+                UsersToSwipe = _userRepo.GetUsersToSwipe(LoggedInUser).ToList();
             }
 
             if (UsersToSwipe.Count == 0)
