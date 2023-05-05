@@ -22,29 +22,33 @@ namespace TinderProject.Pages.Messages
             Messages = new List<Message>();
         }
 
-        
+
         public void OnGet(int? userId)
         {
             var currentUser = _userRepository.GetLoggedInUser();
-            User = currentUser;
-            var messages = _database.Messages
-            .Include(m => m.User)
-            .Where(m =>
-            (m.User.Id == currentUser.Id && m.SentToId == userId) ||
-            (m.SentFromId == userId && m.SentToId == currentUser.Id))
-            .OrderBy(m => m.SentTime)
-            .ToList();
+            var otherUser = _database.Users.SingleOrDefault(u => u.Id == userId);
 
-            Messages.AddRange(messages);
+            Messages = _database.Messages
+                .Where(m => (m.SentToId == currentUser.Id && m.SentFromId == userId) ||
+                      (m.SentToId == userId && m.SentFromId == currentUser.Id))
+                .OrderBy(m => m.SentTime)
+                .ToList();
+
+
+
         }
 
 
 
-        public IActionResult OnPost(string message,int userId)
+        public IActionResult OnPost(string message, int userId)
         {
-          
+            var user = _database.Users.FirstOrDefault(u => u.Id == userId);
+            if (user == null)
+            {
+                return NotFound();
+            }
             var currentUser = _userRepository.GetLoggedInUser();
-            
+
 
             var messagesToAdd = new Message
             {

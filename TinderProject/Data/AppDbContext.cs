@@ -50,6 +50,19 @@ namespace TinderProject.Data
                 .WithMany(u => u.Matcher2)
                 .HasForeignKey(i => i.User2Id)
                 .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<Message>()
+                .HasOne(m => m.SendTo)
+                .WithMany()
+                .HasForeignKey(m => m.SentToId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<Message>()
+                .HasOne(m => m.SentFrom)
+                .WithMany()
+                .HasForeignKey(m => m.SentFromId)
+                .OnDelete(DeleteBehavior.NoAction);
+
         }
     }
 }

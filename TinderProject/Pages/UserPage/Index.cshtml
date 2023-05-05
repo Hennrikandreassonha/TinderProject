@@ -6,13 +6,13 @@
 
 <h1>@ViewData["Title"]</h1>
 
-@if (Model.User.FirstName == null
-								|| Model.User.LastName == null
-								|| Model.User.DateOfBirth == null
-								|| Model.User.Gender == null
-								|| Model.User.Preference == null
-								|| Model.User.ProfilePictureUrl == null
-								|| Model.User.Description == null)
+@if (string.IsNullOrWhiteSpace(Model.User.FirstName)
+		|| string.IsNullOrWhiteSpace(Model.User.LastName)
+		|| (Model.User.DateOfBirth == DateTime.MinValue)
+		|| Model.User.Gender == null
+		|| Model.User.Preference == null
+		|| string.IsNullOrWhiteSpace(Model.User.ProfilePictureUrl)
+		|| string.IsNullOrWhiteSpace(Model.User.Description))
 {
 	<p>Your profile is not complete. Please fill in your profile information by clicking <a asp-page="/UserPage/Edit">here</a>.</p>
 }

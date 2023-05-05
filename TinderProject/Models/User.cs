@@ -12,13 +12,11 @@ namespace TinderProject.Models
 		//Kanske endast behöver årtal senare.
 		[DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
 		public DateTime DateOfBirth { get; set; }
-        //Funderade på om man ska ha en enum för Gender?!
-        public GenderType Gender { get; set; }
-        //public string Gender { get; set; }
-        public SwipePreference Preference { get; set; }
+        public GenderType? Gender { get; set; }
+        public SwipePreference? Preference { get; set; }
         public string ProfilePictureUrl { get; set; }
         //Begränsa antalet ord man kan lägga till för Description?!
-        //[RegularExpression(@"^(?:\S+\s+){0,49}\S+$", ErrorMessage = "Description cannot exceed 50 words.")]
+        [RegularExpression(@"^(?:\S+\s+){0,49}\S+$", ErrorMessage = "Description cannot exceed 50 words.")]
         public string Description { get; set; }
         public string? OpenIDIssuer { get; set; }
         public string? OpenIDSubject { get; set; }
@@ -36,6 +34,7 @@ namespace TinderProject.Models
             }
         }
 
+        public List<Message> Users { get; set; }
         public List<Interests>? Interests { get; set; }
         public ICollection<Interaction>? LikedByUsers { get; set; }
         public ICollection<Interaction>? LikedUsers { get; set; }

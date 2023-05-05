@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TinderProject.Data;
 
@@ -11,9 +12,10 @@ using TinderProject.Data;
 namespace TinderProject.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230505092156_1")]
+    partial class _1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -104,6 +106,9 @@ namespace TinderProject.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<string>("ReceivedMessages")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("SentFromId")
                         .HasColumnType("int");
 
@@ -117,14 +122,10 @@ namespace TinderProject.Migrations
                     b.Property<int>("SentToId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("UserId")
+                    b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("SentFromId");
-
-                    b.HasIndex("SentToId");
 
                     b.HasIndex("UserId");
 
@@ -226,25 +227,13 @@ namespace TinderProject.Migrations
 
             modelBuilder.Entity("TinderProject.Models.Message", b =>
                 {
-                    b.HasOne("TinderProject.Models.User", "SentFrom")
-                        .WithMany()
-                        .HasForeignKey("SentFromId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.HasOne("TinderProject.Models.User", "SendTo")
-                        .WithMany()
-                        .HasForeignKey("SentToId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.HasOne("TinderProject.Models.User", null)
+                    b.HasOne("TinderProject.Models.User", "User")
                         .WithMany("Users")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Navigation("SendTo");
-
-                    b.Navigation("SentFrom");
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("TinderProject.Models.User", b =>
