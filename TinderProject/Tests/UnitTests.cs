@@ -12,15 +12,25 @@ namespace TinderProject.Tests
         [Fact]
         public void IsMatchTest()
         {
+            var optionsBuilder = new DbContextOptionsBuilder()
             var mockUserRepo = new Mock<IUserRepository>();
             var mockDbContext = new Mock<AppDbContext>();
 
             var page = new Pages.IndexModel(mockUserRepo.Object, mockDbContext.Object);
 
-            int user1Id = 1;
-            int user2Id = 11;
+            int loggedInUserId = 1;
+            int likedUserId = 2;
 
-            page.CheckIfMatch();
+            Interaction testInteraction = new()
+            {
+                LikerId = loggedInUserId,
+                LikedId = likedUserId,
+                DateLiked = DateTime.Now
+            };
+
+            // mockDbContext.SetupAdd(testInteraction);
+
+            Assert.True(page.CheckIfMatch(loggedInUserId, likedUserId));
         }
     }
 }

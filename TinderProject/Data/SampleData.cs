@@ -35,7 +35,7 @@ namespace TinderProject.Data
                 var description = GenerateDescription();
                 var swipePreference = GenereatePreference();
 
-                var profilePicUrl = GenerateProfilePicUrl(gender);
+                // var profilePicUrl = GenerateProfilePicUrl(gender);
 
                 var dateOfBirth = GenerateDateOfBirth();
 
@@ -153,18 +153,24 @@ namespace TinderProject.Data
             return interests.ToArray();
         }
 
-        public static string GenerateProfilePicUrl(string gender)
+        public static string GenerateProfilePicUrl(GenderType genderType)
         {
             string picUrl = "https://xsgames.co/randomusers/assets/avatars";
 
             int picIndex = random.Next(0, 76);
+            int genderChoice = -1;
 
             while (TakenPicUrlIndices.Contains(picIndex))
             {
                 picIndex = random.Next(0, 76);
             }
 
-            if (gender == "Male")
+            if (genderType is GenderType.Other)
+            {
+                genderChoice = random.Next(0, 2);
+            }
+
+            if (genderType is GenderType.Male | genderChoice == 1)
             {
                 picUrl += $"/male/{picIndex}.jpg";
             }

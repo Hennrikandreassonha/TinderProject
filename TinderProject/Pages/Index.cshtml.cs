@@ -105,12 +105,19 @@ namespace TinderProject.Pages
         {
             //Gets the Currently Liked User and checks if it likes loggedInUser.
             //In that case it´s a match.
-            foreach (var item in _userRepo.GetUserLikes(likedUserId))
+
+            var users = _userRepo.GetAllMale();
+            var likedUserLikes = _userRepo.GetUserLikes(likedUserId);
+
+            if (likedUserLikes != null)
             {
-                if (item.LikedId == loggedInUserId)
+                foreach (var item in likedUserLikes)
                 {
-                    CreateNewMatch(loggedInUserId, likedUserId);
-                    return true;
+                    if (item.LikedId == loggedInUserId)
+                    {
+                        CreateNewMatch(loggedInUserId, likedUserId);
+                        return true;
+                    }
                 }
             }
             return false;
