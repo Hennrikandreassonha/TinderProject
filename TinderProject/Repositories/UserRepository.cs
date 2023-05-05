@@ -31,6 +31,7 @@ namespace TinderProject.Repositories
             return _context.Users.Where(x => x.Gender == GenderType.Other).Include(x => x.Interests).ToList();
         }
 
+
         public ICollection<User> GetAllUsers()
         {
             return _context.Users.Include(x => x.Interests).ToList();
@@ -49,10 +50,16 @@ namespace TinderProject.Repositories
             //Gets the Id´s of all the Users that the user Already likes.
             //Removes these since you cant like somone who is already liked.
             //Also removes those who are already matched.
+            List<User> userList = new();
+
+            userList = (user.Preference == SwipePreference.All) ? GetAllUsers().ToList() : userList;
+            userList = (user.Preference == SwipePreference.Male) ? GetAllMale().ToList() : userList;
+            userList = (user.Preference == SwipePreference.Female) ? GetAllFemale().ToList() : userList;
+
             var userLikesIds = GetUserLikes(user).Select(x => x.LikedId);
             var userMatches = GetMatches(user);
 
-            return GetAllUsers()
+            return userList
              .Where(u => u.Id != user.Id &&
            !userLikesIds.Contains(u.Id) &&
            !userMatches.Select(m => m.User1Id).Contains(u.Id) &&
