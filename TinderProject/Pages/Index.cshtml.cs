@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using TinderProject.Data;
+using TinderProject.Repositories;
 using TinderProject.Repositories.Repositories_Interfaces;
 
 namespace TinderProject.Pages
@@ -14,7 +15,17 @@ namespace TinderProject.Pages
             _userRepo = repo;
             _context = context;
         }
-        public List<User> UsersToSwipe { get; set; }
+
+		public User User { get; set; }
+
+		public void OnGetUser()
+		{
+			var loggedInUser = _userRepo.GetLoggedInUser();
+
+			User = _context.Users.Find(loggedInUser.Id);
+		}
+
+		public List<User> UsersToSwipe { get; set; }
         public User CurrentUserShown { get; set; }
         [BindProperty]
         public bool Match { get; set; }

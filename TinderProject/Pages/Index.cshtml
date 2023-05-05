@@ -2,71 +2,83 @@
 @model IndexModel
 @inject TinderProject.Data.AccessControl accessControl
 @{
-    ViewData["Title"] = "Home page";
-
+	ViewData["Title"] = "Home page";
 }
 
-<script src="../js/Swipe_Screen_Js.js" defer></script>
-
-@* <h1>Welcome, @accessControl.LoggedInAccountName!</h1> *@
-
-@if (Model.Match)
+@if (Model.User != null && (string.IsNullOrWhiteSpace(Model.User.FirstName)
+			|| string.IsNullOrWhiteSpace(Model.User.LastName)
+			|| (Model.User.DateOfBirth == DateTime.MinValue)
+			|| Model.User.Gender == null
+			|| Model.User.Preference == null
+			|| string.IsNullOrWhiteSpace(Model.User.ProfilePictureUrl)
+			|| string.IsNullOrWhiteSpace(Model.User.Description)))
 {
-    <div id="match-div">
-        <div id="match-options-flex">
-            <h1>You got a new match!</h1>
-            <div>
-                @* Skicka användaren till messagepage. *@
-                <form>
-                    <button class="my-button" type="submit" asp-page="/Messages/Index">Send message</button>
-                    <button class="my-button" asp-page="/Index">Keep swiping</button>
-                </form>
-            </div>
-        </div>
-    </div>
+	<p>Your profile is not complete. Please fill in your profile information by clicking <a asp-page="/UserPage/Edit"><strong>here</strong></a>.</p>
 }
-
-@if(Model.NoUsersToSwipe){
-    <p>Could not find any users to swipe on!</p>
-}
-@if (!Model.NoUsersToSwipe)
+else
 {
-    <div id="swipe-div" style="background-image: url('@Model.CurrentUserShown?.ProfilePictureUrl')">
-        <div class="area-a">
-            <h1 id="name-age">@Model.CurrentUserShown.FirstName @Model.CurrentUserShown.Age</h1>
-            <p>@Model.CurrentUserShown.Description</p>
+	<script src="../js/Swipe_Screen_Js.js" defer></script>
 
-        </div>
-        <div class="area-b">
-            <div>
-                <p>Personality type:</p>
-                <div class="personality-div">Test1</div>
-                <div class="personality-div">Testnumber2</div>
-            </div>
+	@* <h1>Welcome, @accessControl.LoggedInAccountName!</h1> *@
 
-            <div>
-                <p>Interests:</p>
-                @foreach (var item in Model.CurrentUserShown.Interests)
-                {
-                    <div class="interest-div">@item.Interest</div>
-                }
+	@if (Model.Match)
+	{
+		<div id="match-div">
+			<div id="match-options-flex">
+				<h1>You got a new match!</h1>
+				<div>
+					@* Skicka användaren till messagepage. *@
+					<form>
+						<button class="my-button" type="submit" asp-page="/Messages/Index">Send message</button>
+						<button class="my-button" asp-page="/Index">Keep swiping</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	}
 
-            </div>
+	@if (Model.NoUsersToSwipe)
+	{
+		<p>Could not find any users to swipe on!</p>
+	}
+	@if (!Model.NoUsersToSwipe)
+	{
+		<div id="swipe-div" style="background-image: url('@Model.CurrentUserShown?.ProfilePictureUrl')">
+			<div class="area-a">
+				<h1 id="name-age">@Model.CurrentUserShown.FirstName @Model.CurrentUserShown.Age</h1>
+				<p>@Model.CurrentUserShown.Description</p>
 
-        </div>
+			</div>
+			<div class="area-b">
+				<div>
+					<p>Personality type:</p>
+					<div class="personality-div">Test1</div>
+					<div class="personality-div">Testnumber2</div>
+				</div>
 
-        <form method="post" id="like-dislike-flex" class="area-c">
+				<div>
+					<p>Interests:</p>
+					@foreach (var item in Model.CurrentUserShown.Interests)
+					{
+						<div class="interest-div">@item.Interest</div>
+					}
 
-            <button type="submit" name="like" value="false" class="invis-btn">
-                <img src="~/Pictures/red_cross.png" alt="A red cross for disliking" id="dislike-button"
-                    class="like-dislike-pictures">
-            </button>
+				</div>
 
-            <button type="submit" name="like" value="true" class="invis-btn">
-                <img src="~/Pictures/green_Heart.png" alt="A green heart for liking" id="like-button"
-                    class="like-dislike-pictures">
-            </button>
-        </form>
+			</div>
 
-    </div>
+			<form method="post" id="like-dislike-flex" class="area-c">
+
+				<button type="submit" name="like" value="false" class="invis-btn">
+					<img src="~/Pictures/red_cross.png" alt="A red cross for disliking" id="dislike-button"
+			 class="like-dislike-pictures">
+				</button>
+
+				<button type="submit" name="like" value="true" class="invis-btn">
+					<img src="~/Pictures/green_Heart.png" alt="A green heart for liking" id="like-button"
+			 class="like-dislike-pictures">
+				</button>
+			</form>
+		</div>
+	}
 }
