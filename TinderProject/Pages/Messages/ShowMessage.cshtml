@@ -10,7 +10,7 @@
 
     @foreach(var message in Model.Messages)
     {
-        <p id="message-name">@message.User.FirstName wrote:</p>
+        <p id="message-name">@message.SentFrom.FirstName wrote:</p>
         <p id="message-message">@message.SentMessage</p>
         <p id="message-time">@message.SentTime</p>
         

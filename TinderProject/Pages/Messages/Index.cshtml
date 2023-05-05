@@ -8,16 +8,16 @@
 
 <div>
 
-    @if (Model.Messages != null && Model.Messages.Any())
+    @if (Model.User != null && Model.User.Any())
     {
 
         <ul>
             <h3>Conversation</h3>
-            @foreach (var message in Model.Messages)
+            @foreach (var user in Model.User)
             {
                 <li>
-                    <a asp-page="ShowMessage" asp-route-userId="@message.User.Id">@message.User.FirstName</a>
-                    <img src="@message.User.ProfilePictureUrl" alt="Profile Picture" id="messageProfilePic">
+                    <a asp-page="ShowMessage" asp-route-userId="@user.Id">@user.FirstName</a>
+                    <img src="@user.ProfilePictureUrl" alt="Profile Picture" id="messageProfilePic">
                 </li>
             }
         </ul>

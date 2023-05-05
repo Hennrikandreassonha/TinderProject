@@ -1,4 +1,5 @@
-﻿using static System.Net.Mime.MediaTypeNames;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using static System.Net.Mime.MediaTypeNames;
 
 
 namespace TinderProject.Models
@@ -7,14 +8,14 @@ namespace TinderProject.Models
     {
         public int Id { get; set; }
         public string SentMessage { get; set; }
-        public string? ReceivedMessages { get; set; }
         public DateTime SentTime { get; set; }
         public int SentToId { get; set; }
         public int SentFromId { get; set; }
-        
 
 
-        public User User { get; set; }
+       
+        public User SendTo{ get; set; }
+        public User SentFrom { get; set; }
 
 
     }

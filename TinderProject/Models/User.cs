@@ -36,6 +36,7 @@ namespace TinderProject.Models
             }
         }
 
+        public List<Message> Users { get; set; }
         public List<Interests>? Interests { get; set; }
         public ICollection<Interaction>? LikedByUsers { get; set; }
         public ICollection<Interaction>? LikedUsers { get; set; }
