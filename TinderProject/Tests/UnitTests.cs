@@ -12,7 +12,7 @@ namespace TinderProject.Tests
         [Fact]
         public void IsMatchTest()
         {
-            var optionsBuilder = new DbContextOptionsBuilder()
+            // var optionsBuilder = new DbContextOptionsBuilder()
             var mockUserRepo = new Mock<IUserRepository>();
             var mockDbContext = new Mock<AppDbContext>();
 
