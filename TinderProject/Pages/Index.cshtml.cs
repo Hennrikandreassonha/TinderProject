@@ -73,7 +73,6 @@ namespace TinderProject.Pages
             //Removes these since you cant like somone who is already liked.
             var userLikesIds = _userRepo.GetUserLikes(loggedInUser).Select(x => x.LikedId);
 
-            var test = 
             return _userRepo.GetAllUsers()
     .Where(u => u.Id != loggedInUser.Id && !userLikesIds.Contains(u.Id)).ToList();
         }
@@ -102,15 +101,15 @@ namespace TinderProject.Pages
             _conext.SaveChanges();
 
         }
-        public bool CheckIfMatch(User loggedInUser, User likedUser)
+        public bool CheckIfMatch(User loggedInUserId, User likedUserId)
         {
-            var likedUserLikes = _userRepo.GetUserLikes(likedUser);
-
-            foreach (var item in likedUserLikes)
+            //Gets the Currently Liked User and checks if it likes loggedInUser.
+            //In that case it´s a match.
+            foreach (var item in _userRepo.GetUserLikes(likedUserId))
             {
-                if (item.LikedId == loggedInUser.Id)
+                if (item.LikedId == loggedInUserId.Id)
                 {
-                    CreateNewMatch(loggedInUser, likedUser);
+                    CreateNewMatch(loggedInUserId, likedUserId);
                     return true;
                 }
             }
