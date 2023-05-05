@@ -56,7 +56,7 @@ namespace TinderProject.Pages
             UsersToSwipe = _userRepo.GetPreferedUsers(loggedInUser).ToList();
             var likedUser = UsersToSwipe[userIndex];
 
-            if (like == "true" && CheckIfMatch(loggedInUser, likedUser))
+            if (like == "true" && CheckIfMatch(loggedInUser.Id, likedUser.Id))
             {
                 ViewData["Match"] = "true";
                 return RedirectToPage("Index");
@@ -101,13 +101,13 @@ namespace TinderProject.Pages
             _conext.SaveChanges();
 
         }
-        public bool CheckIfMatch(User loggedInUserId, User likedUserId)
+        public bool CheckIfMatch(int loggedInUserId, int likedUserId)
         {
             //Gets the Currently Liked User and checks if it likes loggedInUser.
             //In that case it´s a match.
             foreach (var item in _userRepo.GetUserLikes(likedUserId))
             {
-                if (item.LikedId == loggedInUserId.Id)
+                if (item.LikedId == loggedInUserId)
                 {
                     CreateNewMatch(loggedInUserId, likedUserId);
                     return true;
@@ -115,12 +115,12 @@ namespace TinderProject.Pages
             }
             return false;
         }
-        public void CreateNewMatch(User user1, User user2)
+        public void CreateNewMatch(int user1Id, int user2Id)
         {
             Match newMatch = new()
             {
-                User1Id = user1.Id,
-                User2Id = user2.Id,
+                User1Id = user1Id,
+                User2Id = user2Id,
                 MatchDate = DateTime.Now
             };
 

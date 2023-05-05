@@ -13,8 +13,8 @@ namespace TinderProject.Repositories.Repositories_Interfaces
         ICollection<User> GetAllUsers();
         ICollection<User> GetAllFemale();
         ICollection<User> GetAllMale();
-        ICollection<User> GetPreferedUsers(User loggedInUser);
-        ICollection<Interaction> GetUserLikes(User loggedInUser);
-
+        ICollection<User> GetPreferedUsers(User user);
+        ICollection<Interaction> GetUserLikes(User user);
+        ICollection<Interaction> GetUserLikes(int userId);
     }
 }
