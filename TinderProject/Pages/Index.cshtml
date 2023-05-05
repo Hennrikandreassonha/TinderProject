@@ -5,13 +5,13 @@
 	ViewData["Title"] = "Home page";
 }
 
-@if (Model.User != null && (string.IsNullOrWhiteSpace(Model.User.FirstName)
-			|| string.IsNullOrWhiteSpace(Model.User.LastName)
-			|| (Model.User.DateOfBirth == DateTime.MinValue)
-			|| Model.User.Gender == null
-			|| Model.User.Preference == null
-			|| string.IsNullOrWhiteSpace(Model.User.ProfilePictureUrl)
-			|| string.IsNullOrWhiteSpace(Model.User.Description)))
+@if (Model.LoggedInUser != null && (string.IsNullOrWhiteSpace(Model.LoggedInUser.FirstName)
+			|| string.IsNullOrWhiteSpace(Model.LoggedInUser.LastName)
+			|| (Model.LoggedInUser.DateOfBirth == DateTime.MinValue)
+			|| Model.LoggedInUser.Gender == null
+			|| Model.LoggedInUser.Preference == null
+			|| string.IsNullOrWhiteSpace(Model.LoggedInUser.ProfilePictureUrl)
+			|| string.IsNullOrWhiteSpace(Model.LoggedInUser.Description)))
 {
 	<p>Your profile is not complete. Please fill in your profile information by clicking <a asp-page="/UserPage/Edit"><strong>here</strong></a>.</p>
 }
