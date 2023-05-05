@@ -27,15 +27,15 @@ namespace TinderProject.Data
 
             for (int i = 0; i < 20; i++)
             {
-                var gender = GenerateGender();
-                var firstName = GenerateFirstName(gender);
+                var genderType = GenerateGender();
+                var firstName = GenerateFirstName(genderType);
                 var lastName = GenerateLastName();
 
                 var interests = GenerateInterests();
                 var description = GenerateDescription();
-                var swipePreference = GenereatePreference();
+                var swipePreference = GeneratePreference();
 
-                var profilePicUrl = GenerateProfilePicUrl(gender);
+                var profilePicUrl = GenerateProfilePicUrl(genderType);
 
                 var dateOfBirth = GenerateDateOfBirth();
 
@@ -44,7 +44,7 @@ namespace TinderProject.Data
                 //Fixa så att den lägger in i databasen och i interest tablet.
                 User person = new()
                 {
-                    Gender = gender,
+                    Gender = genderType,
                     FirstName = firstName,
                     LastName = lastName,
                     Description = description,
@@ -80,7 +80,7 @@ namespace TinderProject.Data
 
         }
 
-        private static SwipePreference GenereatePreference()
+        private static SwipePreference GeneratePreference()
         {
             int randomPreference = random.Next(0, 3);
 
@@ -103,35 +103,41 @@ namespace TinderProject.Data
             return OpenIDSubject;
         }
 
-        public static string GenerateGender()
+        public static GenderType GenerateGender()
         {
-            int genderChoice = random.Next(0, 2);
+            int genderChoice = random.Next(0, 3);
 
-            if (genderChoice == 0)
-            {
-                return "Male";
-            }
-            else
-            {
-                return "Female";
-            }
+            GenderType[] choice = { GenderType.Male, GenderType.Female, GenderType.Other };
+
+            return choice[genderChoice];
         }
-        public static string GenerateFirstName(string gender)
+        public static string GenerateFirstName(GenderType genderType)
         {
             int nameIndex = random.Next(0, MaleNames.Length);
 
-            if (gender == "Male")
+            if (genderType is GenderType.Male)
             {
                 return MaleNames![nameIndex];
             }
-            else
+            else if (genderType is GenderType.Female)
             {
                 return FemaleNames![nameIndex];
             }
+            else
+            {
+				List<string> allNames = new();
+
+				allNames.AddRange(MaleNames);
+
+				allNames.AddRange(FemaleNames);
+
+				int allNamesIndex = random.Next(0, allNames.Count);
+
+				return allNames[allNamesIndex];
+			}
         }
         public static string GenerateLastName()
         {
-
             int nameIndex = random.Next(0, LastNames.Length);
 
             return LastNames![nameIndex];
@@ -153,28 +159,35 @@ namespace TinderProject.Data
             return interests.ToArray();
         }
 
-        public static string GenerateProfilePicUrl(string gender)
+        public static string GenerateProfilePicUrl(GenderType genderType)
         {
             string picUrl = "https://xsgames.co/randomusers/assets/avatars";
 
-            int picIndex = random.Next(0, 76);
+			int picIndex = random.Next(0, 76);
 
-            while (TakenPicUrlIndices.Contains(picIndex))
-            {
-                picIndex = random.Next(0, 76);
-            }
+			int genderChoice = -1;
 
-            if (gender == "Male")
-            {
-                picUrl += $"/male/{picIndex}.jpg";
-            }
-            else
-            {
-                picUrl += $"/female/{picIndex}.jpg";
-            }
+			while (TakenPicUrlIndices.Contains(picIndex))
+			{
+				picIndex = random.Next(0, 76);
+			}
 
-            return picUrl;
-        }
+			if (genderType is GenderType.Other)
+			{
+				genderChoice = random.Next(0, 2);
+			}
+
+			if (genderType is GenderType.Male | genderChoice == 1)
+			{
+				picUrl += $"/male/{picIndex}.jpg";
+			}
+			else
+			{
+				picUrl += $"/female/{picIndex}.jpg";
+			}
+
+			return picUrl;
+		}
         public static string GenerateDescription()
         {
             int stringStart = random.Next(0, 2);
