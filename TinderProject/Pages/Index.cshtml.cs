@@ -33,6 +33,7 @@ namespace TinderProject.Pages
         public bool NoUsersToSwipe { get; set; }
         public void OnGet(string? match)
         {
+            //Fixa så att den nya användaren visas Efter popupen tagits bort och inte innan.
 
             if (match == "true")
             {
@@ -55,7 +56,7 @@ namespace TinderProject.Pages
 
             var currentUserIndex = HttpContext.Session.GetInt32("currentUserIndex");
 
-            //If we have reached end of users or we dont have a value the index will be set to zero.
+            //If we have reached end of users or we are missing indexvalue the index will be set to zero.
             if (currentUserIndex == null || currentUserIndex >= UsersToSwipe.Count())
             {
                 HttpContext.Session.SetInt32("currentUserIndex", 0);
@@ -67,7 +68,7 @@ namespace TinderProject.Pages
         }
         public IActionResult OnPost(string like)
         {
-            // Insert like/dislike logic here, such as updating the database with the like.
+            
             var userIndex = GetCurrentUserIndex();
 
             var loggedInUser = _userRepo.GetLoggedInUser();
