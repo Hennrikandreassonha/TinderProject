@@ -130,3 +130,8 @@ a:active {
     border-radius: 50px;
     width: 2rem;
 }
+
+.red-link {
+    color: red;
+    font-weight: bold;
+}

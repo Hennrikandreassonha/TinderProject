@@ -5,6 +5,8 @@
 	ViewData["Title"] = "Home page";
 }
 
+<h1>Welcome to the Matchmaking Site!</h1>
+
 @if (Model.LoggedInUser != null && (string.IsNullOrWhiteSpace(Model.LoggedInUser.FirstName)
 			|| string.IsNullOrWhiteSpace(Model.LoggedInUser.LastName)
 			|| (Model.LoggedInUser.DateOfBirth == DateTime.MinValue)
@@ -13,7 +15,9 @@
 			|| string.IsNullOrWhiteSpace(Model.LoggedInUser.ProfilePictureUrl)
 			|| string.IsNullOrWhiteSpace(Model.LoggedInUser.Description)))
 {
-	<p>Your profile is not complete. Please fill in your profile information by clicking <a asp-page="/UserPage/Edit"><strong>here</strong></a>.</p>
+	<p>Your profile is not complete. Please fill in your profile information by clicking
+		<a asp-page="/UserPage/Edit"><span class="red-link">here</span></a> to start the matchmaking.
+	</p>
 }
 else
 {
