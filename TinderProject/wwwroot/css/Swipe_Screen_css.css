@@ -8,11 +8,12 @@
 
 #swipe-div {
     background-repeat: no-repeat;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+
     background-size: 100% 100%;
     position: relative;
     max-width: 350px;
-    height: 60%;
-    border: 1px solid blue;
+    height: 600px;
     margin: auto;
     border-radius: 25px;
     display: grid;
@@ -129,7 +130,6 @@
 /*CSS form displaying popup when a user has a match*/
 #match-div {
     background-image: url("../Pictures/heart-popup.png");
-    background-size: 100%;
     background-size: contain;
     background-repeat: no-repeat;
 
@@ -143,9 +143,13 @@
     height: 80%;
     left: 50%;
     transform: translate(-50%);
-    opacity: 0.8;
-}
+    opacity: 0;
 
+    transition: ease-in-out 1.5s;
+}
+.show-match-div{
+    opacity: 0.9 !important;
+}
 #match-options-flex {
     display: flex;
     width: 100%;

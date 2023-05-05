@@ -26,14 +26,13 @@ namespace TinderProject.Pages
         {
             //Fixa så att den nya användaren visas Efter popupen tagits bort och inte innan.
 
+            match = "true";
             if (match == "true")
             {
                 Match = true;
             }
 
             LoggedInUser = _userRepo.GetLoggedInUser();
-
-            //Måste exkludera de som redan är matchade.
             if (LoggedInUser != null)
             {
                 UsersToSwipe = _userRepo.GetUsersToSwipe(LoggedInUser).ToList();

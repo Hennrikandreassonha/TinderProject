@@ -15,7 +15,7 @@ likeButton.addEventListener("mouseenter", function () {
     //Adding a random amount of hearths when user is hovering the like button
     //Indicating that the person in picture might be the one.
 
-    const amountHearts = Math.floor(Math.random() * 10) + 5;
+    const amountHearts = Math.floor(Math.random() * 15) + 8;
 
     for (let index = 0; index < amountHearts; index++) {
         var img = document.createElement("img");
@@ -48,7 +48,7 @@ function Showhearts(amountNewHearts) {
         setTimeout(function () {
 
             //Random storlek
-            let heartWidth = Math.floor(Math.random() * 21) + 10;
+            let heartWidth = Math.floor(Math.random() * 31) + 10;
 
             filteredImgs[i].style.width = `${heartWidth}px`;
 
@@ -71,3 +71,13 @@ dislikeButton.addEventListener("mouseenter", function () {
 dislikeButton.addEventListener("mouseleave", function () {
     swipeCard.classList.remove("grey-scale");
 })
+
+//CSS for the heart div that appears when there is a match.
+var matchDiv = document.getElementById("match-div");
+
+var matchDiv = document.getElementById("match-div");
+if (matchDiv != null) {
+  setTimeout(function() {
+    matchDiv.classList.add("show-match-div");
+  }, 500);
+}
