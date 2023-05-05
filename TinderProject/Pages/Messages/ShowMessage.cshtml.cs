@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Mvc;
+ï»¿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using TinderProject.Data;
 using TinderProject.Models;
@@ -22,16 +22,17 @@ namespace TinderProject.Pages.Messages
             Messages = new List<Message>();
         }
 
-        //fixa så man kan se alla meddelanden
-        public void OnGet()
+        
+        public void OnGet(int? userId)
         {
             var currentUser = _userRepository.GetLoggedInUser();
             User = currentUser;
             var messages = _database.Messages
             .Include(m => m.User)
-            .Where(m => m.User.Id == User.Id || m.SentToId == User.Id)
+            .Where(m =>
+            (m.User.Id == currentUser.Id && m.SentToId == userId) ||
+            (m.SentFromId == userId && m.SentToId == currentUser.Id))
             .OrderBy(m => m.SentTime)
-
             .ToList();
 
             Messages.AddRange(messages);
@@ -39,22 +40,18 @@ namespace TinderProject.Pages.Messages
 
 
 
-        public IActionResult OnPost(string message)
+        public IActionResult OnPost(string message,int userId)
         {
           
             var currentUser = _userRepository.GetLoggedInUser();
-            var sender = _database.Messages
-                .Include(m => m.User)
-                .Where(m => m.SentToId == currentUser.Id)
-                .Select(m => m.User.Id).
-                FirstOrDefault();
+            
 
             var messagesToAdd = new Message
             {
                 SentMessage = message,
                 SentTime = DateTime.Now,
-                SentToId = sender,
-                User = currentUser
+                SentToId = userId,
+                SentFromId = currentUser.Id
             };
 
 
