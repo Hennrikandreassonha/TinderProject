@@ -44,23 +44,20 @@ namespace TinderProject.Repositories
 
             return _context.Users.Single(p => p.OpenIDIssuer == issuer && p.OpenIDSubject == subject);
         }
-        public ICollection<User> GetPreferedUsers(User user)
+        public ICollection<User> GetUsersToSwipe(User user)
         {
-            //Gets the users prefered matches.
-            //Depending on prefered type and age.
-            if (user.Preference == SwipePreference.Male)
-            {
-                return GetAllMale();
-            }
-            if (user.Preference == SwipePreference.Female)
-            {
-                return GetAllFemale();
-            }
-            else
-            {
-                return GetAllUsers().Where(x => x.Id != user.Id).ToArray();
-            }
+            //Gets the Id´s of all the Users that the user Already likes.
+            //Removes these since you cant like somone who is already liked.
+            //Also removes those who are already matched.
+            var userLikesIds = GetUserLikes(user).Select(x => x.LikedId);
+            var userMatches = GetMatches(user);
 
+            return GetAllUsers()
+             .Where(u => u.Id != user.Id &&
+           !userLikesIds.Contains(u.Id) &&
+           !userMatches.Select(m => m.User1Id).Contains(u.Id) &&
+           !userMatches.Select(m => m.User2Id).Contains(u.Id))
+            .ToList();
         }
         public User? GetUser(int id)
         {
@@ -75,6 +72,10 @@ namespace TinderProject.Repositories
         public ICollection<Interaction> GetUserLikes(int userId)
         {
             return _context.Interactions.Where(x => x.LikerId == userId).ToArray();
+        }
+        public ICollection<Match> GetMatches(User user)
+        {
+            return _context.Matches.Where(x => x.User2Id == user.Id || x.User1Id == user.Id).ToArray();
         }
     }
 }
