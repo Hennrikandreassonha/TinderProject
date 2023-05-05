@@ -12,11 +12,11 @@
     {
 
         <ul>
-            <h3>Message From</h3>
+            <h3>Conversation</h3>
             @foreach (var message in Model.Messages)
             {
                 <li>
-                    <a asp-page="ShowMessage">@message.User.FirstName</a>
+                    <a asp-page="ShowMessage" asp-route-userId="@message.User.Id">@message.User.FirstName</a>
                     <img src="@message.User.ProfilePictureUrl" alt="Profile Picture" id="messageProfilePic">
                 </li>
             }
@@ -24,7 +24,7 @@
     }
     else
     {
-        <p>No messages received.</p>
+        <p>No messages received or sent.</p>
     }
 
     <h3>New matches</h3>
@@ -35,7 +35,7 @@
             @foreach (var message in Model.NoConversation)
             {
                 <li>
-                    <a asp-page="ShowMessage">@message.FirstName</a>
+                    <a asp-page="ShowMessage" asp-route-userId="@message.Id" >@message.FirstName</a>
                     <img src="@message.ProfilePictureUrl" alt="Profile Picture" id="messageProfilePic">
                 </li>
             }
