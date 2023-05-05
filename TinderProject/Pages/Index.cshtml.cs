@@ -18,25 +18,34 @@ namespace TinderProject.Pages
         public User CurrentUserShown { get; set; }
         [BindProperty]
         public bool Match { get; set; }
-        public void OnGet()
+        [BindProperty]
+        public bool NoUsersToSwipe { get; set; }
+        public void OnGet(string? match)
         {
-            if (ViewData["match"] == "true")
+
+            if (match == "true")
             {
                 Match = true;
-                ViewData["Match"] = "false";
             }
+
             var loggedInUser = _userRepo.GetLoggedInUser();
 
             //Måste exkludera de som redan är matchade.
             if (loggedInUser != null)
             {
-                UsersToSwipe = GetUsersToSwipe(loggedInUser);
+                UsersToSwipe = _userRepo.GetUsersToSwipe(loggedInUser).ToList();
+            }
+
+            if (UsersToSwipe.Count == 0)
+            {
+                NoUsersToSwipe = true;
+                return;
             }
 
             var currentUserIndex = HttpContext.Session.GetInt32("currentUserIndex");
 
             //If we have reached end of users or we dont have a value the index will be set to zero.
-            if (currentUserIndex == null || currentUserIndex == UsersToSwipe.Count())
+            if (currentUserIndex == null || currentUserIndex >= UsersToSwipe.Count())
             {
                 HttpContext.Session.SetInt32("currentUserIndex", 0);
 
@@ -52,32 +61,32 @@ namespace TinderProject.Pages
 
             var loggedInUser = _userRepo.GetLoggedInUser();
 
-            UsersToSwipe = _userRepo.GetPreferedUsers(loggedInUser).ToList();
+            UsersToSwipe = _userRepo.GetUsersToSwipe(loggedInUser).ToList();
             var likedUser = UsersToSwipe[userIndex];
 
-            if (like == "true" && CheckIfMatch(loggedInUser, likedUser))
+            if (like == "true" && CheckIfMatch(loggedInUser.Id, likedUser.Id))
             {
                 ViewData["Match"] = "true";
-                return RedirectToPage("Index");
+                IncrementUserIndex();
+                return RedirectToPage("/Index", new { match = "true" });
             }
 
-            NewInteraction(loggedInUser, likedUser);
+            if (like == "true")
+            {
+                NewInteraction(loggedInUser, likedUser);
+            }
 
             IncrementUserIndex();
             return RedirectToPage("/Index");
         }
-        public List<User> GetUsersToSwipe(User loggedInUser)
-        {
-            //Gets the Id´s of all the Users that the user Already likes.
-            //Removes these since you cant like somone who is already liked.
-            var userLikesIds = _userRepo.GetUserLikes(loggedInUser).Select(x => x.LikedId);
-
-            return _userRepo.GetAllUsers()
-    .Where(u => u.Id != loggedInUser.Id && !userLikesIds.Contains(u.Id)).ToList();
-        }
         public void IncrementUserIndex()
         {
             //Increments the index which is used for showing users.
+            if (GetCurrentUserIndex() == UsersToSwipe.Count)
+            {
+                HttpContext.Session.SetInt32("currentUserIndex", 0);
+
+            }
             var currentUserIndex = GetCurrentUserIndex();
             currentUserIndex++;
 
@@ -100,26 +109,32 @@ namespace TinderProject.Pages
             _context.SaveChanges();
 
         }
-        public bool CheckIfMatch(User loggedInUserId, User likedUserId)
+        public bool CheckIfMatch(int loggedInUserId, int likedUserId)
         {
             //Gets the Currently Liked User and checks if it likes loggedInUser.
             //In that case it´s a match.
-            foreach (var item in _userRepo.GetUserLikes(likedUserId))
+
+            var likedUserLikes = _userRepo.GetUserLikes(likedUserId);
+
+            if (likedUserLikes != null)
             {
-                if (item.LikedId == loggedInUserId.Id)
+                foreach (var item in likedUserLikes)
                 {
-                    CreateNewMatch(loggedInUserId, likedUserId);
-                    return true;
+                    if (item.LikedId == loggedInUserId)
+                    {
+                        CreateNewMatch(loggedInUserId, likedUserId);
+                        return true;
+                    }
                 }
             }
             return false;
         }
-        public void CreateNewMatch(User user1, User user2)
+        public void CreateNewMatch(int user1Id, int user2Id)
         {
             Match newMatch = new()
             {
-                User1Id = user1.Id,
-                User2Id = user2.Id,
+                User1Id = user1Id,
+                User2Id = user2Id,
                 MatchDate = DateTime.Now
             };
 
