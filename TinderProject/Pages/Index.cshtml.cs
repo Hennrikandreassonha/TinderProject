@@ -8,11 +8,11 @@ namespace TinderProject.Pages
     public class IndexModel : PageModel
     {
         private readonly IUserRepository _userRepo;
-        private readonly AppDbContext _conext;
-        public IndexModel(IUserRepository repo, AppDbContext conext)
+        private readonly AppDbContext _context;
+        public IndexModel(IUserRepository repo, AppDbContext context)
         {
             _userRepo = repo;
-            _conext = conext;
+            _context = context;
         }
         public List<User> UsersToSwipe { get; set; }
         public User CurrentUserShown { get; set; }
@@ -105,8 +105,8 @@ namespace TinderProject.Pages
                 DateLiked = DateTime.Now
             };
 
-            _conext.Interactions.Add(newLike);
-            _conext.SaveChanges();
+            _context.Interactions.Add(newLike);
+            _context.SaveChanges();
 
         }
         public bool CheckIfMatch(int loggedInUserId, int likedUserId)
@@ -138,8 +138,8 @@ namespace TinderProject.Pages
                 MatchDate = DateTime.Now
             };
 
-            _conext.Add(newMatch);
-            _conext.SaveChanges();
+            _context.Add(newMatch);
+            _context.SaveChanges();
         }
     }
 }
