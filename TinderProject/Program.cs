@@ -42,7 +42,7 @@ builder.Services.AddAuthentication(options =>
                 LastName = " ",
                 DateOfBirth = DateTime.UtcNow,
                 Description = " ",
-                Gender = " ",
+                Gender = GenderType.Other,
                 ProfilePictureUrl = " ",
             };
             db.Users.Add(account);
