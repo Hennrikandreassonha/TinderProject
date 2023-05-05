@@ -13,8 +13,8 @@ namespace TinderProject.Models
 		[DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
 		public DateTime DateOfBirth { get; set; }
         //Funderade på om man ska ha en enum för Gender?!
-        // public GenderType Gender { get; set; }
-        public string Gender { get; set; }
+        public GenderType Gender { get; set; }
+        //public string Gender { get; set; }
         public SwipePreference Preference { get; set; }
         public string ProfilePictureUrl { get; set; }
         //Begränsa antalet ord man kan lägga till för Description?!
