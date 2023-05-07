@@ -21,7 +21,6 @@ namespace TinderProject.Pages.Messages
 
         public List<User> User { get; set; }
 
-
         public List<Message> Messages { get; set; }
         public List<User> NoConversation { get; set; }
         public IndexModel(AppDbContext database, IUserRepository userRepository)
@@ -33,7 +32,6 @@ namespace TinderProject.Pages.Messages
             
             User = new List<User>();
         }
-
 
         public void OnGet()
         {
@@ -72,20 +70,6 @@ namespace TinderProject.Pages.Messages
                     }
                 }
             }
-
-            //var id1 = _database.Users.Where(id => id.Id == 21).SingleOrDefault();
-            //var id2 = _database.Users.Where(id => id.Id == 7).SingleOrDefault();
-
-
-            //Match testmatch = new()
-            //{
-            //    User1Id = id1.Id,
-            //    User2Id = id2.Id,
-            //    MatchDate = DateTime.Now
-            //};
-
-            //_database.Add(testmatch);
-            //_database.SaveChanges();
 
         }
     }
