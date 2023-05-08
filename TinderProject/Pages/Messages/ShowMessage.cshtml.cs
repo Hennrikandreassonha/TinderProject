@@ -33,12 +33,7 @@ namespace TinderProject.Pages.Messages
                       (m.SentToId == userId && m.SentFromId == currentUser.Id))
                 .OrderBy(m => m.SentTime)
                 .ToList();
-
-
-
         }
-
-
 
         public IActionResult OnPost(string message, int userId)
         {

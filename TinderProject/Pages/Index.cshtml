@@ -1,23 +1,21 @@
 ﻿@page
+@using TinderProject.Utilities
 @model IndexModel
 @inject TinderProject.Data.AccessControl accessControl
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
 @{
     ViewData["Title"] = "Home page";
 }
 
 <h1>Welcome to the Matchmaking Site!</h1>
 
-@if (Model.LoggedInUser != null && (string.IsNullOrWhiteSpace(Model.LoggedInUser.FirstName)
-|| string.IsNullOrWhiteSpace(Model.LoggedInUser.LastName)
-|| (Model.LoggedInUser.DateOfBirth == DateTime.MinValue)
-|| Model.LoggedInUser.Gender == null
-|| Model.LoggedInUser.Preference == null
-|| string.IsNullOrWhiteSpace(Model.LoggedInUser.ProfilePictureUrl)
-|| string.IsNullOrWhiteSpace(Model.LoggedInUser.Description)))
+@{
+    var completionMessage = ProfileChecker.GetProfileCompletionMessage(Model.LoggedInUser, HttpContextAccessor);
+}
+
+@if (!string.IsNullOrWhiteSpace(completionMessage?.ToString()))
 {
-	<p>Your profile is not complete. Please fill in your profile information by clicking
-		<a asp-page="/UserPage/Edit"><span class="edit-link">here</span></a> to start the matchmaking.
-	</p>
+    <p>@completionMessage</p>
 }
 else
 {
@@ -33,7 +31,7 @@ else
                 <div>
                     @* Skicka användaren till messagepage. *@
                     <form>
-                        <button class="my-button" type="submit" asp-page="/Messages/Index">Send message</button>
+                        <button class="my-button" type="submit" asp-page="/Messages/ShowMessage" asp-route-userId="@Model.CurrentUserShown.Id">>Send message</button>
                         <button class="my-button" asp-page="/Index">Keep swiping</button>
                     </form>
                 </div>

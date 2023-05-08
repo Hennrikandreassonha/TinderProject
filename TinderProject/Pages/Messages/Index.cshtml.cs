@@ -29,7 +29,7 @@ namespace TinderProject.Pages.Messages
             _userRepository = userRepository;
             Messages = new List<Message>();
             NoConversation = new List<User>();
-            
+
             User = new List<User>();
         }
 
@@ -42,12 +42,9 @@ namespace TinderProject.Pages.Messages
                 .Distinct()
                 .ToList();
 
-             User.AddRange(_database.Users.Where(u => otherUsersIds.Contains(u.Id)).ToList());
+            User.AddRange(_database.Users.Where(u => otherUsersIds.Contains(u.Id)).ToList());
 
-
-
-            //Visa matcher som inte har påbörjat en konversation för att kunna klicka. 
-
+            //Look if a match has a conversation 
             var matches = _database.Matches.ToList();
             var messages = _database.Messages.ToList();
 
@@ -71,6 +68,27 @@ namespace TinderProject.Pages.Messages
                 }
             }
 
+        }
+
+        public IActionResult OnPost(int userId)
+        {
+            var currentUser = _userRepository.GetLoggedInUser();
+            var matches = _database.Matches
+                .Where(m => (m.User1Id == userId && m.User2Id == currentUser.Id) ||
+                            (m.User1Id == currentUser.Id && m.User2Id == userId))
+                            .ToList();
+
+            var messages = _database.Messages.
+                Where(m => (m.SentFromId == userId && m.SentToId == currentUser.Id) ||
+                           (m.SentToId == userId && m.SentFromId == currentUser.Id)).
+                ToList();
+
+            _database.Matches.RemoveRange(matches);
+            _database.Messages.RemoveRange(messages);
+
+            _database.SaveChanges();
+
+            return RedirectToPage();
         }
     }
 }

@@ -15,9 +15,9 @@ namespace TinderProject.Models
         public GenderType? Gender { get; set; }
         public SwipePreference? Preference { get; set; }
         public string ProfilePictureUrl { get; set; }
-        //Begränsa antalet ord man kan lägga till för Description?!
-        [RegularExpression(@"^(?:\S+\s+){0,49}\S+$", ErrorMessage = "Description cannot exceed 50 words.")]
-        public string Description { get; set; }
+		//Begränsar antalet ord man kan lägga till för Description till 50
+		[RegularExpression(@"^(\S+\s*){0,49}$", ErrorMessage = "Description cannot exceed 50 words.")]
+		public string Description { get; set; }
         public bool PremiumUser { get; set; }
         public string? OpenIDIssuer { get; set; }
         public string? OpenIDSubject { get; set; }
@@ -35,8 +35,8 @@ namespace TinderProject.Models
             }
         }
 
-        public List<Message> Users { get; set; }
-        public List<PersonalType> PersonalTypes { get; set; }
+        public List<Message>? Users { get; set; }
+        public List<PersonalType>? PersonalTypes { get; set; }
         public List<Interests>? Interests { get; set; }
         public ICollection<Interaction>? LikedByUsers { get; set; }
         public ICollection<Interaction>? LikedUsers { get; set; }

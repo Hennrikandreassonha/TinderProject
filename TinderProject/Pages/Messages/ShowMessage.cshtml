@@ -1,6 +1,7 @@
 ﻿@page "{UserId:int}"
 @model TinderProject.Pages.Messages.MessegesModel
 @{
+    ViewData["Title"] = "Conversation" ;
 }
 
 
@@ -15,8 +16,6 @@
         <p id="message-time">@message.SentTime</p>
         
     }
-
-   
 </div>
 <form method="post">
     <label for="message">Message</label>

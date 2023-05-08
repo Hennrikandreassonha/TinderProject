@@ -21,13 +21,13 @@ namespace TinderProject.Pages.UserPage
 			_database = database;
 		}
 
-		public User User { get; set; }
+		public User LoggedInUser { get; set; }
 
 		public void OnGet()
 		{
-			var loggedInUser = _userRepository.GetLoggedInUser();
+			LoggedInUser = _userRepository.GetLoggedInUser();
 
-			User = _database.Users.Find(loggedInUser.Id);
+			//loggedInUser = _database.Users.Find(loggedInUser.Id);
 		}
 	}
 }
