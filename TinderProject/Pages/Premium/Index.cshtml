@@ -4,16 +4,24 @@
     ViewData["Title"] = "Likers";
 }
 
+
 <h2>@ViewData["Title"]</h2>
 
 
-<table>
+@if (Model.IsPremium)
+{
+    <table>
+        @foreach (var user in Model.Users)
+        {
+            <tr>
+                <th>Liker: </th>
+                <td>@user.FirstName</td>
+            </tr>
+        }
+    </table>
 
-    @foreach (var user in Model.Users)
-    {
-        <tr>
-            <th>Liker: </th>
-            <td>@user.FirstName</td>
-        </tr>
-    }
-</table>
+}
+else{
+    <p>You need to upgrade to premimum</p>
+}
+

@@ -9,6 +9,7 @@ namespace TinderProject.Pages.Premium
 		private readonly AppDbContext _database;
 		public List<Interaction> Likers { get; set; }	
 		public List<User> Users { get; set; }
+		public bool IsPremium { get; set; }
 
 		public IndexModel(IUserRepository userRepository, AppDbContext database)
 		{
@@ -16,16 +17,26 @@ namespace TinderProject.Pages.Premium
 			_database = database;
 			Likers = new List<Interaction>();
 			Users = new List<User>();
+			
 		}
 
 
 		public void OnGet()
         {
 			var currentUser = _userRepository.GetLoggedInUser();
-
+			
 			Likers = _database.Interactions
 				.Where(l=> l.LikedId == currentUser.Id)
 				.ToList();
+
+			if(currentUser.PremiumUser == true)
+			{
+				IsPremium = true;
+			}
+			else
+			{
+				IsPremium = false;
+			}
 
             foreach (var liker in Likers)
             {
