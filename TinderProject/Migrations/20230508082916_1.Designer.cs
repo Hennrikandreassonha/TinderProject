@@ -12,7 +12,7 @@ using TinderProject.Data;
 namespace TinderProject.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230505092156_1")]
+    [Migration("20230508082916_1")]
     partial class _1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -106,9 +106,6 @@ namespace TinderProject.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<string>("ReceivedMessages")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("SentFromId")
                         .HasColumnType("int");
 
@@ -122,6 +119,32 @@ namespace TinderProject.Migrations
                     b.Property<int>("SentToId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SentFromId");
+
+                    b.HasIndex("SentToId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Messages");
+                });
+
+            modelBuilder.Entity("TinderProject.Models.PersonalType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
@@ -129,7 +152,7 @@ namespace TinderProject.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Messages");
+                    b.ToTable("PersonalTypes");
                 });
 
             modelBuilder.Entity("TinderProject.Models.User", b =>
@@ -151,7 +174,7 @@ namespace TinderProject.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Gender")
+                    b.Property<int?>("Gender")
                         .HasColumnType("int");
 
                     b.Property<string>("LastName")
@@ -164,8 +187,11 @@ namespace TinderProject.Migrations
                     b.Property<string>("OpenIDSubject")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Preference")
+                    b.Property<int?>("Preference")
                         .HasColumnType("int");
+
+                    b.Property<bool>("PremiumUser")
+                        .HasColumnType("bit");
 
                     b.Property<string>("ProfilePictureUrl")
                         .IsRequired()
@@ -227,8 +253,31 @@ namespace TinderProject.Migrations
 
             modelBuilder.Entity("TinderProject.Models.Message", b =>
                 {
-                    b.HasOne("TinderProject.Models.User", "User")
+                    b.HasOne("TinderProject.Models.User", "SentFrom")
+                        .WithMany()
+                        .HasForeignKey("SentFromId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("TinderProject.Models.User", "SendTo")
+                        .WithMany()
+                        .HasForeignKey("SentToId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("TinderProject.Models.User", null)
                         .WithMany("Users")
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("SendTo");
+
+                    b.Navigation("SentFrom");
+                });
+
+            modelBuilder.Entity("TinderProject.Models.PersonalType", b =>
+                {
+                    b.HasOne("TinderProject.Models.User", "User")
+                        .WithMany("PersonalTypes")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -247,6 +296,8 @@ namespace TinderProject.Migrations
                     b.Navigation("Matcher1");
 
                     b.Navigation("Matcher2");
+
+                    b.Navigation("PersonalTypes");
 
                     b.Navigation("Users");
                 });

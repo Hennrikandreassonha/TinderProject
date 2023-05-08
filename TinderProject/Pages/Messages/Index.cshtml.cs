@@ -44,10 +44,7 @@ namespace TinderProject.Pages.Messages
 
              User.AddRange(_database.Users.Where(u => otherUsersIds.Contains(u.Id)).ToList());
 
-
-
-            //Visa matcher som inte har påbörjat en konversation för att kunna klicka. 
-
+            //Look if a match has a conversation 
             var matches = _database.Matches.ToList();
             var messages = _database.Messages.ToList();
 

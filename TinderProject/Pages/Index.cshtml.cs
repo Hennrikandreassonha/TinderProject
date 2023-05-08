@@ -14,6 +14,8 @@ namespace TinderProject.Pages
         {
             _userRepo = repo;
             _context = context;
+            
+
         }
         public User LoggedInUser { get; set; }
 		public List<User> UsersToSwipe { get; set; }
@@ -56,6 +58,7 @@ namespace TinderProject.Pages
         }
         public IActionResult OnPost(string like)
         {
+          
             var userIndex = GetCurrentUserIndex();
 
             var loggedInUser = _userRepo.GetLoggedInUser();

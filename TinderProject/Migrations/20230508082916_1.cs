@@ -18,10 +18,11 @@ namespace TinderProject.Migrations
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DateOfBirth = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Gender = table.Column<int>(type: "int", nullable: false),
-                    Preference = table.Column<int>(type: "int", nullable: false),
+                    Gender = table.Column<int>(type: "int", nullable: true),
+                    Preference = table.Column<int>(type: "int", nullable: true),
                     ProfilePictureUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PremiumUser = table.Column<bool>(type: "bit", nullable: false),
                     OpenIDIssuer = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     OpenIDSubject = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
@@ -107,17 +108,45 @@ namespace TinderProject.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     SentMessage = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ReceivedMessages = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     SentTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     SentToId = table.Column<int>(type: "int", nullable: false),
                     SentFromId = table.Column<int>(type: "int", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false)
+                    UserId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Messages", x => x.Id);
                     table.ForeignKey(
+                        name: "FK_Messages_Users_SentFromId",
+                        column: x => x.SentFromId,
+                        principalTable: "Users",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Messages_Users_SentToId",
+                        column: x => x.SentToId,
+                        principalTable: "Users",
+                        principalColumn: "Id");
+                    table.ForeignKey(
                         name: "FK_Messages_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PersonalTypes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Type = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PersonalTypes", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_PersonalTypes_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
@@ -150,8 +179,23 @@ namespace TinderProject.Migrations
                 column: "User2Id");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Messages_SentFromId",
+                table: "Messages",
+                column: "SentFromId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Messages_SentToId",
+                table: "Messages",
+                column: "SentToId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Messages_UserId",
                 table: "Messages",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PersonalTypes_UserId",
+                table: "PersonalTypes",
                 column: "UserId");
         }
 
@@ -168,6 +212,9 @@ namespace TinderProject.Migrations
 
             migrationBuilder.DropTable(
                 name: "Messages");
+
+            migrationBuilder.DropTable(
+                name: "PersonalTypes");
 
             migrationBuilder.DropTable(
                 name: "Users");

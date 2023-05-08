@@ -131,6 +131,28 @@ namespace TinderProject.Migrations
                     b.ToTable("Messages");
                 });
 
+            modelBuilder.Entity("TinderProject.Models.PersonalType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("PersonalTypes");
+                });
+
             modelBuilder.Entity("TinderProject.Models.User", b =>
                 {
                     b.Property<int>("Id")
@@ -150,7 +172,7 @@ namespace TinderProject.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Gender")
+                    b.Property<int?>("Gender")
                         .HasColumnType("int");
 
                     b.Property<string>("LastName")
@@ -163,8 +185,11 @@ namespace TinderProject.Migrations
                     b.Property<string>("OpenIDSubject")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Preference")
+                    b.Property<int?>("Preference")
                         .HasColumnType("int");
+
+                    b.Property<bool>("PremiumUser")
+                        .HasColumnType("bit");
 
                     b.Property<string>("ProfilePictureUrl")
                         .IsRequired()
@@ -247,6 +272,17 @@ namespace TinderProject.Migrations
                     b.Navigation("SentFrom");
                 });
 
+            modelBuilder.Entity("TinderProject.Models.PersonalType", b =>
+                {
+                    b.HasOne("TinderProject.Models.User", "User")
+                        .WithMany("PersonalTypes")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("TinderProject.Models.User", b =>
                 {
                     b.Navigation("Interests");
@@ -258,6 +294,8 @@ namespace TinderProject.Migrations
                     b.Navigation("Matcher1");
 
                     b.Navigation("Matcher2");
+
+                    b.Navigation("PersonalTypes");
 
                     b.Navigation("Users");
                 });

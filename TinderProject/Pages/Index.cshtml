@@ -31,7 +31,7 @@ else
                 <div>
                     @* Skicka användaren till messagepage. *@
                     <form>
-                        <button class="my-button" type="submit" asp-page="/Messages/Index">Send message</button>
+                        <button class="my-button" type="submit" asp-page="/Messages/ShowMessage" asp-route-userId="@Model.CurrentUserShown.Id">>Send message</button>
                         <button class="my-button" asp-page="/Index">Keep swiping</button>
                     </form>
                 </div>
