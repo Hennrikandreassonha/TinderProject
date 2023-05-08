@@ -53,6 +53,7 @@ namespace TinderProject.Pages.UserPage
 			userToUpdate.Preference = User.Preference;
 			userToUpdate.ProfilePictureUrl = User.ProfilePictureUrl;
 			userToUpdate.Description = User.Description;
+			userToUpdate.PremiumUser = User.PremiumUser;
 
 			_database.Users.Update(userToUpdate);
 			_database.SaveChanges();
