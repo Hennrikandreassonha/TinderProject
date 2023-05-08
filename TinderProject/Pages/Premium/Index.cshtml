@@ -1,0 +1,19 @@
+﻿@page
+@model TinderProject.Pages.Premium.IndexModel
+@{
+    ViewData["Title"] = "Likers";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+
+<table>
+
+    @foreach (var user in Model.Users)
+    {
+        <tr>
+            <th>Liker: </th>
+            <td>@user.FirstName</td>
+        </tr>
+    }
+</table>
