@@ -65,11 +65,6 @@ namespace TinderProject.Repositories
            !userMatches.Select(m => m.User2Id).Contains(u.Id))
             .ToList();
         }
-        public static List<User> OrderByMatchingTypes()
-        {
-            //This function orders the SwipeList based on amount of PersonalTypes matching. 
-            //The person with most matching PersonalTypes will be at index 0.
-        }
         public User? GetUser(int id)
         {
             return _context.Users.Find(id);
