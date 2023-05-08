@@ -10,20 +10,21 @@
 
     @if (Model.User != null && Model.User.Any())
     {
-
-        <ul>
-            <h3>Conversation</h3>
+        <table>
             @foreach (var user in Model.User)
             {
-                <li>
-                    <a asp-page="ShowMessage" asp-route-userId="@user.Id">@user.FirstName</a>
-                    <img src="@user.ProfilePictureUrl" alt="Profile Picture" id="messageProfilePic">
-                    <form method="post">
-                        <button type="submit" asp-route-userId="@user.Id">Delete Match</button>
-                    </form>
-                </li>
+                <tr>
+                    <th>Name: </th>
+                    <td><a asp-page="ShowMessage" asp-route-userId="@user.Id">@user.FirstName</a></td>
+                    <td><img src="@user.ProfilePictureUrl" alt="Profile Picture" id="messageProfilePic"></td>
+                    <td>
+                        <form method="post">
+                            <button type="submit" asp-route-userId="@user.Id">Delete Match</button>
+                        </form>
+                    </td>
+                </tr>
             }
-        </ul>
+        </table>
     }
     else
     {
@@ -34,18 +35,22 @@
     @if (Model.NoConversation != null && Model.NoConversation.Any())
     {
         <p>Start konversation whit: </p>
-        <ul>
+
+        <table>
             @foreach (var user in Model.NoConversation)
             {
-                <li>
-                    <a asp-page="ShowMessage" asp-route-userId="@user.Id">@user.FirstName</a>
-                    <img src="@user.ProfilePictureUrl" alt="Profile Picture" id="messageProfilePic">
-                    <form method="post">
-                        <button type="submit" asp-route-userId="@user.Id">Delete Match</button>
-                    </form>
-                </li>
+                <tr>
+                    <th>Name: </th>
+                    <td><a asp-page="ShowMessage" asp-route-userId="@user.Id">@user.FirstName</a></td>
+                    <td><img src="@user.ProfilePictureUrl" alt="Profile Picture" id="messageProfilePic"></td>
+                    <td>
+                        <form method="post">
+                            <button type="submit" asp-route-userId="@user.Id">Delete Match</button>
+                        </form>
+                    </td>
+                </tr>
             }
-        </ul>
+        </table>
     }
     else
     {

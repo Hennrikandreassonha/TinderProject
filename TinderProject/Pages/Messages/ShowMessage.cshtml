@@ -8,18 +8,17 @@
 <h2>@ViewData["Title"]</h2>
 
 <div id="message-div">
+    <p>Conversation with: @Model.OtherUser.FirstName </p>
 
     @foreach(var message in Model.Messages)
     {
         <p id="message-name">@message.SentFrom.FirstName wrote:</p>
         <p id="message-message">@message.SentMessage</p>
         <p id="message-time">@message.SentTime</p>
-        
     }
 </div>
 <form method="post">
     <label for="message">Message</label>
     <textarea name="message" id="message">Write your message</textarea>
-
     <button type="submit">Send</button>
 </form>
