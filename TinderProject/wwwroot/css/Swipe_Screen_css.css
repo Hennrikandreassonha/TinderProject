@@ -59,7 +59,7 @@
     font-size: 40px;
 }
 
-.interest-div {
+.interest-type-match {
     display: inline-block;
     border: 1px solid var(--pink);
     border-radius: 15px;
@@ -70,11 +70,7 @@
     background-image: url("../Pictures/background_orange.png")
 }
 
-.interest-div p {
-    color: #FF655B
-}
-
-.personality-div {
+.interest-type-nomatch {
     display: inline-block;
     border: 1px solid var(--pink);
     border-radius: 15px;
@@ -82,7 +78,11 @@
     color: white;
     padding: 2px 5px;
     margin: 3px;
-    background-image: url("../Pictures/tinderbackground.jpg")
+}
+
+
+.interest-div p {
+    color: #FF655B
 }
 
 #like-dislike-flex {
@@ -147,9 +147,11 @@
 
     transition: ease-in-out 1.5s;
 }
-.show-match-div{
+
+.show-match-div {
     opacity: 0.9 !important;
 }
+
 #match-options-flex {
     display: flex;
     width: 100%;
