@@ -29,7 +29,6 @@ namespace TinderProject.Pages.Messages
             _userRepository = userRepository;
             Messages = new List<Message>();
             NoConversation = new List<User>();
-
             User = new List<User>();
         }
 

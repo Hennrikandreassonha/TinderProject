@@ -12,7 +12,7 @@ namespace TinderProject.Pages.Messages
         private readonly IUserRepository _userRepository;
 
         public Message Message { get; set; }
-        public User User { get; set; }
+        public User OtherUser { get; set; }
         public List<Message> Messages { get; set; }
 
         public MessegesModel(AppDbContext database, IUserRepository userRepository)
@@ -26,7 +26,7 @@ namespace TinderProject.Pages.Messages
         public void OnGet(int? userId)
         {
             var currentUser = _userRepository.GetLoggedInUser();
-            var otherUser = _database.Users.SingleOrDefault(u => u.Id == userId);
+            OtherUser = _database.Users.SingleOrDefault(u => u.Id == userId);
 
             Messages = _database.Messages
                 .Where(m => (m.SentToId == currentUser.Id && m.SentFromId == userId) ||
