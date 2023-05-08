@@ -18,22 +18,37 @@ namespace TinderProject.Repositories
         }
         public ICollection<User> GetAllFemale()
         {
-            return _context.Users.Where(x => x.Gender == GenderType.Female).Include(x => x.Interests).ToList();
+            return _context.Users
+                .Where(x => x.Gender == GenderType.Female)
+                .Include(x => x.Interests)
+                .Include(x => x.PersonalTypes)
+                .ToList();
         }
 
         public ICollection<User> GetAllMale()
         {
-            return _context.Users.Where(x => x.Gender == GenderType.Male).Include(x => x.Interests).ToList();
+            return _context.Users
+            .Where(x => x.Gender == GenderType.Male)
+            .Include(x => x.Interests)
+            .Include(x => x.PersonalTypes)
+            .ToList();
         }
 
         public ICollection<User> GetAllOther()
         {
-            return _context.Users.Where(x => x.Gender == GenderType.Other).Include(x => x.Interests).ToList();
+            return _context.Users
+            .Where(x => x.Gender == GenderType.Other)
+            .Include(x => x.Interests)
+            .Include(x => x.PersonalTypes)
+            .ToList();
         }
 
         public ICollection<User> GetAllUsers()
         {
-            return _context.Users.Include(x => x.Interests).ToList();
+            return _context.Users
+            .Include(x => x.Interests)
+            .Include(x => x.PersonalTypes)
+            .ToList();
         }
 
         public User? GetLoggedInUser()
@@ -59,11 +74,12 @@ namespace TinderProject.Repositories
             var userMatches = GetMatches(user);
 
             return userList
-             .Where(u => u.Id != user.Id &&
-           !userLikesIds.Contains(u.Id) &&
-           !userMatches.Select(m => m.User1Id).Contains(u.Id) &&
-           !userMatches.Select(m => m.User2Id).Contains(u.Id))
-            .ToList();
+                 .Where(u => u.Id != user.Id &&
+                 !userLikesIds.Contains(u.Id) &&
+                 !userMatches.Select(m => m.User1Id).Contains(u.Id) &&
+                 !userMatches.Select(m => m.User2Id).Contains(u.Id) &&
+                 u.Interests != null && u.PersonalTypes != null)
+                 .ToList();
         }
         public User? GetUser(int id)
         {
