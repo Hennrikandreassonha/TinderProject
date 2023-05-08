@@ -96,6 +96,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<AccessControl>();
 
+
 var app = builder.Build();
 
 if (!app.Environment.IsDevelopment())

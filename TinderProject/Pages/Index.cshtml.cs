@@ -25,8 +25,6 @@ namespace TinderProject.Pages
         public void OnGet(string? match)
         {
             //Fixa så att den nya användaren visas Efter popupen tagits bort och inte innan.
-
-            match = "true";
             if (match == "true")
             {
                 Match = true;
@@ -58,7 +56,6 @@ namespace TinderProject.Pages
         }
         public IActionResult OnPost(string like)
         {
-            
             var userIndex = GetCurrentUserIndex();
 
             var loggedInUser = _userRepo.GetLoggedInUser();
