@@ -9,19 +9,23 @@ namespace TinderProject.Pages
     public class IndexModel : PageModel
     {
         private readonly IUserRepository _userRepo;
+        private readonly IMatchRepository _matchRepo;
         private readonly AppDbContext _context;
-        public IndexModel(IUserRepository repo, AppDbContext context)
+        public IndexModel(IUserRepository repo, AppDbContext context, IMatchRepository matchRepo)
         {
             _userRepo = repo;
             _context = context;
+            _matchRepo = matchRepo;
         }
         public User LoggedInUser { get; set; }
-		public List<User> UsersToSwipe { get; set; }
+        public List<User> UsersToSwipe { get; set; }
         public User CurrentUserShown { get; set; }
         [BindProperty]
         public bool Match { get; set; }
         [BindProperty]
         public bool NoUsersToSwipe { get; set; }
+        [BindProperty]
+        public bool SmartMatching { get; set; } = true;
         public void OnGet(string? match)
         {
             //Fixa så att den nya användaren visas Efter popupen tagits bort och inte innan.
@@ -34,6 +38,14 @@ namespace TinderProject.Pages
             if (LoggedInUser != null)
             {
                 UsersToSwipe = _userRepo.GetUsersToSwipe(LoggedInUser).ToList();
+                if (SmartMatching)
+                {
+                    UsersToSwipe = _matchRepo.OrderByMatchingTypes(UsersToSwipe, LoggedInUser);
+                }
+                else
+                {
+                    UsersToSwipe = _matchRepo.OrderByLeastMatchingTypes(UsersToSwipe, LoggedInUser);
+                }
             }
 
             if (UsersToSwipe.Count == 0)

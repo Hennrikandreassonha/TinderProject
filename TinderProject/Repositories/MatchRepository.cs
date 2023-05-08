@@ -21,11 +21,11 @@ namespace TinderProject.Repositories
 
             var userPersonalTypes = loggedInUser.PersonalTypes;
 
-            IDictionary<int, User> matchingUsers = new Dictionary<int, User>();
+            List<KeyValuePair<int, User>> matchingUsers = new List<KeyValuePair<int, User>>();
 
             foreach (var user in userList)
             {
-                var personalTypes = user.PersonalTypes;
+                var personalTypes = _userRepo.GetPersonalTypes(user);
                 int matchCount = 0;
 
                 foreach (var type in personalTypes)
@@ -35,7 +35,7 @@ namespace TinderProject.Repositories
                         matchCount++;
                     }
                 }
-                matchingUsers.Add(matchCount, user);
+                matchingUsers.Add(new KeyValuePair<int, User>(matchCount, user));
             }
 
             return matchingUsers.OrderByDescending(x => x.Key).Select(x => x.Value).ToList();
