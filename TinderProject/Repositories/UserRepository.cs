@@ -31,7 +31,6 @@ namespace TinderProject.Repositories
             return _context.Users.Where(x => x.Gender == GenderType.Other).Include(x => x.Interests).ToList();
         }
 
-
         public ICollection<User> GetAllUsers()
         {
             return _context.Users.Include(x => x.Interests).ToList();
@@ -66,11 +65,19 @@ namespace TinderProject.Repositories
            !userMatches.Select(m => m.User2Id).Contains(u.Id))
             .ToList();
         }
+        public static List<User> OrderByMatchingTypes()
+        {
+            //This function orders the SwipeList based on amount of PersonalTypes matching. 
+            //The person with most matching PersonalTypes will be at index 0.
+        }
         public User? GetUser(int id)
         {
             return _context.Users.Find(id);
         }
-
+        public ICollection<PersonalType> GetPersonalTypes(User user)
+        {
+            return _context.PersonalTypes.Where(x => x.UserId == user.Id).ToArray();
+        }
         public ICollection<Interaction> GetUserLikes(User user)
         {
             return _context.Interactions.Where(x => x.LikerId == user.Id).ToArray();
