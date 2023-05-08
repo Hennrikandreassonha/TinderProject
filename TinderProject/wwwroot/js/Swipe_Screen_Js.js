@@ -77,7 +77,21 @@ var matchDiv = document.getElementById("match-div");
 
 var matchDiv = document.getElementById("match-div");
 if (matchDiv != null) {
-  setTimeout(function() {
-    matchDiv.classList.add("show-match-div");
-  }, 500);
+    setTimeout(function () {
+        matchDiv.classList.add("show-match-div");
+    }, 500);
+}
+
+function submitForm() {
+    const form = document.getElementById("radio-form");
+    const radios = document.getElementsByName("smartMatching");
+
+    radios.forEach(element => {
+        if (element.checked) {
+            value = element.value;
+        }
+    });
+
+    // form.setAttribute("action", value);
+    form.submit();
 }

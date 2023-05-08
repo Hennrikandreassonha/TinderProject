@@ -24,7 +24,8 @@
 }
 
 #swipe-div p,
-#swipe-div h1 {
+#swipe-div h1,
+#swipe-div label {
     color: white;
     text-shadow: -1px 1px 0 #000, 1px 1px 0 #000, 1px -1px 0 #000;
 }
@@ -40,6 +41,8 @@
 
 .area-a {
     grid-area: a;
+    display: flex;
+    flex-direction: column;
 }
 
 .area-b {
@@ -53,6 +56,12 @@
 
 .area-c {
     grid-area: c;
+}
+
+#upper-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 #name-age {
@@ -165,4 +174,10 @@
     text-decoration: underline;
     font-size: 42px;
     margin-bottom: 2rem;
+}
+
+.radio-buttons {
+    display: flex;
+    flex-direction: column;
+    margin-right: 1rem;
 }

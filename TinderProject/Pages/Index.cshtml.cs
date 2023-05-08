@@ -25,7 +25,7 @@ namespace TinderProject.Pages
         [BindProperty]
         public bool NoUsersToSwipe { get; set; }
         [BindProperty]
-        public bool SmartMatching { get; set; } = true;
+        public bool SmartMatching { get; set; }
         public void OnGet(string? match)
         {
             //Fixa så att den nya användaren visas Efter popupen tagits bort och inte innan.
@@ -33,6 +33,8 @@ namespace TinderProject.Pages
             {
                 Match = true;
             }
+
+            SmartMatching = HttpContext.Session.GetString("smartMatching") == "true" || HttpContext.Session.GetString("smartMatching") == null;
 
             LoggedInUser = _userRepo.GetLoggedInUser();
             if (LoggedInUser != null)
@@ -57,7 +59,7 @@ namespace TinderProject.Pages
             var currentUserIndex = HttpContext.Session.GetInt32("currentUserIndex");
 
             //If we have reached end of users or we are missing indexvalue the index will be set to zero.
-            if (currentUserIndex == null || currentUserIndex >= UsersToSwipe.Count())
+            if (currentUserIndex == null || currentUserIndex >= UsersToSwipe.Count)
             {
                 HttpContext.Session.SetInt32("currentUserIndex", 0);
 
@@ -66,9 +68,20 @@ namespace TinderProject.Pages
 
             CurrentUserShown = UsersToSwipe[(int)currentUserIndex!];
         }
-        public IActionResult OnPost(string like)
+        public IActionResult OnPost(string like, string smartMatching)
         {
-          
+            if (smartMatching == "true")
+            {
+                HttpContext.Session.SetString("smartMatching", "true");
+                return RedirectToPage("/Index");
+
+            }
+            else if (smartMatching == "false")
+            {
+                HttpContext.Session.SetString("smartMatching", "false");
+                return RedirectToPage("/Index");
+            }
+
             var userIndex = GetCurrentUserIndex();
 
             var loggedInUser = _userRepo.GetLoggedInUser();
