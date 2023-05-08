@@ -1,22 +1,21 @@
 @page
+@using TinderProject.Utilities
 @model IndexModel
+@inject TinderProject.Data.AccessControl accessControl
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
 @{
 	ViewData["Title"] = "Profile";
 }
 
 <h1>@ViewData["Title"]</h1>
 
-@if (string.IsNullOrWhiteSpace(Model.User.FirstName)
-		|| string.IsNullOrWhiteSpace(Model.User.LastName)
-		|| (Model.User.DateOfBirth == DateTime.MinValue)
-		|| Model.User.Gender == null
-		|| Model.User.Preference == null
-		|| string.IsNullOrWhiteSpace(Model.User.ProfilePictureUrl)
-		|| string.IsNullOrWhiteSpace(Model.User.Description))
+@{
+	var completionMessage = ProfileChecker.GetProfileCompletionMessage(Model.LoggedInUser, HttpContextAccessor);
+}
+
+@if (!string.IsNullOrWhiteSpace(completionMessage?.ToString()))
 {
-	<p>Your profile is not complete. Please fill in your profile information by clicking
-		<a asp-page="/UserPage/Edit"><span class="edit-link">here</span></a> to start the matchmaking.
-	</p>
+	<p>@completionMessage</p>
 }
 else
 {
@@ -25,31 +24,31 @@ else
 	<table>
 		<tr>
 			<th>First name</th>
-			<td>@Model.User.FirstName</td>
+			<td>@Model.LoggedInUser.FirstName</td>
 		</tr>
 		<tr>
 			<th>Last name</th>
-			<td>@Model.User.LastName</td>
+			<td>@Model.LoggedInUser.LastName</td>
 		</tr>
 		<tr>
 			<th>Date of birth</th>
-			<td>@Model.User.DateOfBirth.ToShortDateString()</td>
+			<td>@Model.LoggedInUser.DateOfBirth.ToShortDateString()</td>
 		</tr>
 		<tr>
 			<th>Gender</th>
-			<td>@Model.User.Gender</td>
+			<td>@Model.LoggedInUser.Gender</td>
 		</tr>
 		<tr>
 			<th>Preference</th>
-			<td>@Model.User.Preference</td>
+			<td>@Model.LoggedInUser.Preference</td>
 		</tr>
 		<tr>
 			<th>Profile picture url</th>
-			<td>@Model.User.ProfilePictureUrl</td>
+			<td>@Model.LoggedInUser.ProfilePictureUrl</td>
 		</tr>
 		<tr>
 			<th>Description</th>
-			<td>@Model.User.Description</td>
+			<td>@Model.LoggedInUser.Description</td>
 		</tr>
 	</table>
 
