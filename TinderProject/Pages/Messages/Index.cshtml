@@ -16,8 +16,11 @@
             @foreach (var user in Model.User)
             {
                 <li>
-                    <a asp-page="ShowMessage" asp-route-userId="">@user.FirstName</a>
+                    <a asp-page="ShowMessage" asp-route-userId="@user.Id">@user.FirstName</a>
                     <img src="@user.ProfilePictureUrl" alt="Profile Picture" id="messageProfilePic">
+                    <form method="post">
+                        <button type="submit" asp-route-userId="@user.Id">Delete Match</button>
+                    </form>
                 </li>
             }
         </ul>
@@ -32,11 +35,14 @@
     {
         <p>Start konversation whit: </p>
         <ul>
-            @foreach (var message in Model.NoConversation)
+            @foreach (var user in Model.NoConversation)
             {
                 <li>
-                    <a asp-page="ShowMessage" asp-route-userId="@message.Id" >@message.FirstName</a>
-                    <img src="@message.ProfilePictureUrl" alt="Profile Picture" id="messageProfilePic">
+                    <a asp-page="ShowMessage" asp-route-userId="@user.Id">@user.FirstName</a>
+                    <img src="@user.ProfilePictureUrl" alt="Profile Picture" id="messageProfilePic">
+                    <form method="post">
+                        <button type="submit" asp-route-userId="@user.Id">Delete Match</button>
+                    </form>
                 </li>
             }
         </ul>
