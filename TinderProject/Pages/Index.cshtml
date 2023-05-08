@@ -31,7 +31,8 @@ else
                 <div>
                     @* Skicka användaren till messagepage. *@
                     <form>
-                        <button class="my-button" type="submit" asp-page="/Messages/ShowMessage" asp-route-userId="@Model.CurrentUserShown.Id">>Send message</button>
+                        <button class="my-button" type="submit" asp-page="/Messages/ShowMessage"
+                            asp-route-userId="@Model.CurrentUserShown.Id">Send message</button>
                         <button class="my-button" asp-page="/Index">Keep swiping</button>
                     </form>
                 </div>
@@ -43,20 +44,53 @@ else
     {
         <p>Could not find any users to swipe on!</p>
     }
-    @if (!Model.NoUsersToSwipe)
+    else
     {
+
         <div id="swipe-div" style="background-image: url('@Model.CurrentUserShown?.ProfilePictureUrl')">
             <div class="area-a">
-                <h1 id="name-age">@Model.CurrentUserShown.FirstName @Model.CurrentUserShown.Age</h1>
-                <p>@Model.CurrentUserShown.Description</p>
+                <div id="upper-section">
+                    <h1 id="name-age">@Model.CurrentUserShown.FirstName @Model.CurrentUserShown.Age</h1>
 
+                    <form id="radio-form" class="radio-buttons" method="post"
+                        title="Smart matching shows users with matching personality types first.&#010;Clicking these will cause a page reload">
+                        <label>
+                            <input type="radio" name="smartMatching" value="true" checked="@Model.SmartMatching"
+                                onchange="submitForm()">
+                            Smart matching
+                        </label>
+                        <label>
+                            <input type="radio" name="smartMatching" value="false" checked="@(!Model.SmartMatching)"
+                                onchange="submitForm()">
+                            Reverse matching
+                        </label>
+                    </form>
+                </div>
+                <p>@Model.CurrentUserShown.Description</p>
             </div>
+
             <div class="area-b">
                 <div>
                     <p>Personality type:</p>
-                    @foreach(var item in Model.CurrentUserShown.PersonalTypes){
-                        <div class="interest-div">@item.Type</div>
-
+                    @foreach (var item in Model.CurrentUserShown.PersonalTypes)
+                    {
+                        bool isMatch = false;
+                        foreach (var loggedInType in Model.LoggedInUser.PersonalTypes)
+                        {
+                            if (loggedInType.Type == item.Type)
+                            {
+                                isMatch = true;
+                                break;
+                            }
+                        }
+                        if (isMatch)
+                        {
+                            <div class="interest-type-match">@item.Type</div>
+                        }
+                        else
+                        {
+                            <div class="interest-type-nomatch">@item.Type</div>
+                        }
                     }
                 </div>
 
@@ -64,7 +98,23 @@ else
                     <p>Interests:</p>
                     @foreach (var item in Model.CurrentUserShown.Interests)
                     {
-                        <div class="interest-div">@item.Interest</div>
+                        bool isMatch = false;
+                        foreach (var loggedInInterest in Model.LoggedInUser.Interests)
+                        {
+                            if (loggedInInterest.Interest == item.Interest)
+                            {
+                                isMatch = true;
+                                break;
+                            }
+                        }
+                        if (isMatch)
+                        {
+                            <div class="interest-type-match">@item.Interest</div>
+                        }
+                        else
+                        {
+                            <div class="interest-type-nomatch">@item.Interest</div>
+                        }
                     }
 
                 </div>

@@ -30,9 +30,12 @@ namespace TinderProject.Repositories
 
                 foreach (var type in personalTypes)
                 {
-                    if (userPersonalTypes.Contains(type))
+                    foreach (var item in userPersonalTypes)
                     {
-                        matchCount++;
+                        if (item.Type == type.Type)
+                        {
+                            matchCount++;
+                        }
                     }
                 }
                 matchingUsers.Add(new KeyValuePair<int, User>(matchCount, user));
