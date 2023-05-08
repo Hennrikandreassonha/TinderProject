@@ -9,9 +9,9 @@ namespace TinderProject.Models
         public int Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-		//Kanske endast behöver årtal senare.
-		[DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-		public DateTime DateOfBirth { get; set; }
+        //Kanske endast behöver årtal senare.
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        public DateTime DateOfBirth { get; set; }
         public GenderType? Gender { get; set; }
         public SwipePreference? Preference { get; set; }
         public string ProfilePictureUrl { get; set; }
@@ -43,4 +43,5 @@ namespace TinderProject.Models
         public ICollection<Match>? Matcher1 { get; set; }
         public ICollection<Match>? Matcher2 { get; set; }
     }
+
 }

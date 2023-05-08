@@ -81,14 +81,16 @@ namespace TinderProject.Data
 
                 foreach (var item in personalTypes)
                 {
-                    PersonalType interest = new()
+                    PersonalType type = new()
                     {
                         UserId = personAdded.Id,
                         Type = item
                     };
 
-                    personalTypesToAdd.Add(interest);
+                    personalTypesToAdd.Add(type);
                 }
+
+                database.AddRange(intrestsToAdd);
                 database.AddRange(personalTypesToAdd);
                 database.SaveChanges();
             }
@@ -158,9 +160,7 @@ namespace TinderProject.Data
         }
         public static string[] GenerateInterests()
         {
-            //Users will have atleast 3 and and a maximum of 6 interests.
-
-            int randomNumber = random.Next(2, 5);
+            int randomNumber = random.Next(3, 7);
             List<string> interests = new();
 
             for (int i = 0; i < randomNumber; i++)
@@ -169,20 +169,15 @@ namespace TinderProject.Data
 
                 while (interests.Contains(InterestsArray![interestIndex]))
                 {
-                    if (interestIndex != InterestsArray.Count())
-                    {
-                        interestIndex++;
-                    }
-                    else
-                    {
-                        interestIndex--;
-                    }
+                    interestIndex = random.Next(0, InterestsArray.Length);
                 }
+
                 interests.Add(InterestsArray![interestIndex]);
             }
 
             return interests.ToArray();
         }
+
 
         public static string GenerateProfilePicUrl(GenderType genderType)
         {
@@ -266,7 +261,6 @@ namespace TinderProject.Data
 
             return DateTime.ParseExact(dateString, "ddMMyyyy", CultureInfo.InvariantCulture);
         }
-
         public static string[] GeneratePersonalTypes()
         {
             int randomNumber = random.Next(2, 5);
@@ -277,24 +271,17 @@ namespace TinderProject.Data
             {
                 int personalTypeIndex = random.Next(0, PersonalTypes.Length);
 
-                //Using this look to not add same personaltype 2 times.
-                while (personalTypes.Contains(InterestsArray![personalTypeIndex]))
+                while (personalTypes.Contains(PersonalTypes[personalTypeIndex]))
                 {
-                    if (personalTypeIndex != personalTypes.Count())
-                    {
-                        personalTypeIndex++;
-                    }
-                    else
-                    {
-                        personalTypeIndex--;
-                    }
+                    personalTypeIndex = random.Next(0, PersonalTypes.Length);
                 }
 
-                personalTypes.Add(InterestsArray![personalTypeIndex]);
+                personalTypes.Add(PersonalTypes[personalTypeIndex]);
             }
 
             return personalTypes.ToArray();
         }
+
         public static bool GeneratePremium()
         {
             int randomNumber = random.Next(1, 3);
