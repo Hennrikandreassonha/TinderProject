@@ -50,7 +50,11 @@ else
 			<th>Description</th>
 			<td>@Model.LoggedInUser.Description</td>
 		</tr>
+		<tr>
+			<th>Premium user</th>
+			<td>@(Model.LoggedInUser.PremiumUser ? "Yes" : "No")</td>
+		</tr>
 	</table>
 
-	<h3><a asp-page="/UserPage/Edit" class="edit-link">Edit profile</a></h3>
+	<h3 class="edit-link"><a asp-page="/UserPage/Edit">Edit profile</a></h3>
 }
