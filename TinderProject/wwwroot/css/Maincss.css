@@ -134,7 +134,7 @@ a:active {
     width: 2rem;
 }
 
-.red-link {
-    color: red;
+.edit-link {
+    color: blue;
     font-weight: bold;
 }
