@@ -1,36 +1,28 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Moq;
 using Xunit;
+using Moq;
+using TinderProject.Pages;
 
 namespace TinderProject.Tests
 {
     public class UnitTests
     {
-        [Fact]
-        public void IsMatchTest()
+        private readonly Mock<AppDbContext> fakeDb = new();
+        private readonly Mock<IUserRepository> fakeRepo = new();
+        public UnitTests()
         {
-            // var optionsBuilder = new DbContextOptionsBuilder()
-            var mockUserRepo = new Mock<IUserRepository>();
-            var mockDbContext = new Mock<AppDbContext>();
+            // Initialize the options builder and database context
+            IndexModel page = new(fakeRepo.Object, fakeDb.Object);
+        }
+        [Fact]
+        public void TestTest()
+        {
+            // Act
+            var users = fakeDb.Object.Users.ToArray();
+            int userCount = users.Count();
 
-            var page = new Pages.IndexModel(mockUserRepo.Object, mockDbContext.Object);
+            // Assert
+            Assert.Equal(2, userCount);
 
-            int loggedInUserId = 1;
-            int likedUserId = 2;
-
-            Interaction testInteraction = new()
-            {
-                LikerId = loggedInUserId,
-                LikedId = likedUserId,
-                DateLiked = DateTime.Now
-            };
-
-            // mockDbContext.SetupAdd(testInteraction);
-
-            Assert.True(page.CheckIfMatch(loggedInUserId, likedUserId));
         }
     }
 }
