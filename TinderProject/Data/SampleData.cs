@@ -12,7 +12,7 @@ namespace TinderProject.Data
         private static readonly string[]? FemaleNames = File.ReadAllLines("./Data/DataToUsers/Women.txt");
         private static readonly string[]? LastNames = File.ReadAllLines("./Data/DataToUsers/Lastnames.txt");
         private static readonly string[]? InterestsArray = File.ReadAllLines("./Data/DataToUsers/Interests.txt");
-        private static readonly string[]? PersonalTypes = File.ReadAllLines("./Data/DataToUsers/Adjectives.txt");
+        private static readonly string[]? PersonalTypes = File.ReadAllLines("./Data/DataToUsers/Personaltypes.txt");
 
         public static List<int> TakenPicUrlIndices { get; set; } = new List<int>();
 
