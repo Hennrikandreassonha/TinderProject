@@ -47,6 +47,28 @@ else
 			<td>@Model.LoggedInUser.ProfilePictureUrl</td>
 		</tr>
 		<tr>
+			<th>Personality type</th>
+			<td>
+				<ul>
+					@foreach (var personalityType in Model.LoggedInUser.PersonalTypes)
+					{
+						<li>@personalityType</li>
+					}
+				</ul>
+			</td>
+		</tr>
+		<tr>
+			<th>Interests</th>
+			<td>
+				<ul>
+				@foreach (var interest in Model.LoggedInUser.Interests)
+				{
+					<li>@interest</li>
+				}
+				</ul>
+			</td>
+		</tr>
+		<tr>
 			<th>Description</th>
 			<td>@Model.LoggedInUser.Description</td>
 		</tr>
