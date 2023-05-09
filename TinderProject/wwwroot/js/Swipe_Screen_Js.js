@@ -92,6 +92,5 @@ function submitForm() {
         }
     });
 
-    // form.setAttribute("action", value);
     form.submit();
 }
