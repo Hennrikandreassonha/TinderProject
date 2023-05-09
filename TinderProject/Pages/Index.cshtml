@@ -121,11 +121,19 @@ else
 
             <form method="post" id="like-dislike-flex" class="area-c">
 
+                @* Dislike button *@
                 <button type="submit" name="like" value="false" class="invis-btn">
                     <img src="~/Pictures/red_cross.png" alt="A red cross for disliking" id="dislike-button"
                         class="like-dislike-pictures">
                 </button>
 
+                @* Super like button *@
+                <button type="submit" name="like" value="super" class="invis-btn" asp-route-userId="@Model.CurrentUserShown.Id">
+                    <img src="~/Pictures/super.png" alt="Blue star for superlike" id="super-like-button"
+                        class="like-dislike-pictures">
+                </button>
+
+                @* Like button *@
                 <button type="submit" name="like" value="true" class="invis-btn" asp-route-userId="@Model.CurrentUserShown.Id">
                     <img src="~/Pictures/green_Heart.png" alt="A green heart for liking" id="like-button"
                         class="like-dislike-pictures">

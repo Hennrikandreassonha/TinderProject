@@ -7,8 +7,8 @@ namespace TinderProject.Pages
     {
         private readonly IUserRepository _userRepo;
         private readonly IMatchRepository _matchRepo;
-        private readonly AppDbContext _context;
-        public IndexModel(IUserRepository repo, AppDbContext context, IMatchRepository matchRepo)
+        private readonly IAppDbContext _context;
+        public IndexModel(IUserRepository repo, IAppDbContext context, IMatchRepository matchRepo)
         {
             _userRepo = repo;
             _context = context;
@@ -154,7 +154,7 @@ namespace TinderProject.Pages
                 MatchDate = DateTime.Now
             };
 
-            _context.Add(newMatch);
+            _context.Matches.Add(newMatch);
             _context.SaveChanges();
         }
     }
