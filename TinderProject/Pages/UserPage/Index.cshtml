@@ -43,10 +43,6 @@ else
 			<td>@Model.LoggedInUser.Preference</td>
 		</tr>
 		<tr>
-			<th>Profile picture url</th>
-			<td>@Model.LoggedInUser.ProfilePictureUrl</td>
-		</tr>
-		<tr>
 			<th>Personality type</th>
 			<td>
 				<ul>
@@ -61,16 +57,20 @@ else
 			<th>Interests</th>
 			<td>
 				<ul>
-				@foreach (var interest in Model.LoggedInUser.Interests)
-				{
-					<li>@interest</li>
-				}
+					@foreach (var interest in Model.LoggedInUser.Interests)
+					{
+						<li>@interest</li>
+					}
 				</ul>
 			</td>
 		</tr>
 		<tr>
 			<th>Description</th>
 			<td>@Model.LoggedInUser.Description</td>
+		</tr>
+		<tr>
+			<th>Profile picture url</th>
+			<td>@Model.LoggedInUser.ProfilePictureUrl</td>
 		</tr>
 		<tr>
 			<th>Premium user</th>
