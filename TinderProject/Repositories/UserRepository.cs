@@ -70,6 +70,8 @@ namespace TinderProject.Repositories
             userList = (user.Preference == SwipePreference.Male) ? GetAllMale().ToList() : userList;
             userList = (user.Preference == SwipePreference.Female) ? GetAllFemale().ToList() : userList;
 
+            userList = FilterAge(userList, user);
+
             var userLikesIds = GetUserLikes(user).Select(x => x.LikedId);
             var userMatches = GetMatches(user);
 
@@ -80,6 +82,13 @@ namespace TinderProject.Repositories
                  !userMatches.Select(m => m.User2Id).Contains(u.Id) &&
                  u.Interests != null && u.PersonalTypes != null)
                  .ToList();
+        }
+        public List<User> FilterAge(List<User> userList, User loggedinUser)
+        {
+            //Getting the users that are atleast half users age + 7;
+
+            var minAge = loggedinUser.Age / 2 + 7;
+            return userList.Where(x => x.Age >= minAge).ToList();
         }
         public User? GetUser(int id)
         {
