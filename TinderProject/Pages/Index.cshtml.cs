@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Routing;
 using TinderProject.Data;
+using TinderProject.Models;
 using TinderProject.Repositories;
 using TinderProject.Repositories.Repositories_Interfaces;
 
@@ -68,7 +70,7 @@ namespace TinderProject.Pages
 
             CurrentUserShown = UsersToSwipe[(int)currentUserIndex!];
         }
-        public IActionResult OnPost(string like, string smartMatching)
+        public IActionResult OnPost(string like, string smartMatching, int userId)
         {
             if (smartMatching == "true")
             {
@@ -82,19 +84,17 @@ namespace TinderProject.Pages
                 return RedirectToPage("/Index");
             }
 
-            var userIndex = GetCurrentUserIndex();
-
             var loggedInUser = _userRepo.GetLoggedInUser();
 
             UsersToSwipe = _userRepo.GetUsersToSwipe(loggedInUser).ToList();
-            var likedUser = UsersToSwipe[userIndex];
 
-            if (like == "true" && CheckIfMatch(loggedInUser.Id, likedUser.Id))
+            if (like == "true" && CheckIfMatch(loggedInUser.Id, userId))
             {
                 ViewData["Match"] = "true";
                 IncrementUserIndex();
                 return RedirectToPage("/Index", new { match = "true" });
             }
+            var likedUser= _context.Users.Find(userId);
 
             if (like == "true")
             {

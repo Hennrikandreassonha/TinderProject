@@ -127,7 +127,7 @@ else
                         class="like-dislike-pictures">
                 </button>
 
-                <button type="submit" name="like" value="true" class="invis-btn">
+                <button type="submit" name="like" value="true" class="invis-btn" asp-route-userId="@Model.CurrentUserShown.Id">
                     <img src="~/Pictures/green_Heart.png" alt="A green heart for liking" id="like-button"
                         class="like-dislike-pictures">
                 </button>
