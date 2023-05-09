@@ -160,7 +160,7 @@ namespace TinderProject.Data
         }
         public static string[] GenerateInterests()
         {
-            int randomNumber = random.Next(3, 7);
+            int randomNumber = random.Next(2, 6);
             List<string> interests = new();
 
             for (int i = 0; i < randomNumber; i++)

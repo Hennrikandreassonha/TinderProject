@@ -1,10 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Routing;
-using TinderProject.Data;
-using TinderProject.Models;
-using TinderProject.Repositories;
-using TinderProject.Repositories.Repositories_Interfaces;
 
 namespace TinderProject.Pages
 {
