@@ -55,9 +55,6 @@ namespace TinderProject.Pages.UserPage
 			userToUpdate.Description = User.Description;
 			userToUpdate.PremiumUser = User.PremiumUser;
 
-			userToUpdate.PersonalTypes.Clear();
-			userToUpdate.PersonalTypes.AddRange(User.PersonalTypes);
-
 			userToUpdate.Interests.Clear();
 			userToUpdate.Interests.AddRange(User.Interests);
 

@@ -21,7 +21,7 @@ namespace TinderProject.Repositories
             return _context.Users
                 .Where(x => x.Gender == GenderType.Female)
                 .Include(x => x.Interests)
-                .Include(x => x.PersonalTypes)
+                .Include(x => x.PersonalityType)
                 .ToList();
         }
 
@@ -30,7 +30,7 @@ namespace TinderProject.Repositories
             return _context.Users
             .Where(x => x.Gender == GenderType.Male)
             .Include(x => x.Interests)
-            .Include(x => x.PersonalTypes)
+            .Include(x => x.PersonalityType)
             .ToList();
         }
 
@@ -39,7 +39,7 @@ namespace TinderProject.Repositories
             return _context.Users
             .Where(x => x.Gender == GenderType.Other)
             .Include(x => x.Interests)
-            .Include(x => x.PersonalTypes)
+            .Include(x => x.PersonalityType)
             .ToList();
         }
 
@@ -47,7 +47,7 @@ namespace TinderProject.Repositories
         {
             return _context.Users
             .Include(x => x.Interests)
-            .Include(x => x.PersonalTypes)
+            .Include(x => x.PersonalityType)
             .ToList();
         }
 
@@ -57,7 +57,7 @@ namespace TinderProject.Repositories
             string subject = user.FindFirst(ClaimTypes.NameIdentifier).Value;
             string issuer = user.FindFirst(ClaimTypes.NameIdentifier).Issuer;
 
-            return _context.Users.Include(x => x.PersonalTypes).Single(p => p.OpenIDIssuer == issuer && p.OpenIDSubject == subject);
+            return _context.Users.Include(x => x.PersonalityType).Single(p => p.OpenIDIssuer == issuer && p.OpenIDSubject == subject);
         }
         public ICollection<User> GetUsersToSwipe(User user)
         {
@@ -80,7 +80,7 @@ namespace TinderProject.Repositories
                  !userLikesIds.Contains(u.Id) &&
                  !userMatches.Select(m => m.User1Id).Contains(u.Id) &&
                  !userMatches.Select(m => m.User2Id).Contains(u.Id) &&
-                 u.Interests != null && u.PersonalTypes != null)
+                 u.Interests != null && u.PersonalityType != null)
                  .ToList();
         }
         public List<User> FilterAge(List<User> userList, User loggedinUser)
@@ -94,10 +94,10 @@ namespace TinderProject.Repositories
         {
             return _context.Users.Find(id);
         }
-        public ICollection<PersonalType> GetPersonalTypes(User user)
+        /*public ICollection<PersonalType> GetPersonalTypes(User user)
         {
             return _context.PersonalTypes.Where(x => x.UserId == user.Id).ToArray();
-        }
+        }*/
         public ICollection<Interaction> GetUserLikes(User user)
         {
             return _context.Interactions.Where(x => x.LikerId == user.Id).ToArray();
