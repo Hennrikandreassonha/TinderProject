@@ -17,7 +17,7 @@ namespace TinderProject.Pages.Premium
 			_database = database;
 			Likers = new List<Interaction>();
 			Users = new List<User>();
-			
+
 		}
 
 

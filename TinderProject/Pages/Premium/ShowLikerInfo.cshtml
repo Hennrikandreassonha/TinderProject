@@ -1,4 +1,81 @@
 ﻿@page
 @model TinderProject.Pages.Premium.ShowLikerInfoModel
 @{
+    ViewData["Title"] = "Liker Info";
 }
+
+<h2>@ViewData["Title"]</h2>
+
+
+
+<div id="swipe-div" style="background-image: url('@Model.LikerUser.ProfilePictureUrl')">
+    <div class="area-a">
+        <div id="upper-section">
+            <h2 id="name-age">@Model.LikerUser.FirstName @Model.LikerUser.Age</h2>
+        </div>
+        <p>@Model.LikerUser.Description</p>
+    </div>
+    <div class="area-b">
+        <div>
+            <p>Personality type:</p>
+            @foreach (var item in Model.LikerUser.PersonalTypes)
+            {
+                bool isMatch = false;
+                foreach (var loggedInType in Model.CurrentUser.PersonalTypes)
+                {
+                    if (loggedInType.Type == item.Type)
+                    {
+                        isMatch = true;
+                        break;
+                    }
+                }
+                if (isMatch)
+                {
+                    <div class="interest-type-match">@item.Type</div>
+                }
+                else
+                {
+                    <div class="interest-type-nomatch">@item.Type</div>
+                }
+            }
+        </div>
+
+        <div>
+            <p>Interests:</p>
+            @foreach (var item in Model.LikerUser.Interests)
+            {
+                bool isMatch = false;
+                foreach (var loggedInInterest in Model.CurrentUser.Interests)
+                {
+                    if (loggedInInterest.Interest == item.Interest)
+                    {
+                        isMatch = true;
+                        break;
+                    }
+                }
+                if (isMatch)
+                {
+                    <div class="interest-type-match">@item.Interest</div>
+                }
+                else
+                {
+                    <div class="interest-type-nomatch">@item.Interest</div>
+                }
+            }
+
+        </div>
+    </div>
+    <form method="post" id="like-dislike-flex" class="area-c">
+
+        <button type="submit" name="like" value="false" class="invis-btn">
+            <img src="~/Pictures/red_cross.png" alt="A red cross for disliking" id="dislike-button"
+                 class="like-dislike-pictures">
+        </button>
+
+        <button type="submit" name="like" value="true" class="invis-btn" asp-route-userId="@Model.LikerUser.Id">
+            <img src="~/Pictures/green_Heart.png" alt="A green heart for liking" id="like-button"
+                 class="like-dislike-pictures">
+        </button>
+
+    </form>
+</div>
