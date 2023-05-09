@@ -64,7 +64,6 @@ namespace TinderProject.Pages
             if (currentUserIndex == null || currentUserIndex >= UsersToSwipe.Count)
             {
                 HttpContext.Session.SetInt32("currentUserIndex", 0);
-
                 currentUserIndex = HttpContext.Session.GetInt32("currentUserIndex");
             }
 
@@ -76,7 +75,6 @@ namespace TinderProject.Pages
             {
                 HttpContext.Session.SetString("smartMatching", "true");
                 return RedirectToPage("/Index");
-
             }
             else if (smartMatching == "false")
             {
@@ -85,7 +83,6 @@ namespace TinderProject.Pages
             }
 
             var loggedInUser = _userRepo.GetLoggedInUser();
-
             UsersToSwipe = _userRepo.GetUsersToSwipe(loggedInUser).ToList();
 
             if (like == "true" && CheckIfMatch(loggedInUser.Id, userId))
@@ -94,7 +91,7 @@ namespace TinderProject.Pages
                 IncrementUserIndex();
                 return RedirectToPage("/Index", new { match = "true" });
             }
-            var likedUser= _context.Users.Find(userId);
+            var likedUser = _context.Users.Find(userId);
 
             if (like == "true")
             {
@@ -138,7 +135,6 @@ namespace TinderProject.Pages
         {
             //Gets the Currently Liked User and checks if it likes loggedInUser.
             //In that case it´s a match.
-
             var likedUserLikes = _userRepo.GetUserLikes(likedUserId);
 
             if (likedUserLikes != null)
