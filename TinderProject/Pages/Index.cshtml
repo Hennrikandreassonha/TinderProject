@@ -143,25 +143,29 @@ else
                     <form method="post" id="like-dislike-flex">
 
                         @* Dislike button *@
-                        <button type="submit" name="like" value="false" class="invis-btn">
+                        <button type="submit" class="invis-btn">
+
                             <img src="~/Pictures/red_cross.png" alt="A red cross for disliking" id="dislike-button"
                                 class="like-dislike-pictures">
                         </button>
 
                         @* Super like button *@
-                        <button type="submit" id="superlike-btn" value="super" class="invis-btn" asp-page-handler="Super"
+                        <button type="submit" id="superlike-btn" name="options" value="super" class="invis-btn"
                             disabled="@(!Model.LoggedInUser.PremiumUser)"
                             title='@(Model.LoggedInUser.PremiumUser ? null : "Become premium to use this")'>
 
                             <img src="~/Pictures/super.png" alt="Blue star for superlike" id="super-like-pic"
                                 class="like-dislike-pictures">
                         </button>
+
                         @* Like button *@
-                        <button type="submit" name="like" value="true" class="invis-btn"
+                        <button type="submit" name="options" value="like" class="invis-btn"
                             asp-route-userId="@Model.CurrentUserShown.Id">
+
                             <img src="~/Pictures/green_Heart.png" alt="A green heart for liking" id="like-button"
                                 class="like-dislike-pictures">
                         </button>
+
                     </form>
                 </div>
             </section>

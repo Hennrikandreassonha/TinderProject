@@ -78,7 +78,7 @@ var popup = document.getElementById("popup");
 if (popup != null) {
     setTimeout(function () {
         popup.classList.add("show-popup");
-    }, 500);
+    }, 250);
 }
 
 
