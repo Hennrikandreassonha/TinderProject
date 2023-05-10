@@ -5,7 +5,7 @@ namespace TinderProject.Utilities
 {
 	public class ProfileChecker
 	{
-        public static HtmlString GetProfileCompletionMessage(User user, IHttpContextAccessor httpContextAccessor)
+        public static HtmlString GetProfileCompletionMessage(User user)
         {
             string message = null;
 

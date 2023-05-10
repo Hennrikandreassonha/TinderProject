@@ -10,7 +10,7 @@
 <h1>@ViewData["Title"]</h1>
 
 @{
-	var completionMessage = ProfileChecker.GetProfileCompletionMessage(Model.LoggedInUser, HttpContextAccessor);
+	var completionMessage = ProfileChecker.GetProfileCompletionMessage(Model.LoggedInUser);
 }
 
 @if (!string.IsNullOrWhiteSpace(completionMessage?.ToString()))
