@@ -23,13 +23,13 @@ namespace TinderProject.Pages.UserPage
 		}
 
 		[BindProperty]
-		public User User { get; set; }
+		public User LoggedInUser { get; set; }
+		public User UserInterest { get; set; }
 
 		public void OnGet()
 		{
-			var loggedInUser = _userRepository.GetLoggedInUser();
-
-			User = _database.Users.Find(loggedInUser.Id);
+			LoggedInUser = _userRepository.GetLoggedInUser();
+			UserInterest = _database.Users.Include(i => i.Interests).FirstOrDefault(u => u.Id == LoggedInUser.Id);
 		}
 
 		public IActionResult OnPost()
@@ -47,16 +47,16 @@ namespace TinderProject.Pages.UserPage
 				return NotFound();
 			}
 
-			userToUpdate.FirstName = User.FirstName;
-			userToUpdate.LastName = User.LastName;
-			userToUpdate.DateOfBirth = User.DateOfBirth;
-			userToUpdate.Gender = User.Gender;
-			userToUpdate.Preference = User.Preference;
-			userToUpdate.ProfilePictureUrl = User.ProfilePictureUrl;
-			userToUpdate.Description = User.Description;
-			userToUpdate.PremiumUser = User.PremiumUser;
+			userToUpdate.FirstName = LoggedInUser.FirstName;
+			userToUpdate.LastName = LoggedInUser.LastName;
+			userToUpdate.DateOfBirth = LoggedInUser.DateOfBirth;
+			userToUpdate.Gender = LoggedInUser.Gender;
+			userToUpdate.Preference = LoggedInUser.Preference;
+			userToUpdate.ProfilePictureUrl = LoggedInUser.ProfilePictureUrl;
+			userToUpdate.Description = LoggedInUser.Description;
+			userToUpdate.PremiumUser = LoggedInUser.PremiumUser;
 
-			userToUpdate.Interests = User.Interests;
+			userToUpdate.Interests = LoggedInUser.Interests;
 
 			_database.Users.Update(userToUpdate);
 			_database.SaveChanges();

@@ -11,51 +11,51 @@
 	<form method="post">
 		<section>
 			<label for="firstName">First name</label>
-			<input type="text" id="firstName" asp-for="User.FirstName" />
-			<span asp-validation-for="User.FirstName"></span>
+			<input type="text" id="firstName" asp-for="LoggedInUser.FirstName" />
+			<span asp-validation-for="LoggedInUser.FirstName"></span>
 		</section>
 		<section>
 			<label for="lastName">Last name</label>
-			<input type="text" id="lastName" asp-for="User.LastName" />
-			<span asp-validation-for="User.LastName"></span>
+			<input type="text" id="lastName" asp-for="LoggedInUser.LastName" />
+			<span asp-validation-for="LoggedInUser.LastName"></span>
 		</section>
 		<section>
 			<label for="dateOfBirth">Date of birth</label>
-			<input type="datetime" id="dateOfBirth" asp-for="User.DateOfBirth" />
-			<span asp-validation-for="User.DateOfBirth"></span>
+			<input type="datetime" id="dateOfBirth" asp-for="LoggedInUser.DateOfBirth" />
+			<span asp-validation-for="LoggedInUser.DateOfBirth"></span>
 		</section>
 		<section>
 			<label for="gender">Gender</label>
-			<select asp-for="User.Gender" asp-items="Html.GetEnumSelectList<GenderType>()">
+			<select asp-for="LoggedInUser.Gender" asp-items="Html.GetEnumSelectList<GenderType>()">
 				<option value="">Please select</option>
 			</select>
 		</section>
 		<section>
 			<label for="preference">Preference</label>
-			<select asp-for="User.Preference" asp-items="Html.GetEnumSelectList<SwipePreference>()">
+			<select asp-for="LoggedInUser.Preference" asp-items="Html.GetEnumSelectList<SwipePreference>()">
 				<option value="">Please select</option>
 			</select>
 		</section>
 		<section>
 			<label for="interest">Interests</label>
-			<select asp-for="User.Interests" asp-items="@(new SelectList(Data.SampleData.InterestsArray))" multiple>
+			<select asp-for="LoggedInUser.Interests" asp-items="@(new MultiSelectList(Data.SampleData.InterestsArray, Model.LoggedInUser.Interests))" multiple>
 				<option value="">Please select 2 to 4 interests by clicking and pressing Ctrl key</option>
 			</select>
 		</section>
 		<section>
 			<label for="description">Description</label>
-			<textarea id="description" asp-for="User.Description" rows="2" cols="50"></textarea>
-			<span asp-validation-for="User.Description"></span>
+			<textarea id="description" asp-for="LoggedInUser.Description" rows="2" cols="50"></textarea>
+			<span asp-validation-for="LoggedInUser.Description"></span>
 		</section>
 		<section>
 			<label for="preference">Profile picture url</label>
-			<input type="url" id="profilePictureUrl" asp-for="User.ProfilePictureUrl" />
-			<span asp-validation-for="User.ProfilePictureUrl"></span>
+			<input type="url" id="profilePictureUrl" asp-for="LoggedInUser.ProfilePictureUrl" />
+			<span asp-validation-for="LoggedInUser.ProfilePictureUrl"></span>
 		</section>
 		<section>
 			<label for="premium">Premium</label>
-			<input type="checkbox" id="premium" asp-for="User.PremiumUser" />
-			<span asp-validation-for="User.PremiumUser"></span>
+			<input type="checkbox" id="premium" asp-for="LoggedInUser.PremiumUser" />
+			<span asp-validation-for="LoggedInUser.PremiumUser"></span>
 		</section>
 		<button type="submit">Update profile</button>
 	</form>
