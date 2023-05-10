@@ -30,14 +30,13 @@ else
                         <div id="match-popup" class="popup-pic">
                             <div class="text-div-popup">
                                 <h1>You got a new match!</h1>
-                                <div>
-                                    @* Skicka användaren till messagepage. *@
-                                    <form>
-                                        <button class="my-button" type="submit" asp-page="/Messages/ShowMessage"
-                                            asp-route-userId="@Model.CurrentUserShown.Id">Send message</button>
-                                        <button class="my-button" asp-page="/Index">Keep swiping</button>
-                                    </form>
-                                </div>
+                                @* Skicka användaren till messagepage. *@
+                                <form>
+                                    <button class="my-button" type="submit" asp-page="/Messages/ShowMessage"
+                                        asp-route-userId="@Model.CurrentUserShown.Id">Send message</button>
+                                    <button class="my-button" asp-page="/Index">Keep swiping</button>
+                                </form>
+
                             </div>
                         </div>
                     </div>
@@ -53,7 +52,7 @@ else
                                 <h1>Write a message to your superliked user!</h1>
                                 <form method="post" id="super-like-msg">
                                     <input type="text" name="message">
-                                    <button id="super-msg-btn" class="my-button" type="submit" asp-page-handler="Super"
+                                    <button id="super-msg-btn" class="my-button" type="submit" asp-page-handler="SendMsgSuper"
                                         asp-route-userId="@Model.CurrentUserShown.Id">
                                         Send message
                                     </button>

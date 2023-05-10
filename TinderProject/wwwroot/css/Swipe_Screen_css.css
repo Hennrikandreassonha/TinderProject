@@ -221,7 +221,8 @@ p {
     justify-content: center;
     align-items: center;
 }
-#super-like-msg input{
+#super-like-msg input,
+.text-div-popup form{
     margin:1rem;
 
 }
