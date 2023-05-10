@@ -94,11 +94,17 @@
     color: #FF655B
 }
 
+/* CSS for like/dislike/superlike buttons */
 #like-dislike-flex {
     display: flex;
     align-items: center;
     justify-content: space-evenly;
     width: 100%;
+}
+
+#super-like-pic {
+    width: 55px;
+    height: 55px;
 }
 
 .like-dislike-pictures {
@@ -115,6 +121,10 @@
     background-color: transparent;
     border: none;
     padding: 0;
+}
+
+.disabled-btn {
+    filter: grayscale(70%);
 }
 
 /* CSS for Show the hearts and other effect when hovering like/dislike. */

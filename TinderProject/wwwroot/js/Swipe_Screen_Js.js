@@ -82,6 +82,7 @@ if (matchDiv != null) {
     }, 500);
 }
 
+//Changing smart matching values.
 function submitForm() {
     const form = document.getElementById("radio-form");
     const radios = document.getElementsByName("smartMatching");
@@ -93,4 +94,10 @@ function submitForm() {
     });
 
     form.submit();
+}
+
+//Putting greyscale if user isnt premium.
+var superlikeBtn = document.getElementById('superlike-btn');
+if (superlikeBtn.disabled) {
+  document.getElementById('super-like-pic').classList.add('disabled-btn')
 }

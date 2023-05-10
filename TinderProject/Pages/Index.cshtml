@@ -7,8 +7,6 @@
     ViewData["Title"] = "Home page";
 }
 
-<h1>Welcome to the Matchmaking Site!</h1>
-
 @{
     var completionMessage = ProfileChecker.GetProfileCompletionMessage(Model.LoggedInUser, HttpContextAccessor);
 }
@@ -128,8 +126,11 @@ else
                 </button>
 
                 @* Super like button *@
-                <button type="submit" name="like" value="super" class="invis-btn" asp-route-userId="@Model.CurrentUserShown.Id">
-                    <img src="~/Pictures/super.png" alt="Blue star for superlike" id="super-like-button"
+
+                @* Använda en annan Post metod eller den som finns. *@
+                <button type="submit" name="like" id="superlike-btn" value="super" class="invis-btn"
+                    asp-route-userId="@Model.CurrentUserShown.Id" disabled="@(!Model.LoggedInUser.PremiumUser)">
+                    <img src="~/Pictures/super.png" alt="Blue star for superlike" id="super-like-pic"
                         class="like-dislike-pictures">
                 </button>
 
@@ -138,7 +139,6 @@ else
                     <img src="~/Pictures/green_Heart.png" alt="A green heart for liking" id="like-button"
                         class="like-dislike-pictures">
                 </button>
-
             </form>
         </div>
     }
