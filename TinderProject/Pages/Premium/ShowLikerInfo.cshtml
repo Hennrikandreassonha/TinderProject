@@ -2,6 +2,7 @@
 @model TinderProject.Pages.Premium.ShowLikerInfoModel
 @{
     ViewData["Title"] = "Liker Info";
+   
 }
 
 <h2>@ViewData["Title"]</h2>
@@ -18,25 +19,14 @@
     <div class="area-b">
         <div>
             <p>Personality type:</p>
-            @foreach (var item in Model.LikerUser.PersonalTypes)
+
+            @if (Model.LikerUser.PersonalityType == Model.CurrentUser.PersonalityType)
             {
-                bool isMatch = false;
-                foreach (var loggedInType in Model.CurrentUser.PersonalTypes)
-                {
-                    if (loggedInType.Type == item.Type)
-                    {
-                        isMatch = true;
-                        break;
-                    }
-                }
-                if (isMatch)
-                {
-                    <div class="interest-type-match">@item.Type</div>
-                }
-                else
-                {
-                    <div class="interest-type-nomatch">@item.Type</div>
-                }
+                <div class="interest-type-match">@Model.LikerUser.PersonalityType</div>
+            }
+            else
+            {
+                <div class="interest-type-nomatch">@Model.LikerUser.PersonalityType</div>
             }
         </div>
 

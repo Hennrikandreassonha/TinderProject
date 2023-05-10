@@ -53,13 +53,13 @@ namespace TinderProject.Data
 
             modelBuilder.Entity<Message>()
                 .HasOne(m => m.SendTo)
-                .WithMany()
+                .WithMany(m=>m.SentTo)
                 .HasForeignKey(m => m.SentToId)
                 .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<Message>()
                 .HasOne(m => m.SentFrom)
-                .WithMany()
+                .WithMany(m=>m.SentFrom)
                 .HasForeignKey(m => m.SentFromId)
                 .OnDelete(DeleteBehavior.NoAction);
 

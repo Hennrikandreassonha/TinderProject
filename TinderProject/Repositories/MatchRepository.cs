@@ -19,27 +19,29 @@ namespace TinderProject.Repositories
             //This function orders the SwipeList based on amount of PersonalTypes matching. 
             //The person with most matching PersonalTypes will be at index 0.
 
-            var userPersonalTypes = loggedInUser.PersonalTypes;
+            var userPersonalTypes = loggedInUser.PersonalityType;
+
+
 
             List<KeyValuePair<int, User>> matchingUsers = new List<KeyValuePair<int, User>>();
 
-            foreach (var user in userList)
-            {
-                var personalTypes = _userRepo.GetPersonalTypes(user);
-                int matchCount = 0;
+            //foreach (var user in userList)
+            //{
+            //    var personalTypes = _userRepo.GetPersonalTypes(user);
+            //    int matchCount = 0;
 
-                foreach (var type in personalTypes)
-                {
-                    foreach (var item in userPersonalTypes)
-                    {
-                        if (item.Type == type.Type)
-                        {
-                            matchCount++;
-                        }
-                    }
-                }
-                matchingUsers.Add(new KeyValuePair<int, User>(matchCount, user));
-            }
+            //    foreach (var type in personalTypes)
+            //    {
+            //        foreach (var item in userPersonalTypes)
+            //        {
+            //            if (item.Type == type.Type)
+            //            {
+            //                matchCount++;
+            //            }
+            //        }
+            //    }
+            //    matchingUsers.Add(new KeyValuePair<int, User>(matchCount, user));
+            //}
 
             return matchingUsers.OrderByDescending(x => x.Key).Select(x => x.Value).ToList();
         }

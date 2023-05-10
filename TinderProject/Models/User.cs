@@ -11,7 +11,7 @@ namespace TinderProject.Models
         public string LastName { get; set; }
         //Kanske endast behöver årtal senare.
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        public string PersonalityType { get; set; }
+        public string? PersonalityType { get; set; }
         public DateTime DateOfBirth { get; set; }
         public GenderType? Gender { get; set; }
         public SwipePreference? Preference { get; set; }
@@ -36,7 +36,9 @@ namespace TinderProject.Models
             }
         }
 
-        public List<Message>? Users { get; set; }
+        public List<Message>? SentTo { get; set; }
+        public List<Message>? SentFrom { get; set; }
+
         //public List<PersonalType>? PersonalTypes { get; set; }
         public List<Interests>? Interests { get; set; }
         public ICollection<Interaction>? LikedByUsers { get; set; }
