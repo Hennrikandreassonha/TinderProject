@@ -71,25 +71,9 @@ else
             <div class="area-b">
                 <div>
                     <p>Personality type:</p>
-                    @foreach (var item in Model.CurrentUserShown.PersonalTypes)
+                    @foreach (var item in Model.CurrentUserShown.PersonalityType)
                     {
                         bool isMatch = false;
-                        foreach (var loggedInType in Model.LoggedInUser.PersonalTypes)
-                        {
-                            if (loggedInType.Type == item.Type)
-                            {
-                                isMatch = true;
-                                break;
-                            }
-                        }
-                        if (isMatch)
-                        {
-                            <div class="interest-type-match">@item.Type</div>
-                        }
-                        else
-                        {
-                            <div class="interest-type-nomatch">@item.Type</div>
-                        }
                     }
                 </div>
 
