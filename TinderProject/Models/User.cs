@@ -38,8 +38,6 @@ namespace TinderProject.Models
 
         public List<Message>? SentTo { get; set; }
         public List<Message>? SentFrom { get; set; }
-
-        //public List<PersonalType>? PersonalTypes { get; set; }
         public List<Interests>? Interests { get; set; }
         public ICollection<Interaction>? LikedByUsers { get; set; }
         public ICollection<Interaction>? LikedUsers { get; set; }
