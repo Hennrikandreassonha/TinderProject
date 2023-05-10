@@ -3,26 +3,18 @@ using System.Text.Encodings.Web;
 
 namespace TinderProject.Utilities
 {
-	public class ProfileChecker
-	{
-        public static HtmlString GetProfileCompletionMessage(User user)
+    public class ProfileChecker
+    {
+        public static bool ProfileIsComplete(User user)
         {
-            string message = null;
-
-            if (user != null && (string.IsNullOrWhiteSpace(user.FirstName)
+            return user != null && (string.IsNullOrWhiteSpace(user.FirstName)
                 || string.IsNullOrWhiteSpace(user.LastName)
                 || (user.DateOfBirth == DateTime.MinValue)
                 || user.Gender == null
                 || user.Preference == null
                 || string.IsNullOrWhiteSpace(user.ProfilePictureUrl)
                 || string.IsNullOrWhiteSpace(user.Description))
-                || user.Interests.Count == 0)
-            {
-                var editLink = $"<a href='/UserPage/Edit'><span class='edit-link'>{HtmlEncoder.Default.Encode("here")}</span></a>";
-                message = $"Your profile is not complete. Please fill in your profile information by clicking {editLink}.";
-            }
-
-            return new HtmlString(message);
+                || user.Interests.Count == 0;
         }
     }
 }

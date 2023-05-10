@@ -20,15 +20,20 @@ namespace TinderProject.Pages
         [BindProperty]
         public bool Match { get; set; }
         [BindProperty]
+        public bool SuperLike { get; set; }
+        [BindProperty]
         public bool NoUsersToSwipe { get; set; }
         [BindProperty]
         public bool SmartMatching { get; set; }
-        public void OnGet(string? match)
+        public void OnGet(string? options)
         {
             //Fixa så att den nya användaren visas Efter popupen tagits bort och inte innan.
-            if (match == "true")
+            if (options == "true")
             {
                 Match = true;
+            }
+            if(options == "super"){
+                SuperLike = true;
             }
 
             SmartMatching = HttpContext.Session.GetString("smartMatching") == "true" || HttpContext.Session.GetString("smartMatching") == null;
@@ -66,16 +71,16 @@ namespace TinderProject.Pages
         }
         public IActionResult OnPost(string like, string smartMatching, int userId)
         {
-            if (smartMatching == "true")
-            {
-                HttpContext.Session.SetString("smartMatching", "true");
-                return RedirectToPage("/Index");
-            }
-            else if (smartMatching == "false")
-            {
-                HttpContext.Session.SetString("smartMatching", "false");
-                return RedirectToPage("/Index");
-            }
+            // if (smartMatching == "true")
+            // {
+            //     HttpContext.Session.SetString("smartMatching", "true");
+            //     return RedirectToPage("/Index");
+            // }
+            // else if (smartMatching == "false")
+            // {
+            //     HttpContext.Session.SetString("smartMatching", "false");
+            //     return RedirectToPage("/Index");
+            // }
 
             var loggedInUser = _userRepo.GetLoggedInUser();
             UsersToSwipe = _userRepo.GetUsersToSwipe(loggedInUser).ToList();
@@ -84,7 +89,7 @@ namespace TinderProject.Pages
             {
                 ViewData["Match"] = "true";
                 IncrementUserIndex();
-                return RedirectToPage("/Index", new { match = "true" });
+                return RedirectToPage("/Index", new { options = "true" });
             }
             var likedUser = _context.Users.Find(userId);
 
@@ -97,16 +102,15 @@ namespace TinderProject.Pages
             return RedirectToPage("/Index");
         }
 
-        public IActionResult OnPostSuper(string message, int userId)
+        public IActionResult OnPostSuper()
         {
-            //I denna metoden skall vi skicka meddelandet till användaren.
-            System.Console.WriteLine("message");
+            return RedirectToPage("/Index", new { options = "super" });
+        }
+        public IActionResult OnPostSendMsgSuper(string message, int userId){
 
-            var loggedInUser = _userRepo.GetLoggedInUser();
-            UsersToSwipe = _userRepo.GetUsersToSwipe(loggedInUser).ToList();
+            //Skicka till MessagePage.
+            return RedirectToPage("/Index", new { options = "super" });
 
-            IncrementUserIndex();
-            return RedirectToPage("/Index");
         }
         public void IncrementUserIndex()
         {

@@ -9,21 +9,23 @@
     <title>@ViewData["Title"]</title>
     <link rel="stylesheet" href="~/css/Maincss.css" asp-append-version="true">
     <link rel="stylesheet" href="~/css/Swipe_Screen_css.css">
+    <link rel="stylesheet" href="~/css/Profile_Err_msg.css">
+
     <link rel="icon" type="image/png" href="~/Pictures/heart.png" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
 
     <script src="~/js/site.js" asp-append-version="true" defer></script>
     @await RenderSectionAsync("Scripts", required: false)
 </head>
 
 <body>
-åöä
+    åöä
     <header>
         <environment names="Development">
-        @await Component.InvokeAsync(nameof(FakeLoginMenu))
+            @await Component.InvokeAsync(nameof(FakeLoginMenu))
         </environment>
 
         <nav id="navigation">
@@ -31,18 +33,18 @@
                 <li class="nav-li">
                     @* Skall home vara där man swipar kanske? Eller någon annan stans *@
                     <a asp-page="/Index">
-                     <img src="/Pictures/heart.png" alt="Heart logo" class="pic-in-anchor">
-                    Swipe</a>
+                        <img src="/Pictures/heart.png" alt="Heart logo" class="pic-in-anchor">
+                        Swipe</a>
                 </li>
 
                 <li class="nav-li">
-                     <img src="/Pictures/text.png" alt="Message logo" class="pic-in-anchor">
+                    <img src="/Pictures/text.png" alt="Message logo" class="pic-in-anchor">
                     <a asp-page="/Messages/Index">Messages</a>
 
                 </li>
 
                 <li class="nav-li">
-                     <img src="/Pictures/user.png" alt="User logo" class="pic-in-anchor">
+                    <img src="/Pictures/user.png" alt="User logo" class="pic-in-anchor">
                     <a asp-page="/UserPage/Index">Profile</a>
                 </li>
 

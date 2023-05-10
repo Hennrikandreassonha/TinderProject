@@ -73,14 +73,14 @@ dislikeButton.addEventListener("mouseleave", function () {
 })
 
 //CSS for the heart div that appears when there is a match.
-var matchDiv = document.getElementById("match-div");
-
-var matchDiv = document.getElementById("match-div");
-if (matchDiv != null) {
+//And super like popup.
+var popup = document.getElementById("popup");
+if (popup != null) {
     setTimeout(function () {
-        matchDiv.classList.add("show-match-div");
+        popup.classList.add("show-popup");
     }, 500);
 }
+
 
 //Changing smart matching values.
 function submitForm() {
@@ -101,20 +101,3 @@ var superlikeBtn = document.getElementById('superlike-btn');
 if (superlikeBtn.disabled) {
     document.getElementById('super-like-pic').classList.add('disabled-btn')
 }
-
-//Super like JS
-superlikeBtn.addEventListener("click", function () {
-    var superLikeDiv = document.getElementById('super-like-popup');
-
-    superLikeDiv.classList.remove("hidden-popup");
-    superLikeDiv.classList.add("show-popup");
-});
-
-var superMsgBtn = document.getElementById('super-msg-btn');
-superMsgBtn.addEventListener("click", function () {
-    var superLikeDiv = document.getElementById('super-like-popup');
-
-    superLikeDiv.classList.remove("show-popup");
-    superLikeDiv.classList.add("hidden-popup");
-
-});

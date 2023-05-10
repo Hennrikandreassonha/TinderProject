@@ -185,43 +185,30 @@ p {
     background-image: url("../Pictures/super.png");
 
 }
-.show-popup {
-    opacity: 0.9 !important;
-    visibility: visible;
-    transition: opacity 0.5s ease-in-out;
-}
-.hidden-popup{
-    visibility: hidden;
-    opacity: 0;
-    transition: opacity 0.5s ease-in-out;
-}
-.popup {
-    background-size: contain;
+.popup-pic{
     background-repeat: no-repeat;
-
+    background-size: contain;
+    position: absolute;
+    width:100%;
+    height:100%;
+    margin-top: 40%;
+}
+#popup {
     position: absolute;
     margin: auto;
-    margin-top: 0;
     z-index: 2;
     width: 50%;
-    min-width: 415px;
+    min-width: 370px;
     max-width:450px;
-    height: 80%;
-    left: 50%;
-    transform: translate(-50%);
+    height: 100%;
+    opacity: 0;
 
     transition: ease-in-out 1.5s;
 }
-
-#match-options-flex {
-    display: flex;
-    width: 100%;
-    height: 60%;
-    flex-direction: column;
-    text-align: center;
-    top:20%;
-    position: inherit;
+.show-popup{
+    opacity: 0.9 !important;
 }
+
 #match-options-flex h1 {
     text-decoration: underline;
     font-size: 42px;
@@ -234,12 +221,15 @@ p {
     justify-content: center;
     align-items: center;
 }
-#super-like-msg * {
-    margin-top: 10px;
+#super-like-msg input{
+    margin:1rem;
+
 }
-#mydiv{
+.text-div-popup{
+    margin-top: 30%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    text-align: center;
 }
