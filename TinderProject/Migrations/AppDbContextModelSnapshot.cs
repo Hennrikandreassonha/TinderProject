@@ -117,6 +117,9 @@ namespace TinderProject.Migrations
                     b.Property<int>("SentToId")
                         .HasColumnType("int");
 
+                    b.Property<bool>("isRead")
+                        .HasColumnType("bit");
+
                     b.HasKey("Id");
 
                     b.HasIndex("SentFromId");

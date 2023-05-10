@@ -1,24 +1,98 @@
 ﻿@page "{userId:int}"
 @model TinderProject.Pages.Messages.MessegesModel
 @{
-    ViewData["Title"] = "Conversation" ;
+    ViewData["Title"] = "Conversation";
 }
 
 
-<h2>@ViewData["Title"]</h2>
+<h2 id="message-header">@ViewData["Title"]</h2>
 
-<div id="message-div">
-    <p>Conversation with: @Model.OtherUser.FirstName @Model.OtherUser.LastName </p>
+<div id="message-continer">
+    <div id="message-div">
+        <p>Conversation with: @Model.OtherUser.FirstName @Model.OtherUser.LastName </p>
 
-    @foreach(var message in Model.Messages)
-    {
-        <p id="message-name">@message.SentFrom.FirstName @message.SentFrom.LastName wrote:</p>
-        <p id="message-message">@message.SentMessage</p>
-        <p id="message-time">@message.SentTime</p>
-    }
+        @foreach (var message in Model.Messages)
+        {
+            @if (Model.OtherUser.Id == message.SentFromId)
+            {
+                <section id="message-left">
+                    <p id="message-name">@message.SentFrom.FirstName @message.SentFrom.LastName wrote:</p>
+                    <p id="message-message">@message.SentMessage</p>
+                    <p id="message-time">@message.SentTime</p>
+                   
+                </section>
+            }
+            else
+            {
+                <section id="message-right">
+                    <p id="message-name">@message.SentFrom.FirstName @message.SentFrom.LastName wrote:</p>
+                    <p id="message-message">@message.SentMessage</p>
+                    <p id="message-time">@message.SentTime</p>
+                    @if (Model.CurrentUser.PremiumUser == true && message.isRead == true)
+                    {
+                        <p>Read by user</p>
+                    }
+                </section>
+            }
+        }
+    </div>
+
+    <div id="interactions-div">
+        @if (Model.User != null && Model.User.Any())
+        {
+            <table>
+                @foreach (var user in Model.User)
+                {
+                    <tr>
+                        <th>Name: </th>
+                        <td><a asp-page="ShowMessage" asp-route-userId="@user.Id">@user.FirstName</a></td>
+                        <td><img src="@user.ProfilePictureUrl" alt="Profile Picture" id="messageProfilePic"></td>
+                        <td>
+                            <form method="get">
+                                <button type="submit" asp-page="Delete" asp-route-userId="@user.Id">Delete Match</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </table>
+        }
+        else
+        {
+            <p>No messages received or sent.</p>
+        }
+
+        <h3>New matches</h3>
+        @if (Model.NoConversation != null && Model.NoConversation.Any())
+        {
+            <p>Start konversation whit: </p>
+
+            <table>
+                @foreach (var user in Model.NoConversation)
+                {
+                    <tr>
+                        <th>Name: </th>
+                        <td><a asp-page="ShowMessage" asp-route-userId="@user.Id">@user.FirstName</a></td>
+                        <td><img src="@user.ProfilePictureUrl" alt="Profile Picture" id="messageProfilePic"></td>
+                        <td>
+                            <form method="get">
+                                <button type="submit" asp-page="Delete" asp-route-userId="@user.Id">Delete Match</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </table>
+        }
+        else
+        {
+            <p>
+                No matches
+            </p>
+        }
+    </div>
+    <form method="post">
+        <label for="message">Message</label>
+        <textarea name="message" id="message">Write your message</textarea>
+        <button type="submit">Send</button>
+    </form>
+
 </div>
-<form method="post">
-    <label for="message">Message</label>
-    <textarea name="message" id="message">Write your message</textarea>
-    <button type="submit">Send</button>
-</form>

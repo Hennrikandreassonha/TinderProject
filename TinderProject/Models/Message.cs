@@ -11,6 +11,7 @@ namespace TinderProject.Models
         public DateTime SentTime { get; set; }
         public int SentToId { get; set; }
         public int SentFromId { get; set; }
+        public bool isRead { get; set; }    
 
 
        
