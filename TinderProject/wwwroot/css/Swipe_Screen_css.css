@@ -20,8 +20,8 @@
 }
 
 #lower-background {
-    background: rgb(0,0,0);
-    background: linear-gradient(0deg, rgba(0,0,0,1) 49%, rgba(0,0,0,0) 68%);
+    background: rgb(0, 0, 0);
+    background: linear-gradient(0deg, rgba(0, 0, 0, 1) 49%, rgba(0, 0, 0, 0) 68%);
     width: 100%;
     height: 380%;
     border-radius: 25px;
@@ -177,8 +177,24 @@ p {
 }
 
 /*CSS form displaying popup when a user has a match*/
-#match-div {
+#match-popup {
     background-image: url("../Pictures/heart-popup.png");
+}
+#super-like-popup{
+    background-image: url("../Pictures/super.png");
+
+}
+.show-popup {
+    opacity: 0.9 !important;
+    visibility: visible;
+    transition: opacity 0.5s ease-in-out;
+}
+.hidden-popup{
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+.popup {
     background-size: contain;
     background-repeat: no-repeat;
 
@@ -192,13 +208,8 @@ p {
     height: 80%;
     left: 50%;
     transform: translate(-50%);
-    opacity: 0;
 
     transition: ease-in-out 1.5s;
-}
-
-.show-match-div {
-    opacity: 0.9 !important;
 }
 
 #match-options-flex {
@@ -209,9 +220,24 @@ p {
     text-align: center;
     top: 20%;
 }
-
 #match-options-flex h1 {
     text-decoration: underline;
     font-size: 42px;
     margin-bottom: 2rem;
+}
+#super-like-msg{
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+#super-like-msg * {
+    margin-top: 10px;
+}
+#mydiv{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }

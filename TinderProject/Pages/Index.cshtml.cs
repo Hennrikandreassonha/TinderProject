@@ -96,6 +96,18 @@ namespace TinderProject.Pages
             IncrementUserIndex();
             return RedirectToPage("/Index");
         }
+
+        public IActionResult OnPostSuper(string message, int userId)
+        {
+            //I denna metoden skall vi skicka meddelandet till användaren.
+            System.Console.WriteLine("message");
+
+            var loggedInUser = _userRepo.GetLoggedInUser();
+            UsersToSwipe = _userRepo.GetUsersToSwipe(loggedInUser).ToList();
+
+            IncrementUserIndex();
+            return RedirectToPage("/Index");
+        }
         public void IncrementUserIndex()
         {
             //Increments the index which is used for showing users.

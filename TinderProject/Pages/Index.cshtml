@@ -19,11 +19,10 @@ else
 {
     <script src="../js/Swipe_Screen_Js.js" defer></script>
 
-    @* <h1>Welcome, @accessControl.LoggedInAccountName!</h1> *@
-
+    @* Match popup *@
     @if (Model.Match)
     {
-        <div id="match-div">
+        <div id="match-popup" class="popup">
             <div id="match-options-flex">
                 <h1>You got a new match!</h1>
                 <div>
@@ -37,6 +36,24 @@ else
             </div>
         </div>
     }
+
+    @* Superlike popup *@
+    <div id="super-like-popup" class="popup hidden-popup">
+        <div id="match-options-flex">
+            <h1>Write a message to send to your superliked user!</h1>
+
+            <div id="mydiv">
+                <form method="post" id="super-like-msg">
+                    <input type="text" name="message">
+                    <button id="super-msg-btn" class="my-button" type="submit" 
+                    asp-page-handler="Super"
+                        asp-route-userId="@Model.CurrentUserShown.Id">
+                        Send message
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
 
     @if (Model.NoUsersToSwipe)
     {
@@ -131,9 +148,10 @@ else
 
                         @* Super like button *@
 
-                        @* Använda en annan Post metod eller den som finns. *@
-                        <button type="submit" name="like" id="superlike-btn" value="super" class="invis-btn"
-                            asp-route-userId="@Model.CurrentUserShown.Id" disabled="@(!Model.LoggedInUser.PremiumUser)">
+                        <button type="button" name="like" id="superlike-btn" value="super" class="invis-btn"
+                            disabled="@(!Model.LoggedInUser.PremiumUser)"
+                            title='@(Model.LoggedInUser.PremiumUser ? null : "Become premium to use this")'>
+
                             <img src="~/Pictures/super.png" alt="Blue star for superlike" id="super-like-pic"
                                 class="like-dislike-pictures">
                         </button>
