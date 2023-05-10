@@ -78,7 +78,8 @@ namespace TinderProject.Tests
             var loggedInUser = new User { Id = 1 };
             var likedUser = new User { Id = 2 };
 
-            var interaction = new Interaction { Id = 1, LikerId = 1, LikedId = 2, Liker = loggedInUser, Liked = likedUser };
+            //This is what we change, the likedId is 3 instead, making it fail.
+            var interaction = new Interaction { Id = 1, LikerId = 1, LikedId = 3, Liker = loggedInUser, Liked = likedUser };
             loggedInUser.LikedUsers = new List<Interaction> { interaction };
 
             var likedUserInteractions = new List<Interaction> { interaction };
