@@ -7,8 +7,8 @@ namespace TinderProject.Pages
     {
         private readonly IUserRepository _userRepo;
         private readonly IMatchRepository _matchRepo;
-        private readonly AppDbContext _context;
-        public IndexModel(IUserRepository repo, AppDbContext context, IMatchRepository matchRepo)
+        private readonly IAppDbContext _context;
+        public IndexModel(IUserRepository repo, IAppDbContext context, IMatchRepository matchRepo)
         {
             _userRepo = repo;
             _context = context;
@@ -96,6 +96,18 @@ namespace TinderProject.Pages
             IncrementUserIndex();
             return RedirectToPage("/Index");
         }
+
+        public IActionResult OnPostSuper(string message, int userId)
+        {
+            //I denna metoden skall vi skicka meddelandet till användaren.
+            System.Console.WriteLine("message");
+
+            var loggedInUser = _userRepo.GetLoggedInUser();
+            UsersToSwipe = _userRepo.GetUsersToSwipe(loggedInUser).ToList();
+
+            IncrementUserIndex();
+            return RedirectToPage("/Index");
+        }
         public void IncrementUserIndex()
         {
             //Increments the index which is used for showing users.
@@ -154,7 +166,7 @@ namespace TinderProject.Pages
                 MatchDate = DateTime.Now
             };
 
-            _context.Add(newMatch);
+            _context.Matches.Add(newMatch);
             _context.SaveChanges();
         }
     }

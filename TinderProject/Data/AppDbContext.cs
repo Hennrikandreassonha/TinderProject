@@ -5,7 +5,7 @@ using TinderProject.Models;
 
 namespace TinderProject.Data
 {
-    public class AppDbContext : DbContext
+    public class AppDbContext : DbContext, IAppDbContext
     {
         public DbSet<User> Users { get; set; }
         public DbSet<Interests> Interests { get; set; }
@@ -13,10 +13,6 @@ namespace TinderProject.Data
         public DbSet<Interaction> Interactions { get; set; }
         //public DbSet<PersonalType> PersonalTypes { get; set; }
         public DbSet<Message> Messages { get; set; }
-        public AppDbContext()
-        {
-
-        }
 
         public AppDbContext(DbContextOptions<AppDbContext> options)
             : base(options)

@@ -35,24 +35,25 @@ a:active {
     outline: none;
 }
 
-.my-button {
-    font-family: 'Lobster', cursive;
-
-    background-color: #d6306a;
-    color: white;
-    border: none;
-    border-radius: 25px;
-    font-size: 18px;
-    padding: 7px 20px;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
-    transition: all 0.3s ease;
+.my-button,
+input[type="text"] {
+  font-family: 'Lobster', cursive;
+  background-color: #d6306a;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  font-size: 18px;
+  padding: 7px 20px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
 }
 
-.my-button:hover {
-    background-color: #ff99c8;
-    transform: scale(1.1);
-    cursor: pointer;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+.my-button:hover,
+input[type="text"]:hover {
+  background-color: #ff99c8;
+  transform: scale(1.05);
+  cursor: pointer;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
 }
 
 #cover-div {
@@ -114,7 +115,6 @@ a:active {
 .nav-li {
     font-size: large;
     align-content: center;
-    font-weight: 500;
 }
 .pic-in-anchor{
     height: auto;

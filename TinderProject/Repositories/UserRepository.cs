@@ -75,6 +75,7 @@ namespace TinderProject.Repositories
             var userLikesIds = GetUserLikes(user).Select(x => x.LikedId);
             var userMatches = GetMatches(user);
 
+            // This statement filters out the logged-in user, users who have already matched, users who have already been liked, those without interests, and those without personality types.
             return userList
                  .Where(u => u.Id != user.Id &&
                  !userLikesIds.Contains(u.Id) &&

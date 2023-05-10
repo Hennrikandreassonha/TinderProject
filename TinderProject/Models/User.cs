@@ -46,5 +46,4 @@ namespace TinderProject.Models
         public ICollection<Match>? Matcher1 { get; set; }
         public ICollection<Match>? Matcher2 { get; set; }
     }
-
 }

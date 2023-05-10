@@ -82,6 +82,7 @@ builder.Services.AddAuthorization(options =>
 //For the usage of Dependency Injection.
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IMatchRepository, MatchRepository>();
+builder.Services.AddScoped<IAppDbContext, AppDbContext>();
 
 //For the usage of Session variables.
 //Setting the session variable to disapear after 30mins of idletime.

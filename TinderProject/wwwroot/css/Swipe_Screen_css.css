@@ -7,20 +7,34 @@
 }
 
 #swipe-div {
-    background-repeat: no-repeat;
     box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
-
-    background-size: 100% 100%;
     position: relative;
-    max-width: 350px;
-    height: 600px;
-    margin: auto;
+    max-width: 375px;
     border-radius: 25px;
+    height: 800px;
+    margin: auto;
     display: grid;
     grid-template:
-        "a a" 1fr
-        "b b" 1fr
-        "c c" 80px / 1fr 1fr;
+        "a" 80%
+        "b" 20%;
+}
+
+#lower-background {
+    background: rgb(0, 0, 0);
+    background: linear-gradient(0deg, rgba(0, 0, 0, 1) 49%, rgba(0, 0, 0, 0) 68%);
+    width: 100%;
+    height: 380%;
+    border-radius: 25px;
+}
+
+#bottom-div {
+    bottom: 0;
+    position: absolute;
+    margin-left: 1rem;
+}
+
+p {
+    margin: 0;
 }
 
 #swipe-div p,
@@ -28,11 +42,6 @@
 #swipe-div label {
     color: white;
     text-shadow: -1px 1px 0 #000, 1px 1px 0 #000, 1px -1px 0 #000;
-}
-
-#swipe-div p,
-#swipe-div h1 {
-    margin: 10px;
 }
 
 #like-dislike-flex {
@@ -43,29 +52,45 @@
     grid-area: a;
     display: flex;
     flex-direction: column;
+    background-repeat: no-repeat;
+    max-width: 100%;
+    background-size: 100% 500px;
+    border-radius: 25px;
+}
+
+#name-radiobtns-flex {
+    display: flex;
+    padding: 0 10px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.radio-buttons {
+    display: flex;
+    flex-direction: column;
+    margin-top: 15px;
 }
 
 .area-b {
     grid-area: b;
-    margin-left: 10px;
     display: flex;
     flex-direction: column;
     flex-grow: 1;
     align-self: flex-end;
 }
 
-.area-c {
-    grid-area: c;
-}
-
-#upper-section {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-#name-age {
+#name {
     font-size: 40px;
+    margin: 0px;
+}
+
+#age-p {
+    font-size: 40px;
+
+}
+
+.padding {
+    padding-left: 10px;
 }
 
 .interest-type-match {
@@ -76,7 +101,8 @@
     color: white;
     padding: 2px 5px;
     margin: 3px;
-    background-image: url("../Pictures/background_orange.png")
+    background-image: url("../Pictures/background_orange.png");
+    font-weight: 100;
 }
 
 .interest-type-nomatch {
@@ -87,18 +113,28 @@
     color: white;
     padding: 2px 5px;
     margin: 3px;
-}
+    font-weight: 100;
 
+}
 
 .interest-div p {
     color: #FF655B
 }
 
+/* CSS for like/dislike/superlike buttons */
 #like-dislike-flex {
     display: flex;
     align-items: center;
     justify-content: space-evenly;
     width: 100%;
+    margin-bottom: 10px;
+    margin-top: 10px;
+
+}
+
+#super-like-pic {
+    width: 55px;
+    height: 55px;
 }
 
 .like-dislike-pictures {
@@ -115,6 +151,10 @@
     background-color: transparent;
     border: none;
     padding: 0;
+}
+
+.disabled-btn {
+    filter: grayscale(70%);
 }
 
 /* CSS for Show the hearts and other effect when hovering like/dislike. */
@@ -137,8 +177,24 @@
 }
 
 /*CSS form displaying popup when a user has a match*/
-#match-div {
+#match-popup {
     background-image: url("../Pictures/heart-popup.png");
+}
+#super-like-popup{
+    background-image: url("../Pictures/super.png");
+
+}
+.show-popup {
+    opacity: 0.9 !important;
+    visibility: visible;
+    transition: opacity 0.5s ease-in-out;
+}
+.hidden-popup{
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+.popup {
     background-size: contain;
     background-repeat: no-repeat;
 
@@ -152,13 +208,8 @@
     height: 80%;
     left: 50%;
     transform: translate(-50%);
-    opacity: 0;
 
     transition: ease-in-out 1.5s;
-}
-
-.show-match-div {
-    opacity: 0.9 !important;
 }
 
 #match-options-flex {
@@ -169,15 +220,24 @@
     text-align: center;
     top: 20%;
 }
-
 #match-options-flex h1 {
     text-decoration: underline;
     font-size: 42px;
     margin-bottom: 2rem;
 }
-
-.radio-buttons {
+#super-like-msg{
+    width: 30%;
     display: flex;
     flex-direction: column;
-    margin-right: 1rem;
+    justify-content: center;
+    align-items: center;
+}
+#super-like-msg * {
+    margin-top: 10px;
+}
+#mydiv{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
