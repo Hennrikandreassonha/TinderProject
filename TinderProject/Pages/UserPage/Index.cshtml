@@ -9,13 +9,9 @@
 
 <h1>@ViewData["Title"]</h1>
 
-@{
-	var completionMessage = ProfileChecker.GetProfileCompletionMessage(Model.LoggedInUser);
-}
-
-@if (!string.IsNullOrWhiteSpace(completionMessage?.ToString()))
+@if (ProfileChecker.ProfileIsComplete(Model.LoggedInUser))
 {
-	<p>@completionMessage</p>
+	    <partial name="_ProfileNotCompleteMsg" />
 }
 else
 {

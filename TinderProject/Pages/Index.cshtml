@@ -7,52 +7,13 @@
     ViewData["Title"] = "Home page";
 }
 
-@{
-    var completionMessage = ProfileChecker.GetProfileCompletionMessage(Model.LoggedInUser);
-}
-
-@if (!string.IsNullOrWhiteSpace(completionMessage?.ToString()))
+@if (ProfileChecker.ProfileIsComplete(Model.LoggedInUser))
 {
-    <p>@completionMessage</p>
+    <partial name="_ProfileNotCompleteMsg" />
 }
 else
 {
     <script src="../js/Swipe_Screen_Js.js" defer></script>
-
-    @* <h1>Welcome, @accessControl.LoggedInAccountName!</h1> *@
-
-    @if (Model.Match)
-    {
-        <div id="match-div">
-            <div id="match-options-flex">
-                <h1>You got a new match!</h1>
-                <div>
-                    @* Skicka användaren till messagepage. *@
-                    <form>
-                        <button class="my-button" type="submit" asp-page="/Messages/ShowMessage"
-                            asp-route-userId="@Model.CurrentUserShown.Id">Send message</button>
-                        <button class="my-button" asp-page="/Index">Keep swiping</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    }
-
-   <div id="super-like-popup" class="popup hidden-popup">
-        <div id="match-options-flex">
-            <h1>Write a message to send to your superliked user!</h1>
-
-            <div id="mydiv">
-                <form method="post" id="super-like-msg">
-                    <input type="text" name="message">
-                    <button id="super-msg-btn" class="my-button" type="submit" asp-page-handler="Super"
-                        asp-route-userId="@Model.CurrentUserShown.Id">
-                        Send message
-                    </button>
-                </form>
-            </div>
-        </div>
-    </div>
 
     @if (Model.NoUsersToSwipe)
     {
@@ -61,6 +22,48 @@ else
     else
     {
         <div id="swipe-div">
+            @if (Model.Match || Model.SuperLike)
+            {
+                @if (Model.Match)
+                {
+                    <div id="popup">
+                        <div id="match-popup" class="popup-pic">
+                            <div class="text-div-popup">
+                                <h1>You got a new match!</h1>
+                                @* Skicka användaren till messagepage. *@
+                                <form>
+                                    <button class="my-button" type="submit" asp-page="/Messages/ShowMessage"
+                                        asp-route-userId="@Model.CurrentUserShown.Id">Send message</button>
+                                    <button class="my-button" asp-page="/Index">Keep swiping</button>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+
+                }
+
+                @if (@Model.SuperLike)
+                {
+                    <div id="popup">
+                        <div id="super-like-popup" class=popup-pic>
+
+                            <div class="text-div-popup">
+                                <h1>Write a message to your superliked user!</h1>
+                                <form method="post" id="super-like-msg">
+                                    <input type="text" name="message">
+                                    <button id="super-msg-btn" class="my-button" type="submit" asp-page-handler="SendMsgSuper"
+                                        asp-route-userId="@Model.CurrentUserShown.Id">
+                                        Send message
+                                    </button>
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+                }
+            }
+
             <section id="upper-background" class="area-a"
                 style="background-image: url('@Model.CurrentUserShown?.ProfilePictureUrl')">
 
@@ -140,25 +143,29 @@ else
                     <form method="post" id="like-dislike-flex">
 
                         @* Dislike button *@
-                        <button type="submit" name="like" value="false" class="invis-btn">
+                        <button type="submit" class="invis-btn">
+
                             <img src="~/Pictures/red_cross.png" alt="A red cross for disliking" id="dislike-button"
                                 class="like-dislike-pictures">
                         </button>
 
                         @* Super like button *@
-                        <button type="button" name="like" id="superlike-btn" value="super" class="invis-btn"
+                        <button type="submit" id="superlike-btn" name="options" value="super" class="invis-btn"
                             disabled="@(!Model.LoggedInUser.PremiumUser)"
                             title='@(Model.LoggedInUser.PremiumUser ? null : "Become premium to use this")'>
 
                             <img src="~/Pictures/super.png" alt="Blue star for superlike" id="super-like-pic"
                                 class="like-dislike-pictures">
                         </button>
+
                         @* Like button *@
-                        <button type="submit" name="like" value="true" class="invis-btn"
+                        <button type="submit" name="options" value="like" class="invis-btn"
                             asp-route-userId="@Model.CurrentUserShown.Id">
+
                             <img src="~/Pictures/green_Heart.png" alt="A green heart for liking" id="like-button"
                                 class="like-dislike-pictures">
                         </button>
+
                     </form>
                 </div>
             </section>

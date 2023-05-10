@@ -1,0 +1,10 @@
+#profile-err-msg {
+    display: flex;
+    flex-direction: column;
+    margin:auto;
+    align-items: center;
+}
+#err-btn{
+    max-width: 250px;
+    margin-top:1rem;
+}

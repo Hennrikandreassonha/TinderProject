@@ -20,15 +20,21 @@ namespace TinderProject.Pages
         [BindProperty]
         public bool Match { get; set; }
         [BindProperty]
+        public bool SuperLike { get; set; }
+        [BindProperty]
         public bool NoUsersToSwipe { get; set; }
         [BindProperty]
         public bool SmartMatching { get; set; }
-        public void OnGet(string? match)
+        public void OnGet(string? options)
         {
             //Fixa så att den nya användaren visas Efter popupen tagits bort och inte innan.
-            if (match == "true")
+            if (options == "true")
             {
                 Match = true;
+            }
+            if (options == "super")
+            {
+                SuperLike = true;
             }
 
             SmartMatching = HttpContext.Session.GetString("smartMatching") == "true" || HttpContext.Session.GetString("smartMatching") == null;
@@ -64,53 +70,59 @@ namespace TinderProject.Pages
 
             CurrentUserShown = UsersToSwipe[(int)currentUserIndex!];
         }
-        public IActionResult OnPost(string like, string smartMatching, int userId)
+        public IActionResult OnPost(string options, string smartMatching, int userId)
         {
-            if (smartMatching == "true")
-            {
-                HttpContext.Session.SetString("smartMatching", "true");
-                return RedirectToPage("/Index");
-            }
-            else if (smartMatching == "false")
-            {
-                HttpContext.Session.SetString("smartMatching", "false");
-                return RedirectToPage("/Index");
-            }
+            // if (smartMatching == "true")
+            // {
+            //     HttpContext.Session.SetString("smartMatching", "true");
+            //     return RedirectToPage("/Index");
+            // }
+            // else if (smartMatching == "false")
+            // {
+            //     HttpContext.Session.SetString("smartMatching", "false");
+            //     return RedirectToPage("/Index");
+            // }
 
             var loggedInUser = _userRepo.GetLoggedInUser();
             UsersToSwipe = _userRepo.GetUsersToSwipe(loggedInUser).ToList();
 
-            if (like == "true" && CheckIfMatch(loggedInUser.Id, userId))
+            if (options == "like" && CheckIfMatch(loggedInUser.Id, userId))
             {
                 ViewData["Match"] = "true";
                 IncrementUserIndex();
-                return RedirectToPage("/Index", new { match = "true" });
+                return RedirectToPage("/Index", new { options = "true" });
             }
             var likedUser = _context.Users.Find(userId);
 
-            if (like == "true")
+            if (options == "like")
             {
                 NewInteraction(loggedInUser, likedUser);
+            }
+            if (options == "super")
+            {
+                return RedirectToPage("/Index", new { options = "super" });
             }
 
             IncrementUserIndex();
             return RedirectToPage("/Index");
         }
-
-        public IActionResult OnPostSuper(string message, int userId)
+        public IActionResult OnPostSendMsgSuper(string message, int userId)
         {
-            //I denna metoden skall vi skicka meddelandet till användaren.
-            System.Console.WriteLine("message");
 
-            var loggedInUser = _userRepo.GetLoggedInUser();
-            UsersToSwipe = _userRepo.GetUsersToSwipe(loggedInUser).ToList();
+            //Skicka till MessagePage.
 
+            
             IncrementUserIndex();
             return RedirectToPage("/Index");
+
         }
         public void IncrementUserIndex()
         {
             //Increments the index which is used for showing users.
+
+            var loggedInUser = _userRepo.GetLoggedInUser();
+            UsersToSwipe = _userRepo.GetUsersToSwipe(loggedInUser).ToList();
+
             if (GetCurrentUserIndex() == UsersToSwipe.Count)
             {
                 HttpContext.Session.SetInt32("currentUserIndex", 0);
@@ -123,7 +135,7 @@ namespace TinderProject.Pages
         }
         public int GetCurrentUserIndex()
         {
-            return HttpContext.Session.GetInt32("currentUserIndex").GetValueOrDefault(); ;
+            return HttpContext.Session.GetInt32("currentUserIndex").GetValueOrDefault();
         }
         public void NewInteraction(User loggedInUser, User likedUser)
         {
