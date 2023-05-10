@@ -50,7 +50,7 @@ else
 			<th>Interests</th>
 			<td>
 				<ul>
-					@foreach (var interest in Model.Test.Interests)
+					@foreach (var interest in Model.LoggedInUser.Interests)
 					{
 						<li>@interest.Interest</li>
 					}

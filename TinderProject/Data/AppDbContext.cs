@@ -11,7 +11,6 @@ namespace TinderProject.Data
         public DbSet<Interests> Interests { get; set; }
         public DbSet<Match> Matches { get; set; }
         public DbSet<Interaction> Interactions { get; set; }
-        //public DbSet<PersonalType> PersonalTypes { get; set; }
         public DbSet<Message> Messages { get; set; }
 
         public AppDbContext(DbContextOptions<AppDbContext> options)
