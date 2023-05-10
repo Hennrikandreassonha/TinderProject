@@ -44,14 +44,7 @@ else
 		</tr>
 		<tr>
 			<th>Personality type</th>
-			<td>
-				<ul>
-					@foreach (var personalityType in Model.LoggedInUser.PersonalTypes)
-					{
-						<li>@personalityType</li>
-					}
-				</ul>
-			</td>
+			<td>@Model.LoggedInUser.PersonalityType</td>
 		</tr>
 		<tr>
 			<th>Interests</th>

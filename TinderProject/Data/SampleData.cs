@@ -11,8 +11,8 @@ namespace TinderProject.Data
         private static readonly string[]? MaleNames = File.ReadAllLines("./Data/DataToUsers/Men.txt");
         private static readonly string[]? FemaleNames = File.ReadAllLines("./Data/DataToUsers/Women.txt");
         private static readonly string[]? LastNames = File.ReadAllLines("./Data/DataToUsers/Lastnames.txt");
-        private static readonly string[]? InterestsArray = File.ReadAllLines("./Data/DataToUsers/Interests.txt");
-        private static readonly string[]? PersonalTypes = File.ReadAllLines("./Data/DataToUsers/Personaltypes.txt");
+        public static readonly string[]? InterestsArray = File.ReadAllLines("./Data/DataToUsers/Interests.txt");
+        public static readonly string[]? PersonalityTypes = File.ReadAllLines("./Data/DataToUsers/Personalitytypes.txt");
 
         public static List<int> TakenPicUrlIndices { get; set; } = new List<int>();
 
@@ -33,7 +33,7 @@ namespace TinderProject.Data
                 var lastName = GenerateLastName();
 
                 var interests = GenerateInterests();
-                var personalTypes = GeneratePersonalTypes();
+                var personalType = GeneratePersonalType();
                 var description = GenerateDescription();
                 var swipePreference = GeneratePreference();
                 var premium = GeneratePremium();
@@ -49,6 +49,7 @@ namespace TinderProject.Data
                     Gender = genderType,
                     FirstName = firstName,
                     LastName = lastName,
+                    PersonalityType = personalType,
                     Description = description,
                     Preference = swipePreference,
                     ProfilePictureUrl = profilePicUrl,
@@ -64,7 +65,7 @@ namespace TinderProject.Data
 
                 var personAdded = database.Users.OrderByDescending(x => x.Id).FirstOrDefault();
 
-                List<Interests> intrestsToAdd = new();
+                List<Interests> interestsToAdd = new();
 
                 foreach (var item in interests)
                 {
@@ -74,24 +75,10 @@ namespace TinderProject.Data
                         Interest = item
                     };
 
-                    intrestsToAdd.Add(interest);
+                    interestsToAdd.Add(interest);
                 }
 
-                List<PersonalType> personalTypesToAdd = new();
-
-                foreach (var item in personalTypes)
-                {
-                    PersonalType type = new()
-                    {
-                        UserId = personAdded.Id,
-                        Type = item
-                    };
-
-                    personalTypesToAdd.Add(type);
-                }
-
-                database.AddRange(intrestsToAdd);
-                database.AddRange(personalTypesToAdd);
+                database.AddRange(interestsToAdd);
                 database.SaveChanges();
             }
         }
@@ -160,7 +147,7 @@ namespace TinderProject.Data
         }
         public static string[] GenerateInterests()
         {
-            int randomNumber = random.Next(2, 6);
+            int randomNumber = random.Next(2, 5);
             List<string> interests = new();
 
             for (int i = 0; i < randomNumber; i++)
@@ -219,8 +206,8 @@ namespace TinderProject.Data
                 description += "I am a ";
             }
 
-            var firstAdjectiveIndex = random.Next(0, PersonalTypes.Length);
-            description += $"{PersonalTypes[firstAdjectiveIndex]}";
+            var firstAdjectiveIndex = random.Next(0, PersonalityTypes.Length);
+            description += $"{PersonalityTypes[firstAdjectiveIndex]}";
 
             var firstNounIndex = random.Next(0, nouns.Length);
             description += $" {nouns[firstNounIndex]}";
@@ -236,9 +223,9 @@ namespace TinderProject.Data
                 description += " that is looking for a ";
             }
 
-            var secondAdjectiveIndex = random.Next(0, PersonalTypes.Length);
+            var secondAdjectiveIndex = random.Next(0, PersonalityTypes.Length);
 
-            description += $"{PersonalTypes[secondAdjectiveIndex]}";
+            description += $"{PersonalityTypes[secondAdjectiveIndex]}";
 
             var firstsecondNounIndex = random.Next(0, nouns.Length);
 
@@ -261,25 +248,11 @@ namespace TinderProject.Data
 
             return DateTime.ParseExact(dateString, "ddMMyyyy", CultureInfo.InvariantCulture);
         }
-        public static string[] GeneratePersonalTypes()
+        public static string GeneratePersonalType()
         {
-            int randomNumber = random.Next(2, 5);
+            int personalIndex = random.Next(0, PersonalityTypes.Length);            
 
-            List<string> personalTypes = new();
-
-            for (int i = 0; i < randomNumber; i++)
-            {
-                int personalTypeIndex = random.Next(0, PersonalTypes.Length);
-
-                while (personalTypes.Contains(PersonalTypes[personalTypeIndex]))
-                {
-                    personalTypeIndex = random.Next(0, PersonalTypes.Length);
-                }
-
-                personalTypes.Add(PersonalTypes[personalTypeIndex]);
-            }
-
-            return personalTypes.ToArray();
+            return PersonalityTypes![personalIndex];
         }
 
         public static bool GeneratePremium()

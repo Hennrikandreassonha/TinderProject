@@ -117,40 +117,13 @@ namespace TinderProject.Migrations
                     b.Property<int>("SentToId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("UserId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("SentFromId");
 
                     b.HasIndex("SentToId");
 
-                    b.HasIndex("UserId");
-
                     b.ToTable("Messages");
-                });
-
-            modelBuilder.Entity("TinderProject.Models.PersonalType", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("Type")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("PersonalTypes");
                 });
 
             modelBuilder.Entity("TinderProject.Models.User", b =>
@@ -183,6 +156,9 @@ namespace TinderProject.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("OpenIDSubject")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PersonalityType")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("Preference")
@@ -252,35 +228,20 @@ namespace TinderProject.Migrations
             modelBuilder.Entity("TinderProject.Models.Message", b =>
                 {
                     b.HasOne("TinderProject.Models.User", "SentFrom")
-                        .WithMany()
+                        .WithMany("SentFrom")
                         .HasForeignKey("SentFromId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("TinderProject.Models.User", "SendTo")
-                        .WithMany()
+                        .WithMany("SentTo")
                         .HasForeignKey("SentToId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("TinderProject.Models.User", null)
-                        .WithMany("Users")
-                        .HasForeignKey("UserId");
-
                     b.Navigation("SendTo");
 
                     b.Navigation("SentFrom");
-                });
-
-            modelBuilder.Entity("TinderProject.Models.PersonalType", b =>
-                {
-                    b.HasOne("TinderProject.Models.User", "User")
-                        .WithMany("PersonalTypes")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("TinderProject.Models.User", b =>
@@ -295,9 +256,9 @@ namespace TinderProject.Migrations
 
                     b.Navigation("Matcher2");
 
-                    b.Navigation("PersonalTypes");
+                    b.Navigation("SentFrom");
 
-                    b.Navigation("Users");
+                    b.Navigation("SentTo");
                 });
 #pragma warning restore 612, 618
         }

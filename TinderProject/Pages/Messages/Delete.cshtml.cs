@@ -41,7 +41,7 @@ namespace TinderProject.Pages.Messages
 
             _database.SaveChanges();
 
-            return RedirectToPage("/Index");
+            return RedirectToPage("/Messages/Index");
         }
     }
 }
