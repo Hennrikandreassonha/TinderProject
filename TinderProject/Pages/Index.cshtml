@@ -8,7 +8,7 @@
 }
 
 @{
-    var completionMessage = ProfileChecker.GetProfileCompletionMessage(Model.LoggedInUser, HttpContextAccessor);
+    var completionMessage = ProfileChecker.GetProfileCompletionMessage(Model.LoggedInUser);
 }
 
 @if (!string.IsNullOrWhiteSpace(completionMessage?.ToString()))
@@ -38,7 +38,7 @@ else
         </div>
     }
 
-  @*  <div id="super-like-popup" class="popup hidden-popup">
+   <div id="super-like-popup" class="popup hidden-popup">
         <div id="match-options-flex">
             <h1>Write a message to send to your superliked user!</h1>
 
@@ -52,7 +52,7 @@ else
                 </form>
             </div>
         </div>
-    </div>*@
+    </div>
 
     @if (Model.NoUsersToSwipe)
     {
