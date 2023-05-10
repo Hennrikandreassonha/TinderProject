@@ -16,8 +16,7 @@ namespace TinderProject.Utilities
                 || user.Preference == null
                 || string.IsNullOrWhiteSpace(user.ProfilePictureUrl)
                 || string.IsNullOrWhiteSpace(user.Description))
-                || user.Interests == null
-                || user.PersonalityType == null)
+                || user.Interests.Count == 0)
             {
                 var editLink = $"<a href='/UserPage/Edit'><span class='edit-link'>{HtmlEncoder.Default.Encode("here")}</span></a>";
                 message = $"Your profile is not complete. Please fill in your profile information by clicking {editLink}.";

@@ -36,11 +36,11 @@
 				<option value="">Please select</option>
 			</select>
 		</section>
-		@*<section>
-			<label for="personalityType">Personality type</label>
-			<select asp-for="User.PersonalTypes" asp-items="Html.GetEnumSelectList<">
-				<option value="">Please select</option>
-			</select>*@
+		<section>
+			<label for="interest">Interests</label>
+			<select asp-for="User.Interests" asp-items="@(new SelectList(Data.SampleData.InterestsArray))" multiple>
+				<option value="">Please select 2 to 4 by clicking and pressing Ctrl key</option>
+			</select>
 		</section>
 		<section>
 			<label for="description">Description</label>

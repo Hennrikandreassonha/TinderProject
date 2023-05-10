@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using TinderProject.Data;
+using TinderProject.Models;
 using TinderProject.Repositories.Repositories_Interfaces;
 
 namespace TinderProject.Pages.UserPage
@@ -55,8 +56,7 @@ namespace TinderProject.Pages.UserPage
 			userToUpdate.Description = User.Description;
 			userToUpdate.PremiumUser = User.PremiumUser;
 
-			userToUpdate.Interests.Clear();
-			userToUpdate.Interests.AddRange(User.Interests);
+			userToUpdate.Interests = User.Interests;
 
 			_database.Users.Update(userToUpdate);
 			_database.SaveChanges();
