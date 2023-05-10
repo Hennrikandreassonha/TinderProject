@@ -19,6 +19,7 @@
                     <p id="message-name">@message.SentFrom.FirstName @message.SentFrom.LastName wrote:</p>
                     <p id="message-message">@message.SentMessage</p>
                     <p id="message-time">@message.SentTime</p>
+                   
                 </section>
             }
             else
@@ -27,13 +28,12 @@
                     <p id="message-name">@message.SentFrom.FirstName @message.SentFrom.LastName wrote:</p>
                     <p id="message-message">@message.SentMessage</p>
                     <p id="message-time">@message.SentTime</p>
+                    @if (Model.CurrentUser.PremiumUser == true && message.isRead == true)
+                    {
+                        <p>Read by user</p>
+                    }
                 </section>
             }
-       @*     if (Model.CurrentUser.Id == message.SentToId)
-            {
-                message.isRead =
-
-        }*@
         }
     </div>
 

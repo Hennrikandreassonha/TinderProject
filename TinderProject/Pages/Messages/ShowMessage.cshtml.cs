@@ -39,6 +39,16 @@ namespace TinderProject.Pages.Messages
                 .OrderBy(m => m.SentTime)
                 .ToList();
 
+            foreach (var message in Messages)
+            {
+                if (CurrentUser.Id == message.SentToId)
+                {
+                    message.isRead = true;
+                _database.Messages.Update(message);
+
+                }
+                _database.SaveChanges();
+            }   
             
             var otherUsersIds = _database.Messages
                 .Where(m => m.SentToId == CurrentUser.Id || m.SentFromId == CurrentUser.Id)
