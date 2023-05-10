@@ -9,7 +9,6 @@ namespace TinderProject.Data
         DbSet<Interests> Interests { get; set; }
         DbSet<Match> Matches { get; set; }
         DbSet<Interaction> Interactions { get; set; }
-        DbSet<PersonalType> PersonalTypes { get; set; }
         DbSet<Message> Messages { get; set; }
 
         int SaveChanges();
