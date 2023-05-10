@@ -44,11 +44,14 @@ else
     }
     else
     {
-        <div id="swipe-div" style="background-image: url('@Model.CurrentUserShown?.ProfilePictureUrl')">
-            <div class="area-a">
-                <div id="upper-section">
-                    <h1 id="name-age">@Model.CurrentUserShown.FirstName @Model.CurrentUserShown.Age</h1>
+        <div id="swipe-div">
+            <section id="upper-background" class="area-a"
+                style="background-image: url('@Model.CurrentUserShown?.ProfilePictureUrl')">
 
+                <div id="name-radiobtns-flex">
+                    <div id="name">
+                        <h1>@Model.CurrentUserShown.FirstName </h1>
+                    </div>
                     <form id="radio-form" class="radio-buttons" method="post"
                         title="Smart matching shows users with matching personality types first.&#010;Clicking these will cause a page reload">
                         <label>
@@ -63,83 +66,87 @@ else
                         </label>
                     </form>
                 </div>
-                <p>@Model.CurrentUserShown.Description</p>
-            </div>
+                <p id="age-p" class="padding">@Model.CurrentUserShown.Age</p>
+                <p class="padding">@Model.CurrentUserShown.Description</p>
+            </section>
 
-            <div class="area-b">
-                <div>
-                    <p>Personality type:</p>
-                    @foreach (var item in Model.CurrentUserShown.PersonalTypes)
-                    {
-                        bool isMatch = false;
-                        foreach (var loggedInType in Model.LoggedInUser.PersonalTypes)
+
+            <section id="lower-background" class="area-b">
+                <div id="bottom-div">
+                    <div>
+                        <p>Personality type:</p>
+                        @foreach (var item in Model.CurrentUserShown.PersonalTypes)
                         {
-                            if (loggedInType.Type == item.Type)
+                            bool isMatch = false;
+                            foreach (var loggedInType in Model.LoggedInUser.PersonalTypes)
                             {
-                                isMatch = true;
-                                break;
+                                if (loggedInType.Type == item.Type)
+                                {
+                                    isMatch = true;
+                                    break;
+                                }
+                            }
+                            if (isMatch)
+                            {
+                                <div class="interest-type-match">@item.Type</div>
+                            }
+                            else
+                            {
+                                <div class="interest-type-nomatch">@item.Type</div>
                             }
                         }
-                        if (isMatch)
-                        {
-                            <div class="interest-type-match">@item.Type</div>
-                        }
-                        else
-                        {
-                            <div class="interest-type-nomatch">@item.Type</div>
-                        }
-                    }
-                </div>
+                    </div>
 
-                <div>
-                    <p>Interests:</p>
-                    @foreach (var item in Model.CurrentUserShown.Interests)
-                    {
-                        bool isMatch = false;
-                        foreach (var loggedInInterest in Model.LoggedInUser.Interests)
+                    <div>
+                        <p>Interests:</p>
+                        @foreach (var item in Model.CurrentUserShown.Interests)
                         {
-                            if (loggedInInterest.Interest == item.Interest)
+                            bool isMatch = false;
+                            foreach (var loggedInInterest in Model.LoggedInUser.Interests)
                             {
-                                isMatch = true;
-                                break;
+                                if (loggedInInterest.Interest == item.Interest)
+                                {
+                                    isMatch = true;
+                                    break;
+                                }
+                            }
+                            if (isMatch)
+                            {
+                                <div class="interest-type-match">@item.Interest</div>
+                            }
+                            else
+                            {
+                                <div class="interest-type-nomatch">@item.Interest</div>
                             }
                         }
-                        if (isMatch)
-                        {
-                            <div class="interest-type-match">@item.Interest</div>
-                        }
-                        else
-                        {
-                            <div class="interest-type-nomatch">@item.Interest</div>
-                        }
-                    }
 
+                    </div>
+                    <form method="post" id="like-dislike-flex" class="area-c">
+
+                        @* Dislike button *@
+                        <button type="submit" name="like" value="false" class="invis-btn">
+                            <img src="~/Pictures/red_cross.png" alt="A red cross for disliking" id="dislike-button"
+                                class="like-dislike-pictures">
+                        </button>
+
+                        @* Super like button *@
+
+                        @* Använda en annan Post metod eller den som finns. *@
+                        <button type="submit" name="like" id="superlike-btn" value="super" class="invis-btn"
+                            asp-route-userId="@Model.CurrentUserShown.Id" disabled="@(!Model.LoggedInUser.PremiumUser)">
+                            <img src="~/Pictures/super.png" alt="Blue star for superlike" id="super-like-pic"
+                                class="like-dislike-pictures">
+                        </button>
+
+                        @* Like button *@
+                        <button type="submit" name="like" value="true" class="invis-btn"
+                            asp-route-userId="@Model.CurrentUserShown.Id">
+                            <img src="~/Pictures/green_Heart.png" alt="A green heart for liking" id="like-button"
+                                class="like-dislike-pictures">
+                        </button>
+                    </form>
                 </div>
-            </div>
-
-            <form method="post" id="like-dislike-flex" class="area-c">
-
-                @* Dislike button *@
-                <button type="submit" name="like" value="false" class="invis-btn">
-                    <img src="~/Pictures/red_cross.png" alt="A red cross for disliking" id="dislike-button"
-                        class="like-dislike-pictures">
-                </button>
-
-                @* Super like button *@
-
-                @* Använda en annan Post metod eller den som finns. *@
-                <button type="submit" name="like" id="superlike-btn" value="super" class="invis-btn"
-                    asp-route-userId="@Model.CurrentUserShown.Id" disabled="@(!Model.LoggedInUser.PremiumUser)">
-                    <img src="~/Pictures/super.png" alt="Blue star for superlike" id="super-like-pic"
-                        class="like-dislike-pictures">
-                </button>
-
-                @* Like button *@
-                <button type="submit" name="like" value="true" class="invis-btn" asp-route-userId="@Model.CurrentUserShown.Id">
-                    <img src="~/Pictures/green_Heart.png" alt="A green heart for liking" id="like-button"
-                        class="like-dislike-pictures">
-                </button>
-            </form>
+            </section>
         </div>
     }
 }
