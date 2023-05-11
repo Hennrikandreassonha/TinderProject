@@ -8,76 +8,83 @@ using Microsoft.Extensions.Logging;
 using TinderProject.Data;
 using TinderProject.Models;
 using TinderProject.Repositories.Repositories_Interfaces;
+using System.IO;
+
 
 namespace TinderProject.Pages.UserPage
 {
-	public class EditModel : PageModel
-	{
-		private readonly IUserRepository _userRepository;
-		private readonly AppDbContext _database;
+    public class EditModel : PageModel
+    {
+        private readonly IUserRepository _userRepository;
+        private readonly AppDbContext _database;
 
-		public EditModel(IUserRepository userRepository, AppDbContext database)
-		{
-			_userRepository = userRepository;
-			_database = database;
-		}
+        public EditModel(IUserRepository userRepository, AppDbContext database)
+        {
+            _userRepository = userRepository;
+            _database = database;
+        }
 
-		[BindProperty]
-		public User LoggedInUser { get; set; }
-		public User UserInterest { get; set; }
-		public User UserToUpdate { get; set; }
-		public List<int> NewInterests { get; set; }
+        [BindProperty]
+        public User LoggedInUser { get; set; }
+        public List<string> AllInterests { get; set; }
+        public User UserToUpdate { get; set; }
+        public void OnGet()
+        {
+            AllInterests = System.IO.File.ReadAllLines("./Data/DataToUsers/Interests.txt").ToList();
 
-		public void OnGet()
-		{
-			LoggedInUser = _userRepository.GetLoggedInUser();
-			UserInterest = _database.Users.Include(i => i.Interests).FirstOrDefault(u => u.Id == LoggedInUser.Id);
-		}
+            LoggedInUser = _userRepository.GetLoggedInUser();
+        }
 
-		public IActionResult OnPost(int loggedInId)
-		{
-			if (!ModelState.IsValid)
-			{
-				return Page();
-			}
+        public IActionResult OnPost(int loggedInId, List<string> interestsToAdd)
+        {
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
 
-			//LoggedInUser = _userRepository.GetLoggedInUser();
-			//UserInterest = _database.Users.Include(i => i.Interests).FirstOrDefault(u => u.Id == LoggedInUser.Id);
-			UserToUpdate = _database.Users.Include(u=>u.Interests).FirstOrDefault(u => u.Id == loggedInId);
-
-
-			if (UserToUpdate == null)
-			{
-				return NotFound();
-			}
-
-			UserToUpdate.FirstName = LoggedInUser.FirstName;
-			UserToUpdate.LastName = LoggedInUser.LastName;
-			UserToUpdate.DateOfBirth = LoggedInUser.DateOfBirth;
-			UserToUpdate.Gender = LoggedInUser.Gender;
-			UserToUpdate.Preference = LoggedInUser.Preference;
-			UserToUpdate.ProfilePictureUrl = LoggedInUser.ProfilePictureUrl;
-			UserToUpdate.Description = LoggedInUser.Description;
-			UserToUpdate.PremiumUser = LoggedInUser.PremiumUser;
+            //LoggedInUser = _userRepository.GetLoggedInUser();
+            //UserInterest = _database.Users.Include(i => i.Interests).FirstOrDefault(u => u.Id == LoggedInUser.Id);
+            UserToUpdate = _database.Users.Include(u => u.Interests).FirstOrDefault(u => u.Id == loggedInId);
 
 
-			UserToUpdate.Interests.Clear();
-			foreach (var interestId in NewInterests)
-			{
-				var interest = _database.Interests.Find(interestId);
-				if (interest != null)
-				{
-					UserToUpdate.Interests.Add(interest);
-				}
-			}
-			
+            if (UserToUpdate == null)
+            {
+                return NotFound();
+            }
 
-			
+            UserToUpdate.FirstName = LoggedInUser.FirstName;
+            UserToUpdate.LastName = LoggedInUser.LastName;
+            UserToUpdate.DateOfBirth = LoggedInUser.DateOfBirth;
+            UserToUpdate.Gender = LoggedInUser.Gender;
+            UserToUpdate.Preference = LoggedInUser.Preference;
+            UserToUpdate.ProfilePictureUrl = LoggedInUser.ProfilePictureUrl;
+            UserToUpdate.Description = LoggedInUser.Description;
+            UserToUpdate.PremiumUser = LoggedInUser.PremiumUser;
 
-			_database.Users.Update(UserToUpdate);
-			_database.SaveChanges();
 
-			return RedirectToPage("/UserPage/Index");
-		}
-	}
+            if (UserToUpdate.Interests.Clear != null)
+            {
+                UserToUpdate.Interests.Clear();
+            }
+
+            foreach (var interest in interestsToAdd)
+            {
+                if (interest != null)
+                {
+                    Interests newInterest = new()
+                    {
+                        Interest = interest,
+                        UserId = UserToUpdate.Id,
+                    };
+
+                    UserToUpdate.Interests.Add(newInterest);
+                }
+            }
+
+            _database.Users.Update(UserToUpdate);
+            _database.SaveChanges();
+
+            return RedirectToPage("/UserPage/Index");
+        }
+    }
 }

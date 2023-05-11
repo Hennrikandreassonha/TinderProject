@@ -206,11 +206,8 @@ namespace TinderProject.Data
                 description += "I am a ";
             }
 
-            var firstAdjectiveIndex = random.Next(0, PersonalityTypes.Length);
-            description += $"{PersonalityTypes[firstAdjectiveIndex]}";
-
-            var firstNounIndex = random.Next(0, nouns.Length);
-            description += $" {nouns[firstNounIndex]}";
+            var personaltype = random.Next(0, PersonalityTypes.Length);
+            description += $"{PersonalityTypes[personaltype]}";
 
             int searchingIndex = random.Next(0, 2);
 
@@ -223,14 +220,8 @@ namespace TinderProject.Data
                 description += " that is looking for a ";
             }
 
-            var secondAdjectiveIndex = random.Next(0, PersonalityTypes.Length);
-
-            description += $"{PersonalityTypes[secondAdjectiveIndex]}";
-
-            var firstsecondNounIndex = random.Next(0, nouns.Length);
-
-            description += $" {nouns[firstsecondNounIndex]}.";
-
+            var nounIndex = random.Next(0, nouns.Length);
+            description += $" {nouns[nounIndex]}.";
             return description[..1].ToUpper() + description[1..].ToLower();
         }
 
