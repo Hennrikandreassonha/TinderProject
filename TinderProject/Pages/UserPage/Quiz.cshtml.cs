@@ -16,7 +16,7 @@ namespace TinderProject.Pages.UserPage
 
 		[BindProperty]
 		public User LoggedInUser { get; set; }
-		public List<string> AllPersonalityTypes { get; set; }
+		//public List<string> AllPersonalityTypes { get; set; }
 		public User UserToUpdate { get; set; }
 
 		[BindProperty]
@@ -24,7 +24,7 @@ namespace TinderProject.Pages.UserPage
 
 		public void OnGet()
         {
-            AllPersonalityTypes = System.IO.File.ReadAllLines("./Data/DataToUsers/Personalitytypes.txt").ToList();
+            //AllPersonalityTypes = System.IO.File.ReadAllLines("./Data/DataToUsers/Personalitytypes.txt").ToList();
 
 			LoggedInUser = _userRepository.GetLoggedInUser();
 		}
@@ -58,7 +58,7 @@ namespace TinderProject.Pages.UserPage
 			if(UserQuiz.Question1 == "alone" && UserQuiz.Question2 == "senses-information"
 				&& UserQuiz.Question3 == "logic-analysis" && UserQuiz.Question4 == "detailed-plan-deadlines")
 			{
-				return "Inspector(ISTJ)";
+				return "Inspector (ISTJ)";
 			}
 			else if (UserQuiz.Question1 == "alone" && UserQuiz.Question2 == "senses-information" &&
 			 UserQuiz.Question3 == "logic-analysis" && UserQuiz.Question4 == "general-idea-adjust")
