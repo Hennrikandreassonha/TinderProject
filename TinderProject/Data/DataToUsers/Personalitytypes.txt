@@ -1,16 +1,16 @@
-Inspector
-Protector
-Counselor
-Mastermind
-Craftsman
-Composer
-Healer
-Architect
-Dynamo
-Performer
-Champion
-Visionary
-Supervisor
-Provider
-Teacher
-Commander
+Inspector (ISTJ)
+Protector (ISFJ)
+Counselor (INFJ)
+Mastermind (INTJ)
+Craftsman (ISTP)
+Composer (ISFP)
+Healer (INFP)
+Architect (INTP)
+Dynamo (ESTP)
+Performer (ESFP)
+Champion (ENFP)
+Visionary (ENTP)
+Supervisor (ESTJ)
+Provider (ESFJ)
+Teacher (ENFJ)
+Commander (ENTJ)
