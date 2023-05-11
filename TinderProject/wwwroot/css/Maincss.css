@@ -28,15 +28,17 @@ h3,
 p,
 table * {
     margin: 0;
-    
 }
-.white-text{
-    color:white;
+
+.white-text {
+    color: white;
 }
-th{
+
+th {
     font-weight: 100;
     font-size: large;
 }
+
 a:link,
 a:visited,
 a:hover,
@@ -48,33 +50,34 @@ a:active {
 
 .my-button,
 input[type="text"] {
-  font-family: 'Lobster', cursive;
-  background-color: #d6306a;
-  color: white;
-  border: none;
-  border-radius: 25px;
-  font-size: 18px;
-  padding: 7px 20px;
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
-  transition: all 0.3s ease;
+    font-family: 'Lobster', cursive;
+    background-color: #d6306a;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    font-size: 18px;
+    padding: 7px 20px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
 }
 
-.my-button:hover,
-input[type="text"]:hover {
-  background-color: #ff99c8;
-  transform: scale(1.05);
-  cursor: pointer;
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
-}
+    .my-button:hover,
+    input[type="text"]:hover {
+        background-color: #ff99c8;
+        transform: scale(1.05);
+        cursor: pointer;
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+    }
 
 /* This div is used in profile, premium for now. Centering content. */
-.center-div{
-    width:100%;
+.center-div {
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
 }
+
 #cover-div {
     max-width: 950px;
     background-image: url("../Pictures/background_orange.png");
@@ -90,18 +93,20 @@ input[type="text"]:hover {
 
 @media screen and (max-width: 354px) {
     #cover-div {
-    padding: 0;
+        padding: 0;
     }
 }
 
-#message-header{
-    text-align:center;
+#message-header {
+    text-align: center;
 }
+
 #message-continer {
     display: grid;
     grid-template:
         "a b " / 1fr 0.5fr;
 }
+
 #message-div {
     grid-area: a;
     display: block;
@@ -110,8 +115,8 @@ input[type="text"]:hover {
     margin-top: 2rem;
     margin-left: 2rem;
     overflow-x: hidden;
-    
 }
+
 #interactions-div {
     grid-area: b;
     display: block;
@@ -127,20 +132,21 @@ input[type="text"]:hover {
     font-size: 10px;
 }
 
-#message-left{
+#message-left {
     float: left;
     clear: both;
     border: solid 2px;
     border-radius: 10px;
-    padding:2px;
+    padding: 2px;
     width: 250px;
     margin-bottom: 5px;
-    background-color:white;
+    background-color: white;
 }
+
 #message-right {
     float: right;
     clear: both;
-    margin-right:2rem;
+    margin-right: 2rem;
     border: solid 2px;
     border-radius: 10px;
     padding: 2px;
@@ -159,7 +165,6 @@ input[type="text"]:hover {
     align-items: center;
     border: 1px solid black;
     border-radius: 25px;
-
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
 
@@ -175,11 +180,13 @@ input[type="text"]:hover {
     font-size: large;
     align-content: center;
 }
-.pic-in-anchor{
+
+.pic-in-anchor {
     height: auto;
     width: 25px;
     margin-bottom: -6px;
 }
+
 .nav-li:hover {
     text-decoration: underline 1px solid;
     transform: scale(1.25);
