@@ -1,13 +1,24 @@
 ﻿@page
 @model TinderProject.Pages.UserPage.QuizModel
-@{
-}
 
 @{
 	ViewData["Title"] = "Quiz to decide your personality type*";
 }
 
 <h1>@ViewData["Title"]</h1>
+
+@if (!ViewData.ModelState.IsValid)
+{
+	<div class="validation-summary-errors">
+		<p>Please correct the following errors:</p>
+		<ul>
+			@foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+			{
+				<li>@error.ErrorMessage</li>
+			}
+		</ul>
+	</div>
+}
 
 <form method="post">
 	<fieldset>
@@ -54,6 +65,6 @@
 		</label>
 	</fieldset>
 
-	<button type="submit">Submit</button>
+	<button type="submit" asp-route-loggedInId="@Model.LoggedInUser.Id">Submit</button>
 </form>
 <p>*According to the Myers-Briggs Type Indicator. Click <a href="https://en.wikipedia.org/wiki/Myers%E2%80%93Briggs_Type_Indicator">here</a> to read more about it</p>
