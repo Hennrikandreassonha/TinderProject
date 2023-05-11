@@ -25,6 +25,8 @@ namespace TinderProject.Pages.UserPage
 		[BindProperty]
 		public User LoggedInUser { get; set; }
 		public User UserInterest { get; set; }
+		public User UserToUpdate { get; set; }
+		public List<int> NewInterests { get; set; }
 
 		public void OnGet()
 		{
@@ -32,33 +34,47 @@ namespace TinderProject.Pages.UserPage
 			UserInterest = _database.Users.Include(i => i.Interests).FirstOrDefault(u => u.Id == LoggedInUser.Id);
 		}
 
-		public IActionResult OnPost()
+		public IActionResult OnPost(int loggedInId)
 		{
 			if (!ModelState.IsValid)
 			{
 				return Page();
 			}
 
-			var loggedInUser = _userRepository.GetLoggedInUser();
-			var userToUpdate = _database.Users.Find(loggedInUser.Id);
+			//LoggedInUser = _userRepository.GetLoggedInUser();
+			//UserInterest = _database.Users.Include(i => i.Interests).FirstOrDefault(u => u.Id == LoggedInUser.Id);
+			UserToUpdate = _database.Users.Include(u=>u.Interests).FirstOrDefault(u => u.Id == loggedInId);
 
-			if (userToUpdate == null)
+
+			if (UserToUpdate == null)
 			{
 				return NotFound();
 			}
 
-			userToUpdate.FirstName = LoggedInUser.FirstName;
-			userToUpdate.LastName = LoggedInUser.LastName;
-			userToUpdate.DateOfBirth = LoggedInUser.DateOfBirth;
-			userToUpdate.Gender = LoggedInUser.Gender;
-			userToUpdate.Preference = LoggedInUser.Preference;
-			userToUpdate.ProfilePictureUrl = LoggedInUser.ProfilePictureUrl;
-			userToUpdate.Description = LoggedInUser.Description;
-			userToUpdate.PremiumUser = LoggedInUser.PremiumUser;
+			UserToUpdate.FirstName = LoggedInUser.FirstName;
+			UserToUpdate.LastName = LoggedInUser.LastName;
+			UserToUpdate.DateOfBirth = LoggedInUser.DateOfBirth;
+			UserToUpdate.Gender = LoggedInUser.Gender;
+			UserToUpdate.Preference = LoggedInUser.Preference;
+			UserToUpdate.ProfilePictureUrl = LoggedInUser.ProfilePictureUrl;
+			UserToUpdate.Description = LoggedInUser.Description;
+			UserToUpdate.PremiumUser = LoggedInUser.PremiumUser;
 
-			userToUpdate.Interests = LoggedInUser.Interests;
 
-			_database.Users.Update(userToUpdate);
+			UserToUpdate.Interests.Clear();
+			foreach (var interestId in NewInterests)
+			{
+				var interest = _database.Interests.Find(interestId);
+				if (interest != null)
+				{
+					UserToUpdate.Interests.Add(interest);
+				}
+			}
+			
+
+			
+
+			_database.Users.Update(UserToUpdate);
 			_database.SaveChanges();
 
 			return RedirectToPage("/UserPage/Index");

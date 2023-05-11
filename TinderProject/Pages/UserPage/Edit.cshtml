@@ -38,7 +38,7 @@
 		</section>
 		<section>
 			<label for="interest">Interests</label>
-			<select asp-for="LoggedInUser.Interests" asp-items="@(new MultiSelectList(Data.SampleData.InterestsArray, Model.LoggedInUser.Interests))" multiple>
+			<select asp-for="NewInterests" asp-items="@(new MultiSelectList(Data.SampleData.InterestsArray, Model.LoggedInUser.Interests))" multiple>
 				<option value="">Please select 2 to 4 interests by clicking and pressing Ctrl key</option>
 			</select>
 		</section>
@@ -57,6 +57,6 @@
 			<input type="checkbox" id="premium" asp-for="LoggedInUser.PremiumUser" />
 			<span asp-validation-for="LoggedInUser.PremiumUser"></span>
 		</section>
-		<button type="submit">Update profile</button>
+		<button type="submit" asp-route-loggedInId="@Model.LoggedInUser.Id">Update profile</button>
 	</form>
 </div>
