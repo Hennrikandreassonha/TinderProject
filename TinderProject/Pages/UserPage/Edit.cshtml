@@ -1,14 +1,13 @@
 @page
 @model EditModel
 @using Models.ModelEnums
-@{
-	ViewData["Title"] = "Edit profile";
-}
 
-<h1>@ViewData["Title"]</h1>
 
-<div>
-	<form method="post">
+<div class="center-div">
+
+	<h1 class="white-text">Edit profile</h1>
+
+	<form method="post" id="edit-flex">
 		<section>
 			<label for="firstName">First name</label>
 			<input type="text" id="firstName" asp-for="LoggedInUser.FirstName" />
@@ -21,7 +20,8 @@
 		</section>
 		<section>
 			<label for="dateOfBirth">Date of birth</label>
-			<input type="datetime" id="dateOfBirth" asp-for="LoggedInUser.DateOfBirth" />
+			<input type="datetime" id="dateOfBirth" asp-for="LoggedInUser.DateOfBirth"
+				value="@Model.LoggedInUser.DateOfBirth.ToString("yyyy-MM-dd")" />
 			<span asp-validation-for="LoggedInUser.DateOfBirth"></span>
 		</section>
 		<section>
@@ -38,8 +38,16 @@
 		</section>
 		<section>
 			<label for="interest">Interests</label>
-			<select asp-for="NewInterests" asp-items="@(new MultiSelectList(Data.SampleData.InterestsArray, Model.LoggedInUser.Interests))" multiple>
-				<option value="">Please select 2 to 4 interests by clicking and pressing Ctrl key</option>
+
+			@foreach (var interest in Model.AllInterests)
+			{
+				bool isSelected = Model.LoggedInUser.Interests.Any(item => item.Interest == interest);
+				<label>
+					<input name="interestsToAdd" type="checkbox" value="@interest" @(isSelected ? "checked" : "") />
+					@interest
+				</label>
+			}
+
 			</select>
 		</section>
 		<section>
