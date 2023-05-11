@@ -40,7 +40,7 @@
     <div id="interactions-div">
         @if (Model.User != null && Model.User.Any())
         {
-            <table>
+            <table class ="message-table">
                 @foreach (var user in Model.User)
                 {
                     <tr>
@@ -66,7 +66,7 @@
         {
             <p>Start konversation whit: </p>
 
-            <table>
+            <table class="message-table">
                 @foreach (var user in Model.NoConversation)
                 {
                     <tr>
