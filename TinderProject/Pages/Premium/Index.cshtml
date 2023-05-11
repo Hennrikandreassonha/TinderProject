@@ -1,29 +1,31 @@
 ﻿@page
 @model TinderProject.Pages.Premium.IndexModel
-@{
-    ViewData["Title"] = "Likers";
-}
-
-
-<h2>@ViewData["Title"]</h2>
-
 
 @if (Model.IsPremium)
 {
-    <table>
-        @foreach (var user in Model.Users)
-        {
-            <tr>
-                <th>Liker: </th>
-                <td><a asp-page="ShowLikerInfo" asp-route-userId="@user.Id">@user.FirstName @user.LastName</a></td>
-                <td><img src="@user.ProfilePictureUrl" alt="Profile Picture" id="messageProfilePic"></td>
-                
-            </tr>
-        }
-    </table>
+    <div class="center-div">
+        <h1 class="white-text">Users who likes you</h1>
+        <table id="premium-table">
+            @foreach (var user in Model.Users)
+            {
+                <tr>
+                    @* <th>Liker: </th> *@
+                    <td>@user.FirstName @user.LastName</td>
+                    <td><img src="@user.ProfilePictureUrl" alt="Profile Picture" id="messageProfilePic"></td>
 
+                    <td class="btn-td">
+                        <form>
+                            <button id="super-msg-btn" class="my-button" type="submit" asp-page="ShowLikerInfo"
+                                asp-route-userId="@user.Id">View profile</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
 }
-else{
+else
+{
     <p>You need to upgrade to premimum</p>
 }
 

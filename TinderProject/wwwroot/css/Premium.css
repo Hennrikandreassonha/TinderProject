@@ -1,0 +1,16 @@
+#premium-table img{
+ padding: 0;
+ height: 40px;
+ width: 40px;
+}
+#premium-table form{
+    padding:0;
+}
+#premium-table img:hover {
+    transform: scale(2);
+    transition: transform 0.3s ease-in-out;
+  }
+  .btn-td {
+    background: none !important;
+    border: none;
+  }

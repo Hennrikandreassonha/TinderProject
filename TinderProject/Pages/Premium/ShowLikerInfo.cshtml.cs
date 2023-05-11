@@ -22,9 +22,7 @@ namespace TinderProject.Pages.Premium
         public void OnGet(int userId)
         {
             CurrentUser = _userRepository.GetLoggedInUser();
-            LikerUser = _database.Users
-                        .Include(u => u.Interests).ToList()
-                        .FirstOrDefault(u => u.Id == userId);
+            LikerUser = _userRepository.GetUser(userId);
         }
     }
 }
