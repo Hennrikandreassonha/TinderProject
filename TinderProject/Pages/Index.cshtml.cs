@@ -43,10 +43,10 @@ namespace TinderProject.Pages
             if (LoggedInUser != null)
             {
                 UsersToSwipe = _userRepo.GetUsersToSwipe(LoggedInUser).ToList();
-                //if (SmartMatching)
-                //{
+                // if (SmartMatching)
+                // {
                 //    UsersToSwipe = _matchRepo.OrderByMatchingTypes(UsersToSwipe, LoggedInUser);
-                //}
+                // }
                 //else
                 //{
                 //    UsersToSwipe = _matchRepo.OrderByLeastMatchingTypes(UsersToSwipe, LoggedInUser);

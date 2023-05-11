@@ -16,40 +16,34 @@ namespace TinderProject.Repositories
         }
         public List<User> OrderByMatchingTypes(ICollection<User> userList, User loggedInUser)
         {
-            //This function orders the SwipeList based on amount of PersonalTypes matching. 
-            //The person with most matching PersonalTypes will be at index 0.
-
-            var userPersonalTypes = loggedInUser.PersonalityType;
-
-
-
             List<KeyValuePair<int, User>> matchingUsers = new List<KeyValuePair<int, User>>();
 
-            //foreach (var user in userList)
-            //{
-            //    var personalTypes = _userRepo.GetPersonalTypes(user);
-            //    int matchCount = 0;
+            foreach (var user in userList)
+            {
+                int matchCount = 0;
 
-            //    foreach (var type in personalTypes)
-            //    {
-            //        foreach (var item in userPersonalTypes)
-            //        {
-            //            if (item.Type == type.Type)
-            //            {
-            //                matchCount++;
-            //            }
-            //        }
-            //    }
-            //    matchingUsers.Add(new KeyValuePair<int, User>(matchCount, user));
-            //}
+                for (int i = 0; i < user.PersonalityType.Length; i++)
+                {
+                    matchCount += (user.PersonalityType[i] == loggedInUser.PersonalityType[i]) ? 1 : 0;
+                }
+
+                matchingUsers.Add(new KeyValuePair<int, User>(matchCount, user));
+            }
 
             return matchingUsers.OrderByDescending(x => x.Key).Select(x => x.Value).ToList();
         }
+
         public List<User> OrderByLeastMatchingTypes(ICollection<User> userList, User loggedInUser)
         {
             var sortedUsers = OrderByMatchingTypes(userList, loggedInUser);
             sortedUsers.Reverse();
             return sortedUsers;
+        }
+        public string GetPersonalityLetters(User user)
+        {
+            string mystring = user.PersonalityType.Reverse().ToString();
+
+             return mystring.Substring(1,4);
         }
     }
 }
