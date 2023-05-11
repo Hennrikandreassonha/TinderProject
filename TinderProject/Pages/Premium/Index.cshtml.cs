@@ -24,19 +24,12 @@ namespace TinderProject.Pages.Premium
 		public void OnGet()
         {
 			var currentUser = _userRepository.GetLoggedInUser();
-			
+
 			Likers = _database.Interactions
 				.Where(l=> l.LikedId == currentUser.Id)
 				.ToList();
 
-			if(currentUser.PremiumUser == true)
-			{
-				IsPremium = true;
-			}
-			else
-			{
-				IsPremium = false;
-			}
+            IsPremium = currentUser.PremiumUser;
 
             foreach (var liker in Likers)
             {

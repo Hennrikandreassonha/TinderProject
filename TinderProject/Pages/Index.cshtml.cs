@@ -85,6 +85,7 @@ namespace TinderProject.Pages
 
             var loggedInUser = _userRepo.GetLoggedInUser();
             UsersToSwipe = _userRepo.GetUsersToSwipe(loggedInUser).ToList();
+            var likedUser = _context.Users.Find(userId);
 
             if (options == "like" && CheckIfMatch(loggedInUser.Id, userId))
             {
@@ -92,7 +93,6 @@ namespace TinderProject.Pages
                 IncrementUserIndex();
                 return RedirectToPage("/Index", new { options = "true" });
             }
-            var likedUser = _context.Users.Find(userId);
 
             if (options == "like")
             {
