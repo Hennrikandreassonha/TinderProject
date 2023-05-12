@@ -9,6 +9,14 @@ namespace TinderProject.Utilities
         {
             bool notCompelete = user != null;
 
+            if(user == null){
+                return false;
+            }
+
+            if(user.Interests.Count == 0 || user.PersonalityType == null){
+                return false;
+            }
+
             notCompelete = (!string.IsNullOrWhiteSpace(user.FirstName)
                 || !string.IsNullOrWhiteSpace(user.LastName)
                 || (user.DateOfBirth != DateTime.MinValue)

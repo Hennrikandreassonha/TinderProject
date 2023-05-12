@@ -66,7 +66,7 @@ namespace TinderProject.Pages
             {
                 return;
             }
-
+            
             var currentUserIndex = HttpContext.Session.GetInt32("currentUserIndex");
 
             //If we have reached end of users or we are missing indexvalue the index will be set to zero.

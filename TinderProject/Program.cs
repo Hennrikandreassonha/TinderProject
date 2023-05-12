@@ -84,6 +84,7 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IMatchRepository, MatchRepository>();
 builder.Services.AddScoped<IAppDbContext, AppDbContext>();
 
+
 //For the usage of Session variables.
 //Setting the session variable to disapear after 30mins of idletime.
 builder.Services.AddSession(options => options.IdleTimeout = TimeSpan.FromMinutes(30));
@@ -97,7 +98,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<AccessControl>();
-
+builder.Services.AddSingleton<FileRepository>();
 
 var app = builder.Build();
 
