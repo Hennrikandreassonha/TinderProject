@@ -64,7 +64,7 @@
         <h3>New matches</h3>
         @if (Model.NoConversation != null && Model.NoConversation.Any())
         {
-            <p>Start konversation whit: </p>
+            <p>Start conversation with: </p>
 
             <table class="message-table">
                 @foreach (var user in Model.NoConversation)
@@ -89,6 +89,7 @@
             </p>
         }
     </div>
+    @* Skicka meddelande *@
     <form method="post">
         <label for="message">Message</label>
         <textarea name="message" id="message">Write your message</textarea>

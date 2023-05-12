@@ -10,6 +10,7 @@ namespace TinderProject.Repositories.Repositories_Interfaces
     {
         List<User> OrderByMatchingTypes(ICollection<User> userList, User loggedInUser);
         List<User> OrderByLeastMatchingTypes(ICollection<User> userList, User loggedInUser);
+        public string GetPersonalityLetters(User user);
 
     }
 }

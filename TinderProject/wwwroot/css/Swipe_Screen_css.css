@@ -5,13 +5,16 @@
     --white: #ffffff;
     --black: #353333;
 }
+.pink-color{
+    color: var(--pink);
+}
 
 #swipe-div {
     box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
     position: relative;
     max-width: 375px;
     border-radius: 25px;
-    height: 800px;
+    height: 700px;
     margin: auto;
     display: grid;
     grid-template:
@@ -20,11 +23,13 @@
 }
 
 #lower-background {
-    background: rgb(0, 0, 0);
-    background: linear-gradient(0deg, rgba(0, 0, 0, 1) 49%, rgba(0, 0, 0, 0) 68%);
+    background: rgb(111,110,120);
+    background: linear-gradient(180deg, rgba(111,110,120,1) 0%, rgba(70,67,67,0) 0%, rgba(111,110,120,0) 16%, rgba(70,67,67,0.6811099439775911) 23%, rgba(70,67,67,1) 31%, rgba(70,67,67,1) 41%);
     width: 100%;
-    height: 380%;
-    border-radius: 25px;
+    height: 230%;
+    border-bottom-left-radius: 25px;
+    border-bottom-right-radius: 25px;
+
 }
 
 #bottom-div {
@@ -69,6 +74,8 @@ p {
 .radio-buttons {
     display: flex;
     flex-direction: column;
+    /* align-content: flex-end; */
+    white-space: nowrap;
     margin-top: 15px;
 }
 
@@ -104,6 +111,8 @@ p {
     margin: 3px;
     background-image: url("../Pictures/background_orange.png");
     font-weight: 100;
+    font-size: 20px;
+
 }
 
 .interest-type-nomatch {
@@ -115,9 +124,8 @@ p {
     padding: 2px 5px;
     margin: 3px;
     font-weight: 100;
-
+    font-size: 20px;
 }
-
 .interest-div p {
     color: #FF655B
 }

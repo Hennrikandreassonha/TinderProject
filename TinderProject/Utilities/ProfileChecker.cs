@@ -7,14 +7,19 @@ namespace TinderProject.Utilities
     {
         public static bool ProfileIsComplete(User user)
         {
-            return user != null && (string.IsNullOrWhiteSpace(user.FirstName)
-                || string.IsNullOrWhiteSpace(user.LastName)
-                || (user.DateOfBirth == DateTime.MinValue)
-                || user.Gender == null
-                || user.Preference == null
-                || string.IsNullOrWhiteSpace(user.ProfilePictureUrl)
-                || string.IsNullOrWhiteSpace(user.Description))
-                || user.Interests.Count == 0;
+            bool notCompelete = user != null;
+
+            notCompelete = (!string.IsNullOrWhiteSpace(user.FirstName)
+                || !string.IsNullOrWhiteSpace(user.LastName)
+                || (user.DateOfBirth != DateTime.MinValue)
+                || user.Gender != null
+                || user.Preference != null
+                || !string.IsNullOrWhiteSpace(user.ProfilePictureUrl)
+                || !string.IsNullOrWhiteSpace(user.Description))
+                || user.Interests.Count != 0;
+
+
+            return notCompelete;
         }
     }
 }

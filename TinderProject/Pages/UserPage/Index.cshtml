@@ -4,7 +4,7 @@
 @inject TinderProject.Data.AccessControl accessControl
 @inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
 
-@if (ProfileChecker.ProfileIsComplete(Model.LoggedInUser))
+@if (!ProfileChecker.ProfileIsComplete(Model.LoggedInUser))
 {
 	<partial name="_ProfileNotCompleteMsg" />
 }
