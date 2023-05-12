@@ -13,7 +13,7 @@
 
 	<h1 class="white-text">Edit profile</h1>
 
-	<form method="post" id="edit-flex">
+	<form method="post" id="edit-flex" enctype="multipart/form-data">
 		<section>
 			<label for="firstName">First name</label>
 			<input type="text" id="firstName" asp-for="LoggedInUser.FirstName" />
@@ -59,10 +59,12 @@
 			<span asp-validation-for="LoggedInUser.Description"></span>
 		</section>
 		<section>
+			@* Upload a picture *@
 			<label for="profilePictureUrl">Profile picture url</label>
-			<input type="url" id="profilePictureUrl" asp-for="LoggedInUser.ProfilePictureUrl" />
-			<span asp-validation-for="LoggedInUser.ProfilePictureUrl"></span>
+			<input type="file" name="photo" id="profilePictureUrl" />
+			</span>
 		</section>
+
 		<section>
 			<label for="premium">Premium</label>
 			<input type="checkbox" id="premium" asp-for="LoggedInUser.PremiumUser" />

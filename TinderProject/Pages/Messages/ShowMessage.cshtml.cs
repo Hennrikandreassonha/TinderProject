@@ -24,9 +24,8 @@ namespace TinderProject.Pages.Messages
             _userRepository = userRepository;
             Messages = new List<Message>();
             User = new List<User>();
-            NoConversation= new List<User> { };
+            NoConversation = new List<User> { };
         }
-
 
         public void OnGet(int? userId)
         {
@@ -44,12 +43,12 @@ namespace TinderProject.Pages.Messages
                 if (CurrentUser.Id == message.SentToId)
                 {
                     message.isRead = true;
-                _database.Messages.Update(message);
+                    _database.Messages.Update(message);
 
                 }
                 _database.SaveChanges();
-            }   
-            
+            }
+
             var otherUsersIds = _database.Messages
                 .Where(m => m.SentToId == CurrentUser.Id || m.SentFromId == CurrentUser.Id)
                 .Select(m => m.SentToId == CurrentUser.Id ? m.SentFromId : m.SentToId)
@@ -84,11 +83,25 @@ namespace TinderProject.Pages.Messages
         }
         public IActionResult OnPost(string message, int userId)
         {
-            var user = _database.Users.FirstOrDefault(u => u.Id == userId);
-            if (user == null)
+            if (_userRepository.GetUser(userId) == null)
             {
                 return NotFound();
             }
+            AddMessage(message, userId);
+            return RedirectToPage();
+        }
+        public IActionResult OnGetSuperMsg(string message, int userId)
+        {
+            AddMessage(message, userId);
+
+            return RedirectToPage("/Messages/ShowMessage", new { userId });
+
+        }
+        public void AddMessage(string message, int userId)
+        {
+            var user = _database.Users.FirstOrDefault(u => u.Id == userId);
+
+
             var currentUser = _userRepository.GetLoggedInUser();
 
 
@@ -99,14 +112,11 @@ namespace TinderProject.Pages.Messages
                 SentToId = userId,
                 SentFromId = currentUser.Id,
                 isRead = false,
-                
-            };
 
+            };
 
             _database.Messages.Add(messagesToAdd);
             _database.SaveChanges();
-
-            return RedirectToPage();
         }
     }
 }

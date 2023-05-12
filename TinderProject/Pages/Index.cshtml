@@ -1,26 +1,33 @@
 ﻿@page
 @using TinderProject.Utilities
+@using Microsoft.AspNetCore.Http
 @model IndexModel
 @inject TinderProject.Data.AccessControl accessControl
 @inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
 @{
-    ViewData["Title"] = "Home page";
+    string currentUserLetters = HttpContext.Session.GetString("currentSwipeUserPLetters");
+    string userserLetters = HttpContext.Session.GetString("userPLetters");
 }
 
-@if (ProfileChecker.ProfileIsComplete(Model.LoggedInUser))
+
+@if (!ProfileChecker.ProfileIsComplete(Model.LoggedInUser))
 {
-    <partial name="_ProfileNotCompleteMsg" />
+<partial name="_ProfileNotCompleteMsg" />
 }
 else
 {
-    <script src="../js/Swipe_Screen_Js.js" defer></script>
+    <script src="../js/Swipe_S
+creen_Js.js" defer></script>
 
     @if (Model.NoUsersToSwipe)
     {
-        <p>Could not find any users to swipe on!</p>
+
+        
+<p>Could not find any users to swipe on!</p>
     }
     else
     {
+
         <div id="swipe-div">
             @if (Model.Match || Model.SuperLike)
             {
@@ -40,8 +47,8 @@ else
                             </div>
                         </div>
                     </div>
-
                 }
+  
 
                 @if (@Model.SuperLike)
                 {
@@ -49,13 +56,17 @@ else
                         <div id="super-like-popup" class=popup-pic>
                             <div class="text-div-popup">
                                 <h1>Send a message to your superliked user!</h1>
-                                <form method="post" id="super-like-msg">
-                                    <input type="text" name="message">
+
+                                <form method="post" id="super-like-msg" >
+                                    <input type="text" name="messageToSend">
+
                                     <button id="super-msg-btn" class="my-button" type="submit" asp-page-handler="SendMsgSuper"
-                                        asp-route-userId="@Model.CurrentUserShown.Id">
+                                        asp-route-userIdToSend="@Model.CurrentUserShown.Id">
                                         Send message
                                     </button>
+                                    
                                 </form>
+                                
                             </div>
                         </div>
                     </div>
@@ -67,7 +78,7 @@ else
 
                 <div id="name-radiobtns-flex">
                     <div id="name">
-                        <h1>@Model.CurrentUserShown.FirstName </h1>
+                        <h1>@Model.CurrentUserShown.FirstName</h1>
                     </div>
                     <form id="radio-form" class="radio-buttons" method="post"
                         title="Smart matching shows users with matching personality types first.&#010;Clicking these will cause a page reload">
@@ -87,35 +98,28 @@ else
                 <p class="padding">@Model.CurrentUserShown.Description</p>
             </section>
 
-
             <section id="lower-background" class="area-b">
                 <div id="bottom-div">
                     <div>
-                        <p>Personality type:</p>
-                        @* @foreach (var item in Model.CurrentUserShown.PersonalTypes)
-                {
-                bool isMatch = false;
-                foreach (var loggedInType in Model.LoggedInUser.PersonalTypes)
-                {
-                if (loggedInType.Type == item.Type)
-                {
-                isMatch = true;
-                break;
-                }
-                }
-                if (isMatch)
-                {
-                <div class="interest-type-match">@item.Type</div>
-                }
-                else
-                {
-                <div class="interest-type-nomatch">@item.Type</div>
-                }
-                } *@
+                        <h2 class="white-text">Personality type:</h2>
+                        <p class="interest-type-nomatch">
+                            @HttpContext.Session.GetString("currentSwipeUserPStyle")
+                            @foreach (var item in currentUserLetters)
+                            {
+                                @if (userserLetters.Contains(item))
+                                {
+                                    <span class="pink-color">@item</span>
+                                }
+                                else
+                                {
+                                    @item
+                                }
+                            }
+                        </p>
                     </div>
 
                     <div>
-                        <p>Interests:</p>
+                        <h2 class="white-text">Interests:</h2>
                         @foreach (var item in Model.CurrentUserShown.Interests)
                         {
                             bool isMatch = false;
@@ -123,24 +127,37 @@ else
                             {
                                 if (loggedInInterest.Interest == item.Interest)
                                 {
-                                    isMatch = true;
+
+                         
+           isMatch = true;
                                     break;
+
                                 }
+
                             }
+
                             if (isMatch)
+
                             {
+
                                 <div class="interest-type-match">@item.Interest</div>
                             }
+
                             else
+
                             {
+
                                 <div class="interest-type-nomatch">@item.Interest</div>
                             }
                         }
 
+
                     </div>
+
                     <form method="post" id="like-dislike-flex">
 
-                        @* Dislike button *@
+                        @* Di
+slike button *@
                         <button type="submit" class="invis-btn">
 
                             <img src="~/Pictures/red_cross.png" alt="A red cross for disliking" id="dislike-button"

@@ -15,7 +15,7 @@ namespace TinderProject.Models
         public DateTime DateOfBirth { get; set; }
         public GenderType? Gender { get; set; }
         public SwipePreference? Preference { get; set; }
-        public string ProfilePictureUrl { get; set; }
+        public string? ProfilePictureUrl { get; set; }
 		//Begränsar antalet ord man kan lägga till för Description till 50
 		[RegularExpression(@"^(\S+\s*){0,49}$", ErrorMessage = "Description cannot exceed 50 words and not begin with a space.")]
 		public string Description { get; set; }

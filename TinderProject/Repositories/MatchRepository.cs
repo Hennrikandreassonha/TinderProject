@@ -5,51 +5,48 @@ using System.Threading.Tasks;
 
 namespace TinderProject.Repositories
 {
-	public class MatchRepository : IMatchRepository
-	{
-		private readonly AppDbContext _context;
-		private IUserRepository _userRepo;
-		public MatchRepository(AppDbContext context, IUserRepository userRepo)
-		{
-			_context = context;
-			_userRepo = userRepo;
-		}
-		public List<User> OrderByMatchingTypes(ICollection<User> userList, User loggedInUser)
-		{
-			//This function orders the SwipeList based on amount of PersonalTypes matching. 
-			//The person with most matching PersonalTypes will be at index 0.
+    public class MatchRepository : IMatchRepository
+    {
+        private readonly AppDbContext _context;
+        private IUserRepository _userRepo;
+        public MatchRepository(AppDbContext context, IUserRepository userRepo)
+        {
+            _context = context;
+            _userRepo = userRepo;
+        }
+        public List<User> OrderByMatchingTypes(ICollection<User> userList, User loggedInUser)
+        {
+            List<KeyValuePair<int, User>> matchingUsers = new List<KeyValuePair<int, User>>();
+            var loggedInUserLetters = GetPersonalityLetters(loggedInUser);
 
-			var userPersonalTypes = loggedInUser.PersonalityType;
+            foreach (var user in userList)
+            {
+                int matchCount = 0;
+                var userLetters = GetPersonalityLetters(user);
 
+                for (int i = 0; i < userLetters.Length; i++)
+                {
+                    matchCount += (userLetters[i] == loggedInUserLetters[i]) ? 1 : 0;
+                }
 
+                matchingUsers.Add(new KeyValuePair<int, User>(matchCount, user));
+            }
 
-			List<KeyValuePair<int, User>> matchingUsers = new List<KeyValuePair<int, User>>();
+            return matchingUsers.OrderByDescending(x => x.Key).Select(x => x.Value).ToList();
+        }
 
-			//foreach (var user in userList)
-			//{
-			//    var personalTypes = _userRepo.GetPersonalTypes(user);
-			//    int matchCount = 0;
+        public List<User> OrderByLeastMatchingTypes(ICollection<User> userList, User loggedInUser)
+        {
+            var sortedUsers = OrderByMatchingTypes(userList, loggedInUser);
+            sortedUsers.Reverse();
+            return sortedUsers;
+        }
+        public string GetPersonalityLetters(User user)
+        {
+            string reversedString = new string(user.PersonalityType.Reverse().ToArray());
 
-			//    foreach (var type in personalTypes)
-			//    {
-			//        foreach (var item in userPersonalTypes)
-			//        {
-			//            if (item.Type == type.Type)
-			//            {
-			//                matchCount++;
-			//            }
-			//        }
-			//    }
-			//    matchingUsers.Add(new KeyValuePair<int, User>(matchCount, user));
-			//}
+            return reversedString.Substring(1, 4);
+        }
 
-			return matchingUsers.OrderByDescending(x => x.Key).Select(x => x.Value).ToList();
-		}
-		public List<User> OrderByLeastMatchingTypes(ICollection<User> userList, User loggedInUser)
-		{
-			var sortedUsers = OrderByMatchingTypes(userList, loggedInUser);
-			sortedUsers.Reverse();
-			return sortedUsers;
-		}
-	}
+    }
 }

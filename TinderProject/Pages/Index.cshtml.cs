@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-
+using TinderProject.Utilities;
 namespace TinderProject.Pages
 {
     public class IndexModel : PageModel
@@ -37,28 +37,36 @@ namespace TinderProject.Pages
                 SuperLike = true;
             }
 
-            SmartMatching = HttpContext.Session.GetString("smartMatching") == "true" || HttpContext.Session.GetString("smartMatching") == null;
-
+            //Get user.
             LoggedInUser = _userRepo.GetLoggedInUser();
-            if (LoggedInUser != null)
-            {
-                UsersToSwipe = _userRepo.GetUsersToSwipe(LoggedInUser).ToList();
-                // if (SmartMatching)
-                // {
-                //    UsersToSwipe = _matchRepo.OrderByMatchingTypes(UsersToSwipe, LoggedInUser);
-                // }
-                //else
-                //{
-                //    UsersToSwipe = _matchRepo.OrderByLeastMatchingTypes(UsersToSwipe, LoggedInUser);
-                //}
-            }
 
-            if (UsersToSwipe.Count == 0)
+            if (LoggedInUser != null && ProfileChecker.ProfileIsComplete(LoggedInUser))
             {
-                NoUsersToSwipe = true;
+                SmartMatching = HttpContext.Session.GetString("smartMatching") == "true" || HttpContext.Session.GetString("smartMatching") == null;
+
+                UsersToSwipe = _userRepo.GetUsersToSwipe(LoggedInUser).ToList();
+
+                if (SmartMatching)
+                {
+                    UsersToSwipe = _matchRepo.OrderByMatchingTypes(UsersToSwipe, LoggedInUser);
+                }
+                else
+                {
+                    UsersToSwipe = _matchRepo.OrderByLeastMatchingTypes(UsersToSwipe, LoggedInUser);
+                }
+
+                if (UsersToSwipe.Count == 0)
+                {
+                    NoUsersToSwipe = true;
+                    return;
+                }
+
+            }
+            else
+            {
                 return;
             }
-
+            
             var currentUserIndex = HttpContext.Session.GetInt32("currentUserIndex");
 
             //If we have reached end of users or we are missing indexvalue the index will be set to zero.
@@ -69,19 +77,25 @@ namespace TinderProject.Pages
             }
 
             CurrentUserShown = UsersToSwipe[(int)currentUserIndex!];
+
+            //Getting the personalityoptions
+            HttpContext.Session.SetString("userPLetters", _matchRepo.GetPersonalityLetters(LoggedInUser));
+            HttpContext.Session.SetString("currentSwipeUserPLetters", _matchRepo.GetPersonalityLetters(CurrentUserShown));
+
+            HttpContext.Session.SetString("currentSwipeUserPStyle", CurrentUserShown.PersonalityType.Substring(0, CurrentUserShown.PersonalityType.Length - 6));
         }
         public IActionResult OnPost(string options, string smartMatching, int userId)
         {
-            // if (smartMatching == "true")
-            // {
-            //     HttpContext.Session.SetString("smartMatching", "true");
-            //     return RedirectToPage("/Index");
-            // }
-            // else if (smartMatching == "false")
-            // {
-            //     HttpContext.Session.SetString("smartMatching", "false");
-            //     return RedirectToPage("/Index");
-            // }
+            if (smartMatching == "true")
+            {
+                HttpContext.Session.SetString("smartMatching", "true");
+                return RedirectToPage("/Index");
+            }
+            else if (smartMatching == "false")
+            {
+                HttpContext.Session.SetString("smartMatching", "false");
+                return RedirectToPage("/Index");
+            }
 
             var loggedInUser = _userRepo.GetLoggedInUser();
             UsersToSwipe = _userRepo.GetUsersToSwipe(loggedInUser).ToList();
@@ -106,14 +120,13 @@ namespace TinderProject.Pages
             IncrementUserIndex();
             return RedirectToPage("/Index");
         }
-        public IActionResult OnPostSendMsgSuper(string message, int userId)
+        public IActionResult OnPostSendMsgSuper(string messageToSend, int userIdToSend)
         {
 
             //Skicka till MessagePage.
 
-            
-            IncrementUserIndex();
-            return RedirectToPage("/Index");
+            // IncrementUserIndex();
+            return RedirectToPage("/Messages/ShowMessage", "SuperMsg", new { message = messageToSend, userId = userIdToSend });
 
         }
         public void IncrementUserIndex()

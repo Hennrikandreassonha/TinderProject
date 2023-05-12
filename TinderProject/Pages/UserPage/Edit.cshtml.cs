@@ -9,76 +9,97 @@ using TinderProject.Data;
 using TinderProject.Models;
 using TinderProject.Repositories.Repositories_Interfaces;
 using System.IO;
-
+using TinderProject.Repositories;
 
 namespace TinderProject.Pages.UserPage
 {
-	public class EditModel : PageModel
-	{
-		private readonly IUserRepository _userRepository;
-		private readonly AppDbContext _database;
+    public class EditModel : PageModel
+    {
+        private readonly IUserRepository _userRepository;
+        private readonly AppDbContext _database;
+        private readonly FileRepository _fileRepo;
 
-		public EditModel(IUserRepository userRepository, AppDbContext database)
-		{
-			_userRepository = userRepository;
-			_database = database;
-		}
+        public EditModel(IUserRepository userRepository, AppDbContext database, FileRepository fileRepo)
+        {
+            _userRepository = userRepository;
+            _database = database;
+            _fileRepo = fileRepo;
+        }
 
-		[BindProperty]
-		public User LoggedInUser { get; set; }
-		public List<string> AllInterests { get; set; }
-		public User UserToUpdate { get; set; }
-		public void OnGet()
-		{
-			AllInterests = System.IO.File.ReadAllLines("./Data/DataToUsers/Interests.txt").ToList();
+        [BindProperty]
+        public User LoggedInUser { get; set; }
+        public List<string> AllInterests { get; set; }
+        public User UserToUpdate { get; set; }
+        public List<string> PhotoURLs { get; set; } = new List<string>();
+        public void OnGet()
+        {
+            AllInterests = System.IO.File.ReadAllLines("./Data/DataToUsers/Interests.txt").ToList();
 
-			LoggedInUser = _userRepository.GetLoggedInUser();
-		}
+            LoggedInUser = _userRepository.GetLoggedInUser();
 
-		public IActionResult OnPost(int loggedInId, List<string> interestsToAdd)
-		{
-			if (!ModelState.IsValid)
-			{
-				return Page();
-			}
 
-			//LoggedInUser = _userRepository.GetLoggedInUser();
-			//UserInterest = _database.Users.Include(i => i.Interests).FirstOrDefault(u => u.Id == LoggedInUser.Id);
-			UserToUpdate = _database.Users.Include(u => u.Interests).FirstOrDefault(u => u.Id == loggedInId);
+            string userFolderPath = Path.Combine(
+    _fileRepo.FolderPath,
+    LoggedInUser.Id.ToString()
+);
 
-			if (UserToUpdate == null)
-			{
-				return NotFound();
-			}
+            Directory.CreateDirectory(userFolderPath);
+            string[] files = Directory.GetFiles(userFolderPath);
+            foreach (string file in files)
+            {
+                string url = _fileRepo.GetFileURL(file);
+                PhotoURLs.Add(url);
+            }
+        }
 
-			UserToUpdate.FirstName = LoggedInUser.FirstName;
-			UserToUpdate.LastName = LoggedInUser.LastName;
-			UserToUpdate.DateOfBirth = LoggedInUser.DateOfBirth;
-			UserToUpdate.Gender = LoggedInUser.Gender;
-			UserToUpdate.Preference = LoggedInUser.Preference;
-			UserToUpdate.ProfilePictureUrl = LoggedInUser.ProfilePictureUrl;
-			UserToUpdate.Description = LoggedInUser.Description;
-			UserToUpdate.PremiumUser = LoggedInUser.PremiumUser;
+        public async Task<IActionResult> OnPost(int loggedInId, List<string> interestsToAdd, IFormFile photo)
+        {
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
 
-			if (UserToUpdate.Interests.Clear != null)
-			{
-				UserToUpdate.Interests.Clear();
-			}
 
-			List<Interests> newInterests = interestsToAdd
-				.Where(interest => interest != null)
-				.Select(interest => new Interests
-				{
-					Interest = interest,
-					UserId = UserToUpdate.Id
-				}).ToList();
+            UserToUpdate = _userRepository.GetLoggedInUser();
 
-			UserToUpdate.Interests.AddRange(newInterests);
+            if (UserToUpdate == null)
+            {
+                return NotFound();
+            }
 
-			_database.Users.Update(UserToUpdate);
-			_database.SaveChanges();
+            string path = Path.Combine(
+    UserToUpdate.Id.ToString(),
+    Guid.NewGuid().ToString() + "-" + photo.FileName
+);
+            await _fileRepo.SaveFileAsync(photo, path);
 
-			return RedirectToPage("/UserPage/Index");
-		}
-	}
+            UserToUpdate.FirstName = LoggedInUser.FirstName;
+            UserToUpdate.LastName = LoggedInUser.LastName;
+            UserToUpdate.DateOfBirth = LoggedInUser.DateOfBirth;
+            UserToUpdate.Gender = LoggedInUser.Gender;
+            UserToUpdate.Preference = LoggedInUser.Preference;
+            UserToUpdate.Description = LoggedInUser.Description;
+            UserToUpdate.PremiumUser = LoggedInUser.PremiumUser;
+
+            if (UserToUpdate.Interests.Clear != null)
+            {
+                UserToUpdate.Interests.Clear();
+            }
+
+            List<Interests> newInterests = interestsToAdd
+                .Where(interest => interest != null)
+                .Select(interest => new Interests
+                {
+                    Interest = interest,
+                    UserId = UserToUpdate.Id
+                }).ToList();
+
+            UserToUpdate.Interests.AddRange(newInterests);
+
+            _database.Users.Update(UserToUpdate);
+            _database.SaveChanges();
+
+            return RedirectToPage("/UserPage/Index");
+        }
+    }
 }
