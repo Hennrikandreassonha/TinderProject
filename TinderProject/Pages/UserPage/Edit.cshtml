@@ -2,6 +2,13 @@
 @model EditModel
 @using Models.ModelEnums
 
+@{
+	if (string.IsNullOrEmpty(Model.LoggedInUser.PersonalityType))
+	{
+		Response.Redirect("/UserPage/Quiz");
+		return;
+	}
+}
 <div class="center-div">
 
 	<h1 class="white-text">Edit profile</h1>
@@ -20,7 +27,7 @@
 		<section>
 			<label for="dateOfBirth">Date of birth</label>
 			<input type="datetime" id="dateOfBirth" asp-for="LoggedInUser.DateOfBirth"
-				value="@Model.LoggedInUser.DateOfBirth.ToString("yyyy-MM-dd")" />
+				   value="@Model.LoggedInUser.DateOfBirth.ToString("yyyy-MM-dd")" />
 			<span asp-validation-for="LoggedInUser.DateOfBirth"></span>
 		</section>
 		<section>

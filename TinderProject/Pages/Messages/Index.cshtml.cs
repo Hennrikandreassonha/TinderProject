@@ -68,26 +68,5 @@ namespace TinderProject.Pages.Messages
             }
 
         }
-
-        //public IActionResult OnPost(int userId)
-        //{
-        //    var currentUser = _userRepository.GetLoggedInUser();
-        //    var matches = _database.Matches
-        //        .Where(m => (m.User1Id == userId && m.User2Id == currentUser.Id) ||
-        //                    (m.User1Id == currentUser.Id && m.User2Id == userId))
-        //                    .ToList();
-
-        //    var messages = _database.Messages.
-        //        Where(m => (m.SentFromId == userId && m.SentToId == currentUser.Id) ||
-        //                   (m.SentToId == userId && m.SentFromId == currentUser.Id)).
-        //        ToList();
-
-        //    _database.Matches.RemoveRange(matches);
-        //    _database.Messages.RemoveRange(messages);
-
-        //    _database.SaveChanges();
-
-        //    return RedirectToPage();
-        //}
     }
 }

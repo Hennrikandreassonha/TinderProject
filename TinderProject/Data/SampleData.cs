@@ -221,7 +221,7 @@ namespace TinderProject.Data
             }
 
             var nounIndex = random.Next(0, nouns.Length);
-            description += $"{nouns[nounIndex]}.";
+            description += $" {nouns[nounIndex]}.";
             return description[..1].ToUpper() + description[1..].ToLower();
         }
 
