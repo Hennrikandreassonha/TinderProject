@@ -50,7 +50,7 @@ creen_Js.js" defer></script>
                 }
   
 
-                @if (@Model.SuperLike)
+                @if (@Model.SuperLike && Model.LoggedInUser.PremiumUser)
                 {
                     <div id="popup">
                         <div id="super-like-popup" class=popup-pic>

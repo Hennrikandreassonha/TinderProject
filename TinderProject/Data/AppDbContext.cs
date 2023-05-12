@@ -9,6 +9,7 @@ namespace TinderProject.Data
     {
         public DbSet<User> Users { get; set; }
         public DbSet<Interests> Interests { get; set; }
+        public DbSet<Cuisines> Cuisines { get; set; }
         public DbSet<Match> Matches { get; set; }
         public DbSet<Interaction> Interactions { get; set; }
         public DbSet<Message> Messages { get; set; }
@@ -48,16 +49,15 @@ namespace TinderProject.Data
 
             modelBuilder.Entity<Message>()
                 .HasOne(m => m.SendTo)
-                .WithMany(m=>m.SentTo)
+                .WithMany(m => m.SentTo)
                 .HasForeignKey(m => m.SentToId)
                 .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<Message>()
                 .HasOne(m => m.SentFrom)
-                .WithMany(m=>m.SentFrom)
+                .WithMany(m => m.SentFrom)
                 .HasForeignKey(m => m.SentFromId)
                 .OnDelete(DeleteBehavior.NoAction);
-
         }
     }
 }

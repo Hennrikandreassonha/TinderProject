@@ -15,28 +15,20 @@ namespace TinderProject.Pages.UserPage
 		}
 
 		[BindProperty]
-		public User LoggedInUser { get; set; }
-		//public List<string> AllPersonalityTypes { get; set; }
-		public User UserToUpdate { get; set; }
-
-		[BindProperty]
 		public Quiz UserQuiz { get; set; }
 
 		public void OnGet()
         {
-            //AllPersonalityTypes = System.IO.File.ReadAllLines("./Data/DataToUsers/Personalitytypes.txt").ToList();
-
-			LoggedInUser = _userRepository.GetLoggedInUser();
 		}
 
-        public IActionResult OnPost(int loggedInId)
+        public IActionResult OnPost()
         {
             if (!ModelState.IsValid)
             {
                 return Page();
             }
 
-			UserToUpdate = _database.Users.FirstOrDefault(u => u.Id == loggedInId);
+			var UserToUpdate = _userRepository.GetLoggedInUser();
 
 			if (UserToUpdate == null)
 			{

@@ -2,13 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
+using TinderProject.Data.Dtos;
 using TinderProject.Models;
 
 namespace TinderProject.Repositories
 {
     public class UserRepository : IUserRepository
     {
+        private static Random random = new();
         private readonly AppDbContext _context;
         private readonly IHttpContextAccessor _httpContextAccessor;
         public UserRepository(AppDbContext context, IHttpContextAccessor contextAccessor)
@@ -112,6 +113,45 @@ namespace TinderProject.Repositories
         public ICollection<Match> GetMatches(User user)
         {
             return _context.Matches.Where(x => x.User2Id == user.Id || x.User1Id == user.Id).ToArray();
+        }
+
+        public ApiModel? GetUserApi(string interest)
+        {
+            //This will return 1 random user that has the given interest.
+            List<User> userList = new();
+
+            foreach (var user in GetAllUsers())
+            {
+                if (user.Interests != null)
+                {
+                    foreach (var item in user.Interests)
+                    {
+                        if (item.Interest == interest)
+                        {
+                            userList.Add(user);
+                        }
+                    }
+                }
+            }
+
+            int randomIndex = random.Next(0, userList.Count);
+            var selectedUser = userList[randomIndex];
+
+            ApiModel apiModel = new()
+            {
+                FirstName = selectedUser.FirstName,
+                LastName = selectedUser.LastName,
+                Age = selectedUser.Age.ToString(),
+                PersonalityType = selectedUser.PersonalityType,
+                Description = selectedUser.Description,
+            };
+
+            foreach (var item in selectedUser.Interests)
+            {
+                apiModel.UserInterests.Add(item.Interest);
+            }
+
+            return apiModel;
         }
     }
 }
