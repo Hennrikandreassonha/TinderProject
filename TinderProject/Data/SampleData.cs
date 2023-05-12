@@ -12,6 +12,7 @@ namespace TinderProject.Data
         private static readonly string[]? FemaleNames = File.ReadAllLines("./Data/DataToUsers/Women.txt");
         private static readonly string[]? LastNames = File.ReadAllLines("./Data/DataToUsers/Lastnames.txt");
         public static readonly string[]? InterestsArray = File.ReadAllLines("./Data/DataToUsers/Interests.txt");
+        public static readonly string[]? CuisineArray = File.ReadAllLines("./Data/DataToUsers/Cuisines.txt");
         public static readonly string[]? PersonalityTypes = File.ReadAllLines("./Data/DataToUsers/Personalitytypes.txt");
 
         public static List<int> TakenPicUrlIndices { get; set; } = new List<int>();
@@ -33,8 +34,9 @@ namespace TinderProject.Data
                 var lastName = GenerateLastName();
 
                 var interests = GenerateInterests();
+                var cuisines = GenerateCuisines();
                 var personalType = GeneratePersonalType();
-                var description = GenerateDescription();
+                var description = GenerateDescription(personalType);
                 var swipePreference = GeneratePreference();
                 var premium = GeneratePremium();
                 var profilePicUrl = GenerateProfilePicUrl(genderType);
@@ -79,6 +81,22 @@ namespace TinderProject.Data
                 }
 
                 database.AddRange(interestsToAdd);
+
+                
+                List<Cuisines> cuisinesToAdd = new();
+
+                foreach (var item in cuisines)
+                {
+                    Cuisines cuisine = new()
+                    {
+                        UserId = personAdded.Id,
+                        Cuisine = item
+                    };
+
+                    cuisinesToAdd.Add(cuisine);
+                }
+
+                database.AddRange(cuisinesToAdd);
                 database.SaveChanges();
             }
         }
@@ -164,7 +182,25 @@ namespace TinderProject.Data
 
             return interests.ToArray();
         }
+        public static string[] GenerateCuisines()
+        {
+            int randomNumber = random.Next(1, 4);
+            List<string> cuisines = new();
 
+            for (int i = 0; i < randomNumber; i++)
+            {
+                int cuisineIndex = random.Next(0, CuisineArray.Length);
+
+                while (cuisines.Contains(CuisineArray![cuisineIndex]))
+                {
+                    cuisineIndex = random.Next(0, CuisineArray.Length);
+                }
+
+                cuisines.Add(CuisineArray![cuisineIndex]);
+            }
+
+            return cuisines.ToArray();
+        }
 
         public static string GenerateProfilePicUrl(GenderType genderType)
         {
@@ -195,7 +231,7 @@ namespace TinderProject.Data
 
             return picUrl;
         }
-        public static string GenerateDescription()
+        public static string GenerateDescription(string personalType)
         {
             int stringStart = random.Next(0, 2);
             var nouns = File.ReadAllLines("./Data/DataToUsers/Nouns.txt");
@@ -206,8 +242,7 @@ namespace TinderProject.Data
                 description += "I am a ";
             }
 
-            var personaltype = random.Next(0, PersonalityTypes.Length);
-            description += $"{PersonalityTypes[personaltype]}";
+            description += $"{personalType}";
 
             int searchingIndex = random.Next(0, 2);
 
@@ -221,7 +256,7 @@ namespace TinderProject.Data
             }
 
             var nounIndex = random.Next(0, nouns.Length);
-            description += $" {nouns[nounIndex]}.";
+            description += $"{nouns[nounIndex]}.";
             return description[..1].ToUpper() + description[1..].ToLower();
         }
 
@@ -241,7 +276,7 @@ namespace TinderProject.Data
         }
         public static string GeneratePersonalType()
         {
-            int personalIndex = random.Next(0, PersonalityTypes.Length);            
+            int personalIndex = random.Next(0, PersonalityTypes.Length);
 
             return PersonalityTypes![personalIndex];
         }

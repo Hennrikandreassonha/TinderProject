@@ -65,5 +65,10 @@ namespace TinderProject.Repositories
             string encodedURLPath = HttpUtility.UrlPathEncode(urlPath);
             return encodedURLPath;
         }
+
+        // public string GetProfilePic(User user)
+        // {
+
+        // }
     }
 }

@@ -59,7 +59,6 @@ namespace TinderProject.Pages.UserPage
                 return Page();
             }
 
-
             UserToUpdate = _userRepository.GetLoggedInUser();
 
             if (UserToUpdate == null)

@@ -7,6 +7,7 @@ namespace TinderProject.Data
     {
         DbSet<User> Users { get; set; }
         DbSet<Interests> Interests { get; set; }
+        DbSet<Cuisines> Cuisines { get; set; }
         DbSet<Match> Matches { get; set; }
         DbSet<Interaction> Interactions { get; set; }
         DbSet<Message> Messages { get; set; }
