@@ -34,7 +34,10 @@ namespace TinderProject.Pages.Premium
             foreach (var liker in Likers)
             {
                 var user = _database.Users.Find(liker.LikerId);
-                if (user != null)
+                var match = _database.Matches.FirstOrDefault(m => (m.User1Id == currentUser.Id && m.User2Id == liker.LikerId) ||
+				(m.User1Id == liker.LikerId && m.User2Id == currentUser.Id));
+
+                if (user != null && match == null)
                 {
                     Users.Add(user);
                 }
