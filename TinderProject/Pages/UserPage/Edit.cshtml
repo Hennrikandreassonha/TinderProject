@@ -2,6 +2,19 @@
 @model EditModel
 @using Models.ModelEnums
 
+@if (!ViewData.ModelState.IsValid)
+{
+	<div class="validation-summary-errors">
+		<p>Please correct the following errors:</p>
+		<ul>
+			@foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+			{
+				<li>@error.ErrorMessage</li>
+			}
+		</ul>
+	</div>
+}
+
 @{
 	if (string.IsNullOrEmpty(Model.LoggedInUser.PersonalityType))
 	{
@@ -44,15 +57,32 @@
 		</section>
 		<section>
 			<label for="interest">Interests</label>
-			@foreach (var interest in Model.AllInterests)
+			@if (Model.AllInterests != null)
 			{
-				bool isSelected = Model.LoggedInUser.Interests.Any(item => item.Interest == interest);
-				<label>
-					<input name="interestsToAdd" type="checkbox" value="@interest" @(isSelected ? "checked" : "") />
-					@interest
-				</label>
+				@foreach (var interest in Model.AllInterests)
+				{
+					bool isSelectedInterest = Model.LoggedInUser.Interests?.Any(item => item.Interest == interest) ?? false;
+					<label>
+						<input name="interestsToAdd" type="checkbox" value="@interest" @(isSelectedInterest ? "checked" : "") />
+						@interest
+					</label>
+				}
 			}
 		</section>
+		@*<section>
+			<label for="cuisine">Cuisines</label>
+			@if (Model.AllCuisines != null)
+			{
+				@foreach (var cuisine in Model.AllCuisines)
+				{
+					bool isSelectedCuisine = Model.LoggedInUser.Cuisines?.Any(item => item.Cuisine == cuisine) ?? false;
+					<label>
+						<input name="cuisinesToAdd" type="checkbox" value="@cuisine" @(isSelectedCuisine ? "checked" : "") />
+						@cuisine
+					</label>
+				}
+			}
+		</section>*@
 		<section>
 			<label for="description">Description</label>
 			<textarea id="description" asp-for="LoggedInUser.Description" rows="2" cols="50"></textarea>

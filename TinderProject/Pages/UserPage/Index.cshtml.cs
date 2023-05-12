@@ -22,12 +22,13 @@ namespace TinderProject.Pages.UserPage
 		}
 
 		public User LoggedInUser { get; set; }
-		public User UserInterest { get; set; }
+		//public User UserInterest { get; set; }
+		//public User UserCuisine { get; set; }
 
 		public void OnGet()
 		{			
 			LoggedInUser = _userRepository.GetLoggedInUser();
-			UserInterest = _database.Users.Include(i => i.Interests).FirstOrDefault(u => u.Id == LoggedInUser.Id);
+			LoggedInUser = _database.Users.Include(u => u.Interests).Include(u => u.Cuisines).FirstOrDefault(u => u.Id == LoggedInUser.Id);
 		}
 	}
 }

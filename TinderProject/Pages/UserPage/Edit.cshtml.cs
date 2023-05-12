@@ -29,19 +29,20 @@ namespace TinderProject.Pages.UserPage
         [BindProperty]
         public User LoggedInUser { get; set; }
         public List<string> AllInterests { get; set; }
+        public List<string> AllCuisines { get; set; }
         public User UserToUpdate { get; set; }
         public List<string> PhotoURLs { get; set; } = new List<string>();
         public void OnGet()
         {
             AllInterests = System.IO.File.ReadAllLines("./Data/DataToUsers/Interests.txt").ToList();
+            AllCuisines = System.IO.File.ReadAllLines("./Data/DataToUsers/Cuisines.txt").ToList();
 
             LoggedInUser = _userRepository.GetLoggedInUser();
 
-
             string userFolderPath = Path.Combine(
-    _fileRepo.FolderPath,
-    LoggedInUser.Id.ToString()
-);
+                _fileRepo.FolderPath,
+                LoggedInUser.Id.ToString()
+                );
 
             Directory.CreateDirectory(userFolderPath);
             string[] files = Directory.GetFiles(userFolderPath);
@@ -52,7 +53,8 @@ namespace TinderProject.Pages.UserPage
             }
         }
 
-        public async Task<IActionResult> OnPost(int loggedInId, List<string> interestsToAdd, IFormFile photo)
+        //Kommenterar ut IFormFile eftersom den gör att ModelState blir invalid, om man inte lägger till en bild. Den är required alltså
+        public async Task<IActionResult> OnPost(int loggedInId, List<string> interestsToAdd, List<string> cuisinesToAdd) //IFormFile photo)
         {
             if (!ModelState.IsValid)
             {
@@ -66,11 +68,11 @@ namespace TinderProject.Pages.UserPage
                 return NotFound();
             }
 
-            string path = Path.Combine(
-    UserToUpdate.Id.ToString(),
-    Guid.NewGuid().ToString() + "-" + photo.FileName
-);
-            await _fileRepo.SaveFileAsync(photo, path);
+            /*string path = Path.Combine(
+                UserToUpdate.Id.ToString(),
+                Guid.NewGuid().ToString() + "-" + photo.FileName
+                );
+            await _fileRepo.SaveFileAsync(photo, path);*/
 
             UserToUpdate.FirstName = LoggedInUser.FirstName;
             UserToUpdate.LastName = LoggedInUser.LastName;
@@ -95,7 +97,23 @@ namespace TinderProject.Pages.UserPage
 
             UserToUpdate.Interests.AddRange(newInterests);
 
-            _database.Users.Update(UserToUpdate);
+            //Kommenterar ut detta då det inte funkar för tillfället
+			/*if (UserToUpdate.Cuisines != null)
+			{
+				UserToUpdate.Cuisines.Clear();
+			}
+
+			List<Cuisines> newCuisines = cuisinesToAdd
+				.Where(cuisine => cuisine != null)
+				.Select(cuisine => new Cuisines
+				{
+					Cuisine = cuisine,
+					UserId = UserToUpdate.Id
+				}).ToList();
+
+			UserToUpdate.Cuisines.AddRange(newCuisines);*/
+
+			_database.Users.Update(UserToUpdate);
             _database.SaveChanges();
 
             return RedirectToPage("/UserPage/Index");
