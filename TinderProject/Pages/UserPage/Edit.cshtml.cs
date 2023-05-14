@@ -37,7 +37,6 @@ namespace TinderProject.Pages.UserPage
 
             LoggedInUser = _userRepository.GetLoggedInUser();
 
-
             string userFolderPath = Path.Combine(
     _fileRepo.FolderPath,
     LoggedInUser.Id.ToString()

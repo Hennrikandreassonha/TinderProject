@@ -9,7 +9,7 @@ namespace TinderProject.Data.Dtos
     {
         public ApiModel()
         {
-            UserInterests = new List<string>(); // Initialize the list in the constructor
+            UserInterests = new List<string>();
         }
 
         public string FirstName { get; set; }

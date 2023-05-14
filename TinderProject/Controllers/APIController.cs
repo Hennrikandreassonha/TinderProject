@@ -11,11 +11,11 @@ namespace TinderProject.Controllers
     public class APIController : ControllerBase
     {
         private readonly IUserRepository _userRepo;
-        private readonly AppDbContext database;
+        private readonly AppDbContext _database;
 
         public APIController(AppDbContext database, IUserRepository repo)
         {
-            this.database = database;
+            _database = database;
             _userRepo = repo;
         }
 

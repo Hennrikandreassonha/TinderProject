@@ -21,8 +21,8 @@ Bengt
 Alexander
 Bo
 Oskar
-Göran
-Åke
+GÃ¶ran
+Ã…ke
 Andreas
 Christer
 Stefan
@@ -36,7 +36,7 @@ Henrik
 Leif
 Ulf
 Jonas
-Björn
+BjÃ¶rn
 Axel
 Robert
 Christian
@@ -49,7 +49,7 @@ Niklas
 Arne
 Ingemar
 Patrik
-Håkan
+HÃ¥kan
 Christoffer
 Kjell
 Rickard
@@ -79,7 +79,7 @@ Lucas
 Adam
 Emanuel
 Kenneth
-Jörgen
+JÃ¼rgen
 Robin
 Ali
 Kurt
@@ -87,14 +87,14 @@ Rune
 Oliver
 Josef
 Georg
-Gösta
+GÃ¶sta
 Isak
 Arvid
 Johnny
 Linus
 Ludvig
 Albin
-Torbjörn
+TorbjÃ¶rn
 Olle
 Edvin
 Dan
