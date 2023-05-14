@@ -79,6 +79,8 @@ namespace TinderProject.Pages
             CurrentUserShown = UsersToSwipe[(int)currentUserIndex!];
 
             //Getting the personalityoptions
+            //These are the 4 Letters that makes the personality type.
+            //We are getting these since if its a match we make them another color.
             HttpContext.Session.SetString("userPLetters", _matchRepo.GetPersonalityLetters(LoggedInUser));
             HttpContext.Session.SetString("currentSwipeUserPLetters", _matchRepo.GetPersonalityLetters(CurrentUserShown));
 

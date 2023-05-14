@@ -134,6 +134,10 @@ namespace TinderProject.Repositories
                 }
             }
 
+            if (!userList.Any())
+            {
+                return null;
+            }
             int randomIndex = random.Next(0, userList.Count);
             var selectedUser = userList[randomIndex];
 
