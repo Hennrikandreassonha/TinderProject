@@ -55,6 +55,17 @@ else
 				</td>
 			</tr>
 			<tr>
+				<th>Favourite cuisine</th>
+				<td>
+					<ul>
+						@foreach (var cuisine in Model.LoggedInUser.Cuisines)
+						{
+							<li>@cuisine.Cuisine</li>
+						}
+					</ul>
+				</td>
+			</tr>
+			<tr>
 				<th>Description</th>
 				<td>@Model.LoggedInUser.Description</td>
 			</tr>
