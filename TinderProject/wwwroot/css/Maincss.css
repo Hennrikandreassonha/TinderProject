@@ -34,25 +34,13 @@ table * {
     color: white;
 }
 
-<<<<<<< Updated upstream
 .red-text {
     color: red !important;
 }
-
-.green-text {
-    color: white;
-}
-
 .underline {
     text-decoration: underline;
 }
 
-=======
-.green-text {
-    color: white;
-}
-
->>>>>>> Stashed changes
 th {
     font-weight: 100;
     font-size: large;
@@ -128,7 +116,25 @@ input[type="text"]:hover {
 #message-continer {
     display: grid;
     grid-template:
-        "a b " / 1fr 0.5fr;
+        "a b" / 1fr 0.5fr;
+}
+
+@media (max-width: 660px) {
+    #message-continer {
+        display: grid;
+        grid-template:
+            "a"
+            "b" / 90%;
+    }
+
+    #interactions-div {
+        display: none !important;
+    }
+
+    #interactions-div-small {
+        margin-top: 2rem;
+        display: block !important;
+    }
 }
 
 #message-div {
@@ -140,7 +146,9 @@ input[type="text"]:hover {
     margin-left: 2rem;
     overflow-x: hidden;
 }
-
+#interactions-div-small {
+    display: none;
+}
 #interactions-div {
     grid-area: b;
     display: block;
@@ -185,6 +193,7 @@ input[type="text"]:hover {
 
 #navigation {
     max-width: 475px;
+    min-width: 384px;
     margin: 1rem auto;
     height: 3rem;
     background-image: linear-gradient(0deg, #FFDEE9 0%, #B5FFFC 100%);
@@ -202,6 +211,7 @@ input[type="text"]:hover {
     list-style-type: none;
     justify-content: space-evenly;
     margin: 0;
+    padding-inline-start: 0;
 }
 
 .nav-li {
@@ -226,6 +236,7 @@ input[type="text"]:hover {
 #messageProfilePic {
     border-radius: 50px;
     width: 2rem;
+    overflow: hidden;
 }
 
 .edit-link {
@@ -244,6 +255,7 @@ input[type="text"]:hover {
 #error-message {
     display: none;
 }
+
 textarea {
     font-family: 'Lobster', cursive;
     background-color: #d6306a;
@@ -254,43 +266,52 @@ textarea {
     padding: 7px 20px;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
     transition: all 0.3s ease;
-    resize: none; 
-  }
-  textarea::placeholder {
+    resize: none;
+}
+
+textarea::placeholder {
     color: white;
-  }
-  #send-msg-flex{
+}
+
+#send-msg-flex {
     display: flex;
     align-items: center;
-  }
-  #send-msg-flex button{
+}
+
+#send-msg-flex button {
     margin-left: 1rem;
-  }
-  #message-flex{
+}
+
+#message-flex {
     display: flex;
     align-items: center;
     justify-content: space-between;
-  }
-  #cuisine-btn{
-    padding:0 0.5rem;
-    height:2rem;
-  }
+}
+
+#cuisine-btn {
+    padding: 0 0.5rem;
+    height: 2rem;
+    width: 95px;
+    flex-shrink: 0;
+}
+
 #edit-flex {
     display: flex;
     flex-direction: column;
     align-items: center;
-    
-   
+
+
 }
-#edit-flex section{
+
+#edit-flex section {
     margin-bottom: 1rem;
 }
-.label-font
-{
+
+.label-font {
     font-size: 1.3rem;
 }
 
 #edit-flex button {
-        max-width: 100px;
-        align-items: center;
+    max-width: 100px;
+    align-items: center;
 }

@@ -37,7 +37,6 @@ namespace TinderProject.Pages
                 SuperLike = true;
             }
 
-            //Get user.
             LoggedInUser = _userRepo.GetLoggedInUser();
 
             if (LoggedInUser != null && ProfileChecker.ProfileIsComplete(LoggedInUser))
@@ -60,7 +59,6 @@ namespace TinderProject.Pages
                     NoUsersToSwipe = true;
                     return;
                 }
-
             }
             else
             {

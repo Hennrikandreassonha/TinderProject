@@ -67,3 +67,29 @@ td {
 .message-table tr:nth-child(even) {
     background-color: #fe3c72;
 }
+#premium-table td{
+    overflow: hidden;
+}
+#myers-link{
+    color:blue;
+    text-decoration: underline;
+}
+fieldset{
+    border-radius: 10px;
+    color:white;
+    margin:1rem;
+}
+fieldset p {
+    margin:1rem;
+    font-size: 18px;
+}
+legend{
+    font-size: 24px;
+}
+#submit-quiz-btn{
+    margin-bottom: 1rem;
+}
+#edit-btn{
+    margin-bottom: 1rem;
+
+}

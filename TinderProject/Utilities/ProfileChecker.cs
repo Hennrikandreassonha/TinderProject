@@ -9,25 +9,29 @@ namespace TinderProject.Utilities
         {
             bool notCompelete = user != null;
 
-            if(user == null){
+            if (user == null)
+            {
                 return false;
             }
 
-            if(user.Interests.Count == 0 || user.PersonalityType == null){
+
+            if (user.Interests == null || user.PersonalityType == null || user.Cuisines == null)
+            {
                 return false;
             }
 
-            notCompelete = (!string.IsNullOrWhiteSpace(user.FirstName)
+            if (user.Interests.Count == 0 || user.PersonalityType?.Length == 0 || user.Cuisines.Count == 0)
+            {
+                return false;
+            }
+
+            return !string.IsNullOrWhiteSpace(user.FirstName)
                 || !string.IsNullOrWhiteSpace(user.LastName)
                 || (user.DateOfBirth != DateTime.MinValue)
                 || user.Gender != null
                 || user.Preference != null
                 || !string.IsNullOrWhiteSpace(user.ProfilePictureUrl)
-                || !string.IsNullOrWhiteSpace(user.Description))
-                || user.Interests.Count != 0
-                || user.Cuisines.Count != 0;
-
-            return notCompelete;
+                || !string.IsNullOrWhiteSpace(user.Description);
         }
     }
 }

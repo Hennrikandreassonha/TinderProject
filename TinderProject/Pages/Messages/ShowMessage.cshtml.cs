@@ -139,7 +139,6 @@ namespace TinderProject.Pages.Messages
                 message += $"I see that you like {cuisine}, how about we cook some {answer}?";
             }
 
-
             AddMessage(message, matchedUser.Id);
             return RedirectToPage();
         }
