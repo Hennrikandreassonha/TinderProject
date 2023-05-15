@@ -96,7 +96,7 @@ namespace TinderProject.Repositories
         }
         public User? GetUser(int id)
         {
-            return _context.Users.Include(x => x.Interests).FirstOrDefault(x => x.Id == id);
+            return _context.Users.Include(x => x.Interests).Include(x => x.Cuisines).FirstOrDefault(x => x.Id == id);
         }
         /*public ICollection<PersonalType> GetPersonalTypes(User user)
         {

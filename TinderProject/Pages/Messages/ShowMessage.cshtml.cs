@@ -114,7 +114,9 @@ namespace TinderProject.Pages.Messages
             {
                 return NotFound();
             }
+            CurrentUser = _userRepository.GetLoggedInUser();
 
+            // CurrentUser.Cuisines
             // AddMessage(message, userId);
             return RedirectToPage();
         }
