@@ -2,19 +2,6 @@
 @model EditModel
 @using Models.ModelEnums
 
-@if (!ViewData.ModelState.IsValid)
-{
-	<div class="validation-summary-errors">
-		<p>Please correct the following errors:</p>
-		<ul>
-			@foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
-			{
-				<li>@error.ErrorMessage</li>
-			}
-		</ul>
-	</div>
-}
-
 @{
 	if (string.IsNullOrEmpty(Model.LoggedInUser.PersonalityType))
 	{
