@@ -24,9 +24,8 @@
     }
     else
     {
-        <p>No messages received or sent.</p>
+        <p class="white-text center-div">No messages received or sent.</p>
     }
-
     <h3 class="white-text center-div">New matches</h3>
     @if (Model.NoConversation != null && Model.NoConversation.Any())
     {
@@ -50,7 +49,7 @@
     else
     {
         <p class="center-div white-text">
-            No matches
+            No new matches
         </p>
     }
 
