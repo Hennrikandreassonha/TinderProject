@@ -232,7 +232,7 @@ namespace TinderProject.Data
             return picUrl;
         }
         public static string GenerateDescription()
-        {
+        {            
             var nouns = File.ReadAllLines("./Data/DataToUsers/Nouns.txt");
             var description = "";
 
@@ -240,19 +240,37 @@ namespace TinderProject.Data
 
             if (searchingIndex == 1)
             {
-                description += "I am searching for a ";
+                description += "I am searching for ";
             }
             else
             {
-                description += "I am looking for a ";
+                description += "I am looking for ";
             }
 
             var nounIndex = random.Next(0, nouns.Length);
-            description += $"{nouns[nounIndex]}.";
+            var noun = nouns[nounIndex];
+
+			if (StartsWithVowel(noun))
+			{
+				description += "an ";
+			}
+			else
+			{
+				description += "a ";
+			}
+
+			description += noun;
             return description[..1].ToUpper() + description[1..].ToLower();
         }
 
-        public static DateTime GenerateDateOfBirth()
+		private static bool StartsWithVowel(string word)
+		{
+			var vowels = new[] { "a", "e", "i", "o", "u" };
+			var firstLetter = word.Substring(0, 1).ToLower();
+			return vowels.Contains(firstLetter);
+		}
+
+		public static DateTime GenerateDateOfBirth()
         {
             int randomYear = random.Next(1960, 2005);
             int randomMonth = random.Next(1, 13);
