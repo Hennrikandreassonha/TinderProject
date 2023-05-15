@@ -33,8 +33,14 @@ table * {
 .white-text {
     color: white;
 }
+.red-text {
+    color: red !important;
+}
 .green-text{
     color:white;
+}
+.underline{
+    text-decoration: underline;
 }
 th{
     font-weight: 100;
@@ -205,4 +211,13 @@ input[type="text"] {
 .edit-link {
     color: blue;
     font-weight: bold;
+}
+.display-block{
+    display: block !important;
+}
+.display-none{
+    display: none;
+}
+#error-message{
+    display: none;
 }
