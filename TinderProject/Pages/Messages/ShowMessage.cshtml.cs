@@ -114,7 +114,7 @@ namespace TinderProject.Pages.Messages
             {
                 return NotFound();
             }
-
+            
             // AddMessage(message, userId);
             return RedirectToPage();
         }
