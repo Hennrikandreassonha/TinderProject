@@ -1,30 +1,30 @@
-Adventurer
-Companion
-Lover
-Date
-Explorer
-Friend
-Partner
-Soul mate
-Traveler
-Wanderer
-Programmer
-Toilet cleaner
-Runner
-Tv watcher
+adventurer
+companion
+lover
+date
+explorer
+friend
+partner
+soul mate
+traveler
+wanderer
+programmer
+toilet cleaner
+runner
+tv watcher
 Brad Pitt fan
-Ghost hunter
-Bank robber
-Water slide tester
-Shaman
-Level 52 Warlock
-Level 18 Shaman
-Professional Counter-strike player
-Superhero
-Supervillain
-Rank one warrior
-Professional League of legends player
-Poker player
-Musician
-Gardener
-Beekeeper
+ghost hunter
+bank robber
+bater slide tester
+shaman
+level 52 Warlock
+level 18 Shaman
+professional Counter-strike player
+superhero
+supervillain
+rank one warrior
+professional League of legends player
+poker player
+musician
+gardener
+beekeeper
