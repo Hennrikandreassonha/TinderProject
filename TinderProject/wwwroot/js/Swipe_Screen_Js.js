@@ -2,40 +2,44 @@
 var swipeCard = document.getElementById("swipe-div");
 var likeButton = document.getElementById("like-button");
 
-likeButton.addEventListener("mouseleave", function () {
-    var imgs = document.getElementsByClassName("heart-pic");
+if (likeButton != null) {
+    likeButton.addEventListener("mouseleave", function () {
+        var imgs = document.getElementsByClassName("heart-pic");
 
-    Array.from(imgs).forEach(function (img) {
-        img.parentNode.removeChild(img);
-    });
+        Array.from(imgs).forEach(function (img) {
+            img.parentNode.removeChild(img);
+        });
 
-})
+    })
+}
 
-likeButton.addEventListener("mouseenter", function () {
-    //Adding a random amount of hearths when user is hovering the like button
-    //Indicating that the person in picture might be the one.
+if (likeButton != null) {
+    likeButton.addEventListener("mouseenter", function () {
+        //Adding a random amount of hearths when user is hovering the like button
+        //Indicating that the person in picture might be the one.
 
-    const amountHearts = Math.floor(Math.random() * 15) + 8;
+        const amountHearts = Math.floor(Math.random() * 15) + 8;
 
-    for (let index = 0; index < amountHearts; index++) {
-        var img = document.createElement("img");
+        for (let index = 0; index < amountHearts; index++) {
+            var img = document.createElement("img");
 
-        //Sätter hur mkt margin till sidan.
-        const marginLeft = Math.floor(Math.random() * 100);
-        img.style.left = `${marginLeft}%`;
+            //Sätter hur mkt margin till sidan.
+            const marginLeft = Math.floor(Math.random() * 100);
+            img.style.left = `${marginLeft}%`;
 
-        //Margin till toppen
-        const marginTop = Math.floor(Math.random() * 85);
-        img.style.top = `${marginTop}%`;
+            //Margin till toppen
+            const marginTop = Math.floor(Math.random() * 85);
+            img.style.top = `${marginTop}%`;
 
-        swipeCard.appendChild(img);
+            swipeCard.appendChild(img);
 
-        img.setAttribute("src", "../Pictures/heart.png");
-        img.classList.add('heart-pic');
-    }
+            img.setAttribute("src", "../Pictures/heart.png");
+            img.classList.add('heart-pic');
+        }
 
-    Showhearts(amountHearts);
-})
+        Showhearts(amountHearts);
+    })
+}
 
 function Showhearts(amountNewHearts) {
     var imgs = document.getElementsByClassName("heart-pic");
@@ -65,12 +69,14 @@ function Showhearts(amountNewHearts) {
 
 var dislikeButton = document.getElementById("dislike-button");
 
-dislikeButton.addEventListener("mouseenter", function () {
-    swipeCard.classList.add("grey-scale");
-})
-dislikeButton.addEventListener("mouseleave", function () {
-    swipeCard.classList.remove("grey-scale");
-})
+if (dislikeButton != null) {
+    dislikeButton.addEventListener("mouseenter", function () {
+        swipeCard.classList.add("grey-scale");
+    })
+    dislikeButton.addEventListener("mouseleave", function () {
+        swipeCard.classList.remove("grey-scale");
+    })
+}
 
 //CSS for the heart div that appears when there is a match.
 //And super like popup.
@@ -79,6 +85,18 @@ if (popup != null) {
     setTimeout(function () {
         popup.classList.add("show-popup");
     }, 250);
+
+    //The button for sending message.
+    var superLikeBtn = document.getElementById('send-super-message');
+    superLikeBtn.addEventListener("click", function () {
+        if (!validateSuperMsg()) {
+            return;
+        }
+
+        document.getElementById("send-super-message").classList.add("display-none");
+        document.getElementById("msg-sent-popup").classList.add("display-block");
+        document.getElementById("msg-sent-popup").classList.add("show-popup-full");
+    })
 }
 
 
@@ -97,7 +115,23 @@ function submitForm() {
 }
 
 //Putting greyscale if user isnt premium.
-var superlikeBtn = document.getElementById('superlike-btn');
-if (superlikeBtn.disabled) {
-    document.getElementById('super-like-pic').classList.add('disabled-btn')
+var superLikeBtn = document.getElementById('superlike-btn');
+if (superLikeBtn != null) {
+    if (superLikeBtn.disabled) {
+        document.getElementById('super-like-pic').classList.add('disabled-btn')
+    }
+}
+
+
+
+function validateSuperMsg() {
+    var messageInput = document.getElementById("message-input").value;
+    var errorMessage = document.getElementById("error-message");
+
+    if (messageInput === "" || messageInput == null) {
+        errorMessage.classList.add("display-block")
+        return false;
+    } else {
+        return true;
+    }
 }

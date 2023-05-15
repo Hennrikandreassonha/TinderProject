@@ -90,20 +90,10 @@ namespace TinderProject.Pages.Messages
             AddMessage(message, userId);
             return RedirectToPage();
         }
-        public IActionResult OnGetSuperMsg(string message, int userId)
-        {
-            AddMessage(message, userId);
-
-            return RedirectToPage("/Messages/ShowMessage", new { userId });
-
-        }
         public void AddMessage(string message, int userId)
         {
             var user = _database.Users.FirstOrDefault(u => u.Id == userId);
-
-
             var currentUser = _userRepository.GetLoggedInUser();
-
 
             var messagesToAdd = new Message
             {
