@@ -36,7 +36,7 @@ namespace TinderProject.Data
                 var interests = GenerateInterests();
                 var cuisines = GenerateCuisines();
                 var personalType = GeneratePersonalType();
-                var description = GenerateDescription(personalType);
+                var description = GenerateDescription();
                 var swipePreference = GeneratePreference();
                 var premium = GeneratePremium();
                 var profilePicUrl = GenerateProfilePicUrl(genderType);
@@ -231,7 +231,7 @@ namespace TinderProject.Data
 
             return picUrl;
         }
-        public static string GenerateDescription(string personalType)
+        public static string GenerateDescription(/*string personalType*/)
         {
             //int stringStart = random.Next(0, 2);
             var nouns = File.ReadAllLines("./Data/DataToUsers/Nouns.txt");
