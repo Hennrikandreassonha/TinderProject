@@ -37,6 +37,7 @@ table * {
 .red-text {
     color: red !important;
 }
+
 .underline {
     text-decoration: underline;
 }
@@ -71,13 +72,13 @@ input,
     transition: all 0.3s ease;
 }
 
-.my-button:hover,
-input[type="text"]:hover {
-    background-color: #ff99c8;
-    transform: scale(1.05);
-    cursor: pointer;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
-}
+    .my-button:hover,
+    input[type="text"]:hover {
+        background-color: #ff99c8;
+        transform: scale(1.05);
+        cursor: pointer;
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+    }
 
 /* This div is used in profile, premium for now. Centering content. */
 .center-div {
@@ -146,9 +147,11 @@ input[type="text"]:hover {
     margin-left: 2rem;
     overflow-x: hidden;
 }
+
 #interactions-div-small {
     display: none;
 }
+
 #interactions-div {
     grid-area: b;
     display: block;
@@ -269,18 +272,18 @@ textarea {
     resize: none;
 }
 
-textarea::placeholder {
-    color: white;
-}
+    textarea::placeholder {
+        color: white;
+    }
 
 #send-msg-flex {
     display: flex;
     align-items: center;
 }
 
-#send-msg-flex button {
-    margin-left: 1rem;
-}
+    #send-msg-flex button {
+        margin-left: 1rem;
+    }
 
 #message-flex {
     display: flex;
@@ -299,19 +302,44 @@ textarea::placeholder {
     display: flex;
     flex-direction: column;
     align-items: center;
-
-
 }
 
 #edit-flex section {
-    margin-bottom: 1rem;
+        margin-bottom: 1rem;
+        max-width: 100%
+}
+
+#edit-flex button {
+        max-width: 100px;
+        align-items: center;
+}
+
+.edit-display-grid  {
+    display: grid;
+    align-items:center;
+    text-align:left;
+    grid-template:
+        "a b c"/ 1fr 1fr 1fr;
+}
+  
+.edit-textarea{
+    max-width:100%;
+   
+    
 }
 
 .label-font {
     font-size: 1.3rem;
 }
+@media (max-width: 520px) {
+    .edit-textarea {
+        max-width: 80%;
+       
+    }
+}
 
-#edit-flex button {
-    max-width: 100px;
-    align-items: center;
+@media (max-width: 465px) {
+    .edit-textarea {
+        max-width: 70%;
+    }
 }
