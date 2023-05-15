@@ -16,6 +16,7 @@ namespace TinderProject.Pages.UserPage
 
 		[BindProperty]
 		public Quiz UserQuiz { get; set; }
+		public User UserToUpdate { get; set; }
 
 		public void OnGet()
         {

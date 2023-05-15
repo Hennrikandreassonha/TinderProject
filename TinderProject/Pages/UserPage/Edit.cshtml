@@ -15,35 +15,35 @@
 
 	<form method="post" id="edit-flex" enctype="multipart/form-data">
 		<section>
-			<label for="firstName">First name</label>
+			<label for="firstName" class="label-font">First name: </label>
 			<input type="text" id="firstName" asp-for="LoggedInUser.FirstName" />
 			<span asp-validation-for="LoggedInUser.FirstName"></span>
 		</section>
 		<section>
-			<label for="lastName">Last name</label>
+			<label for="lastName" class="label-font">Last name: </label>
 			<input type="text" id="lastName" asp-for="LoggedInUser.LastName" />
 			<span asp-validation-for="LoggedInUser.LastName"></span>
 		</section>
 		<section>
-			<label for="dateOfBirth">Date of birth</label>
+			<label for="dateOfBirth" class="label-font">Date of birth: </label>
 			<input type="datetime" id="dateOfBirth" asp-for="LoggedInUser.DateOfBirth"
 				   value="@Model.LoggedInUser.DateOfBirth.ToString("yyyy-MM-dd")" />
 			<span asp-validation-for="LoggedInUser.DateOfBirth"></span>
 		</section>
-		<section>
-			<label for="gender">Gender</label>
-			<select asp-for="LoggedInUser.Gender" asp-items="Html.GetEnumSelectList<GenderType>()">
+		<section >
+			<label for="gender" class="label-font">Gender: </label>
+			<select asp-for="LoggedInUser.Gender" asp-items="Html.GetEnumSelectList<GenderType>()" class="dropdown-edit">
+				<option value="">Please select</option>
+			</select>
+		</section>
+		<section >
+			<label for="preference" class="label-font">Preference: </label>
+			<select asp-for="LoggedInUser.Preference" asp-items="Html.GetEnumSelectList<SwipePreference>()" class="dropdown-edit">
 				<option value="">Please select</option>
 			</select>
 		</section>
 		<section>
-			<label for="preference">Preference</label>
-			<select asp-for="LoggedInUser.Preference" asp-items="Html.GetEnumSelectList<SwipePreference>()">
-				<option value="">Please select</option>
-			</select>
-		</section>
-		<section>
-			<label for="interest">Interests</label>
+			<label for="interest" class="label-font">Interests: </label>
 			@if (Model.AllInterests != null)
 			{
 				@foreach (var interest in Model.AllInterests)
@@ -57,7 +57,7 @@
 			}
 		</section>
 		<section>
-			<label for="cuisine">Cuisines</label>
+			<label for="cuisine" class="label-font">Cuisines: </label>
 			@if (Model.AllCuisines != null)
 			{
 				@foreach (var cuisine in Model.AllCuisines)
@@ -71,13 +71,13 @@
 			}
 		</section>
 		<section>
-			<label for="description">Description</label>
+			<label for="description" class="label-font">Description: </label>
 			<textarea id="description" asp-for="LoggedInUser.Description" rows="2" cols="50"></textarea>
 			<span asp-validation-for="LoggedInUser.Description"></span>
 		</section>
 		<section>
 			@* Upload a picture *@
-			<label for="profilePictureUrl">Profile picture url</label>
+			<label for="profilePictureUrl" class="label-font">Profile picture url: </label>
 			<input type="file" name="photo" id="profilePictureUrl" />
 			</span>
 		</section>
@@ -87,6 +87,6 @@
 			<input type="checkbox" id="premium" asp-for="LoggedInUser.PremiumUser" />
 			<span asp-validation-for="LoggedInUser.PremiumUser"></span>
 		</section>
-		<button type="submit" asp-route-loggedInId="@Model.LoggedInUser.Id">Update profile</button>
+		<button type="submit" asp-route-loggedInId="@Model.LoggedInUser.Id" class="my-button">Update profile</button>
 	</form>
 </div>

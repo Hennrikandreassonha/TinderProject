@@ -24,8 +24,8 @@ namespace TinderProject.Utilities
                 || user.Preference != null
                 || !string.IsNullOrWhiteSpace(user.ProfilePictureUrl)
                 || !string.IsNullOrWhiteSpace(user.Description))
-                || user.Interests.Count != 0;
-
+                || user.Interests.Count != 0
+                || user.Cuisines.Count != 0;
 
             return notCompelete;
         }

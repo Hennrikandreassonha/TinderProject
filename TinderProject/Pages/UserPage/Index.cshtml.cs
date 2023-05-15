@@ -22,8 +22,6 @@ namespace TinderProject.Pages.UserPage
 		}
 
 		public User LoggedInUser { get; set; }
-		//public User UserInterest { get; set; }
-		//public User UserCuisine { get; set; }
 
 		public void OnGet()
 		{			
