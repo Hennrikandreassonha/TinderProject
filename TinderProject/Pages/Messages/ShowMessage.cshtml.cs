@@ -10,6 +10,7 @@ namespace TinderProject.Pages.Messages
     {
         private readonly AppDbContext _database;
         private readonly IUserRepository _userRepository;
+        private static Random random = new();
 
         public Message Message { get; set; }
         public User OtherUser { get; set; }
@@ -110,15 +111,60 @@ namespace TinderProject.Pages.Messages
         }
         public IActionResult OnPostCuisine(int userId)
         {
-            if (_userRepository.GetUser(userId) == null)
-            {
-                return NotFound();
-            }
+            //If there is a common cuisine it will be used.
+            //Otherwise we will use the matchedusers cuisine.
+            var matchedUser = _userRepository.GetUser(userId);
             CurrentUser = _userRepository.GetLoggedInUser();
 
-            // CurrentUser.Cuisines
-            // AddMessage(message, userId);
+            string? cuisine;
+            if (CommonCuisine(CurrentUser, matchedUser))
+            {
+                cuisine = GetCommonCuisine(CurrentUser, matchedUser);
+            }
+            else
+            {
+                cuisine = GetCuisine(matchedUser);
+            }
+
+            //Skicka denna till API.
+            var answer = "return from API";
+
+            var message = "";
+            if (CommonCuisine(CurrentUser, matchedUser))
+            {
+                message += $"I see that we both love {cuisine}, how about we cook some {answer}?";
+            }
+            else
+            {
+                message += $"I see that you like {cuisine}, how about we cook some {answer}?";
+            }
+
+
+            AddMessage(message, matchedUser.Id);
             return RedirectToPage();
+        }
+        public bool CommonCuisine(User loggedInUser, User user2)
+        {
+            //If users have a common cuisine it will return true.
+            foreach (var item in loggedInUser.Cuisines)
+            {
+                return user2.Cuisines.Contains(item);
+            }
+            return false;
+        }
+        public string GetCommonCuisine(User loggedInUser, User matchedUser)
+        {
+            var commonCuisines = loggedInUser.Cuisines.Intersect(matchedUser.Cuisines).ToArray();
+
+            int randomIndex = random.Next(0, commonCuisines.Length);
+
+            return commonCuisines[randomIndex].Cuisine;
+        }
+        public string GetCuisine(User matchedUser)
+        {
+            int randomIndex = random.Next(0, matchedUser.Cuisines.Count);
+
+            return matchedUser.Cuisines[randomIndex].Cuisine;
         }
     }
 }
