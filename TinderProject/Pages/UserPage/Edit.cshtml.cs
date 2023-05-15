@@ -53,8 +53,7 @@ namespace TinderProject.Pages.UserPage
             }
         }
 
-        //Kommenterar ut IFormFile eftersom den gör att ModelState blir invalid, om man inte lägger till en bild. Den är required alltså
-        public async Task<IActionResult> OnPost(/*int loggedInId,*/ List<string> interestsToAdd, List<string> cuisinesToAdd) //IFormFile photo)
+        public async Task<IActionResult> OnPost(/*int loggedInId,*/ List<string> interestsToAdd, List<string> cuisinesToAdd, IFormFile photo)
         {
             if (!ModelState.IsValid)
             {
@@ -68,11 +67,11 @@ namespace TinderProject.Pages.UserPage
                 return NotFound();
             }
 
-            /*string path = Path.Combine(
+            string path = Path.Combine(
                 UserToUpdate.Id.ToString(),
                 Guid.NewGuid().ToString() + "-" + photo.FileName
                 );
-            await _fileRepo.SaveFileAsync(photo, path);*/
+            await _fileRepo.SaveFileAsync(photo, path);
 
             UserToUpdate.FirstName = LoggedInUser.FirstName;
             UserToUpdate.LastName = LoggedInUser.LastName;
