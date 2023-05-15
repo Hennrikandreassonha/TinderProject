@@ -30,55 +30,54 @@ creen_Js.js" defer></script>
     {
         @* Match popup *@
         <div id="swipe-div">
+
             @if (Model.Match)
             {
-                @if (Model.Match)
-                {
-                    <div id="popup">
-                        <div id="match-popup" class="popup-pic">
-                            <div class="text-div-popup">
-                                <h1>You got a new match!</h1>
-                                <form>
-                                    <button class="my-button" type="submit" asp-page="/Messages/ShowMessage"
-                                        asp-route-userId="@Model.CurrentUserShown.Id">Send message</button>
-                                    <button class="my-button" asp-page="/Index">Keep swiping</button>
-                                </form>
+                <div id="popup">
+                    <div id="match-popup" class="popup-pic">
+                        <div class="text-div-popup">
+                            <h1>You got a new match!</h1>
+                            <form>
+                                <button class="my-button" type="submit" asp-page="/Messages/ShowMessage"
+                                    asp-route-userId="@Model.CurrentUserShown.Id">Send message</button>
+                                <button class="my-button" asp-page="/Index">Keep swiping</button>
+                            </form>
 
-                            </div>
                         </div>
                     </div>
-                }
+                </div>
+            }
 
-                @* Superlike popup *@
-                @if (@Model.SuperLike && Model.LoggedInUser.PremiumUser)
-                {
-                    <div id="popup">
-                        <div id="super-like-popup" class=popup-pic>
-                            <div class="text-div-popup">
-                                <h1>Send a message to your superliked user!</h1>
+            @* Superlike popup *@
+            @if (@Model.SuperLike && Model.LoggedInUser.PremiumUser)
+            {
+                <div id="popup">
+                    <div id="super-like-popup" class=popup-pic>
+                        <div class="text-div-popup">
+                            <h1>Send a message to your superliked user!</h1>
 
-                                <form method="post" id="super-like-msg">
-                                    <input type="text" id="message-input" name="messageToSend">
+                            <form method="post" id="super-like-msg">
+                                <input type="text" id="message-input" name="messageToSend">
 
-                                    <p id="error-message" class="red-text">Enter your message!</p>
-                                   
-                                    <div id="msg-sent-popup" class="text-div-popup">
-                                        <p>Wohoo!</p>
-                                        <p>Your message has been sent</p>
-                                        <button class="my-button" type="submit" asp-page-handler="SendMsgSuper"
-                                            asp-route-userIdToSend="@Model.CurrentUserShown.Id">
-                                            Ok
-                                        </button>
-                                    </div>
-                                </form>
+                                <p id="error-message" class="red-text">Enter your message!</p>
 
-                                <button id="send-super-message" class="my-button">
-                                    Send message
-                                </button>
-                            </div>
+                                <div id="msg-sent-popup" class="text-div-popup">
+                                    <p>Wohoo!</p>
+                                    <p>Your message has been sent</p>
+                                    <button class="my-button" type="submit" asp-page-handler="SendMsgSuper"
+                                        asp-route-userIdToSend="@Model.CurrentUserShown.Id">
+                                        Ok
+                                    </button>
+                                </div>
+                            </form>
+
+                            <button id="send-super-message" class="my-button">
+                                Send message
+                            </button>
                         </div>
                     </div>
-                }
+                </div>
+            }
             }
 
             <section id="upper-background" class="area-a"

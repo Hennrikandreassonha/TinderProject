@@ -105,9 +105,11 @@ namespace TinderProject.Pages.Messages
                 isRead = false,
 
             };
-
-            _database.Messages.Add(messagesToAdd);
-            _database.SaveChanges();
+            if (message != null || message != "")
+            {
+                _database.Messages.Add(messagesToAdd);
+                _database.SaveChanges();
+            }
         }
         public IActionResult OnPostCuisine(int userId)
         {
