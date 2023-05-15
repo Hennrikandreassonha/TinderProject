@@ -233,7 +233,6 @@ input[type="text"]:hover {
     font-weight: bold;
 }
 
-<<<<<<< Updated upstream
 .display-block {
     display: block !important;
 }
@@ -276,7 +275,6 @@ textarea {
     padding:0 0.5rem;
     height:2rem;
   }
-=======
 #edit-flex {
     display: flex;
     flex-direction: column;
@@ -296,4 +294,3 @@ textarea {
         max-width: 100px;
         align-items: center;
 }
->>>>>>> Stashed changes
