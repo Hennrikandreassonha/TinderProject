@@ -6,8 +6,30 @@
 }
 
 <h2>@ViewData["Title"]</h2>
+<script src=".../js/Swipe_¨Screen_Js.js" defer></script>
 
 <div id="swipe-div">
+    @if (Model.Match)
+    {
+        <div id="popup">
+            <div id="match-popup" class="popup-pic">
+                <div class="text-div-popup">
+                    <h1>You got a new match!</h1>
+                    <form>
+                        <button class="my-button" type="submit" asp-page="/Messages/ShowMessage"
+                            asp-route-userId="@Model.LikerUser.Id">
+                            Send message
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <script src="../js/Swipe_Screen_Js.js" defer></script>
+    }
+
+
+
     <section id="upper-background" class="area-a"
              style="background-image: url('@Model.LikerUser?.ProfilePictureUrl')">
 
@@ -73,6 +95,7 @@
         </div>
     </section>
 </div>
+
 
 
 

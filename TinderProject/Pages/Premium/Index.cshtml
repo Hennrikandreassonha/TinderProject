@@ -1,6 +1,8 @@
 ﻿@page
 @model TinderProject.Pages.Premium.IndexModel
 
+
+
 @if (Model.IsPremium)
 {
     <div class="center-div">
@@ -9,7 +11,7 @@
             @foreach (var user in Model.Users)
             {
                 <tr>
-                    @* <th>Liker: </th> *@
+                    
                     <td>@user.FirstName @user.LastName</td>
                     <td><img src="@user.ProfilePictureUrl" alt="Profile Picture" id="messageProfilePic"></td>
 
