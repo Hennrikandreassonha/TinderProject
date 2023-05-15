@@ -58,22 +58,22 @@ namespace TinderProject.Pages.UserPage
 			{
 				return "Commander (ENTJ)";
 			}
+			else if (UserQuiz.Question1 == "alone" && UserQuiz.Question2 == "senses-information"
+			&& UserQuiz.Question3 == "feelings-affect-others" && UserQuiz.Question4 == "detailed-plan-deadlines")
+			{
+				return "Counselor (IFNJ)";
+			}
+			else if (UserQuiz.Question1 == "alone" && UserQuiz.Question2 == "senses-information"
+			&& UserQuiz.Question3 == "feelings-affect-others" && UserQuiz.Question4 == "general-idea-adjust")
+			{
+				return "Healer (INFP)";
+			}
 			else if (UserQuiz.Question1 == "alone" && UserQuiz.Question2 == "feeling-intuition"
-			&& UserQuiz.Question3 == "feeling-intuition" && UserQuiz.Question4 == "general-idea-adjust")
+			&& UserQuiz.Question3 == "logic-analysis" && UserQuiz.Question4 == "detailed-plan-deadlines")
 			{
 				return "Composer (ISFP)";
 			}
-			else if (UserQuiz.Question1 == "around-people" && UserQuiz.Question2 == "senses-information"
-			&& UserQuiz.Question3 == "logic-analysis" && UserQuiz.Question4 == "detailed-plan-deadlines")
-			{
-				return "Dynamo (ESTP)";
-			}
-			else if (UserQuiz.Question1 == "around-people" && UserQuiz.Question2 == "feeling-intuition"
-			&& UserQuiz.Question3 == "feeling-intuition" && UserQuiz.Question4 == "general-idea-adjust")
-			{
-				return "Performer (ESFP)";
-			}
-			else if (UserQuiz.Question1 == "alone" && UserQuiz.Question2 == "senses-information"
+			else if (UserQuiz.Question1 == "alone" && UserQuiz.Question2 == "feeling-intuition"
 			&& UserQuiz.Question3 == "logic-analysis" && UserQuiz.Question4 == "general-idea-adjust")
 			{
 				return "Architect (INTP)";
@@ -81,37 +81,52 @@ namespace TinderProject.Pages.UserPage
 			else if (UserQuiz.Question1 == "alone" && UserQuiz.Question2 == "feeling-intuition"
 			&& UserQuiz.Question3 == "feelings-affect-others" && UserQuiz.Question4 == "detailed-plan-deadlines")
 			{
-				return "Counselor (INFJ)";
+				return "Protector (ISFJ)";
+			}
+			else if (UserQuiz.Question1 == "alone" && UserQuiz.Question2 == "feeling-intuition"
+			&& UserQuiz.Question3 == "feelings-affect-others" && UserQuiz.Question4 == "general-idea-adjust")
+			{
+				return "Mastermind (INTJ)";
+			}
+			else if (UserQuiz.Question1 == "around-people" && UserQuiz.Question2 == "senses-information"
+			&& UserQuiz.Question3 == "logic-analysis" && UserQuiz.Question4 == "detailed-plan-deadlines")
+			{
+				return "Dynamo (ESTP)";
 			}
 			else if (UserQuiz.Question1 == "around-people" && UserQuiz.Question2 == "senses-information"
 			&& UserQuiz.Question3 == "logic-analysis" && UserQuiz.Question4 == "general-idea-adjust")
 			{
 				return "Visionary (ENTP)";
 			}
-			else if (UserQuiz.Question1 == "around-people" && UserQuiz.Question2 == "feeling-intuition"
-			&& UserQuiz.Question3 == "feelings-affect-others" && UserQuiz.Question4 == "general-idea-adjust")
-			{
-				return "Champion (ENFP)";
-			}
 			else if (UserQuiz.Question1 == "around-people" && UserQuiz.Question2 == "senses-information"
-			&& UserQuiz.Question3 == "logic-analysis" && UserQuiz.Question4 == "detailed-plan-deadlines")
+			&& UserQuiz.Question3 == "feelings-affect-others" && UserQuiz.Question4 == "detailed-plan-deadlines")
 			{
 				return "Supervisor (ESTJ)";
 			}
 			else if (UserQuiz.Question1 == "around-people" && UserQuiz.Question2 == "senses-information"
-			&& UserQuiz.Question3 == "senses-information" && UserQuiz.Question4 == "detailed-plan-deadlines")
+			&& UserQuiz.Question3 == "feelings-affect-others" && UserQuiz.Question4 == "general-idea-adjust")
 			{
 				return "Craftsman (ISTP)";
 			}
 			else if (UserQuiz.Question1 == "around-people" && UserQuiz.Question2 == "feeling-intuition"
+			&& UserQuiz.Question3 == "logic-analysis" && UserQuiz.Question4 == "detailed-plan-deadlines")
+			{
+				return "Performer (ESPF)";
+			}
+			else if (UserQuiz.Question1 == "around-people" && UserQuiz.Question2 == "feeling-intuition"
+			&& UserQuiz.Question3 == "logic-analysis" && UserQuiz.Question4 == "general-idea-adjust")
+			{
+				return "Champion (ENPF)";
+			}
+			else if (UserQuiz.Question1 == "around-people" && UserQuiz.Question2 == "feeling-intuition"
 			&& UserQuiz.Question3 == "feelings-affect-others" && UserQuiz.Question4 == "detailed-plan-deadlines")
 			{
-				return "Teacher (ENFJ)";
+				return "Provider (ESFJ)";
 			}
-			else if (UserQuiz.Question1 == "alone" && UserQuiz.Question2 == "senses-information"
-			&& UserQuiz.Question3 == "senses-information" && UserQuiz.Question4 == "general-idea-adjust")
+			else if (UserQuiz.Question1 == "around-people" && UserQuiz.Question2 == "feeling-intuition"
+			&& UserQuiz.Question3 == "feelings-affect-others" && UserQuiz.Question4 == "general-idea-adjust")
 			{
-				return "Craftsman (ISTP)";
+				return "Teacher (ENFJ)";
 			}
 
 			return "Unknown";

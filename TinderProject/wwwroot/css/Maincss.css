@@ -251,11 +251,6 @@ input,
     overflow: hidden;
 }
 
-.edit-link {
-    color: blue;
-    font-weight: bold;
-}
-
 .display-block {
     display: block !important;
 }
