@@ -27,8 +27,7 @@ namespace TinderProject.Pages.UserPage
 
 		public void OnGet()
 		{			
-			LoggedInUser = _userRepository.GetLoggedInUser();
-			LoggedInUser = _database.Users.Include(u => u.Interests).Include(u => u.Cuisines).FirstOrDefault(u => u.Id == LoggedInUser.Id);
+			LoggedInUser = _userRepository.GetLoggedInUser();			
 		}
 	}
 }

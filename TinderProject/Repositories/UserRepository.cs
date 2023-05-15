@@ -59,7 +59,8 @@ namespace TinderProject.Repositories
             string issuer = user.FindFirst(ClaimTypes.NameIdentifier).Issuer;
 
 
-            return _context.Users.Include(x => x.Interests).Single(p => p.OpenIDIssuer == issuer && p.OpenIDSubject == subject);
+            return _context.Users.Include(x => x.Interests).Include(y => y.Cuisines)
+                .Single(p => p.OpenIDIssuer == issuer && p.OpenIDSubject == subject);
         }
         public ICollection<User> GetUsersToSwipe(User user)
         {

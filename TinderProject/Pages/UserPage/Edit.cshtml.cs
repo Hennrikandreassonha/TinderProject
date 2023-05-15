@@ -96,9 +96,8 @@ namespace TinderProject.Pages.UserPage
                 }).ToList();
 
             UserToUpdate.Interests.AddRange(newInterests);
-
-            //Kommenterar ut detta då det inte funkar för tillfället
-			/*if (UserToUpdate.Cuisines != null)
+            
+			if (UserToUpdate.Cuisines != null)
 			{
 				UserToUpdate.Cuisines.Clear();
 			}
@@ -111,7 +110,7 @@ namespace TinderProject.Pages.UserPage
 					UserId = UserToUpdate.Id
 				}).ToList();
 
-			UserToUpdate.Cuisines.AddRange(newCuisines);*/
+			UserToUpdate.Cuisines.AddRange(newCuisines);
 
 			_database.Users.Update(UserToUpdate);
             _database.SaveChanges();
