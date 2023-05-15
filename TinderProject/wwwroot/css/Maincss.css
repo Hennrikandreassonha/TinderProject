@@ -33,16 +33,20 @@ table * {
 .white-text {
     color: white;
 }
+
 .red-text {
     color: red !important;
 }
-.green-text{
-    color:white;
+
+.green-text {
+    color: white;
 }
-.underline{
+
+.underline {
     text-decoration: underline;
 }
-th{
+
+th {
     font-weight: 100;
     font-size: large;
 }
@@ -69,19 +73,19 @@ input[type="text"] {
     transition: all 0.3s ease;
 }
 
-    .my-button:hover,
-    input[type="text"]:hover {
-        background-color: #ff99c8;
-        transform: scale(1.05);
-        cursor: pointer;
-        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
-    }
+.my-button:hover,
+input[type="text"]:hover {
+    background-color: #ff99c8;
+    transform: scale(1.05);
+    cursor: pointer;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+}
 
 /* This div is used in profile, premium for now. Centering content. */
 .center-div {
     max-width: 100%;
     margin: 0 4rem;
-    min-width:auto;
+    min-width: auto;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -150,7 +154,9 @@ input[type="text"] {
     padding: 2px;
     width: 250px;
     margin-bottom: 5px;
-    background-color: white;
+    background-image: linear-gradient(0deg, #FFDEE9 0%, #B5FFFC 100%);
+    background-repeat: no-repeat;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
 }
 
 #message-right {
@@ -162,7 +168,9 @@ input[type="text"] {
     padding: 2px;
     width: 250px;
     margin-bottom: 5px;
-    background-color: blue;
+    background-image: linear-gradient(0deg, #FFDEE9 0%, #B5FFFC 100%);
+    background-repeat: no-repeat;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
 }
 
 #navigation {
@@ -214,12 +222,46 @@ input[type="text"] {
     color: blue;
     font-weight: bold;
 }
-.display-block{
+
+.display-block {
     display: block !important;
 }
-.display-none{
+
+.display-none {
     display: none;
 }
-#error-message{
+
+#error-message {
     display: none;
 }
+textarea {
+    font-family: 'Lobster', cursive;
+    background-color: #d6306a;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    font-size: 18px;
+    padding: 7px 20px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+    resize: none; 
+  }
+  textarea::placeholder {
+    color: white;
+  }
+  #send-msg-flex{
+    display: flex;
+    align-items: center;
+  }
+  #send-msg-flex button{
+    margin-left: 1rem;
+  }
+  #message-flex{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  #cuisine-btn{
+    padding:0 0.5rem;
+    height:2rem;
+  }
