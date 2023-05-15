@@ -108,5 +108,15 @@ namespace TinderProject.Pages.Messages
             _database.Messages.Add(messagesToAdd);
             _database.SaveChanges();
         }
+        public IActionResult OnPostCuisine(int userId)
+        {
+            if (_userRepository.GetUser(userId) == null)
+            {
+                return NotFound();
+            }
+
+            // AddMessage(message, userId);
+            return RedirectToPage();
+        }
     }
 }
