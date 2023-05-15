@@ -93,10 +93,7 @@ namespace TinderProject.Pages.Messages
         public void AddMessage(string message, int userId)
         {
             var user = _database.Users.FirstOrDefault(u => u.Id == userId);
-
-
             var currentUser = _userRepository.GetLoggedInUser();
-
 
             var messagesToAdd = new Message
             {
