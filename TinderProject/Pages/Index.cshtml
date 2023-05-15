@@ -12,7 +12,7 @@
 
 @if (!ProfileChecker.ProfileIsComplete(Model.LoggedInUser))
 {
-<partial name="_ProfileNotCompleteMsg" />
+    <partial name="_ProfileNotCompleteMsg" />
 }
 else
 {
@@ -21,14 +21,14 @@ creen_Js.js" defer></script>
 
     @if (Model.NoUsersToSwipe)
     {
-<div class="center-div white-text">
-<h1>Could not find any users to swipe on!</h1>
+        <div class="center-div white-text">
+            <h1>Could not find any users to swipe on!</h1>
 
-</div>
+        </div>
     }
     else
     {
-
+        @* Match popup *@
         <div id="swipe-div">
             @if (Model.Match || Model.SuperLike)
             {
@@ -38,7 +38,6 @@ creen_Js.js" defer></script>
                         <div id="match-popup" class="popup-pic">
                             <div class="text-div-popup">
                                 <h1>You got a new match!</h1>
-                                @* Skicka användaren till messagepage. *@
                                 <form>
                                     <button class="my-button" type="submit" asp-page="/Messages/ShowMessage"
                                         asp-route-userId="@Model.CurrentUserShown.Id">Send message</button>
@@ -49,8 +48,8 @@ creen_Js.js" defer></script>
                         </div>
                     </div>
                 }
-  
 
+                @* Superlike popup *@
                 @if (@Model.SuperLike && Model.LoggedInUser.PremiumUser)
                 {
                     <div id="popup">
@@ -58,16 +57,24 @@ creen_Js.js" defer></script>
                             <div class="text-div-popup">
                                 <h1>Send a message to your superliked user!</h1>
 
-                                <form method="post" id="super-like-msg" >
-                                    <input type="text" name="messageToSend">
+                                <form method="post" id="super-like-msg">
+                                    <input type="text" id="message-input" name="messageToSend">
 
-                                    <button id="super-msg-btn" class="my-button" type="submit" asp-page-handler="SendMsgSuper"
-                                        asp-route-userIdToSend="@Model.CurrentUserShown.Id">
-                                        Send message
-                                    </button>
-                                    
+                                    <p id="error-message" class="red-text">Enter your message!</p>
+                                   
+                                    <div id="msg-sent-popup" class="text-div-popup">
+                                        <p>Wohoo!</p>
+                                        <p>Your message has been sent</p>
+                                        <button class="my-button" type="submit" asp-page-handler="SendMsgSuper"
+                                            asp-route-userIdToSend="@Model.CurrentUserShown.Id">
+                                            Ok
+                                        </button>
+                                    </div>
                                 </form>
-                                
+
+                                <button id="send-super-message" class="my-button">
+                                    Send message
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -129,8 +136,8 @@ creen_Js.js" defer></script>
                                 if (loggedInInterest.Interest == item.Interest)
                                 {
 
-                         
-           isMatch = true;
+
+                                    isMatch = true;
                                     break;
 
                                 }
@@ -157,8 +164,7 @@ creen_Js.js" defer></script>
 
                     <form method="post" id="like-dislike-flex">
 
-                        @* Di
-slike button *@
+                        @* Dislike button *@
                         <button type="submit" class="invis-btn">
 
                             <img src="~/Pictures/red_cross.png" alt="A red cross for disliking" id="dislike-button"

@@ -5,7 +5,8 @@
     --white: #ffffff;
     --black: #353333;
 }
-.pink-color{
+
+.pink-color {
     color: var(--pink);
 }
 
@@ -23,8 +24,8 @@
 }
 
 #lower-background {
-    background: rgb(111,110,120);
-    background: linear-gradient(180deg, rgba(111,110,120,1) 0%, rgba(70,67,67,0) 0%, rgba(111,110,120,0) 16%, rgba(70,67,67,0.6811099439775911) 23%, rgba(70,67,67,1) 31%, rgba(70,67,67,1) 41%);
+    background: rgb(111, 110, 120);
+    background: linear-gradient(180deg, rgba(111, 110, 120, 1) 0%, rgba(70, 67, 67, 0) 0%, rgba(111, 110, 120, 0) 16%, rgba(70, 67, 67, 0.6811099439775911) 23%, rgba(70, 67, 67, 1) 31%, rgba(70, 67, 67, 1) 41%);
     width: 100%;
     height: 230%;
     border-bottom-left-radius: 25px;
@@ -35,8 +36,8 @@
 #bottom-div {
     bottom: 0;
     position: absolute;
-    width:100%;
-    padding:0.5rem;
+    width: 100%;
+    padding: 0.5rem;
 }
 
 p {
@@ -126,6 +127,7 @@ p {
     font-weight: 100;
     font-size: 20px;
 }
+
 .interest-div p {
     color: #FF655B
 }
@@ -189,32 +191,39 @@ p {
 #match-popup {
     background-image: url("../Pictures/heart-popup.png");
 }
-#super-like-popup{
+
+#super-like-popup {
     background-image: url("../Pictures/super.png");
 
 }
-.popup-pic{
+
+.popup-pic {
     background-repeat: no-repeat;
     background-size: contain;
     position: absolute;
-    width:100%;
-    height:100%;
+    width: 100%;
+    height: 100%;
     margin-top: 40%;
 }
+
 #popup {
     position: absolute;
     margin: auto;
     z-index: 2;
     width: 50%;
     min-width: 370px;
-    max-width:450px;
+    max-width: 450px;
     height: 100%;
     opacity: 0;
 
-    transition: ease-in-out 1.5s;
+    transition: ease-in 1.5s;
 }
-.show-popup{
+
+.show-popup {
     opacity: 0.9 !important;
+}
+.show-popup-full {
+    opacity: 1 !important;
 }
 
 #match-options-flex h1 {
@@ -222,23 +231,47 @@ p {
     font-size: 42px;
     margin-bottom: 2rem;
 }
-#super-like-msg{
+
+#super-like-msg {
     width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
+
 #super-like-msg input,
-.text-div-popup form{
-    margin:1rem;
+.text-div-popup form {
+    margin: 1rem;
 
 }
-.text-div-popup{
+
+.text-div-popup {
     margin-top: 30%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
+}
+
+#msg-sent-popup {
+    top:20%;
+    position: absolute;
+    margin:auto;
+    text-align: center;
+    font-size: 24px;
+    background-color: white;
+    padding:3rem;
+    border-radius: 999px;
+    text-decoration: underline;
+    opacity: 0;
+    transition: ease-in 2s;
+    display: none;
+    background-image: url("../Pictures/tinderbackground.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+#msg-sent-popup button{
+    margin-top: 1rem;
 }

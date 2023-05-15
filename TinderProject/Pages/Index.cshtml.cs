@@ -66,7 +66,7 @@ namespace TinderProject.Pages
             {
                 return;
             }
-            
+
             var currentUserIndex = HttpContext.Session.GetInt32("currentUserIndex");
 
             //If we have reached end of users or we are missing indexvalue the index will be set to zero.
@@ -99,11 +99,11 @@ namespace TinderProject.Pages
                 return RedirectToPage("/Index");
             }
 
-            var loggedInUser = _userRepo.GetLoggedInUser();
-            UsersToSwipe = _userRepo.GetUsersToSwipe(loggedInUser).ToList();
+            LoggedInUser = _userRepo.GetLoggedInUser();
+            UsersToSwipe = _userRepo.GetUsersToSwipe(LoggedInUser).ToList();
             var likedUser = _context.Users.Find(userId);
 
-            if (options == "like" && CheckIfMatch(loggedInUser.Id, userId))
+            if (options == "like" && CheckIfMatch(LoggedInUser.Id, userId))
             {
                 ViewData["Match"] = "true";
                 IncrementUserIndex();
@@ -112,7 +112,7 @@ namespace TinderProject.Pages
 
             if (options == "like")
             {
-                NewInteraction(loggedInUser, likedUser);
+                NewInteraction(LoggedInUser, likedUser);
             }
             if (options == "super")
             {
@@ -124,12 +124,22 @@ namespace TinderProject.Pages
         }
         public IActionResult OnPostSendMsgSuper(string messageToSend, int userIdToSend)
         {
+            LoggedInUser = _userRepo.GetLoggedInUser();
 
-            //Skicka till MessagePage.
+            //Adding the message directly to the Database.
+            Message msg = new()
+            {
+                SentMessage = messageToSend,
+                SentTime = DateTime.Now,
+                SentToId = userIdToSend,
+                SentFromId = LoggedInUser.Id
+            };
 
-            // IncrementUserIndex();
-            return RedirectToPage("/Messages/ShowMessage", "SuperMsg", new { message = messageToSend, userId = userIdToSend });
+            _context.Messages.Add(msg);
+            NewInteraction(LoggedInUser, _userRepo.GetUser(userIdToSend));
 
+            IncrementUserIndex();
+            return RedirectToPage("/Index");
         }
         public void IncrementUserIndex()
         {

@@ -33,8 +33,14 @@ table * {
 .white-text {
     color: white;
 }
+.red-text {
+    color: red !important;
+}
 .green-text{
     color:white;
+}
+.underline{
+    text-decoration: underline;
 }
 th{
     font-weight: 100;
@@ -73,7 +79,9 @@ input[type="text"] {
 
 /* This div is used in profile, premium for now. Centering content. */
 .center-div {
-    width: 100%;
+    max-width: 100%;
+    margin: 0 4rem;
+    min-width:auto;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -205,4 +213,13 @@ input[type="text"] {
 .edit-link {
     color: blue;
     font-weight: bold;
+}
+.display-block{
+    display: block !important;
+}
+.display-none{
+    display: none;
+}
+#error-message{
+    display: none;
 }
