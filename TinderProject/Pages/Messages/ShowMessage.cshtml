@@ -82,4 +82,46 @@
         <button id="cuisine-btn" class="my-button"
             title="Try our new feature! Get a dish that you and your match can cook together">Get cuisine</button>
     </div>
+
+
+   <div id="interactions-div-small">
+        @if (Model.User != null && Model.User.Any())
+        {
+            <table class="message-table">
+                @foreach (var user in Model.User)
+                {
+                    <tr>
+                        <td class="white-text"><a asp-page="ShowMessage" asp-route-userId="@user.Id">@user.FirstName</a></td>
+                        <td><img src="@user.ProfilePictureUrl" alt="Profile Picture" id="messageProfilePic"></td>
+                    </tr>
+                }
+            </table>
+        }
+        else
+        {
+            <p>No messages received or sent.</p>
+        }
+
+        <h3 class="white-text">New matches</h3>
+        @if (Model.NoConversation != null && Model.NoConversation.Any())
+        {
+            <p class="white-text">Start conversation with: </p>
+
+            <table class="message-table">
+                @foreach (var user in Model.NoConversation)
+                {
+                    <tr>
+                        <td class="white-text"><a asp-page="ShowMessage" asp-route-userId="@user.Id">@user.FirstName</a></td>
+                        <td><img src="@user.ProfilePictureUrl" alt="Profile Picture" id="messageProfilePic"></td>
+                    </tr>
+                }
+            </table>
+        }
+        else
+        {
+            <p>
+                No matches
+            </p>
+        }
+    </div>
 </div>

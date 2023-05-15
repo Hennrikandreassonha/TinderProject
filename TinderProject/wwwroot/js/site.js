@@ -1,2 +1,4 @@
 ﻿let scrollPosition= document.getElementById("message-div");
-scrollPosition.scrollTop = scrollPosition.scrollHeight;
+if(scrollPosition != null){
+    scrollPosition.scrollTop = scrollPosition.scrollHeight;
+}

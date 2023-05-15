@@ -231,18 +231,10 @@ namespace TinderProject.Data
 
             return picUrl;
         }
-        public static string GenerateDescription(/*string personalType*/)
+        public static string GenerateDescription()
         {
-            //int stringStart = random.Next(0, 2);
             var nouns = File.ReadAllLines("./Data/DataToUsers/Nouns.txt");
             var description = "";
-
-            /*if (stringStart == 1)
-            {
-                description += "I am a ";
-            }*/
-
-            // description += $"{personalType}";
 
             int searchingIndex = random.Next(0, 2);
 
