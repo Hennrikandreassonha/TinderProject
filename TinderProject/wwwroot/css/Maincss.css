@@ -135,6 +135,15 @@ input[type="text"]:hover {
         margin-top: 2rem;
         display: block !important;
     }
+    #cuisine-btn{
+        display: none !important;
+    }
+    #cuisine-btn-small{
+        display: block !important;
+        width: 150px;
+        /* margin: auto; */
+        margin-top: 1rem;
+    }
 }
 
 #message-div {
@@ -293,6 +302,9 @@ textarea::placeholder {
     height: 2rem;
     width: 95px;
     flex-shrink: 0;
+}
+#cuisine-btn-small{
+    display: none;
 }
 
 #edit-flex {
