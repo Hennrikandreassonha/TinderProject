@@ -57,7 +57,18 @@ namespace TinderProject.Pages.UserPage
         {
             if (!ModelState.IsValid)
             {
-                return Page();
+				foreach (var key in ModelState.Keys)
+				{
+					var errors = ModelState[key].Errors;
+					foreach (var error in errors)
+					{
+						var errorMessage = error.ErrorMessage;
+						// Log or handle the error message as desired
+						Console.WriteLine($"Validation Error: {key} - {errorMessage}");
+					}
+				}
+
+				return Page();
             }
 
             UserToUpdate = _userRepository.GetLoggedInUser();
@@ -80,8 +91,9 @@ namespace TinderProject.Pages.UserPage
             UserToUpdate.Preference = LoggedInUser.Preference;
             UserToUpdate.Description = LoggedInUser.Description;
             UserToUpdate.PremiumUser = LoggedInUser.PremiumUser;
+			UserToUpdate.PersonalityType = UserToUpdate.PersonalityType;
 
-            if (UserToUpdate.Interests.Clear != null)
+			if (UserToUpdate.Interests.Clear != null)
             {
                 UserToUpdate.Interests.Clear();
             }

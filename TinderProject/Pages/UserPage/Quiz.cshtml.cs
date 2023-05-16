@@ -29,7 +29,7 @@ namespace TinderProject.Pages.UserPage
                 return Page();
             }
 
-			var UserToUpdate = _userRepository.GetLoggedInUser();
+			UserToUpdate = _userRepository.GetLoggedInUser();
 
 			if (UserToUpdate == null)
 			{

@@ -84,7 +84,7 @@ namespace TinderProject.Repositories
                  !userLikesIds.Contains(u.Id) &&
                  !userMatches.Select(m => m.User1Id).Contains(u.Id) &&
                  !userMatches.Select(m => m.User2Id).Contains(u.Id) &&
-                 u.Interests != null)
+                 u.Interests != null && u.PersonalityType != null)
                  .ToList();
         }
         public List<User> FilterAge(List<User> userList, User loggedinUser)
