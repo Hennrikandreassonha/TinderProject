@@ -28,15 +28,10 @@ namespace TinderProject.Pages.UserPage
 
         [BindProperty]
         public User LoggedInUser { get; set; }
-        public List<string> AllInterests { get; set; }
-        public List<string> AllCuisines { get; set; }
         public User UserToUpdate { get; set; }
         public List<string> PhotoURLs { get; set; } = new List<string>();
         public void OnGet()
         {
-            AllInterests = System.IO.File.ReadAllLines("./Data/DataToUsers/Interests.txt").ToList();
-            AllCuisines = System.IO.File.ReadAllLines("./Data/DataToUsers/Cuisines.txt").ToList();
-
             LoggedInUser = _userRepository.GetLoggedInUser();
 
             string userFolderPath = Path.Combine(
@@ -96,26 +91,35 @@ namespace TinderProject.Pages.UserPage
                 }).ToList();
 
             UserToUpdate.Interests.AddRange(newInterests);
-            
-			if (UserToUpdate.Cuisines != null)
-			{
-				UserToUpdate.Cuisines.Clear();
-			}
 
-			List<Cuisines> newCuisines = cuisinesToAdd
-				.Where(cuisine => cuisine != null)
-				.Select(cuisine => new Cuisines
-				{
-					Cuisine = cuisine,
-					UserId = UserToUpdate.Id
-				}).ToList();
+            UserToUpdate.Cuisines?.Clear();
 
-			UserToUpdate.Cuisines.AddRange(newCuisines);
+            List<Cuisines> newCuisines = cuisinesToAdd
+                .Where(cuisine => cuisine != null)
+                .Select(cuisine => new Cuisines
+                {
+                    Cuisine = cuisine,
+                    UserId = UserToUpdate.Id
+                }).ToList();
 
-			_database.Users.Update(UserToUpdate);
+            UserToUpdate.Cuisines.AddRange(newCuisines);
+
+            _database.Users.Update(UserToUpdate);
             _database.SaveChanges();
 
             return RedirectToPage("/UserPage/Index");
+        }
+        public List<string> GetUserInterests()
+        {
+            var user = _userRepository.GetLoggedInUser();
+
+            return user.Interests.Select(x => x.Interest).ToList();
+        }
+        public List<string> GetUserCuisines()
+        {
+            var user = _userRepository.GetLoggedInUser();
+
+            return user.Cuisines.Select(x => x.Cuisine).ToList();
         }
     }
 }

@@ -1,80 +1,89 @@
 @page
 @model EditModel
 @using Models.ModelEnums
-
 @{
-    if (string.IsNullOrEmpty(Model.LoggedInUser.PersonalityType))
-    {
-        Response.Redirect("/UserPage/Quiz");
-        return;
-    }
+    var AllCuisines = System.IO.File.ReadAllLines("./Data/DataToUsers/Cuisines.txt").ToList();
+    var AllInterests = System.IO.File.ReadAllLines("./Data/DataToUsers/Interests.txt").ToList();
+    var UserInterests = Model.GetUserInterests();
+    var UserCuisines = Model.GetUserCuisines();
 }
 <div class="center-div">
 
     <h1 class="white-text">Edit profile</h1>
 
     <form method="post" id="edit-flex" enctype="multipart/form-data">
+
         <section>
             <label for="firstName" class="label-font">First name: </label>
             <input type="text" id="firstName" asp-for="LoggedInUser.FirstName" />
             <span asp-validation-for="LoggedInUser.FirstName"></span>
         </section>
+
         <section>
             <label for="lastName" class="label-font">Last name: </label>
             <input type="text" id="lastName" asp-for="LoggedInUser.LastName" />
             <span asp-validation-for="LoggedInUser.LastName"></span>
         </section>
+
         <section>
             <label for="dateOfBirth" class="label-font">Date of birth: </label>
             <input type="datetime" id="dateOfBirth" asp-for="LoggedInUser.DateOfBirth"
-                   value="@Model.LoggedInUser.DateOfBirth.ToString("yyyy-MM-dd")" />
+                value="@Model.LoggedInUser.DateOfBirth.ToString("yyyy-MM-dd")" />
             <span asp-validation-for="LoggedInUser.DateOfBirth"></span>
         </section>
+
         <section>
             <label for="gender" class="label-font">Gender: </label>
-            <select asp-for="LoggedInUser.Gender" asp-items="Html.GetEnumSelectList<GenderType>()" class="dropdown-edit">
+            <select asp-for="LoggedInUser.Gender" asp-items="Html.GetEnumSelectList<GenderType>()"
+                class="dropdown-edit">
                 <option value="">Please select</option>
             </select>
         </section>
+
         <section>
             <label for="preference" class="label-font">Preference: </label>
-            <select asp-for="LoggedInUser.Preference" asp-items="Html.GetEnumSelectList<SwipePreference>()" class="dropdown-edit">
+            <select asp-for="LoggedInUser.Preference" asp-items="Html.GetEnumSelectList<SwipePreference>()"
+                class="dropdown-edit">
                 <option value="">Please select</option>
             </select>
         </section>
+
         <h3 class="label-font">Interests: </h3>
         <section class="edit-display-grid">
-            @if (Model.AllInterests != null)
+
+            @foreach (var interest in AllInterests)
             {
-                @foreach (var interest in Model.AllInterests)
-                {
-                    bool isSelectedInterest = Model.LoggedInUser.Interests?.Any(item => item.Interest == interest) ?? false;
-                    <label class="white-text">
-                        <input name="interestsToAdd" type="checkbox" value="@interest" @(isSelectedInterest ? "checked" : "") />
-                        @interest
-                    </label>
-                }
+                bool isSelectedInterest = UserInterests.Contains(interest);
+
+                <label class="white-text">
+                    <input name="interestsToAdd" type="checkbox" value="@interest" @(isSelectedInterest ? "checked" : "") />
+                    @interest
+                </label>
             }
+
         </section>
         <h3 class="label-font">Cuisines: </h3>
         <section class="edit-display-grid">
-            @if (Model.AllCuisines != null)
+
+            @foreach (var cuisine in AllCuisines)
             {
-                @foreach (var cuisine in Model.AllCuisines)
-                {
-                    bool isSelectedCuisine = Model.LoggedInUser.Cuisines?.Any(item => item.Cuisine == cuisine) ?? false;
-                    <label class="white-text">
-                        <input name="cuisinesToAdd" type="checkbox" value="@cuisine" @(isSelectedCuisine ? "checked" : "") />
-                        @cuisine
-                    </label>
-                }
+                bool isSelectedCuisine = UserCuisines.Contains(cuisine);
+
+                <label class="white-text">
+                    <input name="cuisinesToAdd" type="checkbox" value="@cuisine" @(isSelectedCuisine ? "checked" : "") />
+                    @cuisine
+                </label>
             }
+
         </section>
+
         <section>
             <label for="description" class="label-font">Description: </label>
-            <textarea class="edit-textarea"id="description" asp-for="LoggedInUser.Description" rows="2" cols="50"></textarea>
+            <textarea class="edit-textarea" id="description" asp-for="LoggedInUser.Description" rows="2"
+                cols="50"></textarea>
             <span asp-validation-for="LoggedInUser.Description"></span>
         </section>
+
         <section>
             @* Upload a picture *@
             <label for="profilePictureUrl" class="label-font">Profile picture url: </label>
@@ -86,6 +95,11 @@
             <input type="checkbox" id="premium" asp-for="LoggedInUser.PremiumUser" />
             <span asp-validation-for="LoggedInUser.PremiumUser"></span>
         </section>
-        <button type="submit" asp-route-loggedInId="@Model.LoggedInUser.Id" class="my-button">Update profile</button>
+
+        @* Error messages model state *@
+        <div asp-validation-summary="All" class="underline"></div>
+
+        <button type="submit" asp-route-loggedInId="@Model.LoggedInUser.Id" class="my-button">Update
+            profile</button>
     </form>
 </div>

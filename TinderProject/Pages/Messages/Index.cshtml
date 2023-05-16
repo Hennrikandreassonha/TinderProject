@@ -11,7 +11,7 @@
             @foreach (var user in Model.User)
             {
                 <tr>
-                    <td><a asp-page="ShowMessage" asp-route-userId="@user.Id">@user.FirstName</a></td>
+                    <td class="white-text"><a asp-page="ShowMessage" asp-route-userId="@user.Id" >@user.FirstName</a></td>
                     <td><img src="@user.ProfilePictureUrl" alt="Profile Picture" id="messageProfilePic"></td>
                     <td>
                         <form method="get" >

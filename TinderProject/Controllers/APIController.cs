@@ -1,4 +1,5 @@
 ﻿using System.Net;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -8,6 +9,7 @@ namespace TinderProject.Controllers
 {
     [Route("/api")]
     [ApiController]
+    [AllowAnonymous]
     public class APIController : ControllerBase
     {
         private readonly IUserRepository _userRepo;
@@ -25,6 +27,9 @@ namespace TinderProject.Controllers
             //Kollar först om användaren skickat med en parameter.
             if (interest != null)
             {
+                //Making first char upper.
+                interest = char.ToUpper(interest[0]) + interest.Substring(1);
+
                 var user = _userRepo.GetUserApi(interest);
 
                 if (user == null)
