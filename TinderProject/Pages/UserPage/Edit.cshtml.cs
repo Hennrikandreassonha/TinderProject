@@ -57,17 +57,6 @@ namespace TinderProject.Pages.UserPage
         {
             if (!ModelState.IsValid)
             {
-				foreach (var key in ModelState.Keys)
-				{
-					var errors = ModelState[key].Errors;
-					foreach (var error in errors)
-					{
-						var errorMessage = error.ErrorMessage;
-						// Log or handle the error message as desired
-						Console.WriteLine($"Validation Error: {key} - {errorMessage}");
-					}
-				}
-
 				return Page();
             }
 
