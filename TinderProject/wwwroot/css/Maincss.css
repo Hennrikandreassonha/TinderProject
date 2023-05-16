@@ -340,13 +340,16 @@ textarea {
 }
 @media (max-width: 520px) {
     .edit-textarea {
-        max-width: 80%;
-       
+        max-width: 65%;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
+   /* .center-div{
+        margin-left: auto;
+        margin-right: auto;
+        width:100;
+    }*/
 }
 
-@media (max-width: 465px) {
-    .edit-textarea {
-        max-width: 70%;
-    }
-}
