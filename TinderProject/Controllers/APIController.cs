@@ -25,6 +25,9 @@ namespace TinderProject.Controllers
             //Kollar först om användaren skickat med en parameter.
             if (interest != null)
             {
+                //Making first char upper.
+                interest = char.ToUpper(interest[0]) + interest.Substring(1);
+
                 var user = _userRepo.GetUserApi(interest);
 
                 if (user == null)

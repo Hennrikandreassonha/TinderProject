@@ -6,7 +6,6 @@ table li {
 
 table {
     margin-bottom: 1rem;
-    /* width: 50%; */
     word-wrap: normal;
     width: 100%;
     table-layout: fixed;
