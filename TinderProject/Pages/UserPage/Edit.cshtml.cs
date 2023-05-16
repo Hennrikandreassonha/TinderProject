@@ -52,7 +52,7 @@ namespace TinderProject.Pages.UserPage
         {
             if (!ModelState.IsValid)
             {
-                return Page();
+				return Page();
             }
 
             UserToUpdate = _userRepository.GetLoggedInUser();
@@ -75,8 +75,9 @@ namespace TinderProject.Pages.UserPage
             UserToUpdate.Preference = LoggedInUser.Preference;
             UserToUpdate.Description = LoggedInUser.Description;
             UserToUpdate.PremiumUser = LoggedInUser.PremiumUser;
+			UserToUpdate.PersonalityType = UserToUpdate.PersonalityType;
 
-            if (UserToUpdate.Interests.Clear != null)
+			if (UserToUpdate.Interests.Clear != null)
             {
                 UserToUpdate.Interests.Clear();
             }

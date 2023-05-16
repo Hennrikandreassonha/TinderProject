@@ -251,11 +251,6 @@ input,
     overflow: hidden;
 }
 
-.edit-link {
-    color: blue;
-    font-weight: bold;
-}
-
 .display-block {
     display: block !important;
 }
@@ -345,13 +340,15 @@ textarea {
 }
 @media (max-width: 520px) {
     .edit-textarea {
-        max-width: 80%;
-       
+        max-width: 65%;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
+    .label-font {
+        font-size: 1rem;
+    }
+
 }
 
-@media (max-width: 465px) {
-    .edit-textarea {
-        max-width: 70%;
-    }
-}

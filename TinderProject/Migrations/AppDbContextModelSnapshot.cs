@@ -22,6 +22,28 @@ namespace TinderProject.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
+            modelBuilder.Entity("TinderProject.Models.Cuisines", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Cuisine")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Cuisines");
+                });
+
             modelBuilder.Entity("TinderProject.Models.Interaction", b =>
                 {
                     b.Property<int>("Id")
@@ -171,12 +193,22 @@ namespace TinderProject.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("ProfilePictureUrl")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("TinderProject.Models.Cuisines", b =>
+                {
+                    b.HasOne("TinderProject.Models.User", "User")
+                        .WithMany("Cuisines")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("TinderProject.Models.Interaction", b =>
@@ -249,6 +281,8 @@ namespace TinderProject.Migrations
 
             modelBuilder.Entity("TinderProject.Models.User", b =>
                 {
+                    b.Navigation("Cuisines");
+
                     b.Navigation("Interests");
 
                     b.Navigation("LikedByUsers");

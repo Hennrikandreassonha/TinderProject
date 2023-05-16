@@ -10,10 +10,10 @@
 			<legend class="underline">Question 1</legend>
 			<p>Do you feel energized by spending time alone or by being around other people?</p>
 			<label>
-				<input type="radio" name="UserQuiz.Question1" value="alone" /> Alone
+				<input type="radio" name="UserQuiz.Question1" value="I" /> Alone
 			</label>
 			<label>
-				<input type="radio" name="UserQuiz.Question1" value="around-people" /> Around other people
+				<input type="radio" name="UserQuiz.Question1" value="E" /> Around other people
 			</label>
 		</fieldset>
 
@@ -21,44 +21,59 @@
 			<legend class="underline">Question 2</legend>
 			<p>When making decisions, do you rely on your senses and information or on feeling and intuition?</p>
 			<label>
-				<input type="radio" name="UserQuiz.Question2" value="senses-information" /> Senses and information
+				<input type="radio" name="UserQuiz.Question2" value="S" /> Senses and information
 			</label>
 			<label>
-				<input type="radio" name="UserQuiz.Question2" value="feeling-intuition" /> Feeling and intuition
+				<input type="radio" name="UserQuiz.Question2" value="N" /> Feeling and intuition
 			</label>
 		</fieldset>
 
 		<fieldset>
 			<legend class="underline">Question 3</legend>
-			<p>When making important decisions, do you rely on logic and analysis or on your feelings and how it will
-				affect other people?</p>
+			<p>
+				When making important decisions, do you rely on logic and analysis or on your feelings and how it will
+				affect other people?
+			</p>
 			<label>
-				<input type="radio" name="UserQuiz.Question3" value="logic-analysis" /> Logic and analysis
+				<input type="radio" name="UserQuiz.Question3" value="T" /> Logic and analysis
 			</label>
 			<label>
-				<input type="radio" name="UserQuiz.Question3" value="feelings-affect-others" /> Feelings and how it will
+				<input type="radio" name="UserQuiz.Question3" value="F" /> Feelings and how it will
 				affect others
 			</label>
 		</fieldset>
 
 		<fieldset>
 			<legend class="underline">Question 4</legend>
-			<p>When working on a project, do you prefer to have a detailed plan and deadlines or to have a general idea
-				and adjust as you go along?</p>
+			<p>
+				When working on a project, do you prefer to have a detailed plan and deadlines or to have a general idea
+				and adjust as you go along?
+			</p>
 			<label>
-				<input type="radio" name="UserQuiz.Question4" value="detailed-plan-deadlines" /> Detailed plan and
+				<input type="radio" name="UserQuiz.Question4" value="J" /> Detailed plan and
 				deadlines
 			</label>
 			<label>
-				<input type="radio" name="UserQuiz.Question4" value="general-idea-adjust" /> General idea and adjust as
+				<input type="radio" name="UserQuiz.Question4" value="P" /> General idea and adjust as
 				you go along
 			</label>
 		</fieldset>
 
-		<button id="submit-quiz-btn"class="my-button" type="submit" asp-page-handler="OnPost">Submit</button>
+		<button id="submit-quiz-btn" class="my-button" type="submit" asp-page-handler="OnPost">Submit</button>
 	</form>
-	<p class="white-text">*According to the Myers-Briggs Type Indicator. Click <a
-			href="https://en.wikipedia.org/wiki/Myers%E2%80%93Briggs_Type_Indicator"><span
-				id="myers-link">here</span></a> to read more about it</p>
 
+	@if (!string.IsNullOrEmpty(Model.PersonalityTypeMessage))
+	{
+		<h3 class="white-text">@Model.PersonalityTypeMessage</h3>
+		<p>
+			<a href="/">Start swiping</a> |
+			<a href="/UserPage/Index">Show your profile</a>
+		</p>
+	}
+
+	<p class="white-text">
+		*The quiz is based on the Myers-Briggs Type Indicator. Click <a href="https://en.wikipedia.org/wiki/Myers%E2%80%93Briggs_Type_Indicator">
+			<span id="myers-link">here</span>
+		</a> to read more about it
+	</p>
 </div>
