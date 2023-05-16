@@ -62,7 +62,7 @@
 		<button id="submit-quiz-btn" class="my-button" type="submit" asp-page-handler="OnPost">Submit</button>
 	</form>
 
-	@if (!string.IsNullOrEmpty(Model.PersonalityTypeMessage))
+	@if (Model.PersonalityTypeMessage != null)
 	{
 		<h3 class="white-text">@Model.PersonalityTypeMessage</h3>
 		<p>

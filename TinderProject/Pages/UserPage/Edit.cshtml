@@ -1,7 +1,6 @@
 @page
 @model EditModel
 @using Models.ModelEnums
-
 @{
     var AllCuisines = System.IO.File.ReadAllLines("./Data/DataToUsers/Cuisines.txt").ToList();
     var AllInterests = System.IO.File.ReadAllLines("./Data/DataToUsers/Interests.txt").ToList();
@@ -13,22 +12,26 @@
     <h1 class="white-text">Edit profile</h1>
 
     <form method="post" id="edit-flex" enctype="multipart/form-data">
+
         <section>
             <label for="firstName" class="label-font">First name: </label>
             <input type="text" id="firstName" asp-for="LoggedInUser.FirstName" />
             <span asp-validation-for="LoggedInUser.FirstName"></span>
         </section>
+
         <section>
             <label for="lastName" class="label-font">Last name: </label>
             <input type="text" id="lastName" asp-for="LoggedInUser.LastName" />
             <span asp-validation-for="LoggedInUser.LastName"></span>
         </section>
+
         <section>
             <label for="dateOfBirth" class="label-font">Date of birth: </label>
             <input type="datetime" id="dateOfBirth" asp-for="LoggedInUser.DateOfBirth"
                 value="@Model.LoggedInUser.DateOfBirth.ToString("yyyy-MM-dd")" />
             <span asp-validation-for="LoggedInUser.DateOfBirth"></span>
         </section>
+
         <section>
             <label for="gender" class="label-font">Gender: </label>
             <select asp-for="LoggedInUser.Gender" asp-items="Html.GetEnumSelectList<GenderType>()"
@@ -36,6 +39,7 @@
                 <option value="">Please select</option>
             </select>
         </section>
+
         <section>
             <label for="preference" class="label-font">Preference: </label>
             <select asp-for="LoggedInUser.Preference" asp-items="Html.GetEnumSelectList<SwipePreference>()"
@@ -43,6 +47,7 @@
                 <option value="">Please select</option>
             </select>
         </section>
+
         <h3 class="label-font">Interests: </h3>
         <section class="edit-display-grid">
 
@@ -71,12 +76,14 @@
             }
 
         </section>
+
         <section>
             <label for="description" class="label-font">Description: </label>
             <textarea class="edit-textarea" id="description" asp-for="LoggedInUser.Description" rows="2"
                 cols="50"></textarea>
             <span asp-validation-for="LoggedInUser.Description"></span>
         </section>
+
         <section>
             @* Upload a picture *@
             <label for="profilePictureUrl" class="label-font">Profile picture url: </label>
