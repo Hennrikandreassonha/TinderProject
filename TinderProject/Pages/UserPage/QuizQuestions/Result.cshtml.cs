@@ -1,34 +1,28 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace TinderProject.Pages.UserPage
+namespace TinderProject.Pages.UserPage.QuizQuestions
 {
-    public class QuizModel : PageModel
+    public class ResultModel : PageModel
     {
-		private readonly IUserRepository _userRepository;
-		private readonly AppDbContext _database;
+        private readonly IUserRepository _userRepository;
+        private readonly AppDbContext _database;
 
-		public QuizModel(IUserRepository userRepository, AppDbContext database)
-		{
-			_userRepository = userRepository;
-			_database = database;
-		}
-
-		[BindProperty]
-		public Quiz UserQuiz { get; set; }
+        public ResultModel(IUserRepository userRepository, AppDbContext database)
+        {
+            _userRepository = userRepository;
+            _database = database;
+        }
 		public User UserToUpdate { get; set; }
+		public string PersonalityType { get; set; }
 		public string PersonalityTypeMessage { get; set; }
 
-		public void OnGet()
-        {
-		}
-
-        public IActionResult OnPost()
-        {
-            if (!ModelState.IsValid)
-            {
-                return Page();
-            }
+		public IActionResult OnPost()
+		{
+			if (!ModelState.IsValid)
+			{
+				return Page();
+			}
 
 			UserToUpdate = _userRepository.GetLoggedInUser();
 
@@ -37,9 +31,10 @@ namespace TinderProject.Pages.UserPage
 				return NotFound();
 			}
 
-			UserToUpdate.PersonalityType = DeterminePersonalityType(UserQuiz);
+			PersonalityType = DeterminePersonalityType(UserToUpdate.UserQuiz);
+			UserToUpdate.PersonalityType = PersonalityType;
 
-			PersonalityTypeMessage = $"Your personality type is: {UserToUpdate.PersonalityType}";
+			PersonalityTypeMessage = $"Your personality type is: {PersonalityType}";
 
 			_database.Users.Update(UserToUpdate);
 			_database.SaveChanges();
@@ -49,7 +44,7 @@ namespace TinderProject.Pages.UserPage
 
 		public string DeterminePersonalityType(Quiz UserQuiz)
 		{
-			if(UserQuiz.Question1 == "I" && UserQuiz.Question2 == "S"
+			if (UserQuiz.Question1 == "I" && UserQuiz.Question2 == "S"
 				&& UserQuiz.Question3 == "T" && UserQuiz.Question4 == "J")
 			{
 				return "Inspector (ISTJ)";
@@ -132,5 +127,5 @@ namespace TinderProject.Pages.UserPage
 
 			return "Unknown";
 		}
-    }
+	}
 }

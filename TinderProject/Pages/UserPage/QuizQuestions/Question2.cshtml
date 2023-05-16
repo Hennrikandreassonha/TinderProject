@@ -1,0 +1,25 @@
+﻿@page
+@model TinderProject.Pages.UserPage.QuizQuestions.Question2Model
+@{
+}
+
+@{
+    ViewData["Title"] = "Question 2";
+}
+
+<h1 class="white-text">@ViewData["Title"]</h1>
+
+<p>When making decisions, do you rely on your senses and information or on feeling and intuition?</p>
+
+<form method="post">
+    <div>
+        <input type="radio" id="senses-information" name="Answer" value="S" />
+        <label for="senses-information">Senses and information</label>
+    </div>
+    <div>
+        <input type=radio id="feeling-intuition" name="Answer" value="N"/>
+        <label for="feeling-intuition">Feeling and intuition</label>
+    </div>
+
+    <button type="submit">Next question</button>
+</form>

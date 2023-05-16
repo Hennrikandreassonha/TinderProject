@@ -13,6 +13,7 @@ namespace TinderProject.Data
         public DbSet<Match> Matches { get; set; }
         public DbSet<Interaction> Interactions { get; set; }
         public DbSet<Message> Messages { get; set; }
+        public DbSet<Quiz> Quizzes { get; set; }
 
         public AppDbContext(DbContextOptions<AppDbContext> options)
             : base(options)

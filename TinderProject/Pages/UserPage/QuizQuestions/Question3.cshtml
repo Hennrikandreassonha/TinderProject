@@ -1,0 +1,26 @@
+﻿@page
+@model TinderProject.Pages.UserPage.QuizQuestions.Question3Model
+@{
+}
+
+@{
+    ViewData["Title"] = "Question 3";
+}
+
+<h1 class="white-text">@ViewData["Title"]</h1>
+
+<p>	When making important decisions, do you rely on logic and analysis or on your feelings and how it will
+	affect other people?</p>
+
+<form method="post">
+	<div>
+		<input type="radio" id="logic-analysis" name="Answer" value="T" />
+		<label for="logic-analysis">Logic and analysis</label>
+	</div>
+	<div>
+		<input type="radio" id="feelings-affect-others" name="Answer" value="F" />
+		<label for="feelings-affect-others">Feelings and how it will affect others</label>
+	</div>
+
+	<button type="submit">Next question</button>
+</form>

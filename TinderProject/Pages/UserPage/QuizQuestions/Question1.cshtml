@@ -1,0 +1,25 @@
+﻿@page
+@model TinderProject.Pages.UserPage.QuizQuestions.Question1Model
+@{
+}
+
+@{
+    ViewData["Title"] = "Question 1";
+}
+
+<h1 class="white-text">@ViewData["Title"]</h1>
+
+<p>Do you feel energized by spending time alone or by being around other people?</p>
+
+<form method="post">
+    <div>
+        <input type="radio" id="alone" name="Answer" value="I" />
+        <label for="alone">Alone</label>
+    </div>
+    <div>
+        <input type="radio" id="around-people" name="Answer" value="E" />
+        <label for="around-people">Around other people</label>
+    </div>
+
+    <button type="submit">Next question</button>
+</form>
