@@ -30,8 +30,10 @@
 
 		<fieldset>
 			<legend class="underline">Question 3</legend>
-			<p>When making important decisions, do you rely on logic and analysis or on your feelings and how it will
-				affect other people?</p>
+			<p>
+				When making important decisions, do you rely on logic and analysis or on your feelings and how it will
+				affect other people?
+			</p>
 			<label>
 				<input type="radio" name="UserQuiz.Question3" value="T" /> Logic and analysis
 			</label>
@@ -43,8 +45,10 @@
 
 		<fieldset>
 			<legend class="underline">Question 4</legend>
-			<p>When working on a project, do you prefer to have a detailed plan and deadlines or to have a general idea
-				and adjust as you go along?</p>
+			<p>
+				When working on a project, do you prefer to have a detailed plan and deadlines or to have a general idea
+				and adjust as you go along?
+			</p>
 			<label>
 				<input type="radio" name="UserQuiz.Question4" value="J" /> Detailed plan and
 				deadlines
@@ -55,10 +59,21 @@
 			</label>
 		</fieldset>
 
-		<button id="submit-quiz-btn"class="my-button" type="submit" asp-page-handler="OnPost">Submit</button>
+		<button id="submit-quiz-btn" class="my-button" type="submit" asp-page-handler="OnPost">Submit</button>
 	</form>
-	<p class="white-text">*The quiz is based on the Myers-Briggs Type Indicator. Click <a
-			href="https://en.wikipedia.org/wiki/Myers%E2%80%93Briggs_Type_Indicator"><span
-				id="myers-link">here</span></a> to read more about it</p>
 
+	@if (!string.IsNullOrEmpty(Model.PersonalityTypeMessage))
+	{
+		<h3 class="white-text">@Model.PersonalityTypeMessage</h3>
+		<p class="white-text">
+			<a href="/">Start swiping</a> |
+			<a href="/UserPage/Index">Show your profile</a>
+		</p>
+	}
+
+	<p class="white-text">
+		*The quiz is based on the Myers-Briggs Type Indicator. Click <a href="https://en.wikipedia.org/wiki/Myers%E2%80%93Briggs_Type_Indicator">
+			<span id="myers-link">here</span>
+		</a> to read more about it
+	</p>
 </div>

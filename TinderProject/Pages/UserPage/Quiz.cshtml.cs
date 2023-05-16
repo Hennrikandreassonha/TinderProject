@@ -17,6 +17,7 @@ namespace TinderProject.Pages.UserPage
 		[BindProperty]
 		public Quiz UserQuiz { get; set; }
 		public User UserToUpdate { get; set; }
+		public string PersonalityTypeMessage { get; set; }
 
 		public void OnGet()
         {
@@ -38,12 +39,12 @@ namespace TinderProject.Pages.UserPage
 
 			UserToUpdate.PersonalityType = DeterminePersonalityType(UserQuiz);
 
-			//UserToUpdate.PersonalityType = LoggedInUser.PersonalityType;
+			PersonalityTypeMessage = $"Your personality type is: {UserToUpdate.PersonalityType}";
 
 			_database.Users.Update(UserToUpdate);
 			_database.SaveChanges();
 
-			return RedirectToPage("/UserPage/Index");
+			return Page();
 		}
 
 		public string DeterminePersonalityType(Quiz UserQuiz)
