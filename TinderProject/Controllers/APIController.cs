@@ -1,4 +1,5 @@
 ﻿using System.Net;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -8,6 +9,7 @@ namespace TinderProject.Controllers
 {
     [Route("/api")]
     [ApiController]
+    [AllowAnonymous]
     public class APIController : ControllerBase
     {
         private readonly IUserRepository _userRepo;

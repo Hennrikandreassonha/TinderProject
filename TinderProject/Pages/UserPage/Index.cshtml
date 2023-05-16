@@ -9,12 +9,6 @@
 	<partial name="_ProfileNotCompleteMsg" />
 }
 
-@if (string.IsNullOrEmpty(Model.LoggedInUser.PersonalityType))
-{
-	Response.Redirect("/UserPage/Quiz");
-	return;
-}
-
 else
 {
 	<div id="profile-div"class="center-div">
