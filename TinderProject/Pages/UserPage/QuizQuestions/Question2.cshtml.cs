@@ -22,11 +22,6 @@ namespace TinderProject.Pages.UserPage.QuizQuestions
         }
         public IActionResult OnPost()
         {
-            if (UserQuiz == null)
-            {
-                return Page();
-            }
-
             UserToUpdate = _userRepository.GetLoggedInUser();
 
             if (UserToUpdate == null)
@@ -34,9 +29,14 @@ namespace TinderProject.Pages.UserPage.QuizQuestions
                 return NotFound();
             }
 
-            UserQuiz.Question1 = Request.Form["Answer"];
+            UserQuiz = UserToUpdate.UserQuiz;
 
-			UserToUpdate.UserQuiz = UserQuiz;
+            UserQuiz.Question2 = Request.Form["Answer"];
+
+            if (UserQuiz.Question2 == null)
+            {
+                return Page();
+            }
 
 			_database.Users.Update(UserToUpdate);
             _database.SaveChanges();
