@@ -6,8 +6,8 @@ using TinderProject.Models;
 
 namespace TinderProject.Repositories.Repositories_Interfaces
 {
-    public interface IInteractionRepository
-    {
-        public ICollection<User> GetLikedUsers(int userId);
-    }
+	public interface IInteractionRepository
+	{
+		public ICollection<User> GetLikedUsers(int userId);
+	}
 }

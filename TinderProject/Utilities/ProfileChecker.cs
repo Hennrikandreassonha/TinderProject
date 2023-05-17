@@ -7,7 +7,7 @@ namespace TinderProject.Utilities
     {
         public static bool ProfileIsComplete(User user)
         {
-            bool notCompelete = user != null;
+            bool notComplete = user != null;
 
             if (user == null)
             {

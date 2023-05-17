@@ -14,7 +14,6 @@ namespace TinderProject.Pages.UserPage.QuizQuestions
 			_userRepository = userRepository;
 			_database = database;
 			Questions = new List<string>();
-
 		}
 		public User UserToUpdate { get; set; }
 		public string PersonalityType { get; set; }

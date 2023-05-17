@@ -3,30 +3,34 @@
 
 @if (Model.IsPremium)
 {
-    <div class="center-div">
-        <h1 class="white-text">Users who likes you</h1>
-    </div>
+	<div class="center-div">
+		<h1 class="white-text">Users who likes you</h1>
+	</div>
 
-    <table id="premium-table" class="message-table">
-        @foreach (var user in Model.Users)
-        {
-            <tr>
+	<table id="premium-table" class="message-table">
+		@foreach (var user in Model.Users)
+		{
+			<tr>
 
-                <td>@user.FirstName @user.LastName</td>
-                <td><img src="@user.ProfilePictureUrl" alt="Profile Picture" id="messageProfilePic"></td>
+				<td>@user.FirstName @user.LastName</td>
+				<td><img src="@user.ProfilePictureUrl" alt="Profile Picture" id="messageProfilePic"></td>
 
-                <td class="btn-td">
-                    <a asp-page="/Premium/ShowLikerInfo" asp-route-userId="@user.Id"><button class="my-button">View
-                            profile</button></a>
-                </td>
-            </tr>
-        }
-    </table>
+				<td class="btn-td">
+					<a asp-page="/Premium/ShowLikerInfo" asp-route-userId="@user.Id">
+						<button class="my-button">
+							View
+							profile
+						</button>
+					</a>
+				</td>
+			</tr>
+		}
+	</table>
 }
 else
 {
-    <div class="center-div white-text">
-        <h1>You need to upgrade to premium to use this feature</h1>
-    </div>
+	<div class="center-div white-text">
+		<h1>You need to upgrade to premium to use this feature</h1>
+	</div>
 }
 
