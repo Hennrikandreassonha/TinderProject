@@ -12,21 +12,17 @@ namespace TinderProject.Pages.UserPage.QuizQuestions
         {
             _userRepository = userRepository;
             _database = database;
+            Questions = new List<string>();
         }
-        [BindProperty]
-        public Quiz UserQuiz { get; set; }
+       
         public User UserToUpdate { get; set; }
+        public List<string> Questions { get; set; }
 
         public void OnGet()
         {
         }
-        public IActionResult OnPost()
+        public IActionResult OnPost(string Answer, List<string> questions)
         {
-            if (UserQuiz == null)
-            {
-                return Page();
-            }
-
             UserToUpdate = _userRepository.GetLoggedInUser();
 
             if (UserToUpdate == null)
@@ -34,14 +30,16 @@ namespace TinderProject.Pages.UserPage.QuizQuestions
                 return NotFound();
             }
 
-            UserQuiz.Question1 = Request.Form["Answer"];
 
-			UserToUpdate.UserQuiz = UserQuiz;
+            if (Answer == null)
+            {
+                return Page();
+            }
 
-			_database.Users.Update(UserToUpdate);
-            _database.SaveChanges();
+            questions.Add(Answer);
+            Questions.AddRange(questions);
 
-            return RedirectToPage("Question3");
+            return RedirectToPage("Question3", new { questions = Questions });
         }
     }
 }

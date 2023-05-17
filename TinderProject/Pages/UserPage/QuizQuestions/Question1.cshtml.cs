@@ -13,37 +13,36 @@ namespace TinderProject.Pages.UserPage.QuizQuestions
             _userRepository = userRepository;
             _database = database;
         }
-
-        [BindProperty]
-        public Quiz UserQuiz { get; set; }
+        
         public User UserToUpdate { get; set; }
+
+        public List<string> Questions { get; set; }
 
         public void OnGet()
         {
         }
 
-        public IActionResult OnPost()
+        public IActionResult OnPost(string Answer)
         {
-            if (UserQuiz == null) 
-            {
-                return Page();
-            }
-
             UserToUpdate = _userRepository.GetLoggedInUser();
 
             if (UserToUpdate == null)
             {
                 return NotFound();
             }
+            Questions = new List<string>();
+            {
+                Questions.Add(Answer);
 
-            UserQuiz.Question1 = Request.Form["Answer"];
+            }
 
-			UserToUpdate.UserQuiz = UserQuiz;
 
-			_database.Users.Update(UserToUpdate);
-            _database.SaveChanges();
+            if (Answer == null)
+            {
+                return Page();
+            }
 
-            return RedirectToPage("Question2");
+            return RedirectToPage("Question2", new { questions = Questions});
         }
     }
 }
