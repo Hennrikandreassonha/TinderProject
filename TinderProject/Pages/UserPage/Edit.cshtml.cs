@@ -29,7 +29,7 @@ namespace TinderProject.Pages.UserPage
 		[BindProperty]
 		public User LoggedInUser { get; set; }
 		public User UserToUpdate { get; set; }
-		public List<string> PhotoURLs { get; set; } = new List<string>();
+		public string UserPhoto { get; set; }
 
 		public void OnGet()
 		{
@@ -43,11 +43,8 @@ namespace TinderProject.Pages.UserPage
 			//Getting all the files from the user directory.
 			Directory.CreateDirectory(userFolderPath);
 			string[] files = Directory.GetFiles(userFolderPath);
-			foreach (string file in files)
-			{
-				string url = _fileRepo.GetFileURL(file);
-				PhotoURLs.Add(url);
-			}
+
+			UserPhoto = _fileRepo.GetProfilePic(LoggedInUser);
 		}
 		public async Task<IActionResult> OnPost(List<string> interestsToAdd, List<string> cuisinesToAdd, IFormFile photo)
 		{
@@ -63,7 +60,6 @@ namespace TinderProject.Pages.UserPage
 			}
 			//Clear directory because users can only have one pic.
 			_fileRepo.ClearDirectory(UserToUpdate);
-
 
 			string path = Path.Combine(
 				UserToUpdate.Id.ToString(),
