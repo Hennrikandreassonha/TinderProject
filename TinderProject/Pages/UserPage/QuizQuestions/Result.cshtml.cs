@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Dynamic;
 
 namespace TinderProject.Pages.UserPage.QuizQuestions
 {
@@ -12,10 +13,19 @@ namespace TinderProject.Pages.UserPage.QuizQuestions
         {
             _userRepository = userRepository;
             _database = database;
+			Questions = new List<string>();
+			
         }
 		public User UserToUpdate { get; set; }
 		public string PersonalityType { get; set; }
 		public string PersonalityTypeMessage { get; set; }
+
+        public List<string> Questions { get; set; }
+
+        public void OnGet(List<string> questions) 
+		{ 
+			Questions.AddRange(questions);
+		}
 
 		public IActionResult OnPost()
 		{
