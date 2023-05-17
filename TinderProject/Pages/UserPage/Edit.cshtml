@@ -91,7 +91,7 @@
 			<div id="pic-flex">
 				<input type="file" name="photo" id="profilePictureUrl" class="edit-textarea" />
 
-				<img src="@Model.LoggedInUser.ProfilePictureUrl">
+				<img src="@Model.PhotoURLs.FirstOrDefault()">
 			</div>
 
 		</section>

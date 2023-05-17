@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using TinderProject.Repositories;
+using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -117,6 +118,15 @@ if (app.Environment.IsDevelopment())
 app.UseSession();
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+
+Directory.CreateDirectory(builder.Configuration["Uploads:FolderPath"]);
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new PhysicalFileProvider(
+        Path.Combine(builder.Environment.ContentRootPath, builder.Configuration["Uploads:FolderPath"])
+    ),
+    RequestPath = builder.Configuration["Uploads:URLPath"]
+});
 app.UseRouting();
 
 app.UseAuthentication();
