@@ -17,7 +17,6 @@ namespace TinderProject.Repositories.Repositories_Interfaces
         ICollection<User> GetAllMale();
         ICollection<User> GetUsersToSwipe(User user);
         ICollection<Interaction> GetUserLikes(User user);
-        ICollection<Interaction> GetUserLikes(int userId);
-        
+        ICollection<Interaction> GetUserLikes(int userId);        
     }
 }
