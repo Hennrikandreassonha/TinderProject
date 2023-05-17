@@ -24,8 +24,8 @@ namespace TinderProject.Pages.UserPage
 		public User LoggedInUser { get; set; }
 
 		public void OnGet()
-		{			
-			LoggedInUser = _userRepository.GetLoggedInUser();			
+		{
+			LoggedInUser = _userRepository.GetLoggedInUser();
 		}
 	}
 }

@@ -2,111 +2,113 @@
 @model EditModel
 @using Models.ModelEnums
 @{
-    var AllCuisines = System.IO.File.ReadAllLines("./Data/DataToUsers/Cuisines.txt").ToList();
-    var AllInterests = System.IO.File.ReadAllLines("./Data/DataToUsers/Interests.txt").ToList();
-    var UserInterests = Model.GetUserInterests();
-    var UserCuisines = Model.GetUserCuisines();
+	var AllCuisines = System.IO.File.ReadAllLines("./Data/DataToUsers/Cuisines.txt").ToList();
+	var AllInterests = System.IO.File.ReadAllLines("./Data/DataToUsers/Interests.txt").ToList();
+	var UserInterests = Model.GetUserInterests();
+	var UserCuisines = Model.GetUserCuisines();
 
 }
 <div class="center-div">
 
-    <h1 class="white-text">Edit profile</h1>
+	<h1 class="white-text">Edit profile</h1>
 
-    <form method="post" id="edit-flex" enctype="multipart/form-data">
+	<form method="post" id="edit-flex" enctype="multipart/form-data">
 
-        <section>
-            <label for="firstName" class="label-font">First name: </label>
-            <input type="text" id="firstName" asp-for="LoggedInUser.FirstName" />
-            <span asp-validation-for="LoggedInUser.FirstName"></span>
-        </section>
+		<section>
+			<label for="firstName" class="label-font">First name: </label>
+			<input type="text" id="firstName" asp-for="LoggedInUser.FirstName" />
+			<span asp-validation-for="LoggedInUser.FirstName"></span>
+		</section>
 
-        <section>
-            <label for="lastName" class="label-font">Last name: </label>
-            <input type="text" id="lastName" asp-for="LoggedInUser.LastName" />
-            <span asp-validation-for="LoggedInUser.LastName"></span>
-        </section>
+		<section>
+			<label for="lastName" class="label-font">Last name: </label>
+			<input type="text" id="lastName" asp-for="LoggedInUser.LastName" />
+			<span asp-validation-for="LoggedInUser.LastName"></span>
+		</section>
 
-        <section>
-            <label for="dateOfBirth" class="label-font">Date of birth: </label>
-            <input type="datetime" id="dateOfBirth" asp-for="LoggedInUser.DateOfBirth"
-                value="@Model.LoggedInUser.DateOfBirth.ToString("yyyy-MM-dd")" />
-            <span asp-validation-for="LoggedInUser.DateOfBirth"></span>
-        </section>
+		<section>
+			<label for="dateOfBirth" class="label-font">Date of birth: </label>
+			<input type="datetime" id="dateOfBirth" asp-for="LoggedInUser.DateOfBirth"
+				   value="@Model.LoggedInUser.DateOfBirth.ToString("yyyy-MM-dd")" />
+			<span asp-validation-for="LoggedInUser.DateOfBirth"></span>
+		</section>
 
-        <section>
-            <label for="gender" class="label-font">Gender: </label>
-            <select asp-for="LoggedInUser.Gender" asp-items="Html.GetEnumSelectList<GenderType>()"
-                class="dropdown-edit">
-                <option value="">Please select</option>
-            </select>
-        </section>
+		<section>
+			<label for="gender" class="label-font">Gender: </label>
+			<select asp-for="LoggedInUser.Gender" asp-items="Html.GetEnumSelectList<GenderType>()"
+	 class="dropdown-edit">
+				<option value="">Please select</option>
+			</select>
+		</section>
 
-        <section>
-            <label for="preference" class="label-font">Preference: </label>
-            <select asp-for="LoggedInUser.Preference" asp-items="Html.GetEnumSelectList<SwipePreference>()"
-                class="dropdown-edit">
-                <option value="">Please select</option>
-            </select>
-        </section>
+		<section>
+			<label for="preference" class="label-font">Preference: </label>
+			<select asp-for="LoggedInUser.Preference" asp-items="Html.GetEnumSelectList<SwipePreference>()"
+	 class="dropdown-edit">
+				<option value="">Please select</option>
+			</select>
+		</section>
 
-        <h3 class="label-font">Interests: </h3>
-        <section class="edit-display-grid">
+		<h3 class="label-font">Interests: </h3>
+		<section class="edit-display-grid">
 
-            @foreach (var interest in AllInterests)
-            {
-                bool isSelectedInterest = UserInterests.Contains(interest);
+			@foreach (var interest in AllInterests)
+			{
+				bool isSelectedInterest = UserInterests.Contains(interest);
 
-                <label class="white-text">
-                    <input name="interestsToAdd" type="checkbox" value="@interest" @(isSelectedInterest ? "checked" : "") />
-                    @interest
-                </label>
-            }
+				<label class="white-text">
+					<input name="interestsToAdd" type="checkbox" value="@interest" @(isSelectedInterest ? "checked" : "") />
+					@interest
+				</label>
+			}
 
-        </section>
-        <h3 class="label-font">Cuisines: </h3>
-        <section class="edit-display-grid">
+		</section>
+		<h3 class="label-font">Cuisines: </h3>
+		<section class="edit-display-grid">
 
-            @foreach (var cuisine in AllCuisines)
-            {
-                bool isSelectedCuisine = UserCuisines.Contains(cuisine);
+			@foreach (var cuisine in AllCuisines)
+			{
+				bool isSelectedCuisine = UserCuisines.Contains(cuisine);
 
-                <label class="white-text">
-                    <input name="cuisinesToAdd" type="checkbox" value="@cuisine" @(isSelectedCuisine ? "checked" : "") />
-                    @cuisine
-                </label>
-            }
+				<label class="white-text">
+					<input name="cuisinesToAdd" type="checkbox" value="@cuisine" @(isSelectedCuisine ? "checked" : "") />
+					@cuisine
+				</label>
+			}
 
-        </section>
+		</section>
 
-        <section>
-            <label for="description" class="label-font">Description: </label>
-            <textarea class="edit-textarea" id="description" asp-for="LoggedInUser.Description" rows="2"
-                cols="50"></textarea>
-            <span asp-validation-for="LoggedInUser.Description"></span>
-        </section>
+		<section>
+			<label for="description" class="label-font">Description: </label>
+			<textarea class="edit-textarea" id="description" asp-for="LoggedInUser.Description" rows="2"
+	   cols="50"></textarea>
+			<span asp-validation-for="LoggedInUser.Description"></span>
+		</section>
 
-        <section>
-            @* Upload a picture *@
+		<section>
+			@* Upload a picture *@
 
-            <label for="profilePictureUrl" class="label-font">Profile picture</label>
-            <div id="pic-flex">
-                <input type="file" name="photo" id="profilePictureUrl" class="edit-textarea" />
+			<label for="profilePictureUrl" class="label-font">Profile picture</label>
+			<div id="pic-flex">
+				<input type="file" name="photo" id="profilePictureUrl" class="edit-textarea" />
 
-                <img src="@Model.LoggedInUser.ProfilePictureUrl">
-            </div>
+				<img src="@Model.LoggedInUser.ProfilePictureUrl">
+			</div>
 
-        </section>
+		</section>
 
-        <section>
-            <label for="premium">Premium</label>
-            <input type="checkbox" id="premium" asp-for="LoggedInUser.PremiumUser" />
-            <span asp-validation-for="LoggedInUser.PremiumUser"></span>
-        </section>
+		<section>
+			<label for="premium">Premium</label>
+			<input type="checkbox" id="premium" asp-for="LoggedInUser.PremiumUser" />
+			<span asp-validation-for="LoggedInUser.PremiumUser"></span>
+		</section>
 
-        @* Error messages model state *@
-        <div asp-validation-summary="All" class="underline"></div>
+		@* Error messages model state *@
+		<div asp-validation-summary="All" class="underline"></div>
 
-        <button type="submit" asp-route-loggedInId="@Model.LoggedInUser.Id" class="my-button">Update
-            profile</button>
-    </form>
+		<button type="submit" asp-route-loggedInId="@Model.LoggedInUser.Id" class="my-button">
+			Update
+			profile
+		</button>
+	</form>
 </div>

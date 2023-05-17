@@ -13,118 +13,117 @@ using TinderProject.Repositories;
 
 namespace TinderProject.Pages.UserPage
 {
-    public class EditModel : PageModel
-    {
-        private readonly IUserRepository _userRepository;
-        private readonly AppDbContext _database;
-        private readonly FileRepository _fileRepo;
+	public class EditModel : PageModel
+	{
+		private readonly IUserRepository _userRepository;
+		private readonly AppDbContext _database;
+		private readonly FileRepository _fileRepo;
 
-        public EditModel(IUserRepository userRepository, AppDbContext database, FileRepository fileRepo)
-        {
-            _userRepository = userRepository;
-            _database = database;
-            _fileRepo = fileRepo;
-        }
+		public EditModel(IUserRepository userRepository, AppDbContext database, FileRepository fileRepo)
+		{
+			_userRepository = userRepository;
+			_database = database;
+			_fileRepo = fileRepo;
+		}
 
-        [BindProperty]
-        public User LoggedInUser { get; set; }
-        public User UserToUpdate { get; set; }
-        public List<string> PhotoURLs { get; set; } = new List<string>();
-        public void OnGet()
-        {
-            LoggedInUser = _userRepository.GetLoggedInUser();
+		[BindProperty]
+		public User LoggedInUser { get; set; }
+		public User UserToUpdate { get; set; }
+		public List<string> PhotoURLs { get; set; } = new List<string>();
+		public void OnGet()
+		{
+			LoggedInUser = _userRepository.GetLoggedInUser();
 
-            string userFolderPath = Path.Combine(
-                _fileRepo.FolderPath,
-                LoggedInUser.Id.ToString()
-                );
+			string userFolderPath = Path.Combine(
+				_fileRepo.FolderPath,
+				LoggedInUser.Id.ToString()
+				);
 
-            //Getting all the files from the user directory.
-            Directory.CreateDirectory(userFolderPath);
-            string[] files = Directory.GetFiles(userFolderPath);
-            foreach (string file in files)
-            {
-                string url = _fileRepo.GetFileURL(file);
-                PhotoURLs.Add(url);
-            }
-        }
-
-        public async Task<IActionResult> OnPost(List<string> interestsToAdd, List<string> cuisinesToAdd, IFormFile photo)
-        {
-            if (!ModelState.IsValid)
-            {
+			//Getting all the files from the user directory.
+			Directory.CreateDirectory(userFolderPath);
+			string[] files = Directory.GetFiles(userFolderPath);
+			foreach (string file in files)
+			{
+				string url = _fileRepo.GetFileURL(file);
+				PhotoURLs.Add(url);
+			}
+		}
+		public async Task<IActionResult> OnPost(List<string> interestsToAdd, List<string> cuisinesToAdd, IFormFile photo)
+		{
+			if (!ModelState.IsValid)
+			{
 				return Page();
-            }
+			}
 
-            UserToUpdate = _userRepository.GetLoggedInUser();
-            if (UserToUpdate == null)
-            {
-                return NotFound();
-            }
-            //Clear directory because users can only have one pic.
-            _fileRepo.ClearDirectory(UserToUpdate);
+			UserToUpdate = _userRepository.GetLoggedInUser();
+			if (UserToUpdate == null)
+			{
+				return NotFound();
+			}
+			//Clear directory because users can only have one pic.
+			_fileRepo.ClearDirectory(UserToUpdate);
 
 
-            string path = Path.Combine(
-                UserToUpdate.Id.ToString(),
-                Guid.NewGuid().ToString() + "-" + photo.FileName
-                );
+			string path = Path.Combine(
+				UserToUpdate.Id.ToString(),
+				Guid.NewGuid().ToString() + "-" + photo.FileName
+				);
 
-            //Saving pic to user directory.
-            await _fileRepo.SaveFileAsync(photo, path);
+			//Saving pic to user directory.
+			await _fileRepo.SaveFileAsync(photo, path);
 
-            UserToUpdate.FirstName = LoggedInUser.FirstName;
-            UserToUpdate.LastName = LoggedInUser.LastName;
-            UserToUpdate.DateOfBirth = LoggedInUser.DateOfBirth;
-            UserToUpdate.Gender = LoggedInUser.Gender;
-            UserToUpdate.Preference = LoggedInUser.Preference;
-            UserToUpdate.Description = LoggedInUser.Description;
-            UserToUpdate.PremiumUser = LoggedInUser.PremiumUser;
+			UserToUpdate.FirstName = LoggedInUser.FirstName;
+			UserToUpdate.LastName = LoggedInUser.LastName;
+			UserToUpdate.DateOfBirth = LoggedInUser.DateOfBirth;
+			UserToUpdate.Gender = LoggedInUser.Gender;
+			UserToUpdate.Preference = LoggedInUser.Preference;
+			UserToUpdate.Description = LoggedInUser.Description;
+			UserToUpdate.PremiumUser = LoggedInUser.PremiumUser;
 			UserToUpdate.PersonalityType = UserToUpdate.PersonalityType;
-            UserToUpdate.ProfilePictureUrl = _fileRepo.GetProfilePic(UserToUpdate);
+			UserToUpdate.ProfilePictureUrl = _fileRepo.GetProfilePic(UserToUpdate);
 
 			if (UserToUpdate.Interests.Clear != null)
-            {
-                UserToUpdate.Interests.Clear();
-            }
+			{
+				UserToUpdate.Interests.Clear();
+			}
 
-            List<Interests> newInterests = interestsToAdd
-                .Where(interest => interest != null)
-                .Select(interest => new Interests
-                {
-                    Interest = interest,
-                    UserId = UserToUpdate.Id
-                }).ToList();
+			List<Interests> newInterests = interestsToAdd
+				.Where(interest => interest != null)
+				.Select(interest => new Interests
+				{
+					Interest = interest,
+					UserId = UserToUpdate.Id
+				}).ToList();
 
-            UserToUpdate.Interests.AddRange(newInterests);
-            UserToUpdate.Cuisines?.Clear();
+			UserToUpdate.Interests.AddRange(newInterests);
+			UserToUpdate.Cuisines?.Clear();
 
-            List<Cuisines> newCuisines = cuisinesToAdd
-                .Where(cuisine => cuisine != null)
-                .Select(cuisine => new Cuisines
-                {
-                    Cuisine = cuisine,
-                    UserId = UserToUpdate.Id
-                }).ToList();
+			List<Cuisines> newCuisines = cuisinesToAdd
+				.Where(cuisine => cuisine != null)
+				.Select(cuisine => new Cuisines
+				{
+					Cuisine = cuisine,
+					UserId = UserToUpdate.Id
+				}).ToList();
 
-            UserToUpdate.Cuisines.AddRange(newCuisines);
+			UserToUpdate.Cuisines.AddRange(newCuisines);
 
-            _database.Users.Update(UserToUpdate);
-            _database.SaveChanges();
+			_database.Users.Update(UserToUpdate);
+			_database.SaveChanges();
 
-            return RedirectToPage("/UserPage/Index");
-        }
-        public List<string> GetUserInterests()
-        {
-            var user = _userRepository.GetLoggedInUser();
+			return RedirectToPage("/UserPage/Index");
+		}
+		public List<string> GetUserInterests()
+		{
+			var user = _userRepository.GetLoggedInUser();
 
-            return user.Interests.Select(x => x.Interest).ToList();
-        }
-        public List<string> GetUserCuisines()
-        {
-            var user = _userRepository.GetLoggedInUser();
+			return user.Interests.Select(x => x.Interest).ToList();
+		}
+		public List<string> GetUserCuisines()
+		{
+			var user = _userRepository.GetLoggedInUser();
 
-            return user.Cuisines.Select(x => x.Cuisine).ToList();
-        }
-    }
+			return user.Cuisines.Select(x => x.Cuisine).ToList();
+		}
+	}
 }

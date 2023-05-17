@@ -9,15 +9,13 @@
     string userserLetters = HttpContext.Session.GetString("userPLetters");
 }
 
-
 @if (!ProfileChecker.ProfileIsComplete(Model.LoggedInUser))
 {
     <partial name="_ProfileNotCompleteMsg" />
 }
 else
 {
-    <script src="../js/Swipe_S
-creen_Js.js" defer></script>
+    <script src="../js/Swipe_Screen_Js.js" defer></script>
 
     @if (Model.NoUsersToSwipe)
     {
@@ -139,7 +137,6 @@ creen_Js.js" defer></script>
                                     break;
 
                                 }
-
                             }
 
                             if (isMatch)
@@ -156,8 +153,6 @@ creen_Js.js" defer></script>
                                 <div class="interest-type-nomatch">@item.Interest</div>
                             }
                         }
-
-
                     </div>
 
                     <form method="post" id="like-dislike-flex">
@@ -185,7 +180,6 @@ creen_Js.js" defer></script>
                             <img src="~/Pictures/green_Heart.png" alt="A green heart for liking" id="like-button"
                                 class="like-dislike-pictures">
                         </button>
-
                     </form>
                 </div>
             </section>
