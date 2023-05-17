@@ -19,6 +19,7 @@ namespace TinderProject.Data
         {
 
         }
+        
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 

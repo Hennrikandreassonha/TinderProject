@@ -6,7 +6,7 @@ using TinderProject.Repositories.Repositories_Interfaces;
 
 namespace TinderProject.Pages.Messages
 {
-    public class MessegesModel : PageModel
+    public class MessagesModel : PageModel
     {
         private readonly AppDbContext _database;
         private readonly IUserRepository _userRepository;
@@ -19,7 +19,7 @@ namespace TinderProject.Pages.Messages
         public List<Message> Messages { get; set; }
         public List<User> NoConversation { get; set; }
 
-        public MessegesModel(AppDbContext database, IUserRepository userRepository)
+        public MessagesModel(AppDbContext database, IUserRepository userRepository)
         {
             _database = database;
             _userRepository = userRepository;
@@ -62,7 +62,6 @@ namespace TinderProject.Pages.Messages
             var matches = _database.Matches.ToList();
             var messages = _database.Messages.ToList();
 
-
             foreach (var match in matches)
             {
                 bool haveConversation = messages.Any(m =>
@@ -82,6 +81,7 @@ namespace TinderProject.Pages.Messages
                 }
             }
         }
+
         public IActionResult OnPost(string message, int userId)
         {
             if (_userRepository.GetUser(userId) == null)
@@ -144,6 +144,7 @@ namespace TinderProject.Pages.Messages
             AddMessage(message, matchedUser.Id);
             return RedirectToPage();
         }
+
         public bool CommonCuisine(User loggedInUser, User user2)
         {
             //If users have a common cuisine it will return true.
@@ -153,6 +154,7 @@ namespace TinderProject.Pages.Messages
             }
             return false;
         }
+
         public string GetCommonCuisine(User loggedInUser, User matchedUser)
         {
             var commonCuisines = loggedInUser.Cuisines.Intersect(matchedUser.Cuisines).ToArray();
@@ -161,6 +163,7 @@ namespace TinderProject.Pages.Messages
 
             return commonCuisines[randomIndex].Cuisine;
         }
+
         public string GetCuisine(User matchedUser)
         {
             int randomIndex = random.Next(0, matchedUser.Cuisines.Count);

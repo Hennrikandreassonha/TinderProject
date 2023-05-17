@@ -8,12 +8,14 @@ namespace TinderProject.Pages
 		private readonly IUserRepository _userRepo;
 		private readonly IMatchRepository _matchRepo;
 		private readonly IAppDbContext _context;
+
 		public IndexModel(IUserRepository repo, IAppDbContext context, IMatchRepository matchRepo)
 		{
 			_userRepo = repo;
 			_context = context;
 			_matchRepo = matchRepo;
 		}
+
 		public User LoggedInUser { get; set; }
 		public List<User> UsersToSwipe { get; set; }
 		public User CurrentUserShown { get; set; }
@@ -25,6 +27,7 @@ namespace TinderProject.Pages
 		public bool NoUsersToSwipe { get; set; }
 		[BindProperty]
 		public bool SmartMatching { get; set; }
+
 		public void OnGet(string? options)
 		{
 			//Fixa så att den nya användaren visas Efter popupen tagits bort och inte innan.
@@ -84,6 +87,7 @@ namespace TinderProject.Pages
 
 			HttpContext.Session.SetString("currentSwipeUserPStyle", CurrentUserShown.PersonalityType.Substring(0, CurrentUserShown.PersonalityType.Length - 6));
 		}
+
 		public IActionResult OnPost(string options, string smartMatching, int userId)
 		{
 			if (smartMatching == "true")
@@ -120,6 +124,7 @@ namespace TinderProject.Pages
 			IncrementUserIndex();
 			return RedirectToPage("/Index");
 		}
+
 		public IActionResult OnPostSendMsgSuper(string messageToSend, int userIdToSend)
 		{
 			LoggedInUser = _userRepo.GetLoggedInUser();
@@ -139,6 +144,7 @@ namespace TinderProject.Pages
 			IncrementUserIndex();
 			return RedirectToPage("/Index");
 		}
+
 		public void IncrementUserIndex()
 		{
 			//Increments the index which is used for showing users.
@@ -156,10 +162,12 @@ namespace TinderProject.Pages
 
 			HttpContext.Session.SetInt32("currentUserIndex", currentUserIndex);
 		}
+
 		public int GetCurrentUserIndex()
 		{
 			return HttpContext.Session.GetInt32("currentUserIndex").GetValueOrDefault();
 		}
+
 		public void NewInteraction(User loggedInUser, User likedUser)
 		{
 			Interaction newLike = new()
@@ -172,6 +180,7 @@ namespace TinderProject.Pages
 			_context.Interactions.Add(newLike);
 			_context.SaveChanges();
 		}
+
 		public bool CheckIfMatch(int loggedInUserId, int likedUserId)
 		{
 			//Gets the Currently Liked User and checks if it likes loggedInUser.
@@ -191,6 +200,7 @@ namespace TinderProject.Pages
 			}
 			return false;
 		}
+
 		public void CreateNewMatch(int user1Id, int user2Id)
 		{
 			Match newMatch = new()

@@ -17,6 +17,7 @@ namespace TinderProject.Pages.Messages
             _userRepository = userRepository;
            User= new User();
         }
+
         public void OnGet(int userId)
         {
             User = _database.Users.Find(userId);

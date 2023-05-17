@@ -15,14 +15,13 @@ namespace TinderProject.Pages.UserPage.QuizQuestions
         }
 
         public User UserToUpdate { get; set; }
-
         public List<string> Questions { get; set; }
 
         public void OnGet()
         {
         }
 
-        public IActionResult OnPost(string Answer)
+        public IActionResult OnPost(string answer)
         {
             UserToUpdate = _userRepository.GetLoggedInUser();
 
@@ -32,11 +31,10 @@ namespace TinderProject.Pages.UserPage.QuizQuestions
             }
             Questions = new List<string>();
             {
-                Questions.Add(Answer);
-
+                Questions.Add(answer);
             }
 
-            if (Answer == null)
+            if (answer == null)
             {
                 return Page();
             }

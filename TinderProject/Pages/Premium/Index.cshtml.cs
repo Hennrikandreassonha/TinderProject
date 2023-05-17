@@ -7,6 +7,7 @@ namespace TinderProject.Pages.Premium
 	{
 		private readonly IUserRepository _userRepository;
 		private readonly AppDbContext _database;
+
 		public List<Interaction> Likers { get; set; }
 		public List<User> Users { get; set; }
 		public bool IsPremium { get; set; }

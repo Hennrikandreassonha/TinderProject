@@ -57,8 +57,6 @@ namespace TinderProject.Pages.Premium
 
                 return RedirectToPage("/Premium/Index");
             }
-
         }
-
     }
 }

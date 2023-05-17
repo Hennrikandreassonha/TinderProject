@@ -35,7 +35,7 @@ namespace TinderProject.Data
 
                 var interests = GenerateInterests();
                 var cuisines = GenerateCuisines();
-                var personalType = GeneratePersonalType();
+                var personalityType = GeneratePersonalityType();
                 var description = GenerateDescription();
                 var swipePreference = GeneratePreference();
                 var premium = GeneratePremium();
@@ -51,7 +51,7 @@ namespace TinderProject.Data
                     Gender = genderType,
                     FirstName = firstName,
                     LastName = lastName,
-                    PersonalityType = personalType,
+                    PersonalityType = personalityType,
                     Description = description,
                     Preference = swipePreference,
                     ProfilePictureUrl = profilePicUrl,
@@ -81,7 +81,6 @@ namespace TinderProject.Data
                 }
 
                 database.AddRange(interestsToAdd);
-
                 
                 List<Cuisines> cuisinesToAdd = new();
 
@@ -132,6 +131,7 @@ namespace TinderProject.Data
 
             return choice[genderChoice];
         }
+
         public static string GenerateFirstName(GenderType genderType)
         {
             int nameIndex = random.Next(0, MaleNames.Length);
@@ -157,12 +157,14 @@ namespace TinderProject.Data
                 return allNames[allNamesIndex];
             }
         }
+
         public static string GenerateLastName()
         {
             int nameIndex = random.Next(0, LastNames.Length);
 
             return LastNames![nameIndex];
         }
+
         public static string[] GenerateInterests()
         {
             int randomNumber = random.Next(2, 5);
@@ -182,6 +184,7 @@ namespace TinderProject.Data
 
             return interests.ToArray();
         }
+
         public static string[] GenerateCuisines()
         {
             int randomNumber = random.Next(1, 4);
@@ -231,6 +234,7 @@ namespace TinderProject.Data
 
             return picUrl;
         }
+
         public static string GenerateDescription()
         {            
             var nouns = File.ReadAllLines("./Data/DataToUsers/Nouns.txt");
@@ -284,7 +288,8 @@ namespace TinderProject.Data
 
             return DateTime.ParseExact(dateString, "ddMMyyyy", CultureInfo.InvariantCulture);
         }
-        public static string GeneratePersonalType()
+
+        public static string GeneratePersonalityType()
         {
             int personalIndex = random.Next(0, PersonalityTypes.Length);
 

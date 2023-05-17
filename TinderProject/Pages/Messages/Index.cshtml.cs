@@ -20,9 +20,9 @@ namespace TinderProject.Pages.Messages
         private readonly IUserRepository _userRepository;
 
         public List<User> User { get; set; }
-
         public List<Message> Messages { get; set; }
         public List<User> NoConversation { get; set; }
+
         public IndexModel(AppDbContext database, IUserRepository userRepository)
         {
             _database = database;
@@ -47,7 +47,6 @@ namespace TinderProject.Pages.Messages
             var matches = _database.Matches.ToList();
             var messages = _database.Messages.ToList();
 
-
             foreach (var match in matches)
             {
                 bool haveConversation = messages.Any(m =>
@@ -66,7 +65,6 @@ namespace TinderProject.Pages.Messages
                     }
                 }
             }
-
         }
     }
 }

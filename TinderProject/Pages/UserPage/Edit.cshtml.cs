@@ -30,6 +30,7 @@ namespace TinderProject.Pages.UserPage
 		public User LoggedInUser { get; set; }
 		public User UserToUpdate { get; set; }
 		public List<string> PhotoURLs { get; set; } = new List<string>();
+
 		public void OnGet()
 		{
 			LoggedInUser = _userRepository.GetLoggedInUser();
