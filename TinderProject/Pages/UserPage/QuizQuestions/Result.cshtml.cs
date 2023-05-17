@@ -41,7 +41,7 @@ namespace TinderProject.Pages.UserPage.QuizQuestions
 				return NotFound();
 			}
 
-			PersonalityType = DeterminePersonalityType(UserToUpdate.UserQuiz);
+			PersonalityType = DeterminePersonalityType();
 			UserToUpdate.PersonalityType = PersonalityType;
 
 			PersonalityTypeMessage = $"Your personality type is: {PersonalityType}";
@@ -52,85 +52,69 @@ namespace TinderProject.Pages.UserPage.QuizQuestions
 			return Page();
 		}
 
-		public string DeterminePersonalityType(Quiz UserQuiz)
+		public string DeterminePersonalityType()
 		{
-			if (UserQuiz.Question1 == "I" && UserQuiz.Question2 == "S"
-				&& UserQuiz.Question3 == "T" && UserQuiz.Question4 == "J")
+			if (Questions[0] == "I" && Questions[1] == "S" && Questions[2] == "T" && Questions[3] == "J")
 			{
 				return "Inspector (ISTJ)";
 			}
-			else if (UserQuiz.Question1 == "I" && UserQuiz.Question2 == "S" &&
-			 UserQuiz.Question3 == "T" && UserQuiz.Question4 == "P")
+			else if (Questions[0] == "I" && Questions[1] == "S" && Questions[2] == "T" && Questions[3] == "P")
 			{
 				return "Craftsman (ISTP)";
 			}
-			else if (UserQuiz.Question1 == "I" && UserQuiz.Question2 == "S"
-			&& UserQuiz.Question3 == "F" && UserQuiz.Question4 == "J")
+			else if (Questions[0] == "I" && Questions[1] == "S" && Questions[2] == "F" && Questions[3] == "J")
 			{
 				return "Protector (ISFJ)";
 			}
-			else if (UserQuiz.Question1 == "I" && UserQuiz.Question2 == "S"
-			&& UserQuiz.Question3 == "F" && UserQuiz.Question4 == "P")
+			else if (Questions[0] == "I" && Questions[1] == "S" && Questions[2] == "F" && Questions[3] == "P")
 			{
 				return "Composer (ISFP)";
 			}
-			else if (UserQuiz.Question1 == "I" && UserQuiz.Question2 == "N"
-			&& UserQuiz.Question3 == "T" && UserQuiz.Question4 == "J")
+			else if (Questions[0] == "I" && Questions[1] == "N"	&& Questions[2] == "T" && Questions[3] == "J")
 			{
 				return "Mastermind (INTJ)";
 			}
-			else if (UserQuiz.Question1 == "I" && UserQuiz.Question2 == "N"
-			&& UserQuiz.Question3 == "T" && UserQuiz.Question4 == "P")
+			else if (Questions[0] == "I" && Questions[1] == "N" && Questions[2] == "T" && Questions[3] == "P")
 			{
 				return "Architect (INTP)";
 			}
-			else if (UserQuiz.Question1 == "I" && UserQuiz.Question2 == "N"
-			&& UserQuiz.Question3 == "F" && UserQuiz.Question4 == "J")
+			else if (Questions[0] == "I" && Questions[1] == "N" && Questions[2] == "F" && Questions[3] == "J")
 			{
 				return "Counselor (INFJ)";
 			}
-			else if (UserQuiz.Question1 == "I" && UserQuiz.Question2 == "N"
-			&& UserQuiz.Question3 == "F" && UserQuiz.Question4 == "P")
+			else if (Questions[0] == "I" && Questions[1] == "N" && Questions[2] == "F" && Questions[3] == "P")
 			{
 				return "Healer (INFP)";
 			}
-			else if (UserQuiz.Question1 == "E" && UserQuiz.Question2 == "S"
-			&& UserQuiz.Question3 == "T" && UserQuiz.Question4 == "J")
+			else if (Questions[0] == "E" && Questions[1] == "S"	&& Questions[2] == "T" && Questions[3] == "J")
 			{
 				return "Supervisor (ESTJ)";
 			}
-			else if (UserQuiz.Question1 == "E" && UserQuiz.Question2 == "S"
-			&& UserQuiz.Question3 == "T" && UserQuiz.Question4 == "P")
+			else if (Questions[0] == "E" && Questions[1] == "S" && Questions[2] == "T" && Questions[3] == "P")
 			{
 				return "Dynamo (ESTP)";
 			}
-			else if (UserQuiz.Question1 == "E" && UserQuiz.Question2 == "S"
-			&& UserQuiz.Question3 == "F" && UserQuiz.Question4 == "J")
+			else if (Questions[0] == "E" && Questions[1] == "S" && Questions[2] == "F" && Questions[3] == "J")
 			{
 				return "Provider (ESFJ)";
 			}
-			else if (UserQuiz.Question1 == "E" && UserQuiz.Question2 == "S"
-			&& UserQuiz.Question3 == "F" && UserQuiz.Question4 == "P")
+			else if (Questions[0] == "E" && Questions[1] == "S" && Questions[2] == "F" && Questions[3] == "P")
 			{
 				return "Performer (ESFP)";
 			}
-			else if (UserQuiz.Question1 == "E" && UserQuiz.Question2 == "N"
-			&& UserQuiz.Question3 == "T" && UserQuiz.Question4 == "J")
+			else if (Questions[0] == "E" && Questions[1] == "N" && Questions[2] == "T" && Questions[3] == "J")
 			{
 				return "Commander (ENTJ)";
 			}
-			else if (UserQuiz.Question1 == "E" && UserQuiz.Question2 == "N"
-			&& UserQuiz.Question3 == "T" && UserQuiz.Question4 == "P")
+			else if (Questions[0] == "E" && Questions[1] == "N" && Questions[2] == "T" && Questions[3] == "P")
 			{
 				return "Visionary (ENTP)";
 			}
-			else if (UserQuiz.Question1 == "E" && UserQuiz.Question2 == "N"
-			&& UserQuiz.Question3 == "F" && UserQuiz.Question4 == "J")
+			else if (Questions[0] == "E" && Questions[1] == "N" && Questions[2] == "F" && Questions[3] == "J")
 			{
 				return "Teacher (ENFJ)";
 			}
-			else if (UserQuiz.Question1 == "E" && UserQuiz.Question2 == "N"
-			&& UserQuiz.Question3 == "F" && UserQuiz.Question4 == "P")
+			else if (Questions[0] == "E" && Questions[1] == "N" && Questions[2] == "F" && Questions[3] == "P")
 			{
 				return "Champion (ENFP)";
 			}
