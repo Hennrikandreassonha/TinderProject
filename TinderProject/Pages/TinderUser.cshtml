@@ -1,0 +1,103 @@
+@page "{id:int}"
+@model TinderProject.Pages.TinderUser
+@{
+    ViewData["Title"] = "TinderUser";
+}
+@if (@Model.LikerUser == null)
+{
+    <div class="center-div">
+        <h1 class="white-text">No user found</h1>
+    </div>
+    return;
+}
+<div id="swipe-div">
+    @if (Model.Match)
+    {
+        <div id="popup">
+            <div id="match-popup" class="popup-pic">
+                <div class="text-div-popup">
+                    <h1>You got a new match!</h1>
+                    <form>
+                        <button class="my-button" type="submit" asp-page="/Messages/ShowMessage"
+                            asp-route-userId="@Model.LikerUser.Id">
+                            Send message
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <script src="../js/Swipe_Screen_Js.js" defer></script>
+    }
+
+
+
+    <section id="upper-background" class="area-a" style="background-image: url('@Model.LikerUser?.ProfilePictureUrl')">
+
+        <div id="name-radiobtns-flex">
+            <div id="name">
+                <h1>@Model.LikerUser.FirstName </h1>
+            </div>
+        </div>
+        <p id="age-p" class="padding">@Model.LikerUser.Age</p>
+        <p class="padding">@Model.LikerUser.Description</p>
+    </section>
+
+    <section id="lower-background" class="area-b">
+        <div id="bottom-div">
+            <div>
+                <p>Personality type:</p>
+
+                @if (Model.LikerUser.PersonalityType == Model.CurrentUser.PersonalityType)
+                {
+                    <div class="interest-type-match">@Model.LikerUser.PersonalityType</div>
+                }
+                else
+                {
+                    <div class="interest-type-nomatch">@Model.LikerUser.PersonalityType</div>
+                }
+            </div>
+            <div>
+                <p>Interests:</p>
+                @foreach (var item in Model.LikerUser.Interests)
+                {
+                    bool isMatch = false;
+                    foreach (var loggedInInterest in Model.CurrentUser.Interests)
+                    {
+                        if (loggedInInterest.Interest == item.Interest)
+                        {
+                            isMatch = true;
+                            break;
+                        }
+                    }
+                    if (isMatch)
+                    {
+                        <div class="interest-type-match">@item.Interest</div>
+                    }
+                    else
+                    {
+                        <div class="interest-type-nomatch">@item.Interest</div>
+                    }
+                }
+
+            </div>
+            <form method="post" id="like-dislike-flex" class="area-c">
+
+                <button type="submit" name="like" value="false" class="invis-btn">
+                    <img src="~/Pictures/red_cross.png" alt="A red cross for disliking" id="dislike-button"
+                        class="like-dislike-pictures">
+                </button>
+
+                <button type="submit" name="like" value="true" class="invis-btn" asp-route-userId="@Model.LikerUser.Id">
+                    <img src="~/Pictures/green_Heart.png" alt="A green heart for liking" id="like-button"
+                        class="like-dislike-pictures">
+                </button>
+            </form>
+        </div>
+    </section>
+</div>
+
+
+
+
+

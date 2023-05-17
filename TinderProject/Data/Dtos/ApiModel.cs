@@ -18,5 +18,6 @@ namespace TinderProject.Data.Dtos
         public string PersonalityType { get; set; }
         public string Description { get; set; }
         public List<string> UserInterests { get; set; }
+        public string ProfileUrl { get; set; }
     }
 }
