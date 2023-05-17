@@ -39,6 +39,7 @@ namespace TinderProject.Pages.UserPage
                 LoggedInUser.Id.ToString()
                 );
 
+            //Getting all the files from the user directory.
             Directory.CreateDirectory(userFolderPath);
             string[] files = Directory.GetFiles(userFolderPath);
             foreach (string file in files)
@@ -48,7 +49,7 @@ namespace TinderProject.Pages.UserPage
             }
         }
 
-        public async Task<IActionResult> OnPost(/*int loggedInId,*/ List<string> interestsToAdd, List<string> cuisinesToAdd, IFormFile photo)
+        public async Task<IActionResult> OnPost(List<string> interestsToAdd, List<string> cuisinesToAdd, IFormFile photo)
         {
             if (!ModelState.IsValid)
             {
@@ -56,16 +57,20 @@ namespace TinderProject.Pages.UserPage
             }
 
             UserToUpdate = _userRepository.GetLoggedInUser();
-
             if (UserToUpdate == null)
             {
                 return NotFound();
             }
+            //Clear directory because users can only have one pic.
+            _fileRepo.ClearDirectory(UserToUpdate);
+
 
             string path = Path.Combine(
                 UserToUpdate.Id.ToString(),
                 Guid.NewGuid().ToString() + "-" + photo.FileName
                 );
+
+            //Saving pic to user directory.
             await _fileRepo.SaveFileAsync(photo, path);
 
             UserToUpdate.FirstName = LoggedInUser.FirstName;
@@ -92,7 +97,6 @@ namespace TinderProject.Pages.UserPage
                 }).ToList();
 
             UserToUpdate.Interests.AddRange(newInterests);
-
             UserToUpdate.Cuisines?.Clear();
 
             List<Cuisines> newCuisines = cuisinesToAdd
