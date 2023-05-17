@@ -66,9 +66,16 @@ namespace TinderProject.Repositories
             return encodedURLPath;
         }
 
-        // public string GetProfilePic(User user)
-        // {
+        public string GetProfilePic(User user)
+        {
+            string userFolderPath = Path.Combine(
+                FolderPath,
+                user.Id.ToString()
+                );
 
-        // }
+            var pics = Directory.GetFiles(userFolderPath);
+            
+            return pics[0];
+        }
     }
 }

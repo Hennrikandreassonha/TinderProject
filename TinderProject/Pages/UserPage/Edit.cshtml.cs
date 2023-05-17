@@ -76,6 +76,7 @@ namespace TinderProject.Pages.UserPage
             UserToUpdate.Description = LoggedInUser.Description;
             UserToUpdate.PremiumUser = LoggedInUser.PremiumUser;
 			UserToUpdate.PersonalityType = UserToUpdate.PersonalityType;
+            UserToUpdate.ProfilePictureUrl = _fileRepo.GetProfilePic(UserToUpdate);
 
 			if (UserToUpdate.Interests.Clear != null)
             {
