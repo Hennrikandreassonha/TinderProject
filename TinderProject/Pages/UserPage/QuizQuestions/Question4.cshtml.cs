@@ -14,8 +14,7 @@ namespace TinderProject.Pages.UserPage.QuizQuestions
             _database = database;
             Questions = new List<string>();
         }
-        [BindProperty]
-        public Quiz UserQuiz { get; set; }
+        
         public User UserToUpdate { get; set; }
         public List<string> Questions { get; set; }
         public void OnGet()
@@ -28,9 +27,7 @@ namespace TinderProject.Pages.UserPage.QuizQuestions
             if (UserToUpdate == null)
             {
                 return NotFound();
-            }
-
-           
+            }           
 
             if (Answer == null)
             {
@@ -39,9 +36,6 @@ namespace TinderProject.Pages.UserPage.QuizQuestions
 
             questions.Add(Answer);
             Questions.AddRange(questions);
-
-
-
 
             return RedirectToPage("Result", new { questions = Questions });
         }

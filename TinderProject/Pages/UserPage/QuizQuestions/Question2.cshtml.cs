@@ -14,14 +14,12 @@ namespace TinderProject.Pages.UserPage.QuizQuestions
             _database = database;
             Questions = new List<string>();
         }
-        [BindProperty]
-        public Quiz UserQuiz { get; set; }
+       
         public User UserToUpdate { get; set; }
         public List<string> Questions { get; set; }
 
         public void OnGet()
         {
-
         }
         public IActionResult OnPost(string Answer, List<string> questions)
         {
@@ -38,13 +36,8 @@ namespace TinderProject.Pages.UserPage.QuizQuestions
                 return Page();
             }
 
-
             questions.Add(Answer);
             Questions.AddRange(questions);
-
-
-
-
 
             return RedirectToPage("Question3", new { questions = Questions });
         }

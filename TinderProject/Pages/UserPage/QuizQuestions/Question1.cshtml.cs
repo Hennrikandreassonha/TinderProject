@@ -13,9 +13,7 @@ namespace TinderProject.Pages.UserPage.QuizQuestions
             _userRepository = userRepository;
             _database = database;
         }
-
-        [BindProperty]
-        public Quiz UserQuiz { get; set; }
+        
         public User UserToUpdate { get; set; }
 
         public List<string> Questions { get; set; }
@@ -43,12 +41,6 @@ namespace TinderProject.Pages.UserPage.QuizQuestions
             {
                 return Page();
             }
-
-
-            UserToUpdate.UserQuiz = UserQuiz;
-
-            _database.Users.Update(UserToUpdate);
-            _database.SaveChanges();
 
             return RedirectToPage("Question2", new { questions = Questions});
         }

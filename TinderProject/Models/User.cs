@@ -19,7 +19,6 @@ namespace TinderProject.Models
 		//Begränsar antalet ord man kan lägga till för Description till 50
 		[RegularExpression(@"^(\S+\s*){0,49}$", ErrorMessage = "Description cannot exceed 50 words and not begin with a space.")]
 		public string Description { get; set; }
-		public Quiz? UserQuiz { get; set; }
 		public bool PremiumUser { get; set; }
         public string? OpenIDIssuer { get; set; }
         public string? OpenIDSubject { get; set; }
