@@ -29,14 +29,14 @@ namespace TinderProject.Pages.UserPage.QuizQuestions
                 return NotFound();
             }
 
-            UserQuiz = UserToUpdate.UserQuiz;
-
             UserQuiz.Question2 = Request.Form["Answer"];
 
             if (UserQuiz.Question2 == null)
             {
                 return Page();
             }
+
+            UserToUpdate.UserQuiz = UserQuiz;
 
 			_database.Users.Update(UserToUpdate);
             _database.SaveChanges();
