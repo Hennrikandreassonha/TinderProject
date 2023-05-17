@@ -86,8 +86,14 @@
 
         <section>
             @* Upload a picture *@
-            <label for="profilePictureUrl" class="label-font">Profile picture url: </label>
-            <input type="file" name="photo" id="profilePictureUrl" class="edit-textarea" />
+
+            <label for="profilePictureUrl" class="label-font">Profile picture</label>
+            <div id="pic-flex">
+                <input type="file" name="photo" id="profilePictureUrl" class="edit-textarea" />
+
+                <img src="LoggedInUser.ProfilePictureUrl" id="profile-img">
+            </div>
+
         </section>
 
         <section>
