@@ -13,7 +13,7 @@ namespace TinderProject.Pages.UserPage.QuizQuestions
             _userRepository = userRepository;
             _database = database;
         }
-        
+
         public User UserToUpdate { get; set; }
 
         public List<string> Questions { get; set; }
@@ -36,13 +36,12 @@ namespace TinderProject.Pages.UserPage.QuizQuestions
 
             }
 
-
             if (Answer == null)
             {
                 return Page();
             }
 
-            return RedirectToPage("Question2", new { questions = Questions});
+            return RedirectToPage("Question2", new { questions = Questions });
         }
     }
 }

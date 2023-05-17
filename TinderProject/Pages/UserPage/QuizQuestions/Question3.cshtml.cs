@@ -3,42 +3,42 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace TinderProject.Pages.UserPage.QuizQuestions
 {
-    public class Question3Model : PageModel
-    {
-        private readonly IUserRepository _userRepository;
-        private readonly AppDbContext _database;
+	public class Question3Model : PageModel
+	{
+		private readonly IUserRepository _userRepository;
+		private readonly AppDbContext _database;
 
-        public Question3Model(IUserRepository userRepository, AppDbContext database)
-        {
-            _userRepository = userRepository;
-            _database = database;
-            Questions = new List<string>();
-        }
-        
-        public User UserToUpdate { get; set; }
-        public List<string> Questions { get; set; }
+		public Question3Model(IUserRepository userRepository, AppDbContext database)
+		{
+			_userRepository = userRepository;
+			_database = database;
+			Questions = new List<string>();
+		}
 
-        public void OnGet()
-        {           
-        }
-        public IActionResult OnPost(string Answer, List<string> questions)
-        {
-            UserToUpdate = _userRepository.GetLoggedInUser();
+		public User UserToUpdate { get; set; }
+		public List<string> Questions { get; set; }
 
-            if (UserToUpdate == null)
-            {
-                return NotFound();
-            }
-            
-            if (Answer == null)
-            {
-                return Page();
-            }
+		public void OnGet()
+		{
+		}
+		public IActionResult OnPost(string Answer, List<string> questions)
+		{
+			UserToUpdate = _userRepository.GetLoggedInUser();
 
-            questions.Add(Answer);
-            Questions.AddRange(questions);
+			if (UserToUpdate == null)
+			{
+				return NotFound();
+			}
 
-            return RedirectToPage("Question4", new { questions = Questions });
-        }
-    }
+			if (Answer == null)
+			{
+				return Page();
+			}
+
+			questions.Add(Answer);
+			Questions.AddRange(questions);
+
+			return RedirectToPage("Question4", new { questions = Questions });
+		}
+	}
 }
