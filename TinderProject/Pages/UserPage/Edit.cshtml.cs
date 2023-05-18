@@ -28,6 +28,7 @@ namespace TinderProject.Pages.UserPage
 
         [BindProperty]
         public User LoggedInUser { get; set; }
+        public User UserToUpdate { get; set; }
         public string UserPhoto { get; set; }
 
         public void OnGet()
@@ -47,20 +48,16 @@ namespace TinderProject.Pages.UserPage
         }
         public async Task<IActionResult> OnPost(List<string> interestsToAdd, List<string> cuisinesToAdd, IFormFile photo)
         {
-            LoggedInUser = _userRepository.GetLoggedInUser();
+            UserToUpdate = _userRepository.GetLoggedInUser();
             //Removing photo from modelstate since its not required.
-
-            if (photo == null)
-            {
-                ModelState.Remove("photo");
-            }
+            ModelState.Remove("photo");
 
             if (!ModelState.IsValid)
             {
                 return Page();
             }
 
-            if (LoggedInUser == null)
+            if (UserToUpdate == null)
             {
                 return NotFound();
             }
@@ -68,53 +65,54 @@ namespace TinderProject.Pages.UserPage
             //Clear directory because users can only have one pic.
             if (photo != null)
             {
-                _fileRepo.ClearDirectory(LoggedInUser);
+                _fileRepo.ClearDirectory(UserToUpdate);
 
                 string path = Path.Combine(
-                    LoggedInUser.Id.ToString(),
+                    UserToUpdate.Id.ToString(),
                     Guid.NewGuid().ToString() + "-" + photo.FileName
                     );
 
                 //Saving pic to user directory.
                 await _fileRepo.SaveFileAsync(photo, path);
-
-                LoggedInUser.ProfilePictureUrl = _fileRepo.GetProfilePic(LoggedInUser);
+                UserToUpdate.ProfilePictureUrl = _fileRepo.GetProfilePic(UserToUpdate);
             }
 
-            LoggedInUser.FirstName = LoggedInUser.FirstName;
-            LoggedInUser.LastName = LoggedInUser.LastName;
-            LoggedInUser.DateOfBirth = LoggedInUser.DateOfBirth;
-            LoggedInUser.Gender = LoggedInUser.Gender;
-            LoggedInUser.Preference = LoggedInUser.Preference;
-            LoggedInUser.Description = LoggedInUser.Description;
-            LoggedInUser.PremiumUser = LoggedInUser.PremiumUser;
-            LoggedInUser.PersonalityType = LoggedInUser.PersonalityType;
+            UserToUpdate.FirstName = LoggedInUser.FirstName;
+            UserToUpdate.LastName = LoggedInUser.LastName;
+            UserToUpdate.DateOfBirth = LoggedInUser.DateOfBirth;
+            UserToUpdate.Gender = LoggedInUser.Gender;
+            UserToUpdate.Preference = LoggedInUser.Preference;
+            UserToUpdate.Description = LoggedInUser.Description;
+            UserToUpdate.PremiumUser = LoggedInUser.PremiumUser;
+            UserToUpdate.PersonalityType = UserToUpdate.PersonalityType;
 
-            LoggedInUser.Interests?.Clear();
+            if (UserToUpdate.Interests.Clear != null)
+            {
+                UserToUpdate.Interests.Clear();
+            }
 
             List<Interests> newInterests = interestsToAdd
                 .Where(interest => interest != null)
                 .Select(interest => new Interests
                 {
                     Interest = interest,
-                    UserId = LoggedInUser.Id
+                    UserId = UserToUpdate.Id
                 }).ToList();
 
-            LoggedInUser.Interests.AddRange(newInterests);
-
-            LoggedInUser.Cuisines?.Clear();
+            UserToUpdate.Interests.AddRange(newInterests);
+            UserToUpdate.Cuisines?.Clear();
 
             List<Cuisines> newCuisines = cuisinesToAdd
                 .Where(cuisine => cuisine != null)
                 .Select(cuisine => new Cuisines
                 {
                     Cuisine = cuisine,
-                    UserId = LoggedInUser.Id
+                    UserId = UserToUpdate.Id
                 }).ToList();
 
-            LoggedInUser.Cuisines.AddRange(newCuisines);
+            UserToUpdate.Cuisines.AddRange(newCuisines);
 
-            _database.Users.Update(LoggedInUser);
+            _database.Users.Update(UserToUpdate);
             _database.SaveChanges();
 
             return RedirectToPage("/UserPage/Index");
