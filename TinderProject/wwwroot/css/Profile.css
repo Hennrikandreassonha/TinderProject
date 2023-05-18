@@ -101,19 +101,24 @@ legend{
         margin-top: 1rem;
     }
   }
-#profile-img{
-    width:50px;
-    height:100px;
-    margin-right: 1rem;
-}
+
 #pic-flex{
     display: flex;
     background-color: #d6306a;
     border-radius: 25px;
     align-items: center;
 }
+#pic-flex img{
+    width:70px;
+    height:auto;
+    margin: 1rem;
+}
 input[type="file"] {
     height:40px;
     width: 250px;
     box-shadow: none;
+  }
+  #profile-table img{
+    width:70px;
+    height:auto;
   }
