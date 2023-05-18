@@ -30,8 +30,9 @@ namespace TinderProject.Pages.UserPage
         public User LoggedInUser { get; set; }
         public User UserToUpdate { get; set; }
         public string UserPhoto { get; set; }
+		public IActionResult RedidirectToPage { get; private set; }
 
-        public void OnGet()
+		public void OnGet()
         {
             LoggedInUser = _userRepository.GetLoggedInUser();
 
@@ -114,6 +115,11 @@ namespace TinderProject.Pages.UserPage
 
             _database.Users.Update(UserToUpdate);
             _database.SaveChanges();
+
+            if(UserToUpdate.PersonalityType == null)
+            {
+                return RedirectToPage("/UserPage/QuizQuestions/Index");
+            }
 
             return RedirectToPage("/UserPage/Index");
         }
