@@ -6,6 +6,8 @@
 	var AllInterests = System.IO.File.ReadAllLines("./Data/DataToUsers/Interests.txt").ToList();
 	var UserInterests = Model.GetUserInterests();
 	var UserCuisines = Model.GetUserCuisines();
+
+	var profilepicUrl = Model.LoggedInUser.ProfilePictureUrl;
 }
 <div class="center-div">
 
@@ -91,7 +93,7 @@
 			<div id="pic-flex">
 				<input type="file" name="photo" id="profilePictureUrl" class="edit-textarea" />
 
-				<img src="@Model.PhotoURLs.FirstOrDefault()">
+				<img src="@profilepicUrl">
 			</div>
 
 		</section>
