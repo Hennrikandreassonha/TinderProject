@@ -110,6 +110,16 @@ input[type="text"]:hover {
     #cover-div {
         padding: 0;
     }
+
+    .nav-ul {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .nav-li {
+        width: 50%;
+        text-align: center;
+    }
 }
 
 #message-header {
@@ -208,7 +218,7 @@ input[type="text"]:hover {
 
 #navigation {
     max-width: 475px;
-    min-width: 384px;
+    /*min-width: 384px;*/
     margin: 1rem auto;
     height: 3rem;
     background-image: linear-gradient(0deg, #FFDEE9 0%, #B5FFFC 100%);
@@ -353,5 +363,4 @@ textarea::placeholder {
     .label-font {
         font-size: 1rem;
     }
-
 }
