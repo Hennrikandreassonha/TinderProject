@@ -6,20 +6,22 @@
 @{
 	ViewData["Title"] = "Question 1";
 }
+<div class="center-div">
+	<h1 class="white-text">@ViewData["Title"]</h1>
 
-<h1 class="white-text">@ViewData["Title"]</h1>
+	<p class="white-text margin-1rem">Do you feel energized by spending time alone or by being around other people?</p>
 
-<p class="white-text">Do you feel energized by spending time alone or by being around other people?</p>
+	<form method="post">
+		<div>
+			<input type="radio" id="alone" name="Answer" value="I" />
+			<label class="white-text" for="alone">Alone</label>
+		</div>
+		<div>
+			<input type="radio" id="around-people" name="Answer" value="E" />
+			<label class="white-text" for="around-people">Around other people</label>
+		</div>
 
-<form method="post">
-	<div>
-		<input type="radio" id="alone" name="Answer" value="I" />
-		<label class="white-text" for="alone">Alone</label>
-	</div>
-	<div>
-		<input type="radio" id="around-people" name="Answer" value="E" />
-		<label class="white-text" for="around-people">Around other people</label>
-	</div>
+		<button type="submit" class="my-button margin-1rem">Next question</button>
+	</form>
 
-	<button type="submit">Next question</button>
-</form>
+</div>
