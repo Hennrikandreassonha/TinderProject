@@ -120,6 +120,11 @@ input[type="text"]:hover {
         width: 50%;
         text-align: center;
     }
+
+    .nav-li img {
+        max-height: 100%;
+        object-fit: contain;
+    }
 }
 
 #message-header {
