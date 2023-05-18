@@ -86,10 +86,7 @@ namespace TinderProject.Pages.UserPage
             UserToUpdate.PremiumUser = LoggedInUser.PremiumUser;
             UserToUpdate.PersonalityType = UserToUpdate.PersonalityType;
 
-            if (UserToUpdate.Interests.Clear != null)
-            {
-                UserToUpdate.Interests.Clear();
-            }
+            UserToUpdate.Interests?.Clear();
 
             List<Interests> newInterests = interestsToAdd
                 .Where(interest => interest != null)

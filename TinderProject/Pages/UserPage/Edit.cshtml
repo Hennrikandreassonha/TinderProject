@@ -19,20 +19,17 @@
 		<section>
 			<label for="firstName" class="label-font">First name: </label>
 			<input type="text" id="firstName" asp-for="LoggedInUser.FirstName" />
-			<span asp-validation-for="LoggedInUser.FirstName"></span>
 		</section>
 
 		<section>
 			<label for="lastName" class="label-font">Last name: </label>
 			<input type="text" id="lastName" asp-for="LoggedInUser.LastName" />
-			<span asp-validation-for="LoggedInUser.LastName"></span>
 		</section>
 
 		<section>
 			<label for="dateOfBirth" class="label-font">Date of birth: </label>
 			<input type="datetime" id="dateOfBirth" asp-for="LoggedInUser.DateOfBirth"
 				   value="@Model.LoggedInUser.DateOfBirth.ToString("yyyy-MM-dd")" />
-			<span asp-validation-for="LoggedInUser.DateOfBirth"></span>
 		</section>
 
 		<section>
@@ -84,7 +81,6 @@
 			<label for="description" class="label-font">Description: </label>
 			<textarea class="edit-textarea" id="description" asp-for="LoggedInUser.Description" rows="2"
 	   cols="50"></textarea>
-			<span asp-validation-for="LoggedInUser.Description"></span>
 		</section>
 
 		<section>
@@ -102,7 +98,6 @@
 		<section>
 			<label for="premium">Premium</label>
 			<input type="checkbox" id="premium" asp-for="LoggedInUser.PremiumUser" />
-			<span asp-validation-for="LoggedInUser.PremiumUser"></span>
 		</section>
 
 		@* Error messages model state *@
