@@ -149,7 +149,7 @@ namespace TinderProject.Repositories
 				Age = selectedUser.Age.ToString(),
 				PersonalityType = selectedUser.PersonalityType,
 				Description = selectedUser.Description,
-				ProfileUrl = $"https://tinderapp.azurewebsites.net/UserPage{selectedUser.Id}"
+				ProfileUrl = $"https://tinderapp.azurewebsites.net/TinderUser/{selectedUser.Id}"
 			};
 
 			foreach (var item in selectedUser.Interests)
