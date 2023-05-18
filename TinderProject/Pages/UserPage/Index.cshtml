@@ -4,72 +4,81 @@
 @inject TinderProject.Data.AccessControl accessControl
 @inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
 
-	<div id="profile-div" class="center-div">
-		<table id="profile-table">
-			<tr>
-				<th>First name</th>
-				<td>@Model.LoggedInUser.FirstName</td>
-			</tr>
-			<tr>
-				<th>Last name</th>
-				<td>@Model.LoggedInUser.LastName</td>
-			</tr>
-			<tr>
-				<th>Date of birth</th>
-				<td>@Model.LoggedInUser.DateOfBirth.ToShortDateString()</td>
-			</tr>
-			<tr>
-				<th>Gender</th>
-				<td>@Model.LoggedInUser.Gender</td>
-			</tr>
-			<tr>
-				<th>Preference</th>
-				<td>@Model.LoggedInUser.Preference</td>
-			</tr>
-			<tr>
-				<th>Personality type</th>
-				<td>@Model.LoggedInUser.PersonalityType</td>
-			</tr>
-			<tr>
-				<th>Interests</th>
-				<td>
-					<ul>
-						@foreach (var interest in Model.LoggedInUser.Interests)
-						{
-							<li>@interest.Interest</li>
-						}
-					</ul>
-				</td>
-			</tr>
-			<tr>
-				<th>Favourite cuisine</th>
-				<td>
-					<ul>
-						@foreach (var cuisine in Model.LoggedInUser.Cuisines)
-						{
-							<li>@cuisine.Cuisine</li>
-						}
-					</ul>
-				</td>
-			</tr>
-			<tr>
-				<th>Description</th>
-				<td>@Model.LoggedInUser.Description</td>
-			</tr>
-			<tr>
-				<th>Profile picture</th>
-				<td><img src="@Model.LoggedInUser.ProfilePictureUrl"></td>
-			</tr>
-			<tr>
-				<th>Premium user</th>
-				<td>@(Model.LoggedInUser.PremiumUser ? "Yes" : "No")</td>
-			</tr>
-		</table>
+<div id="profile-div" class="center-div">
+	<table id="profile-table">
+		<tr>
+			<th>First name</th>
+			<td>@Model.LoggedInUser.FirstName</td>
+		</tr>
+		<tr>
+			<th>Last name</th>
+			<td>@Model.LoggedInUser.LastName</td>
+		</tr>
+		<tr>
+			<th>Date of birth</th>
+			<td>@Model.LoggedInUser.DateOfBirth.ToShortDateString()</td>
+		</tr>
+		<tr>
+			<th>Gender</th>
+			<td>@Model.LoggedInUser.Gender</td>
+		</tr>
+		<tr>
+			<th>Preference</th>
+			<td>@Model.LoggedInUser.Preference</td>
+		</tr>
+		<tr>
+			<th>Personality type</th>
+			<td>@Model.LoggedInUser.PersonalityType</td>
+		</tr>
+		<tr>
+			<th>Interests</th>
+			<td>
+				<ul>
+					@foreach (var interest in Model.LoggedInUser.Interests)
+					{
+						<li>@interest.Interest</li>
+					}
+				</ul>
+			</td>
+		</tr>
+		<tr>
+			<th>Favourite cuisine</th>
+			<td>
+				<ul>
+					@foreach (var cuisine in Model.LoggedInUser.Cuisines)
+					{
+						<li>@cuisine.Cuisine</li>
+					}
+				</ul>
+			</td>
+		</tr>
+		<tr>
+			<th>Description</th>
+			<td>@Model.LoggedInUser.Description</td>
+		</tr>
+		<tr>
+			<th>Profile picture</th>
+			<td><img src="@Model.LoggedInUser.ProfilePictureUrl"></td>
+		</tr>
+		<tr>
+			<th>Premium user</th>
+			<td>@(Model.LoggedInUser.PremiumUser ? "Yes" : "No")</td>
+		</tr>
+	</table>
 
-		<form>
-			<button id="edit-btn" class="my-button" type="submit" asp-page="/UserPage/Edit">Edit profile</button>
-		</form>
-		<form>
-			<button class="my-button" type="submit" asp-page="/UserPage/QuizQuestions/Index">Do personality quiz</button>
-		</form>
-	</div>
+	<form>
+		<button id="edit-btn" class="my-button" type="submit" asp-page="/UserPage/Edit">Edit profile</button>
+	</form>
+
+	@if (Model.LoggedInUser.PersonalityType == null || Model.LoggedInUser.PersonalityType == "Unknown")
+	{
+		<div class="center-div white-text">
+			<h3>Whoops!</h3>
+			<p>It looks like ur missing a personality type!</p>
+			<p>Please complete the quiz to swipe!</p>
+		</div>
+	}
+	<form>
+		<button class="my-button margin-1rem" type="submit" asp-page="/UserPage/QuizQuestions/Index">Do personality quiz</button>
+	</form>
+</div>
