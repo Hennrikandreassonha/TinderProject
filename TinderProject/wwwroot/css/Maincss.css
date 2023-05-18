@@ -46,7 +46,9 @@ th {
     font-weight: 100;
     font-size: large;
 }
-
+.margin-1rem{
+    margin: 1rem;
+}
 a:link,
 a:visited,
 a:hover,
@@ -72,13 +74,13 @@ input,
     transition: all 0.3s ease;
 }
 
-    .my-button:hover,
-    input[type="text"]:hover {
-        background-color: #ff99c8;
-        transform: scale(1.05);
-        cursor: pointer;
-        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
-    }
+.my-button:hover,
+input[type="text"]:hover {
+    background-color: #ff99c8;
+    transform: scale(1.05);
+    cursor: pointer;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+}
 
 /* This div is used in profile, premium for now. Centering content. */
 .center-div {
@@ -136,13 +138,14 @@ input,
         margin-top: 2rem;
         display: block !important;
     }
-    #cuisine-btn{
+
+    #cuisine-btn {
         display: none !important;
     }
-    #cuisine-btn-small{
+
+    #cuisine-btn-small {
         display: block !important;
         width: 150px;
-        /* margin: auto; */
         margin-top: 1rem;
     }
 }
@@ -276,18 +279,18 @@ textarea {
     resize: none;
 }
 
-    textarea::placeholder {
-        color: white;
-    }
+textarea::placeholder {
+    color: white;
+}
 
 #send-msg-flex {
     display: flex;
     align-items: center;
 }
 
-    #send-msg-flex button {
-        margin-left: 1rem;
-    }
+#send-msg-flex button {
+    margin-left: 1rem;
+}
 
 #message-flex {
     display: flex;
@@ -301,7 +304,8 @@ textarea {
     width: 95px;
     flex-shrink: 0;
 }
-#cuisine-btn-small{
+
+#cuisine-btn-small {
     display: none;
 }
 
@@ -312,32 +316,31 @@ textarea {
 }
 
 #edit-flex section {
-        margin-bottom: 1rem;
-        max-width: 100%
+    margin-bottom: 1rem;
+    max-width: 100%
 }
 
 #edit-flex button {
-        max-width: 100px;
-        align-items: center;
+    max-width: 100px;
+    align-items: center;
 }
 
-.edit-display-grid  {
+.edit-display-grid {
     display: grid;
-    align-items:center;
-    text-align:left;
+    align-items: center;
+    text-align: left;
     grid-template:
-        "a b c"/ 1fr 1fr 1fr;
+        "a b c" / 1fr 1fr 1fr;
 }
-  
-.edit-textarea{
-    max-width:100%;
-   
-    
+
+.edit-textarea {
+    max-width: 100%;
 }
 
 .label-font {
     font-size: 1.3rem;
 }
+
 @media (max-width: 520px) {
     .edit-textarea {
         max-width: 65%;
@@ -346,9 +349,9 @@ textarea {
         align-items: center;
         justify-content: center;
     }
+
     .label-font {
         font-size: 1rem;
     }
 
 }
-

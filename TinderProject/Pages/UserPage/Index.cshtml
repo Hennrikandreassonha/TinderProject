@@ -4,13 +4,6 @@
 @inject TinderProject.Data.AccessControl accessControl
 @inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
 
-@if (!ProfileChecker.ProfileIsComplete(Model.LoggedInUser))
-{
-	<partial name="_ProfileNotCompleteMsg" />
-}
-
-else
-{
 	<div id="profile-div" class="center-div">
 		<table id="profile-table">
 			<tr>
@@ -80,4 +73,3 @@ else
 			<button class="my-button" type="submit" asp-page="/UserPage/QuizQuestions/Index">Do personality quiz</button>
 		</form>
 	</div>
-}

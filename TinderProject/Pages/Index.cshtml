@@ -37,12 +37,11 @@ else
 							<h1>You got a new match!</h1>
 							<form>
 								<button class="my-button" type="submit" asp-page="/Messages/ShowMessage"
-							asp-route-userId="@Model.CurrentUserShown.Id">
+									asp-route-userId="@Model.CurrentUserShown.Id">
 									Send message
 								</button>
 								<button class="my-button" asp-page="/Index">Keep swiping</button>
 							</form>
-
 						</div>
 					</div>
 				</div>
@@ -65,7 +64,7 @@ else
 									<p>Wohoo!</p>
 									<p>Your message has been sent</p>
 									<button class="my-button" type="submit" asp-page-handler="SendMsgSuper"
-								asp-route-userIdToSend="@Model.CurrentUserShown.Id">
+										asp-route-userIdToSend="@Model.CurrentUserShown.Id">
 										Ok
 									</button>
 								</div>
@@ -80,22 +79,22 @@ else
 			}
 
 			<section id="upper-background" class="area-a"
-					 style="background-image: url('@Model.CurrentUserShown?.ProfilePictureUrl')">
+				style="background-image: url('@Model.CurrentUserShown?.ProfilePictureUrl')">
 
 				<div id="name-radiobtns-flex">
 					<div id="name">
 						<h1>@Model.CurrentUserShown.FirstName</h1>
 					</div>
 					<form id="radio-form" class="radio-buttons" method="post"
-			  title="Smart matching shows users with matching personality types first.&#010;Clicking these will cause a page reload">
+						title="Smart matching shows users with matching personality types first.&#010;Clicking these will cause a page reload">
 						<label>
 							<input type="radio" name="smartMatching" value="true" checked="@Model.SmartMatching"
-								   onchange="submitForm()">
+								onchange="submitForm()">
 							Smart matching
 						</label>
 						<label>
 							<input type="radio" name="smartMatching" value="false" checked="@(!Model.SmartMatching)"
-								   onchange="submitForm()">
+								onchange="submitForm()">
 							Reverse matching
 						</label>
 					</form>
@@ -163,24 +162,24 @@ else
 						<button type="submit" class="invis-btn">
 
 							<img src="~/Pictures/red_cross.png" alt="A red cross for disliking" id="dislike-button"
-			   class="like-dislike-pictures">
+								class="like-dislike-pictures">
 						</button>
 
 						@* Super like button *@
 						<button type="submit" id="superlike-btn" name="options" value="super" class="invis-btn"
-								disabled="@(!Model.LoggedInUser.PremiumUser)"
-								title='@(Model.LoggedInUser.PremiumUser ? null : "Become premium to use this")'>
+							disabled="@(!Model.LoggedInUser.PremiumUser)"
+							title='@(Model.LoggedInUser.PremiumUser ? null : "Become premium to use this")'>
 
 							<img src="~/Pictures/super.png" alt="Blue star for superlike" id="super-like-pic"
-			   class="like-dislike-pictures">
+								class="like-dislike-pictures">
 						</button>
 
 						@* Like button *@
 						<button type="submit" name="options" value="like" class="invis-btn"
-						asp-route-userId="@Model.CurrentUserShown.Id">
+							asp-route-userId="@Model.CurrentUserShown.Id">
 
 							<img src="~/Pictures/green_Heart.png" alt="A green heart for liking" id="like-button"
-			   class="like-dislike-pictures">
+								class="like-dislike-pictures">
 						</button>
 					</form>
 				</div>

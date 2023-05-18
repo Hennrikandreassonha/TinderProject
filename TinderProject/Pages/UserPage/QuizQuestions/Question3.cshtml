@@ -7,22 +7,24 @@
 	ViewData["Title"] = "Question 3";
 }
 
-<h1 class="white-text">@ViewData["Title"]</h1>
+<div class="center-div">
+	<h1 class="white-text">@ViewData["Title"]</h1>
 
-<p class="white-text">
-	When making important decisions, do you rely on logic and analysis or on your feelings and how it will
-	affect other people?
-</p>
+	<p class="white-text margin-1rem">
+		When making important decisions, do you rely on logic and analysis or on your feelings and how it will
+		affect other people?
+	</p>
 
-<form method="post">
-	<div>
-		<input type="radio" id="logic-analysis" name="Answer" value="T" />
-		<label class="white-text" for="logic-analysis">Logic and analysis</label>
-	</div>
-	<div>
-		<input type="radio" id="feelings-affect-others" name="Answer" value="F" />
-		<label class="white-text" for="feelings-affect-others">Feelings and how it will affect others</label>
-	</div>
+	<form method="post">
+		<div>
+			<input type="radio" id="logic-analysis" name="Answer" value="T" />
+			<label class="white-text" for="logic-analysis">Logic and analysis</label>
+		</div>
+		<div>
+			<input type="radio" id="feelings-affect-others" name="Answer" value="F" />
+			<label class="white-text" for="feelings-affect-others">Feelings and how it will affect others</label>
+		</div>
 
-	<button type="submit">Next question</button>
-</form>
+		<button type="submit" class="my-button margin-1rem">Next question</button>
+	</form>
+</div>
