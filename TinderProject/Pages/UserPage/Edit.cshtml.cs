@@ -78,7 +78,15 @@ namespace TinderProject.Pages.UserPage
                 UserToUpdate.ProfilePictureUrl = _fileRepo.GetProfilePic(UserToUpdate);
             }
 
-            UserToUpdate.FirstName = LoggedInUser.FirstName;
+			int wordCount = LoggedInUser.Description.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries).Length;
+			if (wordCount > 30)
+			{
+				string errorMessage = $"Your description is {wordCount} words. The description can only be 30 words.";
+				ModelState.AddModelError("LoggedInUser.Description", errorMessage);
+				return Page();
+			}
+
+			UserToUpdate.FirstName = LoggedInUser.FirstName;
             UserToUpdate.LastName = LoggedInUser.LastName;
             UserToUpdate.DateOfBirth = LoggedInUser.DateOfBirth;
             UserToUpdate.Gender = LoggedInUser.Gender;
