@@ -5,12 +5,18 @@
 }
 <div class="center-div">
 
-    <h2 class="white-text margin-1rem">@ViewData["Title"]</h2c>
+    <h2 class="white-text margin-1rem">
+        @ViewData["Title"]</h2c>
 
-    <p class="white-text">Are you sure?</p>
+        <p class="white-text">Are you sure?</p>
 
-    <form method="post" asp-page="/Delete">
-        <button type="submit" class="my-button margin-1rem">Delete Match</button>
-    </form>
+        <div>
+            <form method="post" asp-page="/Delete">
+                <button type="submit" class="my-button margin-1rem">Delete Match</button>
+            </form>
+            <form method="post" asp-page="/Index">
+                <button type="submit" class="my-button margin-1rem">Back</button>
+            </form>
+        </div>
 
 </div>
