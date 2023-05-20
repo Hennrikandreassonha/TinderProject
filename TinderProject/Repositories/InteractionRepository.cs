@@ -8,9 +8,5 @@
 		{
 			_context = context;
 		}
-		//public ICollection<User?> GetLikedUsers(int userId)
-		//{
-		//    return _context.Interactions.Where(x => x.LikerId == userId).ToArray();
-		//}
 	}
 }
