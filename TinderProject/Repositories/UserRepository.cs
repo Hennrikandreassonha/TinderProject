@@ -22,7 +22,6 @@ namespace TinderProject.Repositories
 			return _context.Users
 				.Where(x => x.Gender == GenderType.Female)
 				.Include(x => x.Interests)
-				//.Include(x => x.PersonalityType)
 				.ToList();
 		}
 
@@ -31,7 +30,6 @@ namespace TinderProject.Repositories
 			return _context.Users
 			.Where(x => x.Gender == GenderType.Male)
 			.Include(x => x.Interests)
-			//.Include(x => x.PersonalityType)
 			.ToList();
 		}
 
@@ -40,7 +38,6 @@ namespace TinderProject.Repositories
 			return _context.Users
 			.Where(x => x.Gender == GenderType.Other)
 			.Include(x => x.Interests)
-			//.Include(x => x.PersonalityType)
 			.ToList();
 		}
 
@@ -48,7 +45,6 @@ namespace TinderProject.Repositories
 		{
 			return _context.Users
 			.Include(x => x.Interests)
-			//.Include(x => x.PersonalityType)
 			.ToList();
 		}
 
@@ -98,10 +94,6 @@ namespace TinderProject.Repositories
 		{
 			return _context.Users.Include(x => x.Interests).Include(x => x.Cuisines).FirstOrDefault(x => x.Id == id);
 		}
-		/*public ICollection<PersonalType> GetPersonalTypes(User user)
-        {
-            return _context.PersonalTypes.Where(x => x.UserId == user.Id).ToArray();
-        }*/
 		public ICollection<Interaction> GetUserLikes(User user)
 		{
 			return _context.Interactions.Where(x => x.LikerId == user.Id).ToArray();
