@@ -155,7 +155,6 @@ namespace TinderProject.Pages
 			if (GetCurrentUserIndex() == UsersToSwipe.Count)
 			{
 				HttpContext.Session.SetInt32("currentUserIndex", 0);
-
 			}
 			var currentUserIndex = GetCurrentUserIndex();
 			currentUserIndex++;

@@ -8,10 +8,10 @@ namespace TinderProject.Models
         public int Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public string? PersonalityType { get; set; }
-        [MinimumAge(18, ErrorMessage = "You must be at least 18 years old.")]
+        
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [MinimumAge(18, ErrorMessage = "You must be atleast 18 years old.")]
         public DateTime DateOfBirth { get; set; }
         public GenderType? Gender { get; set; }
         public SwipePreference? Preference { get; set; }
