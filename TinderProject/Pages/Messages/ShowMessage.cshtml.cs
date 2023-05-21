@@ -133,19 +133,26 @@ namespace TinderProject.Pages.Messages
             }
 
             Dish? dish = await MakeApiCall("Mexican");
-
             var message = "";
-            
-            if (CommonCuisine(CurrentUser, matchedUser))
+
+            if (dish != null)
             {
-                message += $"I see that we both love {cuisine}, how about we cook some {dish.DishName}? It only has {dish.Calories} calories.";
+                if (CommonCuisine(CurrentUser, matchedUser))
+                {
+                    message += $"I see that we both love {cuisine}, how about we cook some {dish.DishName}? It only has {dish.Calories} calories.";
+                }
+                else
+                {
+                    message += $"I see that you like {cuisine}, how about we cook some {dish.DishName}? It only has {dish.Calories} calories.";
+                }
+
+                AddMessage(message, matchedUser.Id);
             }
             else
             {
-                message += $"I see that you like {cuisine}, how about we cook some {dish.DishName}? It only has {dish.Calories} calories.";
+                message += "I didnt find any suitable dish for us, what type of food do you like?";
             }
 
-            AddMessage(message, matchedUser.Id);
             return RedirectToPage();
         }
 
@@ -178,7 +185,7 @@ namespace TinderProject.Pages.Messages
             return matchedUser.Cuisines[randomIndex].Cuisine;
         }
 
-        private async Task<Dish?> MakeApiCall(string cuisine)
+        private static async Task<Dish?> MakeApiCall(string cuisine)
         {
             using var client = new HttpClient();
             var endPoint = new Uri($"https://localhost:5000/{cuisine}");
