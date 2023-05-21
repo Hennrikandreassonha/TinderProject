@@ -1,10 +1,22 @@
 ﻿@page "{userId:int}"
 @model TinderProject.Pages.Messages.DeleteModel
-
+@{
+    ViewData["Title"] = "Delete";
+}
 <div class="center-div">
-    <h1 class="white-text underline margin-bottom">Are you sure?</h1>
 
-    <form method="post" asp-page="/Delete">
-        <button type="submit" class="my-button margin-1rem">Delete Match</button>
-    </form>
+    <h2 class="white-text margin-1rem">
+        @ViewData["Title"]</h2c>
+
+        <p class="white-text">Are you sure?</p>
+
+        <div>
+            <form method="post" asp-page="/Delete">
+                <button type="submit" class="my-button margin-1rem">Delete Match</button>
+            </form>
+            <form method="post" asp-page="/Index">
+                <button type="submit" class="my-button margin-1rem">Back</button>
+            </form>
+        </div>
+
 </div>
