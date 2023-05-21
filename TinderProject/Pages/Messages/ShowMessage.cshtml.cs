@@ -1,8 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Runtime.Serialization.Json;
+using System.Text.Json;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using TinderProject.Data;
 using TinderProject.Models;
 using TinderProject.Repositories.Repositories_Interfaces;
+using Newtonsoft.Json;
+using TinderProject.Controllers;
 
 namespace TinderProject.Pages.Messages
 {
@@ -111,7 +115,7 @@ namespace TinderProject.Pages.Messages
                 _database.SaveChanges();
             }
         }
-        public IActionResult OnPostCuisine(int userId)
+        public async Task<IActionResult> OnPostCuisine(int userId)
         {
             //If there is a common cuisine it will be used.
             //Otherwise we will use the matchedusers cuisine.
@@ -128,17 +132,17 @@ namespace TinderProject.Pages.Messages
                 cuisine = GetCuisine(matchedUser);
             }
 
-            //Skicka denna till API.
-            var answer = "return from API";
+            Dish? dish = await MakeApiCall("Mexican");
 
             var message = "";
+            
             if (CommonCuisine(CurrentUser, matchedUser))
             {
-                message += $"I see that we both love {cuisine}, how about we cook some {answer}?";
+                message += $"I see that we both love {cuisine}, how about we cook some {dish.DishName}? It only has {dish.Calories} calories.";
             }
             else
             {
-                message += $"I see that you like {cuisine}, how about we cook some {answer}?";
+                message += $"I see that you like {cuisine}, how about we cook some {dish.DishName}? It only has {dish.Calories} calories.";
             }
 
             AddMessage(message, matchedUser.Id);
@@ -148,20 +152,23 @@ namespace TinderProject.Pages.Messages
         public bool CommonCuisine(User loggedInUser, User user2)
         {
             //If users have a common cuisine it will return true.
-            foreach (var item in loggedInUser.Cuisines)
-            {
-                return user2.Cuisines.Contains(item);
-            }
-            return false;
+
+            var loggedInUserCuisines = loggedInUser.Cuisines.Select(x => x.Cuisine).ToArray();
+            var user2Cuisines = user2.Cuisines.Select(x => x.Cuisine).ToArray();
+
+            return loggedInUserCuisines.Intersect(user2Cuisines).Any();
         }
 
         public string GetCommonCuisine(User loggedInUser, User matchedUser)
         {
-            var commonCuisines = loggedInUser.Cuisines.Intersect(matchedUser.Cuisines).ToArray();
+            var loggedInUserCuisines = loggedInUser.Cuisines.Select(x => x.Cuisine).ToArray();
+            var user2Cuisines = matchedUser.Cuisines.Select(x => x.Cuisine).ToArray();
 
-            int randomIndex = random.Next(0, commonCuisines.Length);
+            var matchedCuisines = loggedInUserCuisines.Intersect(user2Cuisines).ToArray();
 
-            return commonCuisines[randomIndex].Cuisine;
+            int randomIndex = random.Next(0, matchedCuisines.Length);
+
+            return matchedCuisines[randomIndex];
         }
 
         public string GetCuisine(User matchedUser)
@@ -169,6 +176,19 @@ namespace TinderProject.Pages.Messages
             int randomIndex = random.Next(0, matchedUser.Cuisines.Count);
 
             return matchedUser.Cuisines[randomIndex].Cuisine;
+        }
+
+        private async Task<Dish?> MakeApiCall(string cuisine)
+        {
+            using var client = new HttpClient();
+            var endPoint = new Uri($"https://localhost:5000/{cuisine}");
+
+            var response = await client.GetAsync(endPoint);
+            response.EnsureSuccessStatusCode();
+
+            var json = await response.Content.ReadAsStringAsync();
+
+            return JsonConvert.DeserializeObject<Dish>(json);
         }
     }
 }
