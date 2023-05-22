@@ -5,7 +5,8 @@
 @inject TinderProject.Data.AccessControl accessControl
 @inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
 @{
-	string currentUserLetters = HttpContext.Session.GetString("currentSwipeUserPLetters");
+	string letters = HttpContext.Session.GetString("currentSwipeUserPLetters");
+	string currentUserLetters = new string(letters.Reverse().ToArray());
 	string userserLetters = HttpContext.Session.GetString("userPLetters");
 }
 

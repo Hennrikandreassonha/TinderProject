@@ -30,7 +30,6 @@ namespace TinderProject.Pages
 
 		public void OnGet(string? options)
 		{
-			//Fixa så att den nya användaren visas Efter popupen tagits bort och inte innan.
 			if (options == "true")
 			{
 				Match = true;
