@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Dynamic;
 
-namespace TinderProject.Pages.UserPage.QuizQuestions
+namespace TinderProject.Pages.UserPages.QuizQuestions
 {
 	public class ResultModel : PageModel
 	{

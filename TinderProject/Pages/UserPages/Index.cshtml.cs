@@ -8,7 +8,7 @@ using Microsoft.Extensions.Logging;
 using TinderProject.Data;
 using TinderProject.Repositories.Repositories_Interfaces;
 
-namespace TinderProject.Pages.UserPage
+namespace TinderProject.Pages.UserPages
 {
 	public class IndexModel : PageModel
 	{

@@ -37,7 +37,7 @@ namespace TinderProject.Data
                 var cuisines = GenerateCuisines();
                 var personalityType = GeneratePersonalityType();
                 var description = GenerateDescription();
-                var swipePreference = GeneratePreference();
+                var swipePreference = GenerateSwipePreference();
                 var premium = GeneratePremium();
                 var profilePicUrl = GenerateProfilePicUrl(genderType);
 
@@ -100,13 +100,13 @@ namespace TinderProject.Data
             }
         }
 
-        private static SwipePreference GeneratePreference()
+        private static SwipePreference GenerateSwipePreference()
         {
-            int randomPreference = random.Next(0, 3);
+            int randomSwipePreference = random.Next(0, 3);
 
-            SwipePreference[] preferences = { SwipePreference.Male, SwipePreference.Female, SwipePreference.All };
+            SwipePreference[] swipePreferences = { SwipePreference.Male, SwipePreference.Female, SwipePreference.All };
 
-            return preferences[randomPreference];
+            return swipePreferences[randomSwipePreference];
         }
 
         public static string GenerateOpenIDSubject()

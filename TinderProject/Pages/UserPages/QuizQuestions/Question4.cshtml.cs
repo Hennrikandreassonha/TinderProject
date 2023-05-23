@@ -1,14 +1,14 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace TinderProject.Pages.UserPage.QuizQuestions
+namespace TinderProject.Pages.UserPages.QuizQuestions
 {
-	public class Question3Model : PageModel
+	public class Question4Model : PageModel
 	{
 		private readonly IUserRepository _userRepository;
 		private readonly AppDbContext _database;
 
-		public Question3Model(IUserRepository userRepository, AppDbContext database)
+		public Question4Model(IUserRepository userRepository, AppDbContext database)
 		{
 			_userRepository = userRepository;
 			_database = database;
@@ -39,7 +39,7 @@ namespace TinderProject.Pages.UserPage.QuizQuestions
 			questions.Add(answer);
 			Questions.AddRange(questions);
 
-			return RedirectToPage("Question4", new { questions = Questions });
+			return RedirectToPage("Result", new { questions = Questions });
 		}
 	}
 }

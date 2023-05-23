@@ -67,7 +67,7 @@
 	</table>
 
 	<form>
-		<button id="edit-btn" class="my-button" type="submit" asp-page="/UserPage/Edit">Edit profile</button>
+		<button id="edit-btn" class="my-button" type="submit" asp-page="/UserPages/Edit">Edit profile</button>
 	</form>
 
 	@if (Model.LoggedInUser.PersonalityType == null || Model.LoggedInUser.PersonalityType == "Unknown")
@@ -79,6 +79,6 @@
 		</div>
 	}
 	<form>
-		<button class="my-button margin-1rem" type="submit" asp-page="/UserPage/QuizQuestions/Index">Take personality quiz</button>
+		<button class="my-button margin-1rem" type="submit" asp-page="/UserPages/QuizQuestions/Index">Take personality quiz</button>
 	</form>
 </div>

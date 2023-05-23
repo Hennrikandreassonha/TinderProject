@@ -11,7 +11,7 @@ using TinderProject.Repositories.Repositories_Interfaces;
 using System.IO;
 using TinderProject.Repositories;
 
-namespace TinderProject.Pages.UserPage
+namespace TinderProject.Pages.UserPages
 {
     public class EditModel : PageModel
     {
@@ -123,10 +123,10 @@ namespace TinderProject.Pages.UserPage
 
             if(UserToUpdate.PersonalityType == null)
             {
-                return RedirectToPage("/UserPage/QuizQuestions/Index");
+                return RedirectToPage("/UserPages/QuizQuestions/Index");
             }
 
-            return RedirectToPage("/UserPage/Index");
+            return RedirectToPage("/UserPages/Index");
         }
         public List<string> GetUserInterests()
         {
