@@ -92,7 +92,10 @@ namespace TinderProject.Pages.Messages
             {
                 return NotFound();
             }
-            AddMessage(message, userId);
+            if (message != null)
+            {
+                AddMessage(message, userId);
+            }
             return RedirectToPage();
         }
         public void AddMessage(string message, int userId)
@@ -109,11 +112,10 @@ namespace TinderProject.Pages.Messages
                 isRead = false,
 
             };
-            if (message != null || message != "")
-            {
-                _database.Messages.Add(messagesToAdd);
-                _database.SaveChanges();
-            }
+
+            _database.Messages.Add(messagesToAdd);
+            _database.SaveChanges();
+
         }
         public async Task<IActionResult> OnPostCuisine(int userId)
         {
