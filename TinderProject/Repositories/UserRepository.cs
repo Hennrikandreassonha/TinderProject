@@ -60,8 +60,8 @@ namespace TinderProject.Repositories
 		}
 		public ICollection<User> GetUsersToSwipe(User user)
 		{
-			//Gets the Id´s of all the Users that the user Already likes.
-			//Removes these since you cant like somone who is already liked.
+			//Gets the Id´s of all the users that the user already likes.
+			//Removes these since you can´t like someone who is already liked.
 			//Also removes those who are already matched.
 			List<User> userList = new();
 
@@ -74,7 +74,8 @@ namespace TinderProject.Repositories
 			var userLikesIds = GetUserLikes(user).Select(x => x.LikedId);
 			var userMatches = GetMatches(user);
 
-			//This statement filters out the logged-in user, users who have already matched, users who have already been liked, those without interests, and those without personality types.
+			//This statement filters out the logged in user, users who have already matched, users who have already been liked,
+			//those without interests, and those without personality types.
 			return userList
 				 .Where(u => u.Id != user.Id &&
 				 !userLikesIds.Contains(u.Id) &&
@@ -85,7 +86,7 @@ namespace TinderProject.Repositories
 		}
 		public List<User> FilterAge(List<User> userList, User loggedinUser)
 		{
-			//Getting the users that are atleast half users age + 7;
+			//Getting the users that are at least half the user´s age plus seven years;
 
 			var minAge = loggedinUser.Age / 2 + 7;
 			return userList.Where(x => x.Age >= minAge).ToList();
@@ -110,7 +111,7 @@ namespace TinderProject.Repositories
 
 		public ApiModel? GetUserApi(string interest)
 		{
-			//This will return 1 random user that has the given interest.
+			//This will return one random user that has the given interest.
 			List<User> userList = new();
 
 			foreach (var user in GetAllUsers())

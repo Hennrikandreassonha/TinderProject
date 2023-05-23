@@ -84,7 +84,7 @@ builder.Services.AddScoped<IAppDbContext, AppDbContext>();
 
 
 //For the usage of Session variables.
-//Setting the session variable to disapear after 30mins of idletime.
+//Setting the session variable to disappear after 30 minutes of idletime.
 builder.Services.AddSession(options => options.IdleTimeout = TimeSpan.FromMinutes(30));
 
 builder.Services.AddRazorPages().AddRazorRuntimeCompilation();

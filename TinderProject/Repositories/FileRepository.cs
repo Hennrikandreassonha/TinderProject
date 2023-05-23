@@ -82,7 +82,7 @@ namespace TinderProject.Repositories
         }
         public string? GetProfilePic(User user)
         {
-            //Returns null if user has no photo. Indicating that user might be a sampledata user.
+            //Returns null if user has no photo. Indicating that user might be a sample data user.
             string userFolderPath = Path.Combine(
                 FolderPath,
                 user.Id.ToString()

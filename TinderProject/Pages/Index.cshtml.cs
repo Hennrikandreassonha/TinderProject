@@ -69,7 +69,7 @@ namespace TinderProject.Pages
 
 			var currentUserIndex = HttpContext.Session.GetInt32("currentUserIndex");
 
-			//If we have reached end of users or we are missing indexvalue the index will be set to zero.
+			//If we have reached the end of users or we are missing an index value, the index will be set to zero.
 			if (currentUserIndex == null || currentUserIndex >= UsersToSwipe.Count)
 			{
 				HttpContext.Session.SetInt32("currentUserIndex", 0);

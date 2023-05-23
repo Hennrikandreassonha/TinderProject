@@ -11,7 +11,7 @@ namespace TinderProject.Models
         public string? PersonalityType { get; set; }
         
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        [MinimumAge(18, ErrorMessage = "You must be atleast 18 years old.")]
+        [MinimumAge(18, ErrorMessage = "You must be at least 18 years old.")]
         public DateTime DateOfBirth { get; set; }
         public GenderType? Gender { get; set; }
         public SwipePreference? Preference { get; set; }

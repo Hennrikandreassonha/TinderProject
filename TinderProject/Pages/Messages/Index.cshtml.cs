@@ -43,7 +43,7 @@ namespace TinderProject.Pages.Messages
 
             User.AddRange(_database.Users.Where(u => otherUsersIds.Contains(u.Id)).ToList());
 
-            //Look if a match has a conversation 
+            //Check if a match has a conversation 
             var matches = _database.Matches.ToList();
             var messages = _database.Messages.ToList();
 
