@@ -188,7 +188,7 @@ namespace TinderProject.Pages.Messages
         private static async Task<Dish?> MakeApiCall(string cuisine)
         {
             using var client = new HttpClient();
-            var endPoint = new Uri($"https://localhost:5000/{cuisine}");
+            var endPoint = new Uri($"https://tinderapp.azurewebsites.net/{cuisine}");
 
             var response = await client.GetAsync(endPoint);
             response.EnsureSuccessStatusCode();
