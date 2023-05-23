@@ -6,7 +6,10 @@
 @inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
 @{
 	string letters = HttpContext.Session.GetString("currentSwipeUserPLetters");
-	string currentUserLetters = new string(letters.Reverse().ToArray());
+	if (letters != null)
+	{
+		string currentUserLetters = new string(letters.Reverse().ToArray());
+	}
 	string userserLetters = HttpContext.Session.GetString("userPLetters");
 }
 
