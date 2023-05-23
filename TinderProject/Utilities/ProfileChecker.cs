@@ -24,6 +24,10 @@ namespace TinderProject.Utilities
             {
                 return false;
             }
+            if (string.IsNullOrEmpty(user.ProfilePictureUrl))
+            {
+                return false;
+            }
 
             return !string.IsNullOrWhiteSpace(user.FirstName)
                 || !string.IsNullOrWhiteSpace(user.LastName)
