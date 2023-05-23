@@ -86,14 +86,12 @@ namespace TinderProject.Pages.UserPage
 				return Page();
 			}
 
-            string trimmedDescription = LoggedInUser.Description.TrimStart();
-            UserToUpdate.Description = trimmedDescription;
-
-            UserToUpdate.FirstName = LoggedInUser.FirstName;
-            UserToUpdate.LastName = LoggedInUser.LastName;
+            UserToUpdate.FirstName = LoggedInUser.FirstName.TrimStart();
+            UserToUpdate.LastName = LoggedInUser.LastName.TrimStart();
             UserToUpdate.DateOfBirth = LoggedInUser.DateOfBirth;
             UserToUpdate.Gender = LoggedInUser.Gender;
             UserToUpdate.Preference = LoggedInUser.Preference;
+            UserToUpdate.Description = LoggedInUser.Description.TrimStart();
             UserToUpdate.PremiumUser = LoggedInUser.PremiumUser;
             UserToUpdate.PersonalityType = UserToUpdate.PersonalityType;
 
