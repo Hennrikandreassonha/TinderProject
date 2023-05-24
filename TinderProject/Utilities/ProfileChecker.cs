@@ -24,7 +24,7 @@ namespace TinderProject.Utilities
             {
                 return false;
             }
-            if (string.IsNullOrEmpty(user.ProfilePictureUrl))
+            if (string.IsNullOrEmpty(user.ProfilePictureUrl.Trim()))
             {
                 return false;
             }
