@@ -18,6 +18,9 @@ namespace TinderProject.Models
         public string? ProfilePictureUrl { get; set; }
         public string Description { get; set; }
         public bool PremiumUser { get; set; }
+        public bool AgeFormula { get; set; } = true;
+        public int? MinAge { get; set; }
+        public int? MaxAge { get; set; }
         public string? OpenIDIssuer { get; set; }
         public string? OpenIDSubject { get; set; }
 

@@ -46,8 +46,9 @@ th {
     font-weight: 100;
     font-size: large;
 }
-.margin-1rem{
-    margin: 1rem;
+
+.margin-1rem {
+    margin: 1rem !important;
 }
 
 a:link,
@@ -73,6 +74,12 @@ input,
     padding: 7px 20px;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
     transition: all 0.3s ease;
+}
+
+#minAge,
+#maxAge {
+    padding: 7px 0;
+
 }
 
 .my-button:hover,

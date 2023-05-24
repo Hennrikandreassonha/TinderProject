@@ -30,9 +30,9 @@ namespace TinderProject.Pages.UserPages
         public User LoggedInUser { get; set; }
         public User UserToUpdate { get; set; }
         public string UserPhoto { get; set; }
-		public IActionResult RedidirectToPage { get; private set; }
+        public IActionResult RedidirectToPage { get; private set; }
 
-		public void OnGet()
+        public void OnGet()
         {
             LoggedInUser = _userRepository.GetLoggedInUser();
 
@@ -78,13 +78,13 @@ namespace TinderProject.Pages.UserPages
                 UserToUpdate.ProfilePictureUrl = _fileRepo.GetProfilePic(UserToUpdate);
             }
 
-			int wordCount = LoggedInUser.Description.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries).Length;
-			if (wordCount > 30)
-			{
-				string errorMessage = $"Your description is {wordCount} words. The description can only be 30 words.";
-				ModelState.AddModelError("LoggedInUser.Description", errorMessage);
-				return Page();
-			}
+            int wordCount = LoggedInUser.Description.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries).Length;
+            if (wordCount > 30)
+            {
+                string errorMessage = $"Your description is {wordCount} words. The description can only be 30 words.";
+                ModelState.AddModelError("LoggedInUser.Description", errorMessage);
+                return Page();
+            }
 
             UserToUpdate.FirstName = LoggedInUser.FirstName.TrimStart().TrimEnd();
             UserToUpdate.LastName = LoggedInUser.LastName.TrimStart().TrimEnd();
@@ -93,7 +93,13 @@ namespace TinderProject.Pages.UserPages
             UserToUpdate.Preference = LoggedInUser.Preference;
             UserToUpdate.Description = LoggedInUser.Description.TrimStart().TrimEnd();
             UserToUpdate.PremiumUser = LoggedInUser.PremiumUser;
-            UserToUpdate.PersonalityType = UserToUpdate.PersonalityType;
+
+            UserToUpdate.AgeFormula = LoggedInUser.AgeFormula;
+
+            if(LoggedInUser.MinAge != null && LoggedInUser.MaxAge != null){
+                UserToUpdate.MinAge = LoggedInUser.MinAge;
+                UserToUpdate.MaxAge = LoggedInUser.MaxAge;
+            }
 
             UserToUpdate.Interests?.Clear();
 
@@ -121,7 +127,7 @@ namespace TinderProject.Pages.UserPages
             _database.Users.Update(UserToUpdate);
             _database.SaveChanges();
 
-            if(UserToUpdate.PersonalityType == null)
+            if (UserToUpdate.PersonalityType == null)
             {
                 return RedirectToPage("/UserPages/QuizQuestions/Index");
             }
