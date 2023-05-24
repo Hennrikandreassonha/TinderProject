@@ -70,6 +70,7 @@ namespace TinderProject.Repositories
 			userList = (user.Preference == SwipePreference.Female) ? GetAllFemale().ToList() : userList;
 
 			userList = FilterAge(userList, user);
+			userList = userList.Where(x => !string.IsNullOrEmpty(x.ProfilePictureUrl)).ToList();
 
 			var userLikesIds = GetUserLikes(user).Select(x => x.LikedId);
 			var userMatches = GetMatches(user);
