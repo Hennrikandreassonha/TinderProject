@@ -23,9 +23,16 @@
 			<td>@Model.LoggedInUser.Gender</td>
 		</tr>
 		<tr>
-			<th>Preference</th>
+			<th>Swipe preference</th>
 			<td>@Model.LoggedInUser.Preference</td>
 		</tr>
+		@if (!Model.LoggedInUser.AgeFormula)
+		{
+			<tr>
+				<th>Age preference:</th>
+				<td>@Model.LoggedInUser.MinAge - @Model.LoggedInUser.MaxAge years</td>
+			</tr>
+		}
 		<tr>
 			<th>Personality type</th>
 			<td>@Model.LoggedInUser.PersonalityType</td>
@@ -79,6 +86,7 @@
 		</div>
 	}
 	<form>
-		<button class="my-button margin-1rem" type="submit" asp-page="/UserPages/QuizQuestions/Index">Take personality quiz</button>
+		<button class="my-button margin-1rem" type="submit" asp-page="/UserPages/QuizQuestions/Index">Take personality
+			quiz</button>
 	</form>
 </div>

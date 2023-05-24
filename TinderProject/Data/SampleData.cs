@@ -45,7 +45,6 @@ namespace TinderProject.Data
 
                 var subjectid = GenerateOpenIDSubject();
 
-                //Fixa så att den lägger in i databasen och i interest tablet.
                 User person = new()
                 {
                     Gender = genderType,
@@ -57,6 +56,7 @@ namespace TinderProject.Data
                     ProfilePictureUrl = profilePicUrl,
                     DateOfBirth = dateOfBirth,
                     PremiumUser = premium,
+                    AgeFormula = true,
                     OpenIDIssuer = fakeIssuer,
                     OpenIDSubject = subjectid
                 };

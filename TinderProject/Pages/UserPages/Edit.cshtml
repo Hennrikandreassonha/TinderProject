@@ -29,13 +29,13 @@
 		<section>
 			<label for="dateOfBirth" class="label-font">Date of birth: </label>
 			<input type="datetime" id="dateOfBirth" asp-for="LoggedInUser.DateOfBirth"
-				   value="@Model.LoggedInUser.DateOfBirth.ToString("yyyy-MM-dd")" />
+				value="@Model.LoggedInUser.DateOfBirth.ToString("yyyy-MM-dd")" />
 		</section>
 
 		<section>
 			<label for="gender" class="label-font">Gender: </label>
 			<select asp-for="LoggedInUser.Gender" asp-items="Html.GetEnumSelectList<GenderType>()"
-	 class="dropdown-edit">
+				class="dropdown-edit">
 				<option value="">Please select</option>
 			</select>
 		</section>
@@ -43,9 +43,46 @@
 		<section>
 			<label for="preference" class="label-font">Preference: </label>
 			<select asp-for="LoggedInUser.Preference" asp-items="Html.GetEnumSelectList<SwipePreference>()"
-	 class="dropdown-edit">
+				class="dropdown-edit">
 				<option value="">Please select</option>
 			</select>
+		</section>
+
+		<section>
+			<label for="ageFormula" class="label-font"
+				title="😍 Click this if you want to use our pre calculated age forumla. You will only get those who are about the same age as you. 😍">Use
+				age algorithm</label>
+
+			<input type="checkbox" id="ageFormula" asp-for="LoggedInUser.AgeFormula" />
+		</section>
+
+		@* Age option *@
+		<h3 class="label-font">Age preference: </h3>
+
+		<section id="ageSelectorSection">
+			<div class="nav-ul margin-1rem">
+				@* Min age *@
+				<label for="minAge" class="label-font">Min age</label>
+
+				<input type="range" id="minAge" min="18" max="100"
+					oninput="this.form.minAgeInput.value=this.value">
+
+				<input type="number" id="minAgeInput" min="18" max="100"  asp-for="LoggedInUser.MinAge"
+					oninput="this.form.minAge.value=this.value" />
+			</div>
+
+			<div class="nav-ul margin-1rem">
+				@* Max age *@
+				<label for="maxAge" class="label-font">Max age</label>
+
+				<input type="range" id="maxAge" min="18" max="100" 
+					oninput="this.form.maxAgeInput.value=this.value">
+
+				<input type="number" id="maxAgeInput" min="18" max="100"
+				asp-for="LoggedInUser.MaxAge"
+					oninput="this.form.maxAge.value=this.value" />
+			</div>
+
 		</section>
 
 		<h3 class="label-font">Interests: </h3>
@@ -80,7 +117,7 @@
 		<section>
 			<label for="description" class="label-font">Description: </label>
 			<textarea class="edit-textarea" id="description" asp-for="LoggedInUser.Description" rows="3"
-	   cols="50"></textarea>
+				cols="50"></textarea>
 			<p class="white-text">Describe yourself and the person you are looking for in max 30 words</p>
 		</section>
 
