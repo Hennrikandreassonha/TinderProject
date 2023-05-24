@@ -28,7 +28,7 @@
 
 		<section>
 			<label for="dateOfBirth" class="label-font">Date of birth: </label>
-			<input type="datetime" id="dateOfBirth" asp-for="LoggedInUser.DateOfBirth"
+			<input type="date" id="dateOfBirth" asp-for="LoggedInUser.DateOfBirth"
 				value="@Model.LoggedInUser.DateOfBirth.ToString("yyyy-MM-dd")" />
 		</section>
 
@@ -50,7 +50,7 @@
 
 		<section>
 			<label for="ageFormula" class="label-font"
-				title="😍 Click this if you want to use our pre calculated age forumla. You will only get those who are about the same age as you. 😍">Use
+				title="😍 Click this if you want to use our pre calculated age formula. You will only get those who are about the same age as you. 😍">Use
 				age algorithm</label>
 
 			<input type="checkbox" id="ageFormula" asp-for="LoggedInUser.AgeFormula" />
