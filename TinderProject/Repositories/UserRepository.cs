@@ -70,7 +70,9 @@ namespace TinderProject.Repositories
             userList = (user.Preference == SwipePreference.Female) ? GetAllFemale().ToList() : userList;
 
             userList = FilterAge(userList, user);
-            userList = userList.Where(x => !string.IsNullOrEmpty(x.ProfilePictureUrl.Trim())).ToList();
+
+            //Filtering out those who havnt got any profilepicture.
+            userList = userList.Where(x => x.ProfilePictureUrl != null && !string.IsNullOrEmpty(x.ProfilePictureUrl.Trim())).ToList();
 
             var userLikesIds = GetUserLikes(user).Select(x => x.LikedId);
             var userMatches = GetMatches(user);
@@ -92,7 +94,6 @@ namespace TinderProject.Repositories
             //Getting the users that are at least half the user´s age plus seven years;
             if (loggedinUser.AgeFormula)
             {
-
                 minAge = loggedinUser.Age / 2 + 7;
                 maxAge = (loggedinUser.Age - 7) * 2;
                 return userList.Where(x => x.Age >= minAge && x.Age <= maxAge).ToList();

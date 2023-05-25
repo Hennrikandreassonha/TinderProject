@@ -167,6 +167,7 @@ else
 
 						@* Super like button *@
 						<button type="submit" id="superlike-btn" name="options" value="super" class="invis-btn"
+						asp-route-userId="@Model.CurrentUserShown.Id"
 							disabled="@(!Model.LoggedInUser.PremiumUser)"
 							title='@(Model.LoggedInUser.PremiumUser ? null : "Become premium to use this")'>
 
