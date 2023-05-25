@@ -30,15 +30,6 @@ namespace TinderProject.Pages
 
         public void OnGet(string? options)
         {
-            if (options == "true")
-            {
-                Match = true;
-            }
-            if (options == "super")
-            {
-                SuperLike = true;
-            }
-
             LoggedInUser = _userRepo.GetLoggedInUser();
 
             if (LoggedInUser != null && ProfileChecker.ProfileIsComplete(LoggedInUser))
@@ -85,6 +76,23 @@ namespace TinderProject.Pages
             HttpContext.Session.SetString("currentSwipeUserPLetters", _matchRepo.GetPersonalityLetters(CurrentUserShown));
 
             HttpContext.Session.SetString("currentSwipeUserPStyle", CurrentUserShown.PersonalityType.Substring(0, CurrentUserShown.PersonalityType.Length - 6));
+
+            //Options for match and superlike popups.
+            if (options == "true")
+            {
+                Match = true;
+
+                int userId = (int)HttpContext.Session.GetInt32("userToShow")!;
+
+                CurrentUserShown = _userRepo.GetUser(userId)!;
+            }
+            if (options == "super")
+            {
+                SuperLike = true;
+
+                int userId = (int)HttpContext.Session.GetInt32("userToShow")!;
+                CurrentUserShown = _userRepo.GetUser(userId)!;
+            }
         }
 
         public IActionResult OnPost(string options, string smartMatching, int userId)
@@ -108,6 +116,8 @@ namespace TinderProject.Pages
             if (options == "like" && CheckIfMatch(LoggedInUser.Id, userId))
             {
                 IncrementUserIndex();
+                HttpContext.Session.SetInt32("userToShow", likedUser.Id);
+
                 return RedirectToPage("/Index", new { options = "true" });
             }
 
@@ -119,10 +129,13 @@ namespace TinderProject.Pages
             {
                 if (CheckIfMatch(LoggedInUser.Id, userId))
                 {
+                    HttpContext.Session.SetInt32("userToShow", likedUser.Id);
+
                     return RedirectToPage("/Index", new { options = "true" });
                 }
 
                 NewInteraction(LoggedInUser, likedUser);
+				HttpContext.Session.SetInt32("userToShow", likedUser.Id);
 
                 return RedirectToPage("/Index", new { options = "super" });
             }
