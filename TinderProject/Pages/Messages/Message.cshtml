@@ -40,7 +40,7 @@
                 @foreach (var user in Model.User)
                 {
                     <tr>
-                        <td class="white-text"><a asp-page="ShowMessage" asp-route-userId="@user.Id">@user.FirstName</a></td>
+                        <td class="white-text"><a asp-page="Message" asp-route-userId="@user.Id">@user.FirstName</a></td>
                         <td><img src="@user.ProfilePictureUrl" alt="Profile Picture" id="messageProfilePic"></td>
                     </tr>
                 }
@@ -56,7 +56,7 @@
                 @foreach (var user in Model.NoConversation)
                 {
                     <tr>
-                        <td class="white-text"><a asp-page="ShowMessage" asp-route-userId="@user.Id">@user.FirstName</a></td>
+                        <td class="white-text"><a asp-page="Message" asp-route-userId="@user.Id">@user.FirstName</a></td>
                         <td><img src="@user.ProfilePictureUrl" alt="Profile Picture" id="messageProfilePic"></td>
                     </tr>
                 }
@@ -89,7 +89,7 @@
                 @foreach (var user in Model.User)
                 {
                     <tr>
-                        <td class="white-text"><a asp-page="ShowMessage" asp-route-userId="@user.Id">@user.FirstName</a></td>
+                        <td class="white-text"><a asp-page="Message" asp-route-userId="@user.Id">@user.FirstName</a></td>
                         <td><img src="@user.ProfilePictureUrl" alt="Profile Picture" id="messageProfilePic"></td>
                     </tr>
                 }
@@ -109,7 +109,7 @@
                 @foreach (var user in Model.NoConversation)
                 {
                     <tr>
-                        <td class="white-text"><a asp-page="ShowMessage" asp-route-userId="@user.Id">@user.FirstName</a></td>
+                        <td class="white-text"><a asp-page="Message" asp-route-userId="@user.Id">@user.FirstName</a></td>
                         <td><img src="@user.ProfilePictureUrl" alt="Profile Picture" id="messageProfilePic"></td>
                     </tr>
                 }
