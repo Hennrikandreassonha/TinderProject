@@ -53,6 +53,11 @@ namespace TinderProject.Pages.UserPages
             //Removing photo from modelstate since its not required.
             ModelState.Remove("photo");
 
+            if (!CheckAgeValues())
+            {
+                ModelState.AddModelError("", "Min age cannot be lower than maxage.");
+            }
+
             if (!ModelState.IsValid)
             {
                 return Page();
@@ -96,7 +101,8 @@ namespace TinderProject.Pages.UserPages
 
             UserToUpdate.AgeFormula = LoggedInUser.AgeFormula;
 
-            if(LoggedInUser.MinAge != null && LoggedInUser.MaxAge != null){
+            if (LoggedInUser.MinAge != null && LoggedInUser.MaxAge != null)
+            {
                 UserToUpdate.MinAge = LoggedInUser.MinAge;
                 UserToUpdate.MaxAge = LoggedInUser.MaxAge;
             }
@@ -145,6 +151,17 @@ namespace TinderProject.Pages.UserPages
             var user = _userRepository.GetLoggedInUser();
 
             return user.Cuisines.Select(x => x.Cuisine).ToList();
+        }
+        public bool CheckAgeValues()
+        {
+            if (LoggedInUser.MinAge != null && LoggedInUser.MaxAge != null)
+            {
+                var minAgeInt = int.Parse(LoggedInUser.MinAge.Value.ToString());
+                var maxAgeInt = int.Parse(LoggedInUser.MaxAge.Value.ToString());
+
+                return maxAgeInt > minAgeInt;
+            }
+            return true;
         }
     }
 }

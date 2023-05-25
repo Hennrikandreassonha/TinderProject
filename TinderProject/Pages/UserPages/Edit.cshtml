@@ -64,10 +64,10 @@
 				@* Min age *@
 				<label for="minAge" class="label-font">Min age</label>
 
-				<input type="range" id="minAge" min="18" max="100"
+				<input type="range" id="minAge" min="18" max="99"
 					oninput="this.form.minAgeInput.value=this.value">
 
-				<input type="number" id="minAgeInput" min="18" max="100"  asp-for="LoggedInUser.MinAge"
+				<input type="number" id="minAgeInput" min="18" max="99"  asp-for="LoggedInUser.MinAge"
 					oninput="this.form.minAge.value=this.value" />
 			</div>
 
@@ -75,10 +75,10 @@
 				@* Max age *@
 				<label for="maxAge" class="label-font">Max age</label>
 
-				<input type="range" id="maxAge" min="18" max="100" 
+				<input type="range" id="maxAge" min="18" max="99" 
 					oninput="this.form.maxAgeInput.value=this.value">
 
-				<input type="number" id="maxAgeInput" min="18" max="100"
+				<input type="number" id="maxAgeInput" min="18" max="99"
 				asp-for="LoggedInUser.MaxAge"
 					oninput="this.form.maxAge.value=this.value" />
 			</div>
@@ -139,7 +139,7 @@
 		</section>
 
 		@* Error messages model state *@
-		<div asp-validation-summary="All" class="underline"></div>
+		<div asp-validation-summary="All" class="underline white-text"></div>
 
 		<button type="submit" asp-route-loggedInId="@Model.LoggedInUser.Id" class="my-button">
 			Update

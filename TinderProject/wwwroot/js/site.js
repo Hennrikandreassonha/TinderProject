@@ -3,51 +3,49 @@ if (scrollPosition != null) {
     scrollPosition.scrollTop = scrollPosition.scrollHeight;
 }
 
-let minAgeInput = document.getElementById("minAge");
-let maxAgeInput = document.getElementById("maxAge");
+let minAgeSlider = document.getElementById("minAge");
+let maxAgeSlider = document.getElementById("maxAge");
 
 let maxAgeNumber = document.getElementById("maxAgeInput");
 let minAgeNumber = document.getElementById("minAgeInput");
 
 
-if (minAgeInput != null) {
+if (minAgeSlider != null) {
 
-    minAgeInput.addEventListener("change", function () {
+    minAgeSlider.addEventListener("change", function () {
 
-        if (minAgeInput.value > maxAgeInput.value) {
-            maxAgeInput.value = minAgeInput.value;
+        if (minAgeSlider.value > maxAgeSlider.value) {
+            maxAgeSlider.value = minAgeSlider.value;
         }
-        maxAgeNumber.value = maxAgeInput.value;
+        maxAgeNumber.value = maxAgeSlider.value;
     })
 }
 
-if (maxAgeInput != null) {
+if (maxAgeSlider != null) {
 
-    maxAgeInput.addEventListener("change", function () {
+    maxAgeSlider.addEventListener("change", function () {
 
-        if (maxAgeInput.value < minAgeInput.value) {
-            maxAgeInput.value = minAgeInput.value;
+        if (minAgeSlider.value >= maxAgeSlider.value) {
+            maxAgeSlider.value = minAgeSlider.value;
         }
-        maxAgeNumber.value = maxAgeInput.value;
+        maxAgeNumber.value = maxAgeSlider.value;
     })
 }
 
 let ageFormula = document.getElementById("ageFormula");
 
-
-
 if (ageFormula != null) {
 
     ageFormula.addEventListener("click", function () {
         if (ageFormula.checked) {
-            minAgeInput.disabled = true;
-            maxAgeInput.disabled = true;
+            minAgeSlider.disabled = true;
+            maxAgeSlider.disabled = true;
 
             maxAgeNumber.disabled = true;
             minAgeNumber.disabled = true;
         } else {
-            minAgeInput.disabled = false;
-            maxAgeInput.disabled = false;
+            minAgeSlider.disabled = false;
+            maxAgeSlider.disabled = false;
 
             maxAgeNumber.disabled = false;
             minAgeNumber.disabled = false;
@@ -55,14 +53,14 @@ if (ageFormula != null) {
     });
 
     if (ageFormula.checked) {
-        minAgeInput.disabled = true;
-        maxAgeInput.disabled = true;
+        minAgeSlider.disabled = true;
+        maxAgeSlider.disabled = true;
 
         maxAgeNumber.disabled = true;
         minAgeNumber.disabled = true;
     } else {
-        minAgeInput.disabled = false;
-        maxAgeInput.disabled = false;
+        minAgeSlider.disabled = false;
+        maxAgeSlider.disabled = false;
 
         maxAgeNumber.disabled = false;
         minAgeNumber.disabled = false;
