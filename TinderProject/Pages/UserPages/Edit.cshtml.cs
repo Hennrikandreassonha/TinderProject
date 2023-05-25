@@ -59,7 +59,7 @@ namespace TinderProject.Pages.UserPages
 
             if (!CheckAgeValues())
             {
-                ModelState.AddModelError("", "Min age cannot be lower than maxage.");
+                ModelState.AddModelError("", "Min age cannot be lower than max age.");
             }
 
             if (!ModelState.IsValid)
