@@ -337,6 +337,11 @@ textarea::placeholder {
     flex-direction: column;
     align-items: center;
 }
+.flex-edit{
+    display: flex;
+    align-items: center;
+    justify-content:center;
+}
 
 #edit-flex section {
     margin-bottom: 1rem;
