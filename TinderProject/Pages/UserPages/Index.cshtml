@@ -5,6 +5,20 @@
 @inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
 
 <div id="profile-div" class="center-div">
+
+	<section class="flex-edit">
+		<form>
+			<button id="edit-btn" class="my-button margin-1rem" type="submit" asp-page="/UserPages/Edit">Edit profile</button>
+		</form>
+
+		<form>
+			<button class="my-button margin-1rem" type="submit" asp-page="/UserPages/QuizQuestions/Index">
+				Take personality
+				quiz
+			</button>
+		</form>
+	</section>
+
 	<table id="profile-table">
 		<tr>
 			<th>First name</th>
@@ -73,9 +87,7 @@
 		</tr>
 	</table>
 
-	<form>
-		<button id="edit-btn" class="my-button" type="submit" asp-page="/UserPages/Edit">Edit profile</button>
-	</form>
+	
 
 	@if (Model.LoggedInUser.PersonalityType == null || Model.LoggedInUser.PersonalityType == "Unknown")
 	{
@@ -85,8 +97,5 @@
 			<p>Please complete the quiz to start swiping!</p>
 		</div>
 	}
-	<form>
-		<button class="my-button margin-1rem" type="submit" asp-page="/UserPages/QuizQuestions/Index">Take personality
-			quiz</button>
-	</form>
+	
 </div>
