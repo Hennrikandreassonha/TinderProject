@@ -17,23 +17,23 @@
 	<form method="post" id="edit-flex" enctype="multipart/form-data">
 
 		<section>
-			<label for="firstName" class="label-font">First name: </label>
+			<label for="firstName" class="label-font white-text">First name: </label>
 			<input type="text" id="firstName" asp-for="LoggedInUser.FirstName" />
 		</section>
 
 		<section>
-			<label for="lastName" class="label-font">Last name: </label>
+			<label for="lastName" class="label-font white-text">Last name: </label>
 			<input type="text" id="lastName" asp-for="LoggedInUser.LastName" />
 		</section>
 
 		<section>
-			<label for="dateOfBirth" class="label-font">Date of birth: </label>
+			<label for="dateOfBirth" class="label-font white-text">Date of birth: </label>
 			<input type="date" id="dateOfBirth" asp-for="LoggedInUser.DateOfBirth"
 				value="@Model.LoggedInUser.DateOfBirth.ToString("yyyy-MM-dd")" />
 		</section>
 
 		<section>
-			<label for="gender" class="label-font">Gender: </label>
+			<label for="gender" class="label-font white-text">Gender: </label>
 			<select asp-for="LoggedInUser.Gender" asp-items="Html.GetEnumSelectList<GenderType>()"
 				class="dropdown-edit">
 				<option value="">Please select</option>
@@ -41,7 +41,7 @@
 		</section>
 
 		<section>
-			<label for="preference" class="label-font">Preference: </label>
+			<label for="preference" class="label-font white-text">Preference: </label>
 			<select asp-for="LoggedInUser.Preference" asp-items="Html.GetEnumSelectList<SwipePreference>()"
 				class="dropdown-edit">
 				<option value="">Please select</option>
@@ -49,7 +49,7 @@
 		</section>
 
 		<section>
-			<label for="ageFormula" class="label-font"
+			<label for="ageFormula" class="label-font white-text"
 				title="😍 Click this if you want to use our pre calculated age formula. You will only get those who are about the same age as you. 😍">Use
 				age algorithm</label>
 
@@ -57,12 +57,12 @@
 		</section>
 
 		@* Age option *@
-		<h3 class="label-font">Age preference: </h3>
+		<h3 class="label-font white-text">Age preference: </h3>
 
 		<section id="ageSelectorSection">
 			<div class="nav-ul margin-1rem">
 				@* Min age *@
-				<label for="minAge" class="label-font">Min age</label>
+				<label for="minAge" class="label-font white-text">Min age</label>
 
 				<input type="range" id="minAge" min="18" max="100"
 					oninput="this.form.minAgeInput.value=this.value">
@@ -73,7 +73,7 @@
 
 			<div class="nav-ul margin-1rem">
 				@* Max age *@
-				<label for="maxAge" class="label-font">Max age</label>
+				<label for="maxAge" class="label-font white-text">Max age</label>
 
 				<input type="range" id="maxAge" min="18" max="100" 
 					oninput="this.form.maxAgeInput.value=this.value">
@@ -85,7 +85,7 @@
 
 		</section>
 
-		<h3 class="label-font">Interests: </h3>
+		<h3 class="label-font white-text">Interests: </h3>
 		<section class="edit-display-grid">
 
 			@foreach (var interest in AllInterests)
@@ -99,7 +99,7 @@
 			}
 
 		</section>
-		<h3 class="label-font">Cuisines: </h3>
+		<h3 class="label-font white-text">Cuisines: </h3>
 		<section class="edit-display-grid">
 
 			@foreach (var cuisine in AllCuisines)
@@ -115,7 +115,7 @@
 		</section>
 
 		<section>
-			<label for="description" class="label-font">Description: </label>
+			<label for="description" class="label-font white-text">Description: </label>
 			<textarea class="edit-textarea" id="description" asp-for="LoggedInUser.Description" rows="3"
 				cols="50"></textarea>
 			<p class="white-text">Describe yourself and the person you are looking for in max 30 words</p>
@@ -124,7 +124,7 @@
 		<section>
 			@* Upload a picture *@
 
-			<label for="profilePictureUrl" class="label-font">Profile picture</label>
+			<label for="profilePictureUrl" class="label-font white-text">Profile picture</label>
 			<div id="pic-flex">
 				<input type="file" name="photo" id="profilePictureUrl" class="edit-textarea" />
 
@@ -134,7 +134,7 @@
 		</section>
 
 		<section>
-			<label for="premium">Premium</label>
+			<label for="premium" class="white-text">Premium</label>
 			<input type="checkbox" id="premium" asp-for="LoggedInUser.PremiumUser" />
 		</section>
 
