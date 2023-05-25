@@ -163,7 +163,7 @@ namespace TinderProject.Pages.UserPages
                 var minAgeInt = int.Parse(LoggedInUser.MinAge.Value.ToString());
                 var maxAgeInt = int.Parse(LoggedInUser.MaxAge.Value.ToString());
 
-                return maxAgeInt > minAgeInt;
+                return maxAgeInt >= minAgeInt;
             }
             return true;
         }
