@@ -52,6 +52,10 @@ namespace TinderProject.Pages.UserPages
             UserToUpdate = _userRepository.GetLoggedInUser();
             //Removing photo from modelstate since its not required.
             ModelState.Remove("photo");
+            
+            if(!ValidAge(LoggedInUser.DateOfBirth)){
+                ModelState.AddModelError("", "Enter valid age between 18-99 years.");
+            }
 
             if (!CheckAgeValues())
             {
@@ -162,6 +166,15 @@ namespace TinderProject.Pages.UserPages
                 return maxAgeInt > minAgeInt;
             }
             return true;
+        }
+        public bool ValidAge(DateTime dateOfBirth)
+        {
+            int age = 0;
+            age = DateTime.Now.Year - dateOfBirth.Year;
+            if (DateTime.Now.DayOfYear < dateOfBirth.DayOfYear)
+                age = age - 1;
+
+            return age <= 99 && age >= 18;
         }
     }
 }
