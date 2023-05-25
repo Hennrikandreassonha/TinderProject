@@ -24,6 +24,7 @@ namespace TinderProject.Pages.Premium
 		{
 			var currentUser = _userRepository.GetLoggedInUser();
 
+			//Inte visa de som redan är matchade.
 			Likers = _database.Interactions
 				.Where(l => l.LikedId == currentUser.Id)
 				.ToList();
