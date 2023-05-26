@@ -135,7 +135,7 @@ namespace TinderProject.Pages
                 }
 
                 NewInteraction(LoggedInUser, likedUser);
-				HttpContext.Session.SetInt32("userToShow", likedUser.Id);
+                HttpContext.Session.SetInt32("userToShow", likedUser.Id);
 
                 return RedirectToPage("/Index", new { options = "super" });
             }
@@ -170,7 +170,7 @@ namespace TinderProject.Pages
             var loggedInUser = _userRepo.GetLoggedInUser();
             UsersToSwipe = _userRepo.GetUsersToSwipe(loggedInUser).ToList();
 
-            if (GetCurrentUserIndex() == UsersToSwipe.Count)
+            if (GetCurrentUserIndex() == UsersToSwipe.Count - 1)
             {
                 HttpContext.Session.SetInt32("currentUserIndex", 0);
             }
