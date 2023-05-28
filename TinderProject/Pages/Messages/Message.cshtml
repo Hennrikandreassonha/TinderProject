@@ -5,7 +5,7 @@
 
 <div id="message-continer">
     <div id="message-div">
-        <p class="white-text">Conversation with: @Model.OtherUser.FirstName @Model.OtherUser.LastName </p>
+        <p class="white-text">Conversation with: @Model.OtherUser.FirstName @Model.OtherUser.LastName <img src="@Model.OtherUser.ProfilePictureUrl" alt="Profile Picture" id="messageProfilePic"></p>
 
         @foreach (var message in Model.Messages)
         {
@@ -40,7 +40,8 @@
                 @foreach (var user in Model.User)
                 {
                     <tr>
-                        <td class="white-text"><a asp-page="Message" asp-route-userId="@user.Id">@user.FirstName</a></td>
+                        <td class="white-text">
+                            <a asp-page="Message" asp-route-userId="@user.Id">@user.FirstName</a></td>
                         <td><img src="@user.ProfilePictureUrl" alt="Profile Picture" id="messageProfilePic"></td>
                     </tr>
                 }

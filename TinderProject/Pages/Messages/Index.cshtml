@@ -11,11 +11,17 @@
             @foreach (var user in Model.User)
             {
                 <tr>
-                    <td class="white-text"><a asp-page="Message" asp-route-userId="@user.Id" >@user.FirstName</a></td>
+                    <td class="white-text">
+                        <form button="get">
+                            <button type="submit" class="my-button" asp-page="Message"
+                                asp-route-userId="@user.Id">@user.FirstName</button>
+                        </form>
+                    </td>
                     <td><img src="@user.ProfilePictureUrl" alt="Profile Picture" id="messageProfilePic"></td>
                     <td>
-                        <form method="get" >
-                            <button type="submit" class="my-button" asp-page="Delete" asp-route-userId="@user.Id">Delete</button>
+                        <form method="get">
+                            <button type="submit" class="my-button" asp-page="Delete"
+                                asp-route-userId="@user.Id">Delete</button>
                         </form>
                     </td>
                 </tr>
@@ -29,19 +35,23 @@
     <h3 class="white-text center-div">New matches</h3>
     @if (Model.NoConversation != null && Model.NoConversation.Any())
     {
-        <p class="white-text center-div">Start conversation with:</p>
+        <p class="white-text center-div">Start a conversation with:</p>
 
         <table class="message-table">
             @foreach (var user in Model.NoConversation)
             {
                 <tr>
-                    <td class="white-text"><a asp-page="Message" asp-route-userId="@user.Id">@user.FirstName</a>
-
-                </td>
+                    <td class="white-text">
+                        <form button="get">
+                            <button type="submit" class="my-button" asp-page="Message"
+                                asp-route-userId="@user.Id">@user.FirstName</button>
+                        </form>
+                    </td>
                     <td><img src="@user.ProfilePictureUrl" alt="Profile Picture" id="messageProfilePic"></td>
                     <td>
-                        <form method="get" >
-                            <button type="submit" class="my-button" asp-page="Delete" asp-route-userId="@user.Id">Delete</button>
+                        <form method="get">
+                            <button type="submit" class="my-button" asp-page="Delete"
+                                asp-route-userId="@user.Id">Delete</button>
                         </form>
                     </td>
                 </tr>
