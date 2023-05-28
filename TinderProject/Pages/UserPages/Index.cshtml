@@ -8,7 +8,8 @@
 
 	<section class="flex-edit">
 		<form>
-			<button id="edit-btn" class="my-button margin-1rem" type="submit" asp-page="/UserPages/Edit">Edit profile</button>
+			<button id="edit-btn" class="my-button margin-1rem" type="submit" asp-page="/UserPages/Edit">Edit
+				profile</button>
 		</form>
 
 		<form>
@@ -18,6 +19,15 @@
 			</button>
 		</form>
 	</section>
+
+	@if (Model.LoggedInUser.PersonalityType == null || Model.LoggedInUser.PersonalityType == "Unknown")
+	{
+		<div class="center-div white-text margin-1rem">
+			<h3>Whoops!</h3>
+			<p>It looks like you are missing a personality type!</p>
+			<p>Please complete the quiz to start swiping!</p>
+		</div>
+	}
 
 	<table id="profile-table">
 		<tr>
@@ -86,16 +96,4 @@
 			<td>@(Model.LoggedInUser.PremiumUser ? "Yes" : "No")</td>
 		</tr>
 	</table>
-
-	
-
-	@if (Model.LoggedInUser.PersonalityType == null || Model.LoggedInUser.PersonalityType == "Unknown")
-	{
-		<div class="center-div white-text">
-			<h3>Whoops!</h3>
-			<p>It looks like you are missing a personality type!</p>
-			<p>Please complete the quiz to start swiping!</p>
-		</div>
-	}
-	
 </div>
