@@ -170,7 +170,7 @@ else
 						<button type="submit" id="superlike-btn" name="options" value="super" class="invis-btn"
 						asp-route-userId="@Model.CurrentUserShown.Id"
 							disabled="@(!Model.LoggedInUser.PremiumUser)"
-							title='@(Model.LoggedInUser.PremiumUser ? null : "Become premium to use this")'>
+							title='@(Model.LoggedInUser.PremiumUser ? null : "You have to upgrade to premium to use this feature")'>
 
 							<img src="~/Pictures/super.png" alt="Blue star for superlike" id="super-like-pic"
 								class="like-dislike-pictures">
