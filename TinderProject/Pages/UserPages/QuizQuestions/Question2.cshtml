@@ -10,17 +10,18 @@
 <div class="center-div">
 	<h1 class="white-text">@ViewData["Title"]</h1>
 
-	<p class="white-text margin-1rem">When making decisions, do you rely on your senses and information or on feeling and intuition?
+	<p class="white-text question-text margin-1rem">
+		When making decisions, do you rely on your senses and information or on feeling and intuition?
 	</p>
 
 	<form method="post">
 		<div>
 			<input type="radio" id="senses-information" name="answer" value="S" />
-			<label class="white-text" for="senses-information">Senses and information</label>
+			<label class="white-text question-text" for="senses-information">Senses and information</label>
 		</div>
 		<div>
 			<input type=radio id="feeling-intuition" name="answer" value="N" />
-			<label class="white-text" for="feeling-intuition">Feeling and intuition</label>
+			<label class="white-text question-text" for="feeling-intuition">Feeling and intuition</label>
 		</div>
 
 		<button type="submit" class="my-button margin-1rem">Next question</button>

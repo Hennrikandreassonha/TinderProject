@@ -76,6 +76,10 @@ td {
     text-decoration: underline;
 }
 
+.question-text {
+    font-size: 20px;
+}
+
 fieldset{
     border-radius: 10px;
     color:white;
