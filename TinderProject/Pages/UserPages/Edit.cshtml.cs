@@ -112,6 +112,7 @@ namespace TinderProject.Pages.UserPages
             }
 
             UserToUpdate.Interests?.Clear();
+            UserToUpdate.Cuisines?.Clear();
 
             List<Interests> newInterests = interestsToAdd
                 .Where(interest => interest != null)
@@ -119,10 +120,7 @@ namespace TinderProject.Pages.UserPages
                 {
                     Interest = interest,
                     UserId = UserToUpdate.Id
-                }).ToList();
-
-            UserToUpdate.Interests.AddRange(newInterests);
-            UserToUpdate.Cuisines?.Clear();
+                }).ToList();            
 
             List<Cuisines> newCuisines = cuisinesToAdd
                 .Where(cuisine => cuisine != null)
@@ -132,6 +130,7 @@ namespace TinderProject.Pages.UserPages
                     UserId = UserToUpdate.Id
                 }).ToList();
 
+            UserToUpdate.Interests.AddRange(newInterests);
             UserToUpdate.Cuisines.AddRange(newCuisines);
 
             _database.Users.Update(UserToUpdate);
