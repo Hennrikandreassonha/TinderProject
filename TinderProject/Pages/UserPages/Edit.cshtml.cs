@@ -134,7 +134,7 @@ namespace TinderProject.Pages.UserPages
             UserToUpdate.Cuisines.AddRange(newCuisines);
 
             _database.Users.Update(UserToUpdate);
-            _database.SaveChanges();
+            await _database.SaveChangesAsync();
 
             if (UserToUpdate.PersonalityType == null)
             {
