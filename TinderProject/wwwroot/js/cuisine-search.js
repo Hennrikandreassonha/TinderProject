@@ -1,6 +1,5 @@
 import fakeFetch from './fake-fetch.js';
 
-const apiKey = '9143904-58a05ad2013e7353b89d19cb0';
 const useRealAPI = false;
 
 //Anger om vi ska anv�nda riktigt eller fake-api.
@@ -21,20 +20,14 @@ async function fetchJSON(url, options) {
 var commonCuisine = document.querySelector('#common-cuisine-data');
 var cuisine = document.querySelector('#cuisine-data');
 
-// const resultList = document.querySelector('#results');
-// const message = document.querySelector('#message');
-
 if (commonCuisine != null && commonCuisine.value != "") {
-
-    console.log(commonCuisine.value)
-    MakeCall(cuisine.value)
-
+    MakeCall(commonCuisine.value)
+    commonCuisine.value;
 }
 
 if (cuisine != null && cuisine.value != "") {
-
-    console.log(cuisine.value)
-    MakeCall(cuisine.value)
+    MakeCall(cuisine.value);
+    cuisine.value;
 }
 
 

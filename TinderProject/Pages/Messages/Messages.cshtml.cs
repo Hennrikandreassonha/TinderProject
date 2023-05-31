@@ -18,7 +18,7 @@ namespace TinderProject.Pages.Messages
 
         public Message Message { get; set; }
         public User OtherUser { get; set; }
-        public User CurrentUser { get; set; }   
+        public User CurrentUser { get; set; }
         public List<User> User { get; set; }
         public List<Message> Messages { get; set; }
         public List<User> NoConversation { get; set; }
@@ -29,7 +29,7 @@ namespace TinderProject.Pages.Messages
             _userRepository = userRepository;
             Messages = new List<Message>();
             User = new List<User>();
-            NoConversation = new List<User> {};
+            NoConversation = new List<User> { };
         }
 
         public void OnGet(int? userId)
@@ -134,31 +134,38 @@ namespace TinderProject.Pages.Messages
             }
 
             return RedirectToPage();
-
-            // Dish? dish = await MakeApiCall("Mexican");
-            // var message = "";
-
-            // if (dish != null)
-            // {
-            //     if (CommonCuisine(CurrentUser, matchedUser))
-            //     {
-            //         message += $"I see that we both love {cuisine}, how about we cook some {dish.DishName}? It only has {dish.Calories} calories.";
-            //     }
-            //     else
-            //     {
-            //         message += $"I see that you like {cuisine}, how about we cook some {dish.DishName}? It only has {dish.Calories} calories.";
-            //     }
-
-            //     AddMessage(message, matchedUser.Id);
-            // }
-            // else
-            // {
-            //     message += "I didnt find any suitable dish for us, what type of food do you like?";
-            // }
-
         }
-        public async Task<IActionResult> OnPostCuisineAnswer(string answerData){
-            Console.WriteLine(answerData);
+        public async Task<IActionResult> OnPostCuisineAnswer(string answerData, int userId)
+        {
+            CurrentUser = _userRepository.GetLoggedInUser();
+            OtherUser = _userRepository.GetUser(userId);
+
+            // var matchedUser = _userRepository.GetUser(userId);
+            Dish jsonDish = JsonConvert.DeserializeObject<Dish>(answerData);
+
+            var message = "";
+
+            if (jsonDish != null)
+            {
+                if (CommonCuisine(CurrentUser, OtherUser))
+                {
+                    message += $"Aaah! I see that we both love {jsonDish.category}, have you been to {jsonDish.country}? Did you know that {jsonDish.description} The ingredients are {string.Join(", ", jsonDish.ingredient)} and the primary ingredient is {jsonDish.primaryIngredient}. Would you like to to go on a date and cook this with me?";
+                }
+                else
+                {
+                    message += $"Aaah! I see that you like {jsonDish.category}, have you been to {jsonDish.country}? Did you know that {jsonDish.description}The ingredients are {string.Join(", ", jsonDish.ingredient)} and the primary ingredient is {jsonDish.primaryIngredient}. Would you like to to go on a date and cook this with me?";
+                }
+
+                AddMessage(message, OtherUser.Id);
+            }
+            else
+            {
+                message += "I didnt find any suitable dish for us, what type of food do you like?";
+            }
+
+            //Reseting cuisine
+            HttpContext.Session.SetString("cuisine", "");
+            HttpContext.Session.SetString("commonCuisine", "");
 
             return RedirectToPage();
         }
@@ -190,20 +197,6 @@ namespace TinderProject.Pages.Messages
             int randomIndex = random.Next(0, matchedUser.Cuisines.Count);
 
             return matchedUser.Cuisines[randomIndex].Cuisine;
-        }
-
-
-        private static async Task<Dish?> MakeApiCall(string cuisine)
-        {
-            using var client = new HttpClient();
-            var endPoint = new Uri($"https://tinderapp.azurewebsites.net/{cuisine}");
-
-            var response = await client.GetAsync(endPoint);
-            response.EnsureSuccessStatusCode();
-
-            var json = await response.Content.ReadAsStringAsync();
-
-            return JsonConvert.DeserializeObject<Dish>(json);
         }
     }
 }

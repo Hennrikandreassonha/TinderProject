@@ -20,6 +20,7 @@
             {
                 <section id="message-left">
                     <p id="message-name">@message.SentFrom.FirstName @message.SentFrom.LastName wrote:</p>
+                    <br>
                     <p id="message-message">@message.SentMessage</p>
                     <p id="message-time">@message.SentTime</p>
 
@@ -29,6 +30,7 @@
             {
                 <section id="message-right">
                     <p id="message-name">@message.SentFrom.FirstName @message.SentFrom.LastName wrote:</p>
+                    <br>
                     <p id="message-message">@message.SentMessage</p>
                     <p id="message-time">@message.SentTime</p>
                     @if (Model.CurrentUser.PremiumUser == true && message.isRead == true)
@@ -48,7 +50,7 @@
                 {
                     <tr>
                         <td class="white-text">
-                            <a asp-page="Message" asp-route-userId="@user.Id">@user.FirstName</a>
+                            <a asp-page="Messages" asp-route-userId="@user.Id">@user.FirstName</a>
                         </td>
                         <td><img src="@user.ProfilePictureUrl" alt="Profile Picture" id="messageProfilePic"></td>
                     </tr>
@@ -65,7 +67,7 @@
                 @foreach (var user in Model.NoConversation)
                 {
                     <tr>
-                        <td class="white-text"><a asp-page="Message" asp-route-userId="@user.Id">@user.FirstName</a></td>
+                        <td class="white-text"><a asp-page="Messages" asp-route-userId="@user.Id">@user.FirstName</a></td>
                         <td><img src="@user.ProfilePictureUrl" alt="Profile Picture" id="messageProfilePic"></td>
                     </tr>
                 }
@@ -101,7 +103,7 @@
                 @foreach (var user in Model.User)
                 {
                     <tr>
-                        <td class="white-text"><a asp-page="Message" asp-route-userId="@user.Id">@user.FirstName</a></td>
+                        <td class="white-text"><a asp-page="Messages" asp-route-userId="@user.Id">@user.FirstName</a></td>
                         <td><img src="@user.ProfilePictureUrl" alt="Profile Picture" id="messageProfilePic"></td>
                     </tr>
                 }
@@ -121,7 +123,7 @@
                 @foreach (var user in Model.NoConversation)
                 {
                     <tr>
-                        <td class="white-text"><a asp-page="Message" asp-route-userId="@user.Id">@user.FirstName</a></td>
+                        <td class="white-text"><a asp-page="Messages" asp-route-userId="@user.Id">@user.FirstName</a></td>
                         <td><img src="@user.ProfilePictureUrl" alt="Profile Picture" id="messageProfilePic"></td>
                     </tr>
                 }
@@ -136,18 +138,17 @@
 
     </div>
 </div>
-@if (commonCuisine != null)
+@if (!string.IsNullOrEmpty(commonCuisine))
 {
     <input type="hidden" id="common-cuisine-data" value="@commonCuisine">
 }
-else if (cuisine != null)
+else if (!string.IsNullOrEmpty(cuisine))
 {
     <input type="hidden" id="cuisine-data" value="@cuisine">
 }
 
 @* Fake form for sending data from API to backend *@
 <form type="post" id="cuisine-data-form" asp-page-handler="CuisineAnswer">
-    <input type="hidden" id="data-to-send" 
-    name = "answerData"
-    value="">
+    <input type="hidden" id="data-to-send" name="answerData" value="">
+    <input type="hidden" id="data-to-send" asp-route-userId="@Model.OtherUser.Id">
 </form>
