@@ -41,18 +41,5 @@ namespace TinderProject.Controllers
             }
             return NotFound("Add an interest.");
         }
-        [HttpGet("/Mexican")]
-        public IActionResult FakeApiCall()
-        {
-            var fakeResponse = new
-            {
-                cuisine = "Mexican",
-                dishname = "Tacos",
-                calories = "500",
-                isHealthy = true
-            };
-
-            return Ok(fakeResponse);
-        }
     }
 }
