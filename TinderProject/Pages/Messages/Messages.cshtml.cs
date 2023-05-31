@@ -124,7 +124,14 @@ namespace TinderProject.Pages.Messages
             var matchedUser = _userRepository.GetUser(userId);
             CurrentUser = _userRepository.GetLoggedInUser();
 
-            HttpContext.Session.SetString("cuisine", GetCuisine(matchedUser));
+            if (CommonCuisine(CurrentUser, matchedUser))
+            {
+                HttpContext.Session.SetString("commonCuisine", GetCommonCuisine(CurrentUser, matchedUser));
+            }
+            else
+            {
+                HttpContext.Session.SetString("cuisine", GetCuisine(matchedUser));
+            }
 
             return RedirectToPage();
         }
@@ -158,6 +165,7 @@ namespace TinderProject.Pages.Messages
 
             //Reseting cuisine
             HttpContext.Session.SetString("cuisine", "");
+            HttpContext.Session.SetString("commonCuisine", "");
 
             return RedirectToPage();
         }

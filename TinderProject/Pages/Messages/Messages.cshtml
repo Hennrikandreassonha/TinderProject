@@ -3,6 +3,7 @@
 @using Microsoft.AspNetCore.Http
 
 @{
+    string commonCuisine = HttpContext.Session.GetString("commonCuisine");
     string cuisine = HttpContext.Session.GetString("cuisine");
 }
 
@@ -137,7 +138,11 @@
 
     </div>
 </div>
-@if (cuisine != null)
+@if (commonCuisine != null)
+{
+    <input type="hidden" id="common-cuisine-data" value="@commonCuisine">
+}
+else if (cuisine != null)
 {
     <input type="hidden" id="cuisine-data" value="@cuisine">
 }
