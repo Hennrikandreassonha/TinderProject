@@ -4,6 +4,7 @@
 @model IndexModel
 @inject TinderProject.Data.AccessControl accessControl
 @inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+
 @{
 	string letters = HttpContext.Session.GetString("currentSwipeUserPLetters");
 	string currentUserLetters = "";

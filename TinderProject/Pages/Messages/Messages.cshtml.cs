@@ -10,7 +10,7 @@ using TinderProject.Controllers;
 
 namespace TinderProject.Pages.Messages
 {
-    public class MessagesModel : PageModel
+    public class MessageModel : PageModel
     {
         private readonly AppDbContext _database;
         private readonly IUserRepository _userRepository;
@@ -23,7 +23,7 @@ namespace TinderProject.Pages.Messages
         public List<Message> Messages { get; set; }
         public List<User> NoConversation { get; set; }
 
-        public MessagesModel(AppDbContext database, IUserRepository userRepository)
+        public MessageModel(AppDbContext database, IUserRepository userRepository)
         {
             _database = database;
             _userRepository = userRepository;
@@ -124,38 +124,38 @@ namespace TinderProject.Pages.Messages
             var matchedUser = _userRepository.GetUser(userId);
             CurrentUser = _userRepository.GetLoggedInUser();
 
-            string? cuisine;
             if (CommonCuisine(CurrentUser, matchedUser))
             {
-                cuisine = GetCommonCuisine(CurrentUser, matchedUser);
+                HttpContext.Session.SetString("commonCuisine", GetCommonCuisine(CurrentUser, matchedUser));
             }
             else
             {
-                cuisine = GetCuisine(matchedUser);
-            }
-
-            Dish? dish = await MakeApiCall("Mexican");
-            var message = "";
-
-            if (dish != null)
-            {
-                if (CommonCuisine(CurrentUser, matchedUser))
-                {
-                    message += $"I see that we both love {cuisine}, how about we cook some {dish.DishName}? It only has {dish.Calories} calories.";
-                }
-                else
-                {
-                    message += $"I see that you like {cuisine}, how about we cook some {dish.DishName}? It only has {dish.Calories} calories.";
-                }
-
-                AddMessage(message, matchedUser.Id);
-            }
-            else
-            {
-                message += "I didnt find any suitable dish for us, what type of food do you like?";
+                HttpContext.Session.SetString("cuisine", GetCuisine(matchedUser));
             }
 
             return RedirectToPage();
+
+            // Dish? dish = await MakeApiCall("Mexican");
+            // var message = "";
+
+            // if (dish != null)
+            // {
+            //     if (CommonCuisine(CurrentUser, matchedUser))
+            //     {
+            //         message += $"I see that we both love {cuisine}, how about we cook some {dish.DishName}? It only has {dish.Calories} calories.";
+            //     }
+            //     else
+            //     {
+            //         message += $"I see that you like {cuisine}, how about we cook some {dish.DishName}? It only has {dish.Calories} calories.";
+            //     }
+
+            //     AddMessage(message, matchedUser.Id);
+            // }
+            // else
+            // {
+            //     message += "I didnt find any suitable dish for us, what type of food do you like?";
+            // }
+
         }
 
         public bool CommonCuisine(User loggedInUser, User user2)

@@ -1,6 +1,11 @@
 ﻿@page "{userId:int}"
 @model TinderProject.Pages.Messages.MessagesModel
 
+@{
+    string commonCuisine = HttpContext.Session.GetString("commonCuisine");
+    string cuisine = HttpContext.Session.GetString("cuisine");
+}
+
 <h2 id="message-header" class="white-text">Conversations</h2>
 
 <div id="message-continer">
@@ -41,13 +46,14 @@
                 {
                     <tr>
                         <td class="white-text">
-                            <a asp-page="Message" asp-route-userId="@user.Id">@user.FirstName</a></td>
+                            <a asp-page="Message" asp-route-userId="@user.Id">@user.FirstName</a>
+                        </td>
                         <td><img src="@user.ProfilePictureUrl" alt="Profile Picture" id="messageProfilePic"></td>
                     </tr>
                 }
             </table>
         }
-      
+
         <h3 class="white-text">New matches</h3>
         @if (Model.NoConversation != null && Model.NoConversation.Any())
         {
@@ -77,9 +83,12 @@
             <button type="submit" class="my-button">Send</button>
         </form>
 
-        <form method="post">
+        <!-- Get cuisine button -->
+        <form method="post" id="cuisine-form">
             <button asp-page-handler="Cuisine" id="cuisine-btn" class="my-button"
-                title="Try our new feature! Get a dish that you and your match can cook together">Get cuisine</button>
+                    title="Try our new feature! Get a dish that you and your match can cook together">
+                Get cuisine
+            </button>
         </form>
     </div>
 
@@ -121,6 +130,15 @@
             <p>
                 No matches
             </p>
+        }
+
+        @if (commonCuisine != null)
+        {
+            <input type="hidden" id="common-cuisine-data" value="@commonCuisine">
+        }
+        else if (cuisine != null)
+        {
+             <input type="hidden" id="cuisine-data" value="@cuisine">
         }
     </div>
 </div>
