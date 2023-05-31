@@ -67,7 +67,7 @@ input,
 .dropdown-edit {
     font-family: 'Lobster', cursive;
     background-color: #d6306a;
-    color: white;
+    color: white !important;
     border: none;
     border-radius: 25px;
     font-size: 18px;
