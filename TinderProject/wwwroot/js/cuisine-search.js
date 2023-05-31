@@ -18,22 +18,10 @@ async function fetchJSON(url, options) {
     }
 }
 
-var commonCuisine = document.querySelector('#common-cuisine-data');
 var cuisine = document.querySelector('#cuisine-data');
 
-// const resultList = document.querySelector('#results');
-// const message = document.querySelector('#message');
-
-if (commonCuisine != null && commonCuisine.value != "") {
-
-    console.log(commonCuisine.value)
-    MakeCall(cuisine.value)
-
-}
-
 if (cuisine != null && cuisine.value != "") {
-
-    console.log(cuisine.value)
+    
     MakeCall(cuisine.value)
 }
 

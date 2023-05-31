@@ -18,7 +18,7 @@ namespace TinderProject.Pages.Messages
 
         public Message Message { get; set; }
         public User OtherUser { get; set; }
-        public User CurrentUser { get; set; }   
+        public User CurrentUser { get; set; }
         public List<User> User { get; set; }
         public List<Message> Messages { get; set; }
         public List<User> NoConversation { get; set; }
@@ -29,7 +29,7 @@ namespace TinderProject.Pages.Messages
             _userRepository = userRepository;
             Messages = new List<Message>();
             User = new List<User>();
-            NoConversation = new List<User> {};
+            NoConversation = new List<User> { };
         }
 
         public void OnGet(int? userId)
@@ -124,41 +124,40 @@ namespace TinderProject.Pages.Messages
             var matchedUser = _userRepository.GetUser(userId);
             CurrentUser = _userRepository.GetLoggedInUser();
 
-            if (CommonCuisine(CurrentUser, matchedUser))
+            HttpContext.Session.SetString("cuisine", GetCuisine(matchedUser));
+
+            return RedirectToPage();
+        }
+        public async Task<IActionResult> OnPostCuisineAnswer(string answerData, int userId)
+        {
+            CurrentUser = _userRepository.GetLoggedInUser();
+            OtherUser = _userRepository.GetUser(userId);
+
+            // var matchedUser = _userRepository.GetUser(userId);
+            Dish jsonDish = JsonConvert.DeserializeObject<Dish>(answerData);
+
+            var message = "";
+
+            if (jsonDish != null)
             {
-                HttpContext.Session.SetString("commonCuisine", GetCommonCuisine(CurrentUser, matchedUser));
+                if (CommonCuisine(CurrentUser, OtherUser))
+                {
+                    message += $"Aaah! I see that we both love {jsonDish.category}, have you been to {jsonDish.country}? <br> Did you know that {jsonDish.description} The ingredients are {string.Join(" ,", jsonDish.ingredient)} and the primary ingredient is {jsonDish.primaryIngredient}";
+                }
+                else
+                {
+                    message += $"Aaah! I see that you like {jsonDish.category}, have you been to {jsonDish.country}? Did you know that {jsonDish.description}The ingredients are {string.Join(" ", jsonDish.ingredient)} and the primary ingredient is {jsonDish.primaryIngredient}";
+                }
+
+                AddMessage(message, OtherUser.Id);
             }
             else
             {
-                HttpContext.Session.SetString("cuisine", GetCuisine(matchedUser));
+                message += "I didnt find any suitable dish for us, what type of food do you like?";
             }
 
-            return RedirectToPage();
-
-            // Dish? dish = await MakeApiCall("Mexican");
-            // var message = "";
-
-            // if (dish != null)
-            // {
-            //     if (CommonCuisine(CurrentUser, matchedUser))
-            //     {
-            //         message += $"I see that we both love {cuisine}, how about we cook some {dish.DishName}? It only has {dish.Calories} calories.";
-            //     }
-            //     else
-            //     {
-            //         message += $"I see that you like {cuisine}, how about we cook some {dish.DishName}? It only has {dish.Calories} calories.";
-            //     }
-
-            //     AddMessage(message, matchedUser.Id);
-            // }
-            // else
-            // {
-            //     message += "I didnt find any suitable dish for us, what type of food do you like?";
-            // }
-
-        }
-        public async Task<IActionResult> OnPostCuisineAnswer(string answerData){
-            Console.WriteLine(answerData);
+            //Reseting cuisine
+            HttpContext.Session.SetString("cuisine", "");
 
             return RedirectToPage();
         }

@@ -3,7 +3,6 @@
 @using Microsoft.AspNetCore.Http
 
 @{
-    string commonCuisine = HttpContext.Session.GetString("commonCuisine");
     string cuisine = HttpContext.Session.GetString("cuisine");
 }
 
@@ -19,6 +18,7 @@
             @if (Model.OtherUser.Id == message.SentFromId)
             {
                 <section id="message-left">
+                    <br>
                     <p id="message-name">@message.SentFrom.FirstName @message.SentFrom.LastName wrote:</p>
                     <p id="message-message">@message.SentMessage</p>
                     <p id="message-time">@message.SentTime</p>
@@ -28,6 +28,7 @@
             else
             {
                 <section id="message-right">
+                    <br>
                     <p id="message-name">@message.SentFrom.FirstName @message.SentFrom.LastName wrote:</p>
                     <p id="message-message">@message.SentMessage</p>
                     <p id="message-time">@message.SentTime</p>
@@ -136,18 +137,13 @@
 
     </div>
 </div>
-@if (commonCuisine != null)
-{
-    <input type="hidden" id="common-cuisine-data" value="@commonCuisine">
-}
-else if (cuisine != null)
+@if (cuisine != null)
 {
     <input type="hidden" id="cuisine-data" value="@cuisine">
 }
 
 @* Fake form for sending data from API to backend *@
 <form type="post" id="cuisine-data-form" asp-page-handler="CuisineAnswer">
-    <input type="hidden" id="data-to-send" 
-    name = "answerData"
-    value="">
+    <input type="hidden" id="data-to-send" name="answerData" value="">
+    <input type="hidden" id="data-to-send" asp-route-userId="@Model.OtherUser.Id">
 </form>

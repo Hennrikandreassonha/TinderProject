@@ -7,9 +7,13 @@ namespace TinderProject.Controllers
 {
     public class Dish
     {
-        public string Cuisine { get; set; }
-        public string DishName { get; set; }
-        public string Calories { get; set; }
-        public bool IsHealthy { get; set; }
+        public int id { get; set; }
+        public string accountOwner { get; set; }
+        public string name { get; set; }
+        public string description { get; set; }
+        public string primaryIngredient { get; set; }
+        public string country { get; set; }
+        public string category { get; set; }
+        public List<string> ingredient { get; set; }
     }
 }

@@ -12,7 +12,7 @@ export default function fakeFetch(urlString, options) {
                 "primaryIngredient": "Pork",
                 "country": "Mexico",
                 "category": "Mexican",
-                "ingredient": "Pork, pineapple, onions, cilantro, corn tortillas"
+                "ingredient": ["Pork, pineapple, onions, cilantro, corn tortillas"]
             }
         }
         else if (url.searchParams.get('q') === 'Italian') {
@@ -25,7 +25,7 @@ export default function fakeFetch(urlString, options) {
                 "primaryIngredient": "Tomatoes",
                 "country": "Italy",
                 "category": "Italian",
-                "ingredient": "Pizza dough, mozzarella cheese, tomatoes, basil"
+                "ingredient": ["Pizza dough", "mozzarella cheese", "tomatoes", "basil"]
             }
         }
         else if (url.searchParams.get('q') === 'Chinese') {
@@ -37,7 +37,7 @@ export default function fakeFetch(urlString, options) {
                 "primaryIngredient": "Chicken",
                 "country": "China",
                 "category": "Chinese",
-                "ingredient": "Chicken, peanuts, vegetables, soy sauce, Sichuan peppercorns"
+                "ingredient": ["Chicken, peanuts, vegetables, soy sauce, Sichuan peppercorns"]
             }
         }
         else if (url.searchParams.get('q') === 'Indian') {
@@ -49,7 +49,7 @@ export default function fakeFetch(urlString, options) {
                 "primaryIngredient": "Chicken",
                 "country": "India",
                 "category": "Indian",
-                "ingredient": "Chicken, tomatoes, butter, cream, spices"
+                "ingredient": ["Chicken, tomatoes, butter, cream, spices"]
             }
         }
         else if (url.searchParams.get('q') === 'French') {
@@ -61,7 +61,7 @@ export default function fakeFetch(urlString, options) {
                 "primaryIngredient": "Chicken",
                 "country": "France",
                 "category": "French",
-                "ingredient": "Chicken, red wine, mushrooms, onions, bacon"
+                "ingredient": ["Chicken, red wine, mushrooms, onions, bacon"]
             }
         }
         else if (url.searchParams.get('q') === 'Japanese') {
@@ -73,7 +73,7 @@ export default function fakeFetch(urlString, options) {
                 "primaryIngredient": "Fish",
                 "country": "Japan",
                 "category": "Japanese",
-                "ingredient": "Rice, fish/seafood, seaweed, vegetables"
+                "ingredient": ["Rice, fish/seafood, seaweed, vegetables"]
             }
         }
         else if (url.searchParams.get('q') === 'Thai') {
@@ -85,7 +85,7 @@ export default function fakeFetch(urlString, options) {
                 "primaryIngredient": "Shrimp/Chicken",
                 "country": "Thailand",
                 "category": "Thai",
-                "ingredient": "Rice noodles, shrimp/chicken, eggs"
+                "ingredient": ["Rice noodles, shrimp/chicken, eggs"]
             }
         }
         else if (url.searchParams.get('q') === 'Spanish') {
@@ -97,7 +97,7 @@ export default function fakeFetch(urlString, options) {
                 "primaryIngredient": "Rice",
                 "country": "Spain",
                 "category": "Spanish",
-                "ingredient": "Rice, meats/seafood, saffron, vegetables"
+                "ingredient": ["Rice, meats/seafood, saffron, vegetables"]
             }
         }
         else if (url.searchParams.get('q') === 'Greek') {
@@ -109,7 +109,7 @@ export default function fakeFetch(urlString, options) {
                 "primaryIngredient": "Eggplant",
                 "country": "Greece",
                 "category": "Greek",
-                "ingredient": "Eggplant, ground meat, potatoes, tomatoes, béchamel sauce"
+                "ingredient": ["Eggplant, ground meat, potatoes, tomatoes, béchamel sauce"]
             }
         }
         else if (url.searchParams.get('q') === 'Swedish') {
@@ -121,7 +121,7 @@ export default function fakeFetch(urlString, options) {
                 "primaryIngredient": "Ground meat",
                 "country": "Sweden",
                 "category": "Swedish",
-                "ingredient": "Ground meat, breadcrumbs, onions, spices, cream, lingonberry sauce"
+                "ingredient": ["Ground meat, breadcrumbs, onions, spices, cream, lingonberry sauce"]
             }
         }
         else {
