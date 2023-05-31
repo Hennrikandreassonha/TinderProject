@@ -18,8 +18,8 @@
             @if (Model.OtherUser.Id == message.SentFromId)
             {
                 <section id="message-left">
-                    <br>
                     <p id="message-name">@message.SentFrom.FirstName @message.SentFrom.LastName wrote:</p>
+                    <br>
                     <p id="message-message">@message.SentMessage</p>
                     <p id="message-time">@message.SentTime</p>
 
@@ -28,8 +28,8 @@
             else
             {
                 <section id="message-right">
-                    <br>
                     <p id="message-name">@message.SentFrom.FirstName @message.SentFrom.LastName wrote:</p>
+                    <br>
                     <p id="message-message">@message.SentMessage</p>
                     <p id="message-time">@message.SentTime</p>
                     @if (Model.CurrentUser.PremiumUser == true && message.isRead == true)
@@ -49,7 +49,7 @@
                 {
                     <tr>
                         <td class="white-text">
-                            <a asp-page="Message" asp-route-userId="@user.Id">@user.FirstName</a>
+                            <a asp-page="Messages" asp-route-userId="@user.Id">@user.FirstName</a>
                         </td>
                         <td><img src="@user.ProfilePictureUrl" alt="Profile Picture" id="messageProfilePic"></td>
                     </tr>
@@ -66,7 +66,7 @@
                 @foreach (var user in Model.NoConversation)
                 {
                     <tr>
-                        <td class="white-text"><a asp-page="Message" asp-route-userId="@user.Id">@user.FirstName</a></td>
+                        <td class="white-text"><a asp-page="Messages" asp-route-userId="@user.Id">@user.FirstName</a></td>
                         <td><img src="@user.ProfilePictureUrl" alt="Profile Picture" id="messageProfilePic"></td>
                     </tr>
                 }
@@ -102,7 +102,7 @@
                 @foreach (var user in Model.User)
                 {
                     <tr>
-                        <td class="white-text"><a asp-page="Message" asp-route-userId="@user.Id">@user.FirstName</a></td>
+                        <td class="white-text"><a asp-page="Messages" asp-route-userId="@user.Id">@user.FirstName</a></td>
                         <td><img src="@user.ProfilePictureUrl" alt="Profile Picture" id="messageProfilePic"></td>
                     </tr>
                 }
@@ -122,7 +122,7 @@
                 @foreach (var user in Model.NoConversation)
                 {
                     <tr>
-                        <td class="white-text"><a asp-page="Message" asp-route-userId="@user.Id">@user.FirstName</a></td>
+                        <td class="white-text"><a asp-page="Messages" asp-route-userId="@user.Id">@user.FirstName</a></td>
                         <td><img src="@user.ProfilePictureUrl" alt="Profile Picture" id="messageProfilePic"></td>
                     </tr>
                 }

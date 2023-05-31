@@ -142,11 +142,11 @@ namespace TinderProject.Pages.Messages
             {
                 if (CommonCuisine(CurrentUser, OtherUser))
                 {
-                    message += $"Aaah! I see that we both love {jsonDish.category}, have you been to {jsonDish.country}? <br> Did you know that {jsonDish.description} The ingredients are {string.Join(" ,", jsonDish.ingredient)} and the primary ingredient is {jsonDish.primaryIngredient}";
+                    message += $"Aaah! I see that we both love {jsonDish.category}, have you been to {jsonDish.country}? Did you know that {jsonDish.description} The ingredients are {string.Join(", ", jsonDish.ingredient)} and the primary ingredient is {jsonDish.primaryIngredient}. Would you like to to go on a date and cook this with me?";
                 }
                 else
                 {
-                    message += $"Aaah! I see that you like {jsonDish.category}, have you been to {jsonDish.country}? Did you know that {jsonDish.description}The ingredients are {string.Join(" ", jsonDish.ingredient)} and the primary ingredient is {jsonDish.primaryIngredient}";
+                    message += $"Aaah! I see that you like {jsonDish.category}, have you been to {jsonDish.country}? Did you know that {jsonDish.description}The ingredients are {string.Join(", ", jsonDish.ingredient)} and the primary ingredient is {jsonDish.primaryIngredient}. Would you like to to go on a date and cook this with me?";
                 }
 
                 AddMessage(message, OtherUser.Id);
@@ -189,20 +189,6 @@ namespace TinderProject.Pages.Messages
             int randomIndex = random.Next(0, matchedUser.Cuisines.Count);
 
             return matchedUser.Cuisines[randomIndex].Cuisine;
-        }
-
-
-        private static async Task<Dish?> MakeApiCall(string cuisine)
-        {
-            using var client = new HttpClient();
-            var endPoint = new Uri($"https://tinderapp.azurewebsites.net/{cuisine}");
-
-            var response = await client.GetAsync(endPoint);
-            response.EnsureSuccessStatusCode();
-
-            var json = await response.Content.ReadAsStringAsync();
-
-            return JsonConvert.DeserializeObject<Dish>(json);
         }
     }
 }
