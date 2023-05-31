@@ -138,11 +138,11 @@
 
     </div>
 </div>
-@if (commonCuisine != null)
+@if (!string.IsNullOrEmpty(commonCuisine))
 {
     <input type="hidden" id="common-cuisine-data" value="@commonCuisine">
 }
-else if (cuisine != null)
+else if (!string.IsNullOrEmpty(cuisine))
 {
     <input type="hidden" id="cuisine-data" value="@cuisine">
 }

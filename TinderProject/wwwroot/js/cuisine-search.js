@@ -21,7 +21,7 @@ var commonCuisine = document.querySelector('#common-cuisine-data');
 var cuisine = document.querySelector('#cuisine-data');
 
 if (commonCuisine != null && commonCuisine.value != "") {
-    MakeCall(cuisine.value)
+    MakeCall(commonCuisine.value)
     commonCuisine.value;
 }
 
