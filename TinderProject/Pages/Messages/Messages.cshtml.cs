@@ -10,7 +10,7 @@ using TinderProject.Controllers;
 
 namespace TinderProject.Pages.Messages
 {
-    public class MessageModel : PageModel
+    public class MessagesModel : PageModel
     {
         private readonly AppDbContext _database;
         private readonly IUserRepository _userRepository;
@@ -18,12 +18,12 @@ namespace TinderProject.Pages.Messages
 
         public Message Message { get; set; }
         public User OtherUser { get; set; }
-        public User CurrentUser { get; set; }
+        public User CurrentUser { get; set; }   
         public List<User> User { get; set; }
         public List<Message> Messages { get; set; }
         public List<User> NoConversation { get; set; }
 
-        public MessageModel(AppDbContext database, IUserRepository userRepository)
+        public MessagesModel(AppDbContext database, IUserRepository userRepository)
         {
             _database = database;
             _userRepository = userRepository;
