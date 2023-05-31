@@ -29,7 +29,7 @@ namespace TinderProject.Pages.Messages
             _userRepository = userRepository;
             Messages = new List<Message>();
             User = new List<User>();
-            NoConversation = new List<User> { };
+            NoConversation = new List<User> {};
         }
 
         public void OnGet(int? userId)
@@ -157,6 +157,11 @@ namespace TinderProject.Pages.Messages
             // }
 
         }
+        public async Task<IActionResult> OnPostCuisineAnswer(string answerData){
+            Console.WriteLine(answerData);
+
+            return RedirectToPage();
+        }
 
         public bool CommonCuisine(User loggedInUser, User user2)
         {
@@ -186,6 +191,7 @@ namespace TinderProject.Pages.Messages
 
             return matchedUser.Cuisines[randomIndex].Cuisine;
         }
+
 
         private static async Task<Dish?> MakeApiCall(string cuisine)
         {

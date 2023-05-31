@@ -21,6 +21,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
 
     <script src="~/js/site.js" asp-append-version="true" defer></script>
+    
+    @* Fake api scripts *@
+    <script src="~/js/fake-fetch.js" asp-append-version="true" type="module"></script>
+    <script src="~/js/cuisine-search.js" asp-append-version="true" type="module" defer></script>
+
     @await RenderSectionAsync("Scripts", required: false)
 </head>
 
