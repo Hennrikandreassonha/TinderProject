@@ -1,5 +1,6 @@
 ﻿@page "{userId:int}"
 @model TinderProject.Pages.Messages.MessagesModel
+@using Microsoft.AspNetCore.Http
 
 @{
     string commonCuisine = HttpContext.Session.GetString("commonCuisine");
@@ -10,7 +11,8 @@
 
 <div id="message-continer">
     <div id="message-div">
-        <p class="white-text">Conversation with: @Model.OtherUser.FirstName @Model.OtherUser.LastName <img src="@Model.OtherUser.ProfilePictureUrl" alt="Profile Picture" id="messageProfilePic"></p>
+        <p class="white-text">Conversation with: @Model.OtherUser.FirstName @Model.OtherUser.LastName <img
+                src="@Model.OtherUser.ProfilePictureUrl" alt="Profile Picture" id="messageProfilePic"></p>
 
         @foreach (var message in Model.Messages)
         {
@@ -86,7 +88,7 @@
         <!-- Get cuisine button -->
         <form method="post" id="cuisine-form">
             <button asp-page-handler="Cuisine" id="cuisine-btn" class="my-button"
-                    title="Try our new feature! Get a dish that you and your match can cook together">
+                title="Try our new feature! Get a dish that you and your match can cook together">
                 Get cuisine
             </button>
         </form>
@@ -132,13 +134,20 @@
             </p>
         }
 
-        @if (commonCuisine != null)
-        {
-            <input type="hidden" id="common-cuisine-data" value="@commonCuisine">
-        }
-        else if (cuisine != null)
-        {
-             <input type="hidden" id="cuisine-data" value="@cuisine">
-        }
     </div>
 </div>
+@if (commonCuisine != null)
+{
+    <input type="hidden" id="common-cuisine-data" value="@commonCuisine">
+}
+else if (cuisine != null)
+{
+    <input type="hidden" id="cuisine-data" value="@cuisine">
+}
+
+@* Fake form for sending data from API to backend *@
+<form type="post" id="cuisine-data-form" asp-page-handler="CuisineAnswer">
+    <input type="hidden" id="data-to-send" 
+    name = "answerData"
+    value="">
+</form>
