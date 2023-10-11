@@ -6,7 +6,6 @@
 	var AllInterests = System.IO.File.ReadAllLines("./Data/DataToUsers/Interests.txt").ToList();
 	var UserInterests = Model.GetUserInterests();
 	var UserCuisines = Model.GetUserCuisines();
-
 	var profilepicUrl = Model.LoggedInUser.ProfilePictureUrl;
 }
 <div class="center-div">
@@ -64,10 +63,9 @@
 				@* Min age *@
 				<label for="minAge" class="label-font white-text">Min age</label>
 
-				<input type="range" id="minAge" min="18" max="99"
-					oninput="this.form.minAgeInput.value=this.value">
+				<input type="range" id="minAge" min="18" max="99" oninput="this.form.minAgeInput.value=this.value">
 
-				<input type="number" id="minAgeInput" min="18" max="99"  asp-for="LoggedInUser.MinAge"
+				<input type="number" id="minAgeInput" min="18" max="99" asp-for="LoggedInUser.MinAge"
 					oninput="this.form.minAge.value=this.value" />
 			</div>
 
@@ -75,11 +73,9 @@
 				@* Max age *@
 				<label for="maxAge" class="label-font white-text">Max age</label>
 
-				<input type="range" id="maxAge" min="18" max="99" 
-					oninput="this.form.maxAgeInput.value=this.value">
+				<input type="range" id="maxAge" min="18" max="99" oninput="this.form.maxAgeInput.value=this.value">
 
-				<input type="number" id="maxAgeInput" min="18" max="99"
-				asp-for="LoggedInUser.MaxAge"
+				<input type="number" id="maxAgeInput" min="18" max="99" asp-for="LoggedInUser.MaxAge"
 					oninput="this.form.maxAge.value=this.value" />
 			</div>
 
@@ -90,6 +86,7 @@
 
 			@foreach (var interest in AllInterests)
 			{
+
 				bool isSelectedInterest = UserInterests.Contains(interest);
 
 				<label class="white-text">
@@ -121,16 +118,49 @@
 			<p class="white-text">Describe yourself and the person you are looking for in max 30 words</p>
 		</section>
 
-		<section>
+		<section id="upload-pic">
 			@* Upload a picture *@
 
 			<label for="profilePictureUrl" class="label-font white-text">Profile picture</label>
+
 			<div id="pic-flex">
-				<input type="file" name="photo" id="profilePictureUrl" class="edit-textarea" />
+				@if (Model.PhotosFromStorage.Count() == 5)
 
-				<img src="@profilepicUrl">
+				{
+					<p class=white-text>Picture limit is 5</p>
+				}
+				else
+				{
+					<input type="file" name="photo" id="profilePictureUrl" class="edit-textarea" />
+				}
+
+				<div id="user-pics">
+
+					@if (Model.PhotosFromStorage != null && Model.PhotosFromStorage.Any())
+					{
+						@foreach (var photo in Model.PhotosFromStorage)
+						{
+							<div class="uploaded-pic-div">
+
+								<button class="invis-btn change-photo-btn" type="submit" asp-page-handler="ChangePhoto" *@
+									asp-route-picUrl="@photo">
+									<img src="@photo" class="uploaded-photo">
+								</button>
+
+								@* Delete pic *@
+								<button class="invis-btn" type="submit" asp-page-handler="DelPic" asp-route-picName="@photo">
+									<img src="~/Pictures/red_cross.png" class="del-pic">
+								</button>
+
+								@if (@photo == profilepicUrl)
+								{
+									<img src="~/Pictures/yes.png" class="chosen-pic">
+								}
+							</div>
+						}
+					}
+				</div>
 			</div>
-
 		</section>
 
 		<section>

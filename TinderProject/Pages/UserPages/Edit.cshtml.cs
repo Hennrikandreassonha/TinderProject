@@ -18,18 +18,22 @@ namespace TinderProject.Pages.UserPages
         private readonly IUserRepository _userRepository;
         private readonly AppDbContext _database;
         private readonly FileRepository _fileRepo;
+        private readonly BlobRepo _blobRepo;
 
-        public EditModel(IUserRepository userRepository, AppDbContext database, FileRepository fileRepo)
+        public EditModel(IUserRepository userRepository, AppDbContext database, FileRepository fileRepo, BlobRepo blobRepo)
         {
             _userRepository = userRepository;
             _database = database;
             _fileRepo = fileRepo;
+            _blobRepo = blobRepo;
         }
 
         [BindProperty]
         public User LoggedInUser { get; set; }
         public User UserToUpdate { get; set; }
         public string UserPhoto { get; set; }
+        public IEnumerable<string> PhotosFromStorage { get; set; }
+
         public IActionResult RedidirectToPage { get; private set; }
 
         public void OnGet()
@@ -46,14 +50,17 @@ namespace TinderProject.Pages.UserPages
             string[] files = Directory.GetFiles(userFolderPath);
 
             UserPhoto = _fileRepo.GetProfilePic(LoggedInUser);
+
+            PhotosFromStorage = _blobRepo.GetUserPictures(LoggedInUser.Id.ToString());
         }
         public async Task<IActionResult> OnPost(List<string> interestsToAdd, List<string> cuisinesToAdd, IFormFile photo)
         {
             UserToUpdate = _userRepository.GetLoggedInUser();
             //Removing photo from modelstate since its not required.
             ModelState.Remove("photo");
-            
-            if(!ValidAge(LoggedInUser.DateOfBirth)){
+
+            if (!ValidAge(LoggedInUser.DateOfBirth))
+            {
                 ModelState.AddModelError("", "Enter valid age between 18-99 years.");
             }
 
@@ -85,6 +92,9 @@ namespace TinderProject.Pages.UserPages
                 //Saving pic to user directory.
                 await _fileRepo.SaveFileAsync(photo, path);
                 UserToUpdate.ProfilePictureUrl = _fileRepo.GetProfilePic(UserToUpdate);
+
+                //Laddar upp ny fil.
+                _blobRepo.UploadPhoto(photo, photo.FileName, UserToUpdate.Id.ToString());
             }
 
             int wordCount = LoggedInUser.Description.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries).Length;
@@ -120,7 +130,7 @@ namespace TinderProject.Pages.UserPages
                 {
                     Interest = interest,
                     UserId = UserToUpdate.Id
-                }).ToList();            
+                }).ToList();
 
             List<Cuisines> newCuisines = cuisinesToAdd
                 .Where(cuisine => cuisine != null)
@@ -142,6 +152,19 @@ namespace TinderProject.Pages.UserPages
             }
 
             return RedirectToPage("/UserPages/Index");
+        }
+
+        public IActionResult OnPostDelPic(string picName)
+        {
+            _blobRepo.DeleteBlob(picName);
+            return RedirectToPage("/UserPages/Edit");
+        }
+        public IActionResult OnPostChangePhoto(string picUrl)
+        {
+            var user = _userRepository.GetLoggedInUser();
+
+            _userRepository.SetProfilePic(user!, picUrl);
+            return RedirectToPage("/UserPages/Edit");
         }
         public List<string> GetUserInterests()
         {

@@ -16,6 +16,9 @@ table * {
     font-size: large;
     border-radius: 8px;
 }
+table img{
+    width:350px;
+}
 
 th {
     text-decoration: wavy;
@@ -116,28 +119,4 @@ legend{
     #profile-table{
         margin-top: 1rem;
     }
-  }
-
-#pic-flex{
-    display: flex;
-    background-color: #d6306a;
-    border-radius: 25px;
-    align-items: center;
-}
-
-#pic-flex img{
-    width:70px;
-    height:auto;
-    margin: 1rem;
-}
-
-input[type="file"] {
-    height:40px;
-    width: 250px;
-    box-shadow: none;
-  }
-
-  #profile-table img{
-    width:70px;
-    height:auto;
   }

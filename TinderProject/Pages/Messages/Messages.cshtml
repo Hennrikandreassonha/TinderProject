@@ -148,7 +148,7 @@ else if (!string.IsNullOrEmpty(cuisine))
 }
 
 @* Fake form for sending data from API to backend *@
-<form type="post" id="cuisine-data-form" asp-page-handler="CuisineAnswer">
+@* <form type="post" id="cuisine-data-form" asp-page-handler="CuisineAnswer">
     <input type="hidden" id="data-to-send" name="answerData" value="">
     <input type="hidden" id="data-to-send" asp-route-userId="@Model.OtherUser.Id">
-</form>
+</form> *@

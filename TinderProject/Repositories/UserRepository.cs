@@ -162,5 +162,13 @@ namespace TinderProject.Repositories
 
             return apiModel;
         }
+        public bool SetProfilePic(User user, string picUrl)
+        {
+            _context.Users.Update(user);
+            user.ProfilePictureUrl = picUrl;
+            _context.SaveChanges();
+
+            return true;
+        }
     }
 }

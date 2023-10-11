@@ -207,7 +207,7 @@ input[type="text"]:hover {
     clear: both;
     border: solid 2px;
     border-radius: 10px;
-    padding: 2px;
+    padding: 8px;
     width: 250px;
     margin-bottom: 5px;
     background-image: linear-gradient(0deg, #FFDEE9 0%, #B5FFFC 100%);
@@ -221,7 +221,7 @@ input[type="text"]:hover {
     margin-right: 2rem;
     border: solid 2px;
     border-radius: 10px;
-    padding: 2px;
+    padding: 8px;
     width: 250px;
     margin-bottom: 5px;
     background-image: linear-gradient(0deg, #FFDEE9 0%, #B5FFFC 100%);
@@ -352,7 +352,6 @@ textarea::placeholder {
 }
 
 #edit-flex button {
-    max-width: 100px;
     align-items: center;
 }
 

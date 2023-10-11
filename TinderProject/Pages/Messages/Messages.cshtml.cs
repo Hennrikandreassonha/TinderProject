@@ -7,6 +7,8 @@ using TinderProject.Models;
 using TinderProject.Repositories.Repositories_Interfaces;
 using Newtonsoft.Json;
 using TinderProject.Controllers;
+using System.Collections.Specialized;
+using TinderProject.Repositories;
 
 namespace TinderProject.Pages.Messages
 {
@@ -14,6 +16,8 @@ namespace TinderProject.Pages.Messages
     {
         private readonly AppDbContext _database;
         private readonly IUserRepository _userRepository;
+        private readonly BlobRepo _blobRepo;
+
         private static Random random = new();
 
         public Message Message { get; set; }
@@ -23,8 +27,9 @@ namespace TinderProject.Pages.Messages
         public List<Message> Messages { get; set; }
         public List<User> NoConversation { get; set; }
 
-        public MessagesModel(AppDbContext database, IUserRepository userRepository)
+        public MessagesModel(AppDbContext database, IUserRepository userRepository, BlobRepo blobRepo)
         {
+            _blobRepo = blobRepo;
             _database = database;
             _userRepository = userRepository;
             Messages = new List<Message>();
@@ -96,6 +101,9 @@ namespace TinderProject.Pages.Messages
             {
                 AddMessage(message, userId);
             }
+
+            Console.WriteLine($"String: {_blobRepo.GetBlobUrlAsync("")}");
+            var sstring = _blobRepo.GetBlobUrlAsync("");
             return RedirectToPage();
         }
         public void AddMessage(string message, int userId)
@@ -106,7 +114,7 @@ namespace TinderProject.Pages.Messages
             var messagesToAdd = new Message
             {
                 SentMessage = message,
-                SentTime = DateTime.Now,
+                SentTime = GetSweTime(DateTime.Now),
                 SentToId = userId,
                 SentFromId = currentUser.Id,
                 isRead = false,
@@ -117,6 +125,12 @@ namespace TinderProject.Pages.Messages
             _database.SaveChanges();
 
         }
+        public DateTime GetSweTime(DateTime time)
+        {
+            TimeZoneInfo swedishTimeZone = TimeZoneInfo.FindSystemTimeZoneById("Central European Standard Time");
+
+            return TimeZoneInfo.ConvertTime(time, swedishTimeZone);
+        }
         public async Task<IActionResult> OnPostCuisine(int userId)
         {
             //If there is a common cuisine it will be used.
@@ -124,17 +138,50 @@ namespace TinderProject.Pages.Messages
             var matchedUser = _userRepository.GetUser(userId);
             CurrentUser = _userRepository.GetLoggedInUser();
 
+            string url = "https://getfoodfunction.azurewebsites.net/api/FoodFunction?code=8HQjzgXDSLqW2HPRUHgVapILdvLzdn-cshHG_0YNS-tXAzFuGQtT3A==&Cuisine=";
+
+            string cuisine;
+            var message = "";
+
+            //If users have common cuisine add it to url, otherwise add the matched users cuisine.
             if (CommonCuisine(CurrentUser, matchedUser))
             {
-                HttpContext.Session.SetString("commonCuisine", GetCommonCuisine(CurrentUser, matchedUser));
+                cuisine = GetCommonCuisine(CurrentUser, matchedUser);
+                url += cuisine;
             }
             else
             {
-                HttpContext.Session.SetString("cuisine", GetCuisine(matchedUser));
+                cuisine = GetCuisine(matchedUser);
+                url += cuisine;
             }
 
+            //Create client to send get request.
+            HttpClient client = new HttpClient();
+            HttpResponseMessage response = await client.GetAsync(url);
+
+            string content = await response.Content.ReadAsStringAsync();
+            //Convert get request to Dish
+            Dish jsonDish = JsonConvert.DeserializeObject<Dish>(content)!;
+
+            //Getting the picture.
+
+
+            if (CommonCuisine(CurrentUser, matchedUser))
+            {
+                message += $"Aaah! I see that we both love {jsonDish.category}, have you been to {jsonDish.country}? Did you know that {jsonDish.description} The ingredients are {string.Join(", ", jsonDish.ingredient)} and the primary ingredient is {jsonDish.primaryIngredient}. Would you like to to go on a date and cook this with me?";
+            }
+            else
+            {
+                message += $"Aaah! I see that you like {jsonDish.category}, have you been to {jsonDish.country}? Did you know that {jsonDish.description}The ingredients are {string.Join(", ", jsonDish.ingredient)} and the primary ingredient is {jsonDish.primaryIngredient}. Would you like to to go on a date and cook this with me?";
+            }
+
+            var sstring = _blobRepo.GetBlobUrlAsync("");
+            AddMessage(message, matchedUser.Id);
+
             return RedirectToPage();
+
         }
+
         public async Task<IActionResult> OnPostCuisineAnswer(string answerData, int userId)
         {
             CurrentUser = _userRepository.GetLoggedInUser();
@@ -198,5 +245,74 @@ namespace TinderProject.Pages.Messages
 
             return matchedUser.Cuisines[randomIndex].Cuisine;
         }
+
+        // public async Task<IActionResult> OnPostCuisine(int userId)
+        // {
+        //     //If there is a common cuisine it will be used.
+        //     //Otherwise we will use the matchedusers cuisine.
+        //     var matchedUser = _userRepository.GetUser(userId);
+        //     CurrentUser = _userRepository.GetLoggedInUser();
+
+
+
+        //     if (CommonCuisine(CurrentUser, matchedUser))
+        //     {
+        //         HttpContext.Session.SetString("commonCuisine", GetCommonCuisine(CurrentUser, matchedUser));
+        //     }
+        //     else
+        //     {
+        //         HttpContext.Session.SetString("cuisine", GetCuisine(matchedUser));
+        //     }
+
+
+
+        //     return RedirectToPage();
+        // }
+        // public async Task<IActionResult> OnPostCuisineAnswer(string answerData, int userId)
+        // {
+        //     CurrentUser = _userRepository.GetLoggedInUser();
+        //     OtherUser = _userRepository.GetUser(userId);
+
+
+
+        //     // var matchedUser = _userRepository.GetUser(userId);
+        //     Dish jsonDish = JsonConvert.DeserializeObject<Dish>(answerData);
+
+
+
+        //     var message = "";
+
+
+
+        //     if (jsonDish != null)
+        //     {
+        //         if (CommonCuisine(CurrentUser, OtherUser))
+        //         {
+        //             message += $"Aaah! I see that we both love {jsonDish.category}, have you been to {jsonDish.country}? Did you know that {jsonDish.description} The ingredients are {string.Join(", ", jsonDish.ingredient)} and the primary ingredient is {jsonDish.primaryIngredient}. Would you like to to go on a date and cook this with me?";
+        //         }
+        //         else
+        //         {
+        //             message += $"Aaah! I see that you like {jsonDish.category}, have you been to {jsonDish.country}? Did you know that {jsonDish.description}The ingredients are {string.Join(", ", jsonDish.ingredient)} and the primary ingredient is {jsonDish.primaryIngredient}. Would you like to to go on a date and cook this with me?";
+        //         }
+
+
+
+        //         AddMessage(message, OtherUser.Id);
+        //     }
+        //     else
+        //     {
+        //         message += "I didnt find any suitable dish for us, what type of food do you like?";
+        //     }
+
+
+
+        //     //Reseting cuisine
+        //     HttpContext.Session.SetString("cuisine", "");
+        //     HttpContext.Session.SetString("commonCuisine", "");
+
+
+
+        //     return RedirectToPage();
+        // }
     }
 }

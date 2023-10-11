@@ -18,5 +18,7 @@ namespace TinderProject.Repositories.Repositories_Interfaces
 		ICollection<User> GetUsersToSwipe(User user);
 		ICollection<Interaction> GetUserLikes(User user);
 		ICollection<Interaction> GetUserLikes(int userId);
-	}
+        bool SetProfilePic(User user, string picUrl);
+
+    }
 }

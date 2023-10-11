@@ -81,7 +81,7 @@ builder.Services.AddAuthorization(options =>
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IMatchRepository, MatchRepository>();
 builder.Services.AddScoped<IAppDbContext, AppDbContext>();
-
+builder.Services.AddScoped<TinderProject.Repositories.BlobRepo>();
 
 //For the usage of Session variables.
 //Setting the session variable to disappear after 30 minutes of idletime.
