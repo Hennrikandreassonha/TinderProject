@@ -10,8 +10,19 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using TinderProject.Repositories;
 using Microsoft.Extensions.FileProviders;
+using Azure.Identity;
+using Azure;
+using Azure.Security.KeyVault.Secrets;
+using Azure.Storage.Blobs;
 
 var builder = WebApplication.CreateBuilder(args);
+
+string vaultUrl = builder.Configuration["Authentication:KeyVault:VaultUrl"];
+string clientID = builder.Configuration["Authentication:KeyVault:ClientID"];
+string clientSecret = builder.Configuration["Authentication:KeyVault:Secret"];
+
+string clientSecretVault = await GetKey(vaultUrl, clientSecret);
+string clientId = await GetKey(vaultUrl, clientID);
 
 builder.Services.AddAuthentication(options =>
 {
@@ -88,7 +99,7 @@ builder.Services.AddScoped<TinderProject.Repositories.BlobRepo>();
 builder.Services.AddSession(options => options.IdleTimeout = TimeSpan.FromMinutes(30));
 
 builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
-builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("LocalConnection")));
 builder.Services.AddControllers();
 
 builder.Services.AddEndpointsApiExplorer();
@@ -97,6 +108,11 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<AccessControl>();
 builder.Services.AddSingleton<FileRepository>();
+
+string blobString = "DefaultEndpointsProtocol=https;AccountName=mingrupp9f51;AccountKey=UvwvbjCI0jOYhR6EeLn+2ao+v1AC0qaA6nXsrGcgnCXFT7uQLUZQSBN1roxq+v9+NqWrZSUKlCCD+AStg+ROfA==;EndpointSuffix=core.windows.net";
+
+builder.Services.AddSingleton(x =>
+new BlobServiceClient(blobString));
 
 var app = builder.Build();
 
@@ -141,3 +157,21 @@ using (var scope = app.Services.CreateScope())
 }
 
 app.Run();
+
+static async Task<string> GetKey(string keyVaultUrl, string secretName)
+{
+    var credential = new DefaultAzureCredential();
+
+    var client = new SecretClient(new Uri(keyVaultUrl), credential);
+
+    try
+    {
+        KeyVaultSecret secret = await client.GetSecretAsync(secretName);
+
+        return secret.Value;
+    }
+    catch (RequestFailedException e)
+    {
+        return $"Error: {e.Message}";
+    }
+}

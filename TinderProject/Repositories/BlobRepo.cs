@@ -6,33 +6,23 @@ using Azure.Storage.Blobs.Specialized;
 
 namespace TinderProject.Repositories
 {
+
     public class BlobRepo
     {
-        private readonly string _storageAccount = "mingrupp9f51";
-        private readonly string _accessKey = "UvwvbjCI0jOYhR6EeLn+2ao+v1AC0qaA6nXsrGcgnCXFT7uQLUZQSBN1roxq+v9+NqWrZSUKlCCD+AStg+ROfA==";
+        private readonly IConfiguration _configuration;
         private readonly BlobContainerClient _filesContainer;
 
-        public BlobRepo()
+        public BlobRepo(IConfiguration configuration)
         {
-            var credential = new StorageSharedKeyCredential(_storageAccount, _accessKey);
+            _configuration = configuration;
+            string _storageGroup = _configuration["Authentication:StorageAccount:StorageGroup"];
+            string _accessKey = _configuration["Authentication:StorageAccount:Accesskey"];
+            
+            var credential = new StorageSharedKeyCredential(_storageGroup, _accessKey);
 
-            var blobUri = $"https://{_storageAccount}.blob.core.windows.net";
+            var blobUri = $"https://{_storageGroup}.blob.core.windows.net";
             var blobServiceClient = new BlobServiceClient(new Uri(blobUri), credential);
             _filesContainer = blobServiceClient.GetBlobContainerClient("pictures");
-        }
-        public async Task<string> GetBlobUrlAsync(string blobName)
-        {
-            BlobClient blobClient = _filesContainer.GetBlobClient("BingImageOfTheDay.jpg");
-            BlobBaseClient blobBaseClient = blobClient as BlobBaseClient;
-
-
-            if (blobBaseClient != null)
-            {
-                var picUrl = blobBaseClient.Uri.ToString();
-                return picUrl;
-            }
-
-            return null;
         }
 
         public void UploadPhoto(IFormFile fileToPersist, string saveAsFileName, string userId)
@@ -77,7 +67,7 @@ namespace TinderProject.Repositories
 
             return blobItems;
         }
-    
+
         public string DeleteBlob(string blobUrl)
         {
             try

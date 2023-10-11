@@ -102,8 +102,6 @@ namespace TinderProject.Pages.Messages
                 AddMessage(message, userId);
             }
 
-            Console.WriteLine($"String: {_blobRepo.GetBlobUrlAsync("")}");
-            var sstring = _blobRepo.GetBlobUrlAsync("");
             return RedirectToPage();
         }
         public void AddMessage(string message, int userId)
@@ -175,11 +173,8 @@ namespace TinderProject.Pages.Messages
                 message += $"Aaah! I see that you like {jsonDish.category}, have you been to {jsonDish.country}? Did you know that {jsonDish.description}The ingredients are {string.Join(", ", jsonDish.ingredient)} and the primary ingredient is {jsonDish.primaryIngredient}. Would you like to to go on a date and cook this with me?";
             }
 
-            var sstring = _blobRepo.GetBlobUrlAsync("");
             AddMessage(message, matchedUser.Id);
-
             return RedirectToPage();
-
         }
 
         public async Task<IActionResult> OnPostCuisineAnswer(string answerData, int userId)
