@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using TinderProject.Repositories;
 using TinderProject.Utilities;
 namespace TinderProject.Pages
 {
@@ -8,12 +9,15 @@ namespace TinderProject.Pages
         private readonly IUserRepository _userRepo;
         private readonly IMatchRepository _matchRepo;
         private readonly IAppDbContext _context;
+        private readonly IConfiguration _configuration;
 
-        public IndexModel(IUserRepository repo, IAppDbContext context, IMatchRepository matchRepo)
+
+        public IndexModel(IUserRepository repo, IAppDbContext context, IMatchRepository matchRepo, IConfiguration config)
         {
             _userRepo = repo;
             _context = context;
             _matchRepo = matchRepo;
+            _configuration = config;
         }
 
         public User LoggedInUser { get; set; }
@@ -68,6 +72,17 @@ namespace TinderProject.Pages
             }
 
             CurrentUserShown = UsersToSwipe[(int)currentUserIndex!];
+
+
+            if (CurrentUserShown.Id > 20)
+            {
+                BlobRepo _blobRepo = new BlobRepo(_configuration);
+                var PictureSasURI = _blobRepo.GenerateSASLink(CurrentUserShown);
+
+                _context.Users.Update(CurrentUserShown);
+                CurrentUserShown.ProfilePictureUrl = PictureSasURI;
+                _context.SaveChanges();
+            }
 
             //Getting the personalityoptions
             //These are the 4 Letters that makes the personality type.

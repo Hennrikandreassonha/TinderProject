@@ -16,6 +16,8 @@ namespace TinderProject.Pages.Messages
     {
         private readonly AppDbContext _database;
         private readonly IUserRepository _userRepository;
+        private readonly IConfiguration _configuration;
+
         private readonly BlobRepo _blobRepo;
 
         private static Random random = new();
@@ -27,11 +29,12 @@ namespace TinderProject.Pages.Messages
         public List<Message> Messages { get; set; }
         public List<User> NoConversation { get; set; }
 
-        public MessagesModel(AppDbContext database, IUserRepository userRepository, BlobRepo blobRepo)
+        public MessagesModel(AppDbContext database, IUserRepository userRepository, BlobRepo blobRepo, IConfiguration config)
         {
             _blobRepo = blobRepo;
             _database = database;
             _userRepository = userRepository;
+            _configuration = config;
             Messages = new List<Message>();
             User = new List<User>();
             NoConversation = new List<User> { };

@@ -7,6 +7,8 @@
 	var UserInterests = Model.GetUserInterests();
 	var UserCuisines = Model.GetUserCuisines();
 	var profilepicUrl = Model.LoggedInUser.ProfilePictureUrl;
+
+	
 }
 <div class="center-div">
 
@@ -148,13 +150,16 @@
 								</button>
 
 								@* Delete pic *@
-								<button class="invis-btn" type="submit" asp-page-handler="DelPic" asp-route-picName="@photo">
-									<img src="~/Pictures/red_cross.png" class="del-pic">
-								</button>
-
-								@if (@photo == profilepicUrl)
+								@if (Model.GetNormalUrl(@photo) != Model.GetNormalUrl(profilepicUrl!))
 								{
-									<img src="~/Pictures/yes.png" class="chosen-pic">
+									<button class="invis-btn" type="submit" asp-page-handler="DelPic" asp-route-picName="@photo">
+										<img src="~/Pictures/red_cross.png" class="del-pic">
+									</button>
+								}
+
+								@if (Model.GetNormalUrl(@photo) == Model.GetNormalUrl(profilepicUrl!))
+								{
+									<img src="~/Pictures/yes.png" class="del-pic">
 								}
 							</div>
 						}

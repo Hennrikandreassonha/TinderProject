@@ -14,6 +14,7 @@ using Azure.Identity;
 using Azure;
 using Azure.Security.KeyVault.Secrets;
 using Azure.Storage.Blobs;
+using TinderProject.Pages;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -109,10 +110,12 @@ builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<AccessControl>();
 builder.Services.AddSingleton<FileRepository>();
 
-string blobString = "DefaultEndpointsProtocol=https;AccountName=mingrupp9f51;AccountKey=UvwvbjCI0jOYhR6EeLn+2ao+v1AC0qaA6nXsrGcgnCXFT7uQLUZQSBN1roxq+v9+NqWrZSUKlCCD+AStg+ROfA==;EndpointSuffix=core.windows.net";
+string blobString = builder.Configuration["Authentication:Blobstorage:ConnectionString"];
 
 builder.Services.AddSingleton(x =>
 new BlobServiceClient(blobString));
+builder.Services.AddScoped(serviceProvider => new BlobServiceClient(blobString));
+
 
 var app = builder.Build();
 

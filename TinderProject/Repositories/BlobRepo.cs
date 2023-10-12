@@ -3,6 +3,7 @@ using Azure.Storage;
 using Azure.Storage.Blobs;
 using Azure.Storage.Blobs.Models;
 using Azure.Storage.Blobs.Specialized;
+using Azure.Storage.Sas;
 
 namespace TinderProject.Repositories
 {
@@ -11,13 +12,12 @@ namespace TinderProject.Repositories
     {
         private readonly IConfiguration _configuration;
         private readonly BlobContainerClient _filesContainer;
-
         public BlobRepo(IConfiguration configuration)
         {
             _configuration = configuration;
             string _storageGroup = _configuration["Authentication:StorageAccount:StorageGroup"];
             string _accessKey = _configuration["Authentication:StorageAccount:Accesskey"];
-            
+
             var credential = new StorageSharedKeyCredential(_storageGroup, _accessKey);
 
             var blobUri = $"https://{_storageGroup}.blob.core.windows.net";
@@ -37,7 +37,7 @@ namespace TinderProject.Repositories
 
                 using (Stream file = fileToPersist.OpenReadStream())
                 {
-                    //Med falseparametern kommer filen att skrivas över. Annnars ger den ex.
+                    //Med trueparametern kommer filen att skrivas över. Annnars ger den ex.
                     blob.Upload(file, true);
                 }
 
@@ -59,31 +59,31 @@ namespace TinderProject.Repositories
 
                 if (splittedName[0] == userId)
                 {
-                    var blobClient = _filesContainer.GetBlobClient(blobItem.Name);
+                    var blobPicture = _filesContainer.GetBlobClient(blobItem.Name);
 
-                    blobItems.Add(blobClient.Uri.ToString());
+                    var pictureUri = GetSASUri(blobPicture);
+
+                    blobItems.Add(pictureUri);
                 }
             }
 
             return blobItems;
         }
 
+
         public string DeleteBlob(string blobUrl)
         {
             try
             {
-                var correctName = GetBlobName(blobUrl);
-                BlobClient blobClient = _filesContainer.GetBlobClient(correctName);
+                BlobClient blobClient = new BlobClient(new Uri(blobUrl));
+                bool deleted = blobClient.DeleteIfExists();
 
-                var response = blobClient.Delete();
-
-                if (response.Status.ToString().StartsWith("2"))
+                if (deleted)
                 {
                     return "Pic deleted";
                 }
                 else
                 {
-                    Console.WriteLine($"Err: {response.Status}");
                     return "Blob deletion failed";
                 }
             }
@@ -92,14 +92,49 @@ namespace TinderProject.Repositories
                 return $"Err: {ex.Message}";
             }
         }
-        public string GetBlobName(string blobLink)
+        public string GetSASUri(BlobClient blobPicture, int minutes = 30)
+        {
+            //Använd filescontainer och getBlobClient för at få blobPicture
+            DateTime time = DateTime.Now.AddMinutes(minutes);
+
+            var permissions = BlobSasPermissions.Read | BlobSasPermissions.Delete;
+            var test = blobPicture.GenerateSasUri(permissions, time);
+
+            return test.AbsoluteUri;
+        }
+        public string RemoveLinkFromBlobName(string blobLink)
         {
             //Turns link into blob name.
             var splitted = blobLink.Split("/");
-
             var blobName = splitted.Last().Replace("%2C", ",");
 
             return blobName;
+        }
+        public string RemoveSasKeyFromBlobName(string url)
+        {
+            //Gets the SAS link without the Key which we can compare
+            var splitted = url.Split("?");
+            var correctedUrl = splitted[0];
+
+            return correctedUrl;
+        }
+        public BlobClient GetBlobClient(string picName)
+        {
+
+
+            return _filesContainer.GetBlobClient(picName);
+        }
+
+        public string GenerateSASLink(User user)
+        {
+            //Generates SAS link for the user profile pic.
+
+            var splittedProfilePic = RemoveSasKeyFromBlobName(user.ProfilePictureUrl);
+
+            splittedProfilePic = RemoveLinkFromBlobName(splittedProfilePic);
+            var blobClient = GetBlobClient(splittedProfilePic);
+
+            return GetSASUri(blobClient);
         }
     }
 }

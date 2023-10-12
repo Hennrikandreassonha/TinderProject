@@ -91,7 +91,7 @@ namespace TinderProject.Pages.UserPages
 
                 //Saving pic to user directory.
                 await _fileRepo.SaveFileAsync(photo, path);
-                UserToUpdate.ProfilePictureUrl = _fileRepo.GetProfilePic(UserToUpdate);
+                // UserToUpdate.ProfilePictureUrl = _fileRepo.GetProfilePic(UserToUpdate);
 
                 //Laddar upp ny fil.
                 _blobRepo.UploadPhoto(photo, photo.FileName, UserToUpdate.Id.ToString());
@@ -197,6 +197,11 @@ namespace TinderProject.Pages.UserPages
                 age = age - 1;
 
             return age <= 99 && age >= 18;
+        }
+        public string GetNormalUrl(string url)
+        {
+            //Gets url without the keyu
+            return _blobRepo.RemoveSasKeyFromBlobName(url);
         }
     }
 }

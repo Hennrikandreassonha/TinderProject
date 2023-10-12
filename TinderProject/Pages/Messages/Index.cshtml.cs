@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.RazorPages;
+using TinderProject.Repositories;
 namespace TinderProject.Pages.Messages
 {
     public class IndexModel
@@ -6,15 +7,17 @@ namespace TinderProject.Pages.Messages
     {
         private readonly AppDbContext _database;
         private readonly IUserRepository _userRepository;
+        private readonly IConfiguration _configuration;
 
         public List<User> User { get; set; }
         public List<Message> Messages { get; set; }
         public List<User> NoConversation { get; set; }
 
-        public IndexModel(AppDbContext database, IUserRepository userRepository)
+        public IndexModel(AppDbContext database, IUserRepository userRepository, IConfiguration config)
         {
             _database = database;
             _userRepository = userRepository;
+            _configuration = config;
             Messages = new List<Message>();
             NoConversation = new List<User>();
             User = new List<User>();
@@ -46,10 +49,33 @@ namespace TinderProject.Pages.Messages
                     if (match.User1Id == currentUser.Id)
                     {
                         NoConversation.Add(_database.Users.Single(u => u.Id == match.User2Id));
+
+                        if (match.User1Id > 20)
+                        {
+                            var user = _userRepository.GetUser(match.User1Id);
+
+                            BlobRepo _blobRepo = new BlobRepo(_configuration);
+                            var PictureSasURI = _blobRepo.GenerateSASLink(user);
+                            _database.Update(user);
+                            user.ProfilePictureUrl = PictureSasURI;
+                            _database.SaveChanges();
+                        }
+                        else if(match.User2Id > 20){
+                        {
+                            var user = _userRepository.GetUser(match.User2Id);
+
+                            BlobRepo _blobRepo = new BlobRepo(_configuration);
+                            var PictureSasURI = _blobRepo.GenerateSASLink(user);
+                            _database.Update(user);
+                            user.ProfilePictureUrl = PictureSasURI;
+                            _database.SaveChanges();
+                        }
+                        }
                     }
                     else if (match.User2Id == currentUser.Id)
                     {
                         NoConversation.Add(_database.Users.Single(u => u.Id == match.User1Id));
+                        
                     }
                 }
             }
